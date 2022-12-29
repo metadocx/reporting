@@ -1,6 +1,7 @@
 # MetaDocx Reporting
 
-[![documentation::badge]][documentation::web]
+[![CodeQL](https://github.com/metadocx/reporting/actions/workflows/codeql.yml/badge.svg)](https://github.com/metadocx/reporting/actions/workflows/codeql.yml) [![documentation::badge]][documentation::web]
+
 
 [documentation::badge]: https://img.shields.io/badge/DOCUMENTATION-GH%20PAGES-0078D4?style=for-the-badge&logo=git&logoColor=white
 [documentation::web]: https://metadocx.github.io/reporting/
