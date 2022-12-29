@@ -1,0 +1,109 @@
+site_name: 'Metadocx Reporting'
+site_author: 'Metadocx (Github Organization)'
+copyright: '<p>&copy <a href="https://github.com/metadocx/reporting"><em>Metadocx reporting</em></a><br/><span>This project is licensed under @todo.</span></p>'
+repo_name: 'reporting'
+repo_url: 'https://github.com/metadocx/reporting'
+edit_uri: 'edit/master/docs/content'
+docs_dir: 'content/'
+site_url: 'https://www.metadocx.com/docs'
+theme:
+  name: material
+  custom_dir: 'overrides/'
+  features:
+    - navigation.tabs
+    - navigation.top
+    - navigation.expand
+    - navigation.instant
+    - content.code.annotate
+  palette:
+    # Light mode
+    - media: '(prefers-color-scheme: light)'
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    # Dark mode
+    - media: '(prefers-color-scheme: dark)'
+      scheme: slate
+      primary: indigo
+      accent: blue
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+
+extra:
+  version:
+    provider: mike
+
+markdown_extensions:
+  - toc:
+      anchorlink: true
+  - abbr
+  - attr_list
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.magiclink
+  - pymdownx.inlinehilite
+  - pymdownx.tilde
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.highlight:
+      extend_pygments_lang:
+        - name: js
+          lang: js
+        - name: yml
+          lang: yaml
+        - name: cf
+          lang: cfg
+        - name: conf
+          lang: cfg
+        - name: env
+          lang: properties
+        # Not helpful with Python Pygments lexer highlighting, but we might change to a JS highlighter in future
+        # Ideally, this type of codefence might also have word-wrap enabled (CSS: {white-space: pre-wrap})
+        - name: log
+          lang: shell-session
+        - name: fetchmailrc
+          lang: txt
+        - name: caddyfile
+          lang: txt
+
+nav:
+  - 'Home': index.md        
+  - 'Installation' : 
+    - 'Quick setup' : installation/install.md
+    - 'Required librarires' : installation/requirements.md 
+    - 'Configuration option' : installation/config.md
+  - 'Basic Concepts' :
+    - 'Overview' : concepts/concepts.md
+    - 'Application' : concepts/app.md
+    - 'Viewer' : concepts/viewer.md
+    - 'Options' : concepts/options.md
+    - 'Report' : concepts/report.md
+    - 'Sections' : concepts/sections.md
+    - 'Criterias' : concepts/criterias.md
+  - 'Creating a Report' :
+    - 'Report Definition' : 
+      - 'Overview' : reportdefinition/file.md
+      - 'Properties' : reportdefinition/reportproperties.md
+      - 'Options' : reportdefinition/options.md
+      - 'Criterias' : reportdefinition/criterias.md
+    - 'Report Sections' : 
+      - 'Section' : reportdefinition/sections.md
+      - 'Properties' : reportdefinition/sections-properties.md
+      - 'Order' : reportdefinition/sections-orderby.md
+      - 'Groups' : reportdefinition/sections-groupby.md
+      - 'Model' : reportdefinition/sections-model.md
+      - 'Data' : reportdefinition/sections-data.md
+  - 'Examples' : examples.md
+  - 'Contributing' : 
+    - 'General Information': contributing/general.md
+    - 'Issues and Pull Requests': contributing/issues-and-pull-requests.md

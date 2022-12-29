@@ -1,0 +1,39 @@
+{
+    "name": "metadocx/reporting",
+    "description": "Metadocx reporting package.",
+    "license": "MIT",
+    "homepage": "https://metadocx.com",
+    "support": {
+        "issues": "https://github.com/metadocx/reporting/issues",
+        "source": "https://github.com/metadocx/reporting"
+    },
+    "authors": [
+        {
+            "name": "Benoit Gauthier",
+            "email": "bgauthier@metadocx.com"
+        }
+    ],    
+    "require": {
+        "php": "^7.3|^8.0",
+        "ext-json": "*"
+    },    
+    "autoload": {
+        "psr-4": {
+            "Metadocx\\": "/src"            
+        }
+    },
+    "extra": {      
+        "laravel": {
+            "providers": [
+                "Metadocx\\MetadocxServiceProvider"
+            ]
+        }
+    },    
+    "config": {
+        "sort-packages": true
+    },    
+    "minimum-stability": "dev",
+    "require-dev": {
+        "squizlabs/php_codesniffer": "4.0.x-dev"
+    }
+}

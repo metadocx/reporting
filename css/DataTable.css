@@ -1,0 +1,41 @@
+/**
+ * Metadocx
+ * 
+ * @author Benoit Gauthier <bgauthier@metadocx.com>
+ * @copyright Benoit Gauthier <bgauthier@metadocx.com>
+ * @license https://github.com/metadocx/reporting/LICENSE.md
+ */
+
+.report-row-group td {
+    font-weight: bold;
+    background-color: #f5f6f8;
+}
+
+.row-group-level-2 td {
+    padding-left: 25px;
+}
+
+.row-group-level-3 td {
+    padding-left: 50px;
+}
+
+.row-group-level-4 td {
+    padding-left: 75px;
+}
+
+.row-group-level-5 td {
+    padding-left: 100px;
+}
+
+.table-report-section tr td {
+    font-size: 0.8rem;
+    white-space: nowrap;
+}
+
+.report-row-group-footer-cell {
+    border-top:2px solid #000 !important;
+}
+
+.report-row-grand-total-cell {
+    border-top:4px double #000 !important;
+}
