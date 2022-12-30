@@ -627,7 +627,7 @@ class DataTable {
                                 }
                                 break;
                             case 'CheckboxCriteria':
-                                if (this.data[r][aCriterias[x].applyTo[a].field] != criteriaValue.value) {
+                                if (criteriaValue.value.indexOf(this.data[r][aCriterias[x].applyTo[a].field]) === -1) {
                                     this.data[r]['__visible'] = false;
                                 }
                                 break;
