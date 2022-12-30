@@ -15,7 +15,7 @@ Function.prototype.toJSON = function () {
     var string = this.toString();
 
     var fat = (new RegExp(
-        '^\s*(' +
+        '^s*(' +
         ((this.name) ? this.name + '|' : '') +
         'function' +
         ')[^)]*\\('
