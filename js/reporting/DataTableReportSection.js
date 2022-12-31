@@ -7,8 +7,8 @@
  */
 class DataTableReportSection extends ReportSection {
 
-    constructor(app, report, reportSection) {
-        super(app, report, reportSection);
+    constructor(app, reportSection) {
+        super(app, reportSection);
     }
 
 
