@@ -956,9 +956,47 @@ class DataTable {
 
                                 break;
                             case 'NumericCriteria':
-                                if (this.data[r][aCriterias[x].applyTo[a].field] != criteriaValue.value) {
-                                    this.data[r]['__visible'] = false;
+
+                                switch (criteriaValue.value.operator) {
+                                    case 'EQUAL':
+                                        if (this.data[r][aCriterias[x].applyTo[a].field] != criteriaValue.value.startValue) {
+                                            this.data[r]['__visible'] = false;
+                                        }
+                                        break;
+                                    case 'NOT_EQUAL':
+                                        if (this.data[r][aCriterias[x].applyTo[a].field] == criteriaValue.value.startValue) {
+                                            this.data[r]['__visible'] = false;
+                                        }
+                                        break;
+                                    case 'GREATER_THAN':
+                                        if (this.data[r][aCriterias[x].applyTo[a].field] <= criteriaValue.value.startValue) {
+                                            this.data[r]['__visible'] = false;
+                                        }
+                                        break;
+                                    case 'GREATER_OR_EQUAL':
+                                        if (this.data[r][aCriterias[x].applyTo[a].field] < criteriaValue.value.startValue) {
+                                            this.data[r]['__visible'] = false;
+                                        }
+                                        break;
+                                    case 'SMALLER_THAN':
+                                        if (this.data[r][aCriterias[x].applyTo[a].field] >= criteriaValue.value.startValue) {
+                                            this.data[r]['__visible'] = false;
+                                        }
+                                        break;
+                                    case 'SMALLER_OR_EQUAL':
+                                        if (this.data[r][aCriterias[x].applyTo[a].field] > criteriaValue.value.startValue) {
+                                            this.data[r]['__visible'] = false;
+                                        }
+                                        break;
+                                    case 'BETWEEN':
+                                        if (this.data[r][aCriterias[x].applyTo[a].field] < criteriaValue.value.startValue &&
+                                            this.data[r][aCriterias[x].applyTo[a].field] > criteriaValue.value.endValue) {
+                                            this.data[r]['__visible'] = false;
+                                        }
+                                        break;
                                 }
+
+
                                 break;
                             case 'CheckboxCriteria':
                                 if (criteriaValue.value.indexOf(this.data[r][aCriterias[x].applyTo[a].field]) === -1) {
@@ -3536,33 +3574,82 @@ class NumericCriteria extends CriteriaControl {
     constructor(app) {
         super(app);
         this.options = [];
+        this._startValueInstance = null;
+        this._endValueInstance = null;
+        this._operatorInstance = null;
     }
 
     initializeJS() {
-        this._instance = $('#' + this.id).daterangepicker(this.reportCriteria.parameters);
+
+        this._startValueInstance = $('#' + this.id + '_start');
+        this._endValueInstance = $('#' + this.id + '_end');
+        this._operatorInstance = $('#' + this.id + '_operator');
+
+        this._operatorInstance.on('change', () => {
+            this.updateUI();
+        });
+
+        this.updateUI();
+
+    }
+
+    updateUI() {
+        switch (this._operatorInstance.val()) {
+            case 'EQUAL':
+            case 'NOT_EQUAL':
+            case 'GREATER_THAN':
+            case 'GREATER_OR_EQUAL':
+            case 'SMALLER_THAN':
+            case 'SMALLER_OR_EQUAL':
+                $('#' + this.id + '_betweenLabel').hide();
+                this._endValueInstance.hide();
+                break;
+            case 'BETWEEN':
+                $('#' + this.id + '_betweenLabel').show();
+                this._endValueInstance.show();
+                break;
+
+        }
     }
 
     render() {
 
-        return `<div class="mb-3">
-                    <label class="form-label" for="${this.id}">
-                        ${this.reportCriteria.name}
-                    </label>            
-                    <input id="${this.id}" class="form-control"/>                        
-                </div>`;
+
+        return `
+            <div class="mb-3">
+                <label class="form-label" for="${this.id}_start">
+                    ${this.reportCriteria.name}
+                </label> 
+                <div class="input-group mb-3">               
+                    <span class="input-group-text">
+                        <select id="${this.id}_operator" class="form-control form-control-sm">
+                            <option value="EQUAL">Equal</option>
+                            <option value="NOT_EQUAL">Not equal</option>
+                            <option value="GREATER_THAN">Greater than</option>
+                            <option value="GREATER_OR_EQUAL">Greater or equal</option>
+                            <option value="SMALLER_THAN">Smaller than</option>
+                            <option value="SMALLER_OR_EQUAL">Smaller or equal</option>
+                            <option value="BETWEEN">Between</option>
+                        </select>
+                    </span>
+                    <input id="${this.id}_start" class="form-control" type="number"/>
+                    <span id="${this.id}_betweenLabel" class="input-group-text">and</span>
+                    <input id="${this.id}_end" class="form-control" type="number"/>                    
+                </div>
+            </div>`;
 
     }
 
     getValue() {
         return {
-            startDate: this._instance.data('daterangepicker').startDate.format('YYYY-MM-DD'),
-            endDate: this._instance.data('daterangepicker').endDate.format('YYYY-MM-DD'),
+            operator: this._operatorInstance.val(),
+            startValue: parseFloat(this._startValueInstance.val()),
+            endValue: parseFloat(this._endValueInstance.val())
         };
     }
 
     setValue(v) {
-        this._instance.data('daterangepicker').setStartDate(v.startDate);
-        this._instance.data('daterangepicker').setEndDate(v.endDate);
+
     }
 
 

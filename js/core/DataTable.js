@@ -622,9 +622,47 @@ class DataTable {
 
                                 break;
                             case 'NumericCriteria':
-                                if (this.data[r][aCriterias[x].applyTo[a].field] != criteriaValue.value) {
-                                    this.data[r]['__visible'] = false;
+
+                                switch (criteriaValue.value.operator) {
+                                    case 'EQUAL':
+                                        if (this.data[r][aCriterias[x].applyTo[a].field] != criteriaValue.value.startValue) {
+                                            this.data[r]['__visible'] = false;
+                                        }
+                                        break;
+                                    case 'NOT_EQUAL':
+                                        if (this.data[r][aCriterias[x].applyTo[a].field] == criteriaValue.value.startValue) {
+                                            this.data[r]['__visible'] = false;
+                                        }
+                                        break;
+                                    case 'GREATER_THAN':
+                                        if (this.data[r][aCriterias[x].applyTo[a].field] <= criteriaValue.value.startValue) {
+                                            this.data[r]['__visible'] = false;
+                                        }
+                                        break;
+                                    case 'GREATER_OR_EQUAL':
+                                        if (this.data[r][aCriterias[x].applyTo[a].field] < criteriaValue.value.startValue) {
+                                            this.data[r]['__visible'] = false;
+                                        }
+                                        break;
+                                    case 'SMALLER_THAN':
+                                        if (this.data[r][aCriterias[x].applyTo[a].field] >= criteriaValue.value.startValue) {
+                                            this.data[r]['__visible'] = false;
+                                        }
+                                        break;
+                                    case 'SMALLER_OR_EQUAL':
+                                        if (this.data[r][aCriterias[x].applyTo[a].field] > criteriaValue.value.startValue) {
+                                            this.data[r]['__visible'] = false;
+                                        }
+                                        break;
+                                    case 'BETWEEN':
+                                        if (this.data[r][aCriterias[x].applyTo[a].field] < criteriaValue.value.startValue &&
+                                            this.data[r][aCriterias[x].applyTo[a].field] > criteriaValue.value.endValue) {
+                                            this.data[r]['__visible'] = false;
+                                        }
+                                        break;
                                 }
+
+
                                 break;
                             case 'CheckboxCriteria':
                                 if (criteriaValue.value.indexOf(this.data[r][aCriterias[x].applyTo[a].field]) === -1) {
