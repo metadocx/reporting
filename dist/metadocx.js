@@ -1537,8 +1537,8 @@ window.__Metadocx.ReportSection = ReportSection;
  */
 class DataTableReportSection extends ReportSection {
 
-    constructor(app, report, reportSection) {
-        super(app, report, reportSection);
+    constructor(app, reportSection) {
+        super(app, reportSection);
     }
 
 
@@ -1627,6 +1627,27 @@ class DataTableReportSection extends ReportSection {
 }
 window.__Metadocx.DataTableReportSection = DataTableReportSection;
 
+/** 
+ * DataTable Report section
+ * 
+ * @author Benoit Gauthier <bgauthier@metadocx.com>
+ * @copyright Benoit Gauthier <bgauthier@metadocx.com>
+ * @license https://github.com/metadocx/reporting/LICENSE.md
+ */
+class HTMLReportSection extends ReportSection {
+
+    constructor(app, reportSection) {
+        super(app, reportSection);
+    }
+
+    render() {
+        return `<div class="report-section-html">
+                    ${this.reportSection.content}
+                </div>`;
+    }
+
+}
+window.__Metadocx.HTMLReportSection = HTMLReportSection;
 /** 
  * Report
  * 
@@ -1841,6 +1862,10 @@ class Report {
             var sReportSectionType = this.getReportDefinition().sections[kSection].type + 'ReportSection';
             var oReportSection = new window.__Metadocx[sReportSectionType](this.app, this.getReportDefinition().sections[kSection]);
 
+            if (oSection.type == 'HTML') {
+                continue;
+            }
+
             var sFields = '<table id="' + oSection.id + '_fields" class="table table-condensed report-sortable">';
             sFields += '<tbody>';
             for (var x in oSection.model) {
@@ -2025,6 +2050,10 @@ class Report {
             var oSection = this.getReportDefinition().sections[kSection];
             var oReportSection = new ReportSection(this.app, this, oSection);
 
+            if (oSection.type == 'HTML') {
+                continue;
+            }
+
             /**
              * Reorder table rows based on orderby and groupby config
              */
@@ -2175,6 +2204,9 @@ class Report {
         }
         for (var x in this.getReportDefinition().sections) {
             var oSection = this.getReportDefinition().sections[x];
+            if (oSection.type == 'HTML') {
+                continue;
+            }
             this._initialReportSettings['sections'] = {
                 id: oSection.id,
                 properties: JSON.parse(JSON.stringify(oSection.properties)),
@@ -5404,7 +5436,7 @@ class PDFModule extends Module {
         if ($('#pdfPaperSizeHeight').length > 0) {
             height = $('#pdfPaperSizeHeight').val();
         }
-        var grayscale = true;
+        var grayscale = false;
         if ($('#pdfGrayscale').length > 0) {
             grayscale = $('#pdfGrayscale').prop('checked');
         }

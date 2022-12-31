@@ -212,6 +212,10 @@ class Report {
             var sReportSectionType = this.getReportDefinition().sections[kSection].type + 'ReportSection';
             var oReportSection = new window.__Metadocx[sReportSectionType](this.app, this.getReportDefinition().sections[kSection]);
 
+            if (oSection.type == 'HTML') {
+                continue;
+            }
+
             var sFields = '<table id="' + oSection.id + '_fields" class="table table-condensed report-sortable">';
             sFields += '<tbody>';
             for (var x in oSection.model) {
@@ -396,6 +400,10 @@ class Report {
             var oSection = this.getReportDefinition().sections[kSection];
             var oReportSection = new ReportSection(this.app, this, oSection);
 
+            if (oSection.type == 'HTML') {
+                continue;
+            }
+
             /**
              * Reorder table rows based on orderby and groupby config
              */
@@ -546,6 +554,9 @@ class Report {
         }
         for (var x in this.getReportDefinition().sections) {
             var oSection = this.getReportDefinition().sections[x];
+            if (oSection.type == 'HTML') {
+                continue;
+            }
             this._initialReportSettings['sections'] = {
                 id: oSection.id,
                 properties: JSON.parse(JSON.stringify(oSection.properties)),

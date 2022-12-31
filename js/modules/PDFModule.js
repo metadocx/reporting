@@ -279,7 +279,7 @@ class PDFModule extends Module {
         if ($('#pdfPaperSizeHeight').length > 0) {
             height = $('#pdfPaperSizeHeight').val();
         }
-        var grayscale = true;
+        var grayscale = false;
         if ($('#pdfGrayscale').length > 0) {
             grayscale = $('#pdfGrayscale').prop('checked');
         }
