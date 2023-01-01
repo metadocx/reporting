@@ -11,6 +11,7 @@ class ReportCanvas {
         this.app = app;
         this.report = report;
         this.viewer = viewer;
+        this.reportSections = [];
     }
 
     /**
@@ -25,6 +26,7 @@ class ReportCanvas {
 
             var sReportSectionType = this.report.getReportDefinition().sections[x].type + 'ReportSection';
             var oReportSection = new window.__Metadocx[sReportSectionType](this.app, this.report.getReportDefinition().sections[x]);
+            this.reportSections.push(oReportSection);
             sReportSection += oReportSection.render();
 
         }
@@ -39,6 +41,14 @@ class ReportCanvas {
 
         return s;
 
+    }
+
+    initialiseJS() {
+        for (var x in this.reportSections) {
+            if (this.reportSections[x].initialiseJS != undefined) {
+                this.reportSections[x].initialiseJS();
+            }
+        }
     }
 
 }

@@ -212,168 +212,17 @@ class Report {
             var sReportSectionType = this.getReportDefinition().sections[kSection].type + 'ReportSection';
             var oReportSection = new window.__Metadocx[sReportSectionType](this.app, this.getReportDefinition().sections[kSection]);
 
-            if (oSection.type == 'HTML') {
-                continue;
+            switch (oSection.type) {
+                case 'HTML':
+                    s += this.renderReportSettingsHTML(oSection, oReportSection);
+                    break;
+                case 'Chart':
+                    s += this.renderReportSettingsChart(oSection, oReportSection);
+                    break;
+                case 'DataTable':
+                    s += this.renderReportSettingsDataTable(oSection, oReportSection);
+                    break;
             }
-
-            var sFields = '<table id="' + oSection.id + '_fields" class="table table-condensed report-sortable">';
-            sFields += '<tbody>';
-            for (var x in oSection.model) {
-
-                var sFieldSelected = ' checked';
-                if (!oReportSection.isColumnVisible(oSection.model[x].name)) {
-                    sFieldSelected = '';
-                }
-
-                sFields += `<tr data-section="${oSection.id}" data-column="${oSection.model[x].name}">
-                    <td style="width:30px;text-align:center;"><i class="uil uil-sort fs16"></i></td>
-                    <td style="width:30px;text-align:center;"><input id="${oSection.id}_field_${oSection.model[x].name}" type="checkbox"${sFieldSelected}/></td>
-                    <td id="${oSection.id}_label_${oSection.model[x].name}">${oSection.model[x].label}</td>
-                    <td style="width:150px;">
-                        <select id="${oSection.id}_formula_${oSection.model[x].name}" class="form-control form-control-sm" style="width:100%;">
-                            <option value=""${(oSection.model[x].formula == '' ? ' selected' : '')}>(None)</option>
-                            <option value="SUM"${(oSection.model[x].formula == 'SUM' ? ' selected' : '')}>Sum</option>
-                            <option value="AVG"${(oSection.model[x].formula == 'AVG' ? ' selected' : '')}>Average</option>
-                            <option value="MIN"${(oSection.model[x].formula == 'MIN' ? ' selected' : '')}>Min Value</option>
-                            <option value="MAX"${(oSection.model[x].formula == 'MAX' ? ' selected' : '')}>Max Value</option>
-                            <option value="COUNT"${(oSection.model[x].formula == 'COUNT' ? ' selected' : '')}>Count</option>
-                        </select>
-                    </td>
-                    <td style="width:30px;">
-                        <button class="btn btn-sm" onClick="Metadocx.viewer.showFieldPropertiesDialog('${oSection.id}', '${oSection.model[x].name}');"><i class="uil uil-ellipsis-h fs20"></i></button>
-                    </td>
-                </tr>`;
-            }
-            sFields += '</tbody>';
-            sFields += '</table>';
-
-            /**
-             * ORDER BY 
-             */
-            var sOrderBy = '<table id="' + oSection.id + '_orderBy" class="table table-condensed report-sortable">';
-            sOrderBy += '<tbody>';
-            for (var x in oSection.model) {
-
-
-                var oOrderBy = oReportSection.getOrderBy(oSection.model[x].name);
-
-                var sAscSelected = '';
-                var sDescSelected = '';
-                var sOrderBySelected = '';
-                if (oOrderBy != null) {
-                    if (oOrderBy.order == 'desc') {
-                        sAscSelected = '';
-                        sDescSelected = ' selected';
-                    } else {
-                        sAscSelected = ' selected';
-                        sDescSelected = '';
-                    }
-                    sOrderBySelected = ' checked';
-                }
-
-                sOrderBy += `<tr id="${oSection.id}_orderByRow_${oSection.model[x].name}" data-section="${oSection.id}" data-column="${oSection.model[x].name}">
-                                <td style="width:30px;text-align:center;"><i class="uil uil-sort fs16"></i></td>
-                                <td style="width:30px;text-align:center;"><input id="${oSection.id}_orderBy_${oSection.model[x].name}" type="checkbox"${sOrderBySelected}/></td>
-                                <td>${oSection.model[x].label}</td>
-                                <td style="width:150px;">
-                                    <select id="${oSection.id}_orderByOrder_${oSection.model[x].name}" class="form-control form-control-sm" style="width:100%;">
-                                        <option value="asc"${sAscSelected}>Ascending</option>
-                                        <option value="desc"${sDescSelected}>Descending</option>                                    
-                                    </select>
-                                </td>
-                            </tr>`;
-            }
-            sOrderBy += '</tbody>';
-            sOrderBy += '</table>';
-
-            /**
-             * GROUP BY 
-             */
-            var sGroupBy = '<table id="' + oSection.id + '_groupBy" class="table table-condensed report-sortable">';
-            sGroupBy += '<tbody>';
-            for (var x in oSection.model) {
-
-                var oGroupBy = oReportSection.getGroupBy(oSection.model[x].name);
-
-                var sAscSelected = '';
-                var sDescSelected = '';
-                var sGroupBySelected = '';
-                if (oGroupBy !== null) {
-                    if (oGroupBy.order == 'desc') {
-                        sAscSelected = '';
-                        sDescSelected = ' selected';
-                    } else {
-                        sAscSelected = ' selected';
-                        sDescSelected = '';
-                    }
-                    sGroupBySelected = ' checked';
-                }
-
-                sGroupBy += `<tr id="${oSection.id}_groupByRow_${oSection.model[x].name}" data-section="${oSection.id}" data-column="${oSection.model[x].name}">
-                                <td style="width:30px;text-align:center;"><i class="uil uil-sort fs16"></i></td>
-                                <td style="width:30px;text-align:center;"><input id="${oSection.id}_groupBy_${oSection.model[x].name}" type="checkbox"${sGroupBySelected}/></td>
-                                <td>${oSection.model[x].label}</td>
-                                <td style="width:150px;">
-                                <select id="${oSection.id}_groupByOrder_${oSection.model[x].name}" class="form-control form-control-sm" style="width:100%;">
-                                    <option value="asc"${sAscSelected}>Ascending</option>
-                                    <option value="desc"${sDescSelected}>Descending</option>                                    
-                                </select></td>
-                            </tr>`;
-            }
-            sGroupBy += '</tbody>';
-            sGroupBy += '</table>';
-
-            /**
-             * Main section card
-             */
-            s += `<div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title mb-0">${oSection.properties.name}</h4>
-                            </div>
-                            <div class="card-body">              
-                                <div class="accordion accordion-flush" id="reportSettingsAccordion${oSection.properties.name}">
-                                    <div class="accordion-item">
-                                        <h2 id="settingsFieldsHeader_${oSection.properties.name}" class="accordion-header">
-                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#settingsFieldsBody_${oSection.properties.name}" aria-expanded="false" aria-controls="flush-collapseOne">                                                                        
-                                                <i class="uil uil-columns fs20"></i>&nbsp;Fields
-                                            </button>
-                                        </h2>
-                                        <div id="settingsFieldsBody_${oSection.properties.name}" class="accordion-collapse collapse" aria-labelledby="reportSettingsAccordion${oSection.properties.name}">
-                                            <div class="accordion-body">                                    
-                                                ${sFields}
-                                            </div>
-                                        </div>
-                                    </div>   
-                                    
-                                    <div class="accordion-item">
-                                        <h2 id="settingsOrderByHeader_${oSection.properties.name}" class="accordion-header">
-                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#settingsOrderByBody_${oSection.properties.name}" aria-expanded="false" aria-controls="flush-collapseOne">                                                                        
-                                                <i class="uil uil-sort-amount-down fs20"></i>&nbsp;Order
-                                            </button>
-                                        </h2>
-                                        <div id="settingsOrderByBody_${oSection.properties.name}" class="accordion-collapse collapse" aria-labelledby="reportSettingsAccordion${oSection.properties.name}">
-                                            <div class="accordion-body">                                    
-                                                ${sOrderBy}
-                                            </div>
-                                        </div>
-                                    </div>   
-
-                                    <div class="accordion-item">
-                                        <h2 id="settingsGroupByHeader_${oSection.properties.name}" class="accordion-header">
-                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#settingsGroupByBody_${oSection.properties.name}" aria-expanded="false" aria-controls="flush-collapseOne">                                                                        
-                                                <i class="uil uil-layer-group fs20"></i>&nbsp;Groups
-                                            </button>
-                                        </h2>
-                                        <div id="settingsGroupByBody_${oSection.properties.name}" class="accordion-collapse collapse" aria-labelledby="reportSettingsAccordion${oSection.properties.name}">
-                                            <div class="accordion-body">                                    
-                                                ${sGroupBy}                             
-                                            </div>
-                                        </div>
-                                    </div>   
-                                </div>                                                                                                             
-                            </div>
-                        </div>`;
-
 
         }
 
@@ -382,9 +231,214 @@ class Report {
             <button class="btn btn-secondary mr5" onClick="Metadocx.viewer.cancelSettings();">Cancel</button>
             <button class="btn btn-primary" onClick="Metadocx.viewer.applySettings();"><i class="uil uil-check fs16" style="color:#fff;"></i>&nbsp;Apply Settings</button>
         </div>
-       `;
+        `;
 
         $('#' + this.id + '_reportSettingsZone').html(s);
+
+        /**
+         * Once html is inserted in report viewer call post render
+         */
+        for (var kSection in this.getReportDefinition().sections) {
+            var oSection = this.getReportDefinition().sections[kSection];
+            var sReportSectionType = this.getReportDefinition().sections[kSection].type + 'ReportSection';
+            var oReportSection = new window.__Metadocx[sReportSectionType](this.app, this.getReportDefinition().sections[kSection]);
+
+            switch (oSection.type) {
+                case 'HTML':
+                    this.postRenderReportSettingsHTML(oSection, oReportSection);
+                    break;
+                case 'Chart':
+                    this.postRenderReportSettingsChart(oSection, oReportSection);
+                    break;
+                case 'DataTable':
+                    this.postRenderSettingsDataTable(oSection, oReportSection);
+                    break;
+            }
+
+        }
+
+
+        this._reportSettingsRendered = true;
+
+    }
+
+
+
+    renderReportSettingsHTML(oSection, oReportSection) { return ''; }
+
+    postRenderReportSettingsHTML(oSection, oReportSection) { }
+
+    renderReportSettingsChart(oSection, oReportSection) { return ''; }
+
+    postRenderReportSettingsChart(oSection, oReportSection) { }
+
+    renderReportSettingsDataTable(oSection, oReportSection) {
+
+        var s = '';
+        var sFields = '<table id="' + oSection.id + '_fields" class="table table-condensed report-sortable">';
+        sFields += '<tbody>';
+        for (var x in oSection.model) {
+
+            var sFieldSelected = ' checked';
+            if (!oReportSection.isColumnVisible(oSection.model[x].name)) {
+                sFieldSelected = '';
+            }
+
+            sFields += `<tr data-section="${oSection.id}" data-column="${oSection.model[x].name}">
+                <td style="width:30px;text-align:center;"><i class="uil uil-sort fs16"></i></td>
+                <td style="width:30px;text-align:center;"><input id="${oSection.id}_field_${oSection.model[x].name}" type="checkbox"${sFieldSelected}/></td>
+                <td id="${oSection.id}_label_${oSection.model[x].name}">${oSection.model[x].label}</td>
+                <td style="width:150px;">
+                    <select id="${oSection.id}_formula_${oSection.model[x].name}" class="form-control form-control-sm" style="width:100%;">
+                        <option value=""${(oSection.model[x].formula == '' ? ' selected' : '')}>(None)</option>
+                        <option value="SUM"${(oSection.model[x].formula == 'SUM' ? ' selected' : '')}>Sum</option>
+                        <option value="AVG"${(oSection.model[x].formula == 'AVG' ? ' selected' : '')}>Average</option>
+                        <option value="MIN"${(oSection.model[x].formula == 'MIN' ? ' selected' : '')}>Min Value</option>
+                        <option value="MAX"${(oSection.model[x].formula == 'MAX' ? ' selected' : '')}>Max Value</option>
+                        <option value="COUNT"${(oSection.model[x].formula == 'COUNT' ? ' selected' : '')}>Count</option>
+                    </select>
+                </td>
+                <td style="width:30px;">
+                    <button class="btn btn-sm" onClick="Metadocx.viewer.showFieldPropertiesDialog('${oSection.id}', '${oSection.model[x].name}');"><i class="uil uil-ellipsis-h fs20"></i></button>
+                </td>
+            </tr>`;
+        }
+        sFields += '</tbody>';
+        sFields += '</table>';
+
+        /**
+         * ORDER BY 
+         */
+        var sOrderBy = '<table id="' + oSection.id + '_orderBy" class="table table-condensed report-sortable">';
+        sOrderBy += '<tbody>';
+        for (var x in oSection.model) {
+
+
+            var oOrderBy = oReportSection.getOrderBy(oSection.model[x].name);
+
+            var sAscSelected = '';
+            var sDescSelected = '';
+            var sOrderBySelected = '';
+            if (oOrderBy != null) {
+                if (oOrderBy.order == 'desc') {
+                    sAscSelected = '';
+                    sDescSelected = ' selected';
+                } else {
+                    sAscSelected = ' selected';
+                    sDescSelected = '';
+                }
+                sOrderBySelected = ' checked';
+            }
+
+            sOrderBy += `<tr id="${oSection.id}_orderByRow_${oSection.model[x].name}" data-section="${oSection.id}" data-column="${oSection.model[x].name}">
+                            <td style="width:30px;text-align:center;"><i class="uil uil-sort fs16"></i></td>
+                            <td style="width:30px;text-align:center;"><input id="${oSection.id}_orderBy_${oSection.model[x].name}" type="checkbox"${sOrderBySelected}/></td>
+                            <td>${oSection.model[x].label}</td>
+                            <td style="width:150px;">
+                                <select id="${oSection.id}_orderByOrder_${oSection.model[x].name}" class="form-control form-control-sm" style="width:100%;">
+                                    <option value="asc"${sAscSelected}>Ascending</option>
+                                    <option value="desc"${sDescSelected}>Descending</option>                                    
+                                </select>
+                            </td>
+                        </tr>`;
+        }
+        sOrderBy += '</tbody>';
+        sOrderBy += '</table>';
+
+        /**
+         * GROUP BY 
+         */
+        var sGroupBy = '<table id="' + oSection.id + '_groupBy" class="table table-condensed report-sortable">';
+        sGroupBy += '<tbody>';
+        for (var x in oSection.model) {
+
+            var oGroupBy = oReportSection.getGroupBy(oSection.model[x].name);
+
+            var sAscSelected = '';
+            var sDescSelected = '';
+            var sGroupBySelected = '';
+            if (oGroupBy !== null) {
+                if (oGroupBy.order == 'desc') {
+                    sAscSelected = '';
+                    sDescSelected = ' selected';
+                } else {
+                    sAscSelected = ' selected';
+                    sDescSelected = '';
+                }
+                sGroupBySelected = ' checked';
+            }
+
+            sGroupBy += `<tr id="${oSection.id}_groupByRow_${oSection.model[x].name}" data-section="${oSection.id}" data-column="${oSection.model[x].name}">
+                            <td style="width:30px;text-align:center;"><i class="uil uil-sort fs16"></i></td>
+                            <td style="width:30px;text-align:center;"><input id="${oSection.id}_groupBy_${oSection.model[x].name}" type="checkbox"${sGroupBySelected}/></td>
+                            <td>${oSection.model[x].label}</td>
+                            <td style="width:150px;">
+                            <select id="${oSection.id}_groupByOrder_${oSection.model[x].name}" class="form-control form-control-sm" style="width:100%;">
+                                <option value="asc"${sAscSelected}>Ascending</option>
+                                <option value="desc"${sDescSelected}>Descending</option>                                    
+                            </select></td>
+                        </tr>`;
+        }
+        sGroupBy += '</tbody>';
+        sGroupBy += '</table>';
+
+        /**
+         * Main section card
+         */
+        s += `<div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title mb-0">${oSection.properties.name}</h4>
+                        </div>
+                        <div class="card-body">              
+                            <div class="accordion accordion-flush" id="reportSettingsAccordion${oSection.properties.name}">
+                                <div class="accordion-item">
+                                    <h2 id="settingsFieldsHeader_${oSection.properties.name}" class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#settingsFieldsBody_${oSection.properties.name}" aria-expanded="false" aria-controls="flush-collapseOne">                                                                        
+                                            <i class="uil uil-columns fs20"></i>&nbsp;Fields
+                                        </button>
+                                    </h2>
+                                    <div id="settingsFieldsBody_${oSection.properties.name}" class="accordion-collapse collapse" aria-labelledby="reportSettingsAccordion${oSection.properties.name}">
+                                        <div class="accordion-body">                                    
+                                            ${sFields}
+                                        </div>
+                                    </div>
+                                </div>   
+                                
+                                <div class="accordion-item">
+                                    <h2 id="settingsOrderByHeader_${oSection.properties.name}" class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#settingsOrderByBody_${oSection.properties.name}" aria-expanded="false" aria-controls="flush-collapseOne">                                                                        
+                                            <i class="uil uil-sort-amount-down fs20"></i>&nbsp;Order
+                                        </button>
+                                    </h2>
+                                    <div id="settingsOrderByBody_${oSection.properties.name}" class="accordion-collapse collapse" aria-labelledby="reportSettingsAccordion${oSection.properties.name}">
+                                        <div class="accordion-body">                                    
+                                            ${sOrderBy}
+                                        </div>
+                                    </div>
+                                </div>   
+
+                                <div class="accordion-item">
+                                    <h2 id="settingsGroupByHeader_${oSection.properties.name}" class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#settingsGroupByBody_${oSection.properties.name}" aria-expanded="false" aria-controls="flush-collapseOne">                                                                        
+                                            <i class="uil uil-layer-group fs20"></i>&nbsp;Groups
+                                        </button>
+                                    </h2>
+                                    <div id="settingsGroupByBody_${oSection.properties.name}" class="accordion-collapse collapse" aria-labelledby="reportSettingsAccordion${oSection.properties.name}">
+                                        <div class="accordion-body">                                    
+                                            ${sGroupBy}                             
+                                        </div>
+                                    </div>
+                                </div>   
+                            </div>                                                                                                             
+                        </div>
+                    </div>`;
+
+
+        return s;
+
+    }
+
+    postRenderSettingsDataTable(oSection, oReportSection) {
         $('.report-sortable tbody').sortable({
             placeholder: 'ui-state-highlight',
             helper: 'clone',
@@ -394,39 +448,26 @@ class Report {
             },
         });
 
-
-        for (var kSection in this.getReportDefinition().sections) {
-
-            var oSection = this.getReportDefinition().sections[kSection];
-            var oReportSection = new ReportSection(this.app, this, oSection);
-
-            if (oSection.type == 'HTML') {
-                continue;
-            }
-
-            /**
-             * Reorder table rows based on orderby and groupby config
-             */
-            var reversedKeys = Object.keys(oSection.orderBy).reverse();
-            reversedKeys.forEach(key => {
-                //console.log(key, oSection.orderBy[key]);                
-                $('#' + oSection.id + '_orderByRow_' + oSection.orderBy[key].name).prependTo('#' + oSection.id + '_orderBy');
-            });
+        /**
+         * Reorder table rows based on orderby and groupby config
+         */
+        var reversedKeys = Object.keys(oSection.orderBy).reverse();
+        reversedKeys.forEach(key => {
+            //console.log(key, oSection.orderBy[key]);                
+            $('#' + oSection.id + '_orderByRow_' + oSection.orderBy[key].name).prependTo('#' + oSection.id + '_orderBy');
+        });
 
 
-            /**
-             * Reorder table rows based on orderby and groupby config
-             */
-            reversedKeys = Object.keys(oSection.groupBy).reverse();
-            reversedKeys.forEach(key => {
-                //console.log(key, oSection.orderBy[key]);                
-                $('#' + oSection.id + '_groupByRow_' + oSection.groupBy[key].name).prependTo('#' + oSection.id + '_groupBy');
-            });
-        }
-
-        this._reportSettingsRendered = true;
-
+        /**
+         * Reorder table rows based on orderby and groupby config
+         */
+        reversedKeys = Object.keys(oSection.groupBy).reverse();
+        reversedKeys.forEach(key => {
+            //console.log(key, oSection.orderBy[key]);                
+            $('#' + oSection.id + '_groupByRow_' + oSection.groupBy[key].name).prependTo('#' + oSection.id + '_groupBy');
+        });
     }
+
 
     /**
      * Renders report criteria controls HTML
@@ -554,16 +595,23 @@ class Report {
         }
         for (var x in this.getReportDefinition().sections) {
             var oSection = this.getReportDefinition().sections[x];
-            if (oSection.type == 'HTML') {
-                continue;
+            switch (oSection.type) {
+                case 'HTML':
+                    break;
+                case 'Chart':
+                    break;
+                case 'DataTable':
+                    this._initialReportSettings['sections'].push({
+                        id: oSection.id,
+                        properties: JSON.parse(JSON.stringify(oSection.properties)),
+                        orderBy: JSON.parse(JSON.stringify(oSection.orderBy)),
+                        groupBy: JSON.parse(JSON.stringify(oSection.groupBy)),
+                        model: JSON.parse(JSON.stringify(oSection.model)),
+                    })
+                    break;
             }
-            this._initialReportSettings['sections'] = {
-                id: oSection.id,
-                properties: JSON.parse(JSON.stringify(oSection.properties)),
-                orderBy: JSON.parse(JSON.stringify(oSection.orderBy)),
-                groupBy: JSON.parse(JSON.stringify(oSection.groupBy)),
-                model: JSON.parse(JSON.stringify(oSection.model)),
-            }
+
+
         }
     }
 
@@ -585,7 +633,26 @@ class Report {
 
     }
 
+    /**
+     * Filter all report section data 
+     */
+    filter() {
 
+        for (var x in this.getReportDefinition().sections) {
+            var oFilter = new DataFilter(this.app);
+            oFilter.setReportSection(this.getReportDefinition().sections[x]);
+            oFilter.process();
+        }
+
+    }
+
+    sort() {
+        for (var x in this.getReportDefinition().sections) {
+            var oSorter = new DataSorter(this.app);
+            oSorter.setReportSection(this.getReportDefinition().sections[x]);
+            oSorter.process();
+        }
+    }
 
 
 }
