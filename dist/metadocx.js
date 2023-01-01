@@ -1310,7 +1310,7 @@ class DataTable {
  * @copyright Benoit Gauthier <bgauthier@metadocx.com>
  * @license https://github.com/metadocx/reporting/LICENSE.md
  */
-window.__Metadocx = {};
+window.__Metadocx = { Locales: {} };
 
 class MetadocxApplication {
 
@@ -2143,7 +2143,7 @@ class Report {
     getPaperSizeOptions() {
         var s = '';
         for (var x in this.pageSizes) {
-            s += '<option value="' + this.pageSizes[x].name + '">' + this.pageSizes[x].name + '</option>';
+            s += '<option value="' + this.pageSizes[x].name + '" data-locale="' + this.pageSizes[x].name + '">' + this.pageSizes[x].name + '</option>';
         }
         return s;
     }
@@ -2217,16 +2217,16 @@ class Report {
 
         s += `<div class="card">
                 <div class="card-header">
-                    <h4 class="card-title mb-0">Report properties</h4>
+                    <h4 class="card-title mb-0" data-locale="ReportProperties">Report properties</h4>
                 </div>
                 <div class="card-body">     
                     <div class="mb-4">
-                        <label class="form-label" for="reportSettingsName">Name</label>
-                        <input class="form-control" type="text" id="reportSettingsName" placeholder="Report name" value="${this.getReportDefinition().properties.name}">
+                        <label class="form-label" for="reportSettingsName" data-locale="Name">Name</label>
+                        <input class="form-control" type="text" id="reportSettingsName" placeholder="Report name" value="${this.getReportDefinition().properties.name}" data-locale="ReportName">
                     </div> 
                     <div class="mb-4">
-                        <label class="form-label" for="reportSettingsDescription">Description</label>
-                        <input class="form-control" type="text" id="reportSettingsDescription" placeholder="Report description" value="${this.getReportDefinition().properties.description}">                        
+                        <label class="form-label" for="reportSettingsDescription" data-locale="Description">Description</label>
+                        <input class="form-control" type="text" id="reportSettingsDescription" placeholder="Report description" value="${this.getReportDefinition().properties.description}" data-locale="ReportDescription">                        
                     </div> 
                 </div>
             </div>`;
@@ -2252,8 +2252,8 @@ class Report {
 
         s += `
         <div class="float-end">
-            <button class="btn btn-secondary mr5" onClick="Metadocx.viewer.cancelSettings();">Cancel</button>
-            <button class="btn btn-primary" onClick="Metadocx.viewer.applySettings();"><i class="uil uil-check fs16" style="color:#fff;"></i>&nbsp;Apply Settings</button>
+            <button class="btn btn-secondary mr5" onClick="Metadocx.viewer.cancelSettings();" data-locale="Cancel">Cancel</button>
+            <button class="btn btn-primary" onClick="Metadocx.viewer.applySettings();"><i class="uil uil-check fs16" style="color:#fff;"></i>&nbsp;<span data-locale="ApplySettings">Apply Settings</span></button>
         </div>
         `;
 
@@ -2314,12 +2314,12 @@ class Report {
                 <td id="${oSection.id}_label_${oSection.model[x].name}">${oSection.model[x].label}</td>
                 <td style="width:150px;">
                     <select id="${oSection.id}_formula_${oSection.model[x].name}" class="form-control form-control-sm" style="width:100%;">
-                        <option value=""${(oSection.model[x].formula == '' ? ' selected' : '')}>(None)</option>
-                        <option value="SUM"${(oSection.model[x].formula == 'SUM' ? ' selected' : '')}>Sum</option>
-                        <option value="AVG"${(oSection.model[x].formula == 'AVG' ? ' selected' : '')}>Average</option>
-                        <option value="MIN"${(oSection.model[x].formula == 'MIN' ? ' selected' : '')}>Min Value</option>
-                        <option value="MAX"${(oSection.model[x].formula == 'MAX' ? ' selected' : '')}>Max Value</option>
-                        <option value="COUNT"${(oSection.model[x].formula == 'COUNT' ? ' selected' : '')}>Count</option>
+                        <option value=""${(oSection.model[x].formula == '' ? ' selected' : '')} data-locale="None">(None)</option>
+                        <option value="SUM"${(oSection.model[x].formula == 'SUM' ? ' selected' : '')} data-locale="Sum">Sum</option>
+                        <option value="AVG"${(oSection.model[x].formula == 'AVG' ? ' selected' : '')} data-locale="Average">Average</option>
+                        <option value="MIN"${(oSection.model[x].formula == 'MIN' ? ' selected' : '')} data-locale="MinValue">Min Value</option>
+                        <option value="MAX"${(oSection.model[x].formula == 'MAX' ? ' selected' : '')} data-locale="Max Value">Max Value</option>
+                        <option value="COUNT"${(oSection.model[x].formula == 'COUNT' ? ' selected' : '')} data-locale="Count">Count</option>
                     </select>
                 </td>
                 <td style="width:30px;">
@@ -2360,8 +2360,8 @@ class Report {
                             <td>${oSection.model[x].label}</td>
                             <td style="width:150px;">
                                 <select id="${oSection.id}_orderByOrder_${oSection.model[x].name}" class="form-control form-control-sm" style="width:100%;">
-                                    <option value="asc"${sAscSelected}>Ascending</option>
-                                    <option value="desc"${sDescSelected}>Descending</option>                                    
+                                    <option value="asc"${sAscSelected} data-locale="Ascending">Ascending</option>
+                                    <option value="desc"${sDescSelected} data-locale="Descending">Descending</option>                                    
                                 </select>
                             </td>
                         </tr>`;
@@ -2398,8 +2398,8 @@ class Report {
                             <td>${oSection.model[x].label}</td>
                             <td style="width:150px;">
                             <select id="${oSection.id}_groupByOrder_${oSection.model[x].name}" class="form-control form-control-sm" style="width:100%;">
-                                <option value="asc"${sAscSelected}>Ascending</option>
-                                <option value="desc"${sDescSelected}>Descending</option>                                    
+                                <option value="asc"${sAscSelected} data-locale="Ascending">Ascending</option>
+                                <option value="desc"${sDescSelected} data-locale="Descending">Descending</option>                                    
                             </select></td>
                         </tr>`;
         }
@@ -2418,7 +2418,7 @@ class Report {
                                 <div class="accordion-item">
                                     <h2 id="settingsFieldsHeader_${oSection.properties.name}" class="accordion-header">
                                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#settingsFieldsBody_${oSection.properties.name}" aria-expanded="false" aria-controls="flush-collapseOne">                                                                        
-                                            <i class="uil uil-columns fs20"></i>&nbsp;Fields
+                                            <i class="uil uil-columns fs20"></i>&nbsp;<span data-locale="Fields">Fields</span>
                                         </button>
                                     </h2>
                                     <div id="settingsFieldsBody_${oSection.properties.name}" class="accordion-collapse collapse" aria-labelledby="reportSettingsAccordion${oSection.properties.name}">
@@ -2431,7 +2431,7 @@ class Report {
                                 <div class="accordion-item">
                                     <h2 id="settingsOrderByHeader_${oSection.properties.name}" class="accordion-header">
                                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#settingsOrderByBody_${oSection.properties.name}" aria-expanded="false" aria-controls="flush-collapseOne">                                                                        
-                                            <i class="uil uil-sort-amount-down fs20"></i>&nbsp;Order
+                                            <i class="uil uil-sort-amount-down fs20"></i>&nbsp;<span data-locale="Order">Order</span>
                                         </button>
                                     </h2>
                                     <div id="settingsOrderByBody_${oSection.properties.name}" class="accordion-collapse collapse" aria-labelledby="reportSettingsAccordion${oSection.properties.name}">
@@ -2444,7 +2444,7 @@ class Report {
                                 <div class="accordion-item">
                                     <h2 id="settingsGroupByHeader_${oSection.properties.name}" class="accordion-header">
                                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#settingsGroupByBody_${oSection.properties.name}" aria-expanded="false" aria-controls="flush-collapseOne">                                                                        
-                                            <i class="uil uil-layer-group fs20"></i>&nbsp;Groups
+                                            <i class="uil uil-layer-group fs20"></i>&nbsp;<span data-locale="Groups">Groups</span>
                                         </button>
                                     </h2>
                                     <div id="settingsGroupByBody_${oSection.properties.name}" class="accordion-collapse collapse" aria-labelledby="reportSettingsAccordion${oSection.properties.name}">
@@ -2804,7 +2804,9 @@ class ReportViewer extends Consolable {
 
         this.options = {
             "id": "metadocxReport",
+            "locale": "en",
             "toolbar": {
+                "showLocaleButton": true,
                 "showOptionsButton": true,
                 "showSettingsButton": true,
                 "showCriteriasButton": true,
@@ -2917,11 +2919,25 @@ class ReportViewer extends Consolable {
             return;
         }
 
+        this.app.modules.Locale.setLocale(this.options.locale);
+
 
         $('#' + this.options.id + '_headerName').html(this.report.getReportDefinition().properties.name);
         $('#' + this.options.id + '_headerDescription').html(this.report.getReportDefinition().properties.description);
 
         $('.report-toolbar-button').show();
+
+        if (this.options.toolbar.showLocaleButton) {
+            $('#' + this.options.id + '_localeGroup').show();
+        } else {
+            $('#' + this.options.id + '_localeGroup').hide();
+        }
+
+        if (this.options.toolbar.showExportButton) {
+            $('#' + this.options.id + '_export').show();
+        } else {
+            $('#' + this.options.id + '_export').hide();
+        }
 
         if (this.options.toolbar.showExportButton) {
             $('#' + this.options.id + '_export').show();
@@ -2979,6 +2995,8 @@ class ReportViewer extends Consolable {
         $('#' + this.options.container).html(s);
         $('.report-viewer-criterias').hide();
 
+        this.app.modules.Locale.translate();
+
     }
 
     /**
@@ -2988,8 +3006,8 @@ class ReportViewer extends Consolable {
 
         this.log('No report data, displaying no report warning');
         var s = `<div class="alert alert-warning mb-0 report-no-definition" role="alert">
-                    <h4 class="alert-heading">Missing report definition</h4>
-                    <p>Oups! Something went wrong. We did not get a report to load.</p>                    
+                    <h4 class="alert-heading" data-locale="MissingReportDefinition">Missing report definition</h4>
+                    <p data-locale="OupsNoReport">Oups! Something went wrong. We did not get a report to load.</p>                    
                 </div>`;
 
         $('#' + this.app.viewer.options.id + '_canvas').html(s);
@@ -3039,6 +3057,14 @@ class ReportViewer extends Consolable {
                      </div>
                  </div>
                  <div class="d-flex">                   
+                    <div id="${this.options.id}_localeGroup" class="btn-group me-2 mb-2 mb-sm-0 report-toolbar-button">
+                         <button id="${this.options.id}_locale" type="button" class="btn header-item dropdown-toggle" data-bs-toggle="dropdown">
+                            <i class="uil uil-english-to-chinese"></i>
+                         </button>
+                         <div id="${this.options.id}_localeOptions" class="dropdown-menu">
+                             ${this.app.modules.Locale.getLocaleMenuOptions()}
+                         </div>
+                     </div>
                      <div class="btn-group me-2 mb-2 mb-sm-0 report-toolbar-button">
                          <button id="${this.options.id}_export" type="button" class="btn header-item dropdown-toggle" data-bs-toggle="dropdown">
                             <i class="uil uil-file-export"></i>
@@ -3069,7 +3095,7 @@ class ReportViewer extends Consolable {
          </header>
          <div id="${this.options.id}_canvas" class="report-viewer-canvas">
          </div>
-         <div class="powered-by no-print">powered by <a href="https://www.metadocx.com" target="_blank">Metadocx</a></div>`;
+         <div class="powered-by no-print"><span data-locale="PoweredBy">powered by</span> <a href="https://www.metadocx.com" target="_blank">Metadocx</a></div>`;
 
     }
 
@@ -3086,11 +3112,11 @@ class ReportViewer extends Consolable {
                             <div class="row">                                
                                 <div class="col-12">                                
                                     <div class="page-title-box d-flex align-items-center justify-content-between">
-                                        <h4 class="mb-0">Criterias</h4>
+                                        <h4 class="mb-0" data-locale="Criterias">Criterias</h4>
                                         <div class="d-flex">
-                                            <button class="btn btn-primary mr5" onClick="Metadocx.viewer.report.applyCriterias();"><i class="uil uil-check fs16" style="color:#fff;"></i>&nbsp;Apply criterias</button>
-                                            <button class="btn btn-danger mr5" onClick="Metadocx.viewer.report.resetCriterias();">Reset</button>
-                                            <button class="btn btn-secondary" onClick="Metadocx.viewer.report.cancelCriterias();">Cancel</button>
+                                            <button class="btn btn-primary mr5" onClick="Metadocx.viewer.report.applyCriterias();"><i class="uil uil-check fs16" style="color:#fff;"></i>&nbsp;<span data-locale="ApplyCriterias">Apply criterias</span></button>
+                                            <button class="btn btn-danger mr5" onClick="Metadocx.viewer.report.resetCriterias();" data-locale="Reset">Reset</button>
+                                            <button class="btn btn-secondary" onClick="Metadocx.viewer.report.cancelCriterias();" data-locale="Cancel">Cancel</button>
                                         </div>
                                     </div>
                                 </div>
@@ -3124,30 +3150,30 @@ class ReportViewer extends Consolable {
                <div class="modal-dialog">
                  <div class="modal-content">
                  <div class="modal-header">
-                     <h5 class="modal-title">Options</h5>
+                     <h5 class="modal-title" data-locale="Options">Options</h5>
                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                  </div>
                  <div class="modal-body">
                      <div class="d-flex justify-content-between">
                          <div class="d-flex flex-column p-2">
                              <div class="mb-3">                                
-                                 <label for="paperSize" class="form-label font-weight-bold">Orientation</label>
+                                 <label for="paperSize" class="form-label font-weight-bold" data-locale="Orientation">Orientation</label>
                              
                                  <div class="form-check">
                                      <input class="form-check-input" type="radio" name="orientation" id="orientationPortrait">
-                                     <label class="form-check-label" for="orientationPortrait">
+                                     <label class="form-check-label" for="orientationPortrait" data-locale="Portrait">
                                          Portrait
                                      </label>
                                  </div>
                                  <div class="form-check">
                                      <input class="form-check-input" type="radio" name="orientation" id="orientationLandscape">
-                                     <label class="form-check-label" for="orientationLandscape">
+                                     <label class="form-check-label" for="orientationLandscape" data-locale="Landscape">
                                          Landscape
                                      </label>
                                  </div>
                              </div>
                              <div class="mb-3">                                
-                                 <label for="paperSize" class="form-label font-weight-bold">Paper size</label>
+                                 <label for="paperSize" class="form-label font-weight-bold" data-locale="PaperSize">Paper size</label>
                                  <select id="paperSize" class="form-select">
                                  ${this.app.modules.Printing.getPaperSizeOptions()}
                                  </select>
@@ -3155,43 +3181,43 @@ class ReportViewer extends Consolable {
                          </div>
                          <div class="d-flex flex-column p-2">
                              <div class="mb-3">                                
-                                 <label for="paperSize" class="form-label font-weight-bold">Margins</label>
+                                 <label for="paperSize" class="form-label font-weight-bold" data-locale="Margins">Margins</label>
                              
                                  <div class="mb-3 row">
-                                     <label for="topMargin" class="col-sm-4 col-form-label">Top</label>
+                                     <label for="topMargin" class="col-sm-4 col-form-label" data-locale="Top">Top</label>
                                      <div class="col-sm-6">
                                          <input type="number" class="form-control" id="topMargin" value="0" style="width:80px;margin-left:30px;">
                                      </div>
-                                     <label class="col-sm-2 col-form-label">in.</label>
+                                     <label class="col-sm-2 col-form-label" data-locale="Inches">in.</label>
                                  </div>
                                  <div class="mb-3 row">
-                                     <label for="bottomMargin" class="col-sm-4 col-form-label">Bottom</label>
+                                     <label for="bottomMargin" class="col-sm-4 col-form-label" data-locale="Bottom">Bottom</label>
                                      <div class="col-sm-6">
                                          <input type="number" class="form-control" id="bottomMargin" value="0" style="width:80px;margin-left:30px;">
                                      </div>
-                                     <label class="col-sm-2 col-form-label">in.</label>
+                                     <label class="col-sm-2 col-form-label" data-locale="Inches">in.</label>
                                  </div>
                                  <div class="mb-3 row">
-                                     <label for="leftMargin" class="col-sm-4 col-form-label">Left</label>
+                                     <label for="leftMargin" class="col-sm-4 col-form-label" data-locale="Left">Left</label>
                                      <div class="col-sm-6">
                                          <input type="number" class="form-control" id="leftMargin" value="0" style="width:80px;margin-left:30px;">
                                      </div>
-                                     <label class="col-sm-2 col-form-label">in.</label>
+                                     <label class="col-sm-2 col-form-label" data-locale="Inches">in.</label>
                                  </div>
                                  <div class="mb-3 row">
-                                     <label for="rightMargin" class="col-sm-4 col-form-label">Right</label>
+                                     <label for="rightMargin" class="col-sm-4 col-form-label" data-locale="Right">Right</label>
                                      <div class="col-sm-6">
                                          <input type="number" class="form-control" id="rightMargin" value="0" style="width:80px;margin-left:30px;">
                                      </div>
-                                     <label class="col-sm-2 col-form-label">in.</label>
+                                     <label class="col-sm-2 col-form-label" data-locale="Inches">in.</label>
                                  </div>                                                    
                              </div>
                          </div>
                      </div>
                  </div>
                  <div class="modal-footer">
-                     <button type="button" class="btn btn-secondary mr5" data-bs-dismiss="modal">Cancel</button>
-                     <button type="button" class="btn btn-primary" onClick="Metadocx.viewer.applyOptions();"><i class="fa-solid fa-check"></i>&nbsp;Apply Options</button>
+                     <button type="button" class="btn btn-secondary mr5" data-bs-dismiss="modal" data-locale="Cancel">Cancel</button>
+                     <button type="button" class="btn btn-primary" onClick="Metadocx.viewer.applyOptions();"><i class="fa-solid fa-check"></i>&nbsp;<span data-locale="ApplyOptions">Apply Options</span></button>
                  </div>
                  </div>
              </div>
@@ -3302,7 +3328,7 @@ class ReportViewer extends Consolable {
 
         return `<div id="${this.options.id}_settingsOffCanvas" class="offcanvas offcanvas-end report-section-offcanvas" data-bs-backdrop="static" tabindex="-1" aria-labelledby="${this.options.id}_settingsOffCanvasLabel">
                     <div class="offcanvas-header">
-                        <h5 id="${this.options.id}_settingsOffCanvasLabel" class="offcanvas-title">Report Settings</h5>
+                        <h5 id="${this.options.id}_settingsOffCanvasLabel" class="offcanvas-title" data-locale="ReportSettings">Report Settings</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
                     <div id="${this.options.id}_reportSettingsZone" class="offcanvas-body">
@@ -3810,13 +3836,13 @@ class BooleanCriteria extends CriteriaControl {
 
         return `<div class="form-check mb-2">
                     <input class="form-check-input" type="checkbox" id="${this.id}_yes">
-                    <label class="form-check-label" for="${this.id}_yes">
+                    <label class="form-check-label" for="${this.id}_yes" data-locale="Yes">
                         Yes
                     </label>
                 </div>
                 <div class="form-check mb-2">
                     <input class="form-check-input" type="checkbox" id="${this.id}_no">
-                    <label class="form-check-label" for="${this.id}_no">
+                    <label class="form-check-label" for="${this.id}_no" data-locale="No">
                         No
                     </label>
                 </div>`;
@@ -4114,17 +4140,17 @@ class NumericCriteria extends CriteriaControl {
                 <div class="input-group mb-3">               
                     <span class="input-group-text">
                         <select id="${this.id}_operator" class="form-control form-control-sm">
-                            <option value="EQUAL">Equal</option>
-                            <option value="NOT_EQUAL">Not equal</option>
-                            <option value="GREATER_THAN">Greater than</option>
-                            <option value="GREATER_OR_EQUAL">Greater or equal</option>
-                            <option value="SMALLER_THAN">Smaller than</option>
-                            <option value="SMALLER_OR_EQUAL">Smaller or equal</option>
-                            <option value="BETWEEN">Between</option>
+                            <option value="EQUAL" data-locale="Equal">Equal</option>
+                            <option value="NOT_EQUAL" data-locale="NotEqual">Not equal</option>
+                            <option value="GREATER_THAN" data-locale="GreaterThan">Greater than</option>
+                            <option value="GREATER_OR_EQUAL" data-locale="GreaterOrEqual">Greater or equal</option>
+                            <option value="SMALLER_THAN" data-locale="SmallerThan">Smaller than</option>
+                            <option value="SMALLER_OR_EQUAL" data-locale="SmallerOrEqual">Smaller or equal</option>
+                            <option value="BETWEEN" data-locale="Between">Between</option>
                         </select>
                     </span>
                     <input id="${this.id}_start" class="form-control" type="number"/>
-                    <span id="${this.id}_betweenLabel" class="input-group-text">and</span>
+                    <span id="${this.id}_betweenLabel" class="input-group-text" data-locale="And">and</span>
                     <input id="${this.id}_end" class="form-control" type="number"/>                    
                 </div>
             </div>`;
@@ -4163,11 +4189,22 @@ class SelectCriteria extends CriteriaControl {
 
     initializeJS() {
 
+        var thisObject = this;
+
         if (!Array.isArray(this.reportCriteria.options)) {
             if (this.reportCriteria.options.source = 'ajax' && this.reportCriteria.options.url) {
                 this.reportCriteria.parameters.ajax = {
                     url: this.reportCriteria.options.url,
-                    dataType: 'json'
+                    dataType: 'json',
+                    data: function (params) {
+                        var data = {};
+                        for (var x in params) {
+                            data[x] = params[x];
+                        }
+                        data['locale'] = thisObject.app.modules.Locale.getCurrentLocale();
+                        return data;
+                    }
+
                 };
             }
         }
@@ -5615,6 +5652,92 @@ class ImportModule extends Module {
 }
 window.__Metadocx.ImportModule = ImportModule;
 /**
+ * Locale module class
+ * 
+ * @author Benoit Gauthier <bgauthier@metadocx.com>
+ * @copyright Benoit Gauthier <bgauthier@metadocx.com>
+ * @license https://github.com/metadocx/reporting/LICENSE.md
+ */
+class LocaleModule extends Module {
+
+    constructor(app) {
+        super(app);
+        this.bootPriority = 100;
+        this.isConsoleDisabled = false;
+        this.currentLocale = 'en';
+        this.locales = window.__Metadocx.Locales;
+    }
+
+    initialize() {
+        super.initialize();
+    }
+
+    addLocale(locale, keys) {
+
+        if (this.locales[locale] == undefined) {
+            this.locales[locale] = {};
+        }
+
+        for (var k in keys) {
+            this.locales[locale][k] = keys[k];
+        }
+
+    }
+
+    setLocale(locale) {
+        if (this.currentLocale != locale) {
+            this.currentLocale = locale;
+            moment.locale(this.currentLocale);
+            this.translate();
+        }
+    }
+
+    getKey(key) {
+        var text = this.locales[this.currentLocale][key];
+        if (text == undefined || text == null) {
+            text = key;
+        }
+        return text;
+    }
+
+    getCurrentLocale() {
+        return this.currentLocale;
+    }
+
+    getLocales() {
+        var locales = [];
+        for (var x in this.locales) {
+            locales.push(x);
+        }
+        return locales;
+    }
+
+    translate() {
+
+        var thisObject = this;
+        $('[data-locale]').each(function () {
+            if ($(this).is('input') || $(this).is('textarea')) {
+                $(this).attr('placeholder', thisObject.getKey($(this).data('locale')));
+            } else {
+                $(this).html(thisObject.getKey($(this).data('locale')));
+            }
+        });
+
+    }
+
+    getLocaleMenuOptions() {
+        var locales = this.getLocales();
+        var s = '';
+        for (var x in locales) {
+            s += `<a id="${this.app.viewer.options.id}_locale_${locales[x]}" class="dropdown-item" href="#" onClick="Metadocx.modules.Locale.setLocale('${locales[x]}');" data-locale="${locales[x]}">${locales[x]}</a>`;
+        }
+        return s;
+    }
+
+
+}
+window.__Metadocx.LocaleModule = LocaleModule;
+/**
  * PDF module class
  * 
  * @author Benoit Gauthier <bgauthier@metadocx.com>
@@ -6640,6 +6763,114 @@ class WordModule extends Module {
 
 }
 window.__Metadocx.WordModule = WordModule;
+window.__Metadocx.Locales.en = {
+    "en": "English",
+    "fr": "French",
+    "Options": "Options",
+    "Orientation": "Orientation",
+    "Margins": "Margins",
+    "Top": "Top",
+    "Bottom": "Bottom",
+    "Left": "Left",
+    "Right": "Right",
+    "Inches": "in.",
+    "Cancel": "Cancel",
+    "ApplyOptions": "Apply Options",
+    "PaperSize": "Paper Size",
+    "Portrait": "Portrait",
+    "Landscape": "Landscape",
+    "Reset": "Reset",
+    "MissingReportDefinition": "Missing report definition",
+    "OupsNoReport": "Oups! Something went wrong. We did not get a report to load.",
+    "Criterias": "Criterias",
+    "ReportSettings": "Report Settings",
+    "Letter": "Letter",
+    "Legal": "Legal",
+    "Custom": "Custom",
+    "PoweredBy": "powered by",
+    "Yes": "Yes",
+    "No": "No",
+    "Equal": "Equal",
+    "NotEqual": "Not equal",
+    "GreaterThan": "Greater than",
+    "GreaterOrEqual": "Greater or equal",
+    "SmallerThan": "Smaller than",
+    "SmallerOrEqual": "Smaller or equal",
+    "Between": "Between",
+    "ApplyCriterias": "Apply Criterias",
+    "And": "and",
+    "Name": "Name",
+    "ReportName": "Report Name",
+    "ReportDescription": "Report Description",
+    "Description": "Description",
+    "ApplySettings": "Apply Settings",
+    "Fields": "Fields",
+    "Order": "Order",
+    "Groups": "Groups",
+    "ReportProperties": "Report Properties",
+    "None": "(None)",
+    "Sum": "Sum",
+    "Average": "Average",
+    "MinValue": "Min Value",
+    "MaxValue": "Max Value",
+    "Count": "Count",
+    "Ascending": "Ascending",
+    "Descending": "Descending",
+};
+window.__Metadocx.Locales.fr = {
+    "en": "Anglais",
+    "fr": "Français",
+    "Options": "Options",
+    "Orientation": "Orientation",
+    "Margins": "Marges",
+    "Top": "Haut",
+    "Bottom": "Bas",
+    "Left": "Gauche",
+    "Right": "Droite",
+    "Inches": "pce",
+    "Cancel": "Annuler",
+    "ApplyOptions": "Appliquer options",
+    "PaperSize": "Type de papier",
+    "Portrait": "Portrait",
+    "Landscape": "Paysage",
+    "Reset": "Réinitialiser",
+    "MissingReportDefinition": "Définition de rapport manquante",
+    "OupsNoReport": "Oups ! Quelque chose s'est mal passé. Nous n'avons pas reçu de rapport à charger.",
+    "Criterias": "Critères",
+    "ReportSettings": "Paramètres du rapport",
+    "Letter": "Lettre",
+    "Legal": "Légal",
+    "Custom": "Personnalisé",
+    "PoweredBy": "propulsé par",
+    "Yes": "Oui",
+    "No": "Non",
+    "Equal": "Égale",
+    "NotEqual": "Différent",
+    "GreaterThan": "Plus grand que",
+    "GreaterOrEqual": "Plus grand ou égale",
+    "SmallerThan": "Plus petit que",
+    "SmallerOrEqual": "Plus petit ou égale",
+    "Between": "Entre",
+    "ApplyCriterias": "Appliquer les critères",
+    "And": "et",
+    "Name": "Nom",
+    "ReportName": "Nom du rapport",
+    "ReportDescription": "Description du rapport",
+    "Description": "Description",
+    "ApplySettings": "Appliquer les paramètres",
+    "Fields": "Champs",
+    "Order": "Ordre de tri",
+    "Groups": "Groupements",
+    "ReportProperties": "Propriétés du rapport",
+    "None": "(Aucun)",
+    "Sum": "Somme",
+    "Average": "Moyenne",
+    "MinValue": "Valeur minimum",
+    "MaxValue": "Valeur maximum",
+    "Count": "Quantité",
+    "Ascending": "Croissant",
+    "Descending": "Décroissant",
+};
 /**
  * Metadocx reporting application bootstrap
  * This will create the global Metadocx object and check for jQuery
