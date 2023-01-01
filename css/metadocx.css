@@ -86,7 +86,6 @@
    font-weight:bold;
 }
 
-/**
-* Print media
-*/
-
+.print-only {
+   display: none;
+ }
