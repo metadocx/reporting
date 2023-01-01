@@ -127,11 +127,9 @@
    font-weight:bold;
 }
 
-/**
-* Print media
-*/
-
-
+.print-only {
+   display: none;
+ }
 /**
  * Metadocx
  * 
@@ -150,6 +148,10 @@
     
     .no-print {
        display: none;
+    }
+
+    .print-only {
+      display: inline;
     }
  
     .report-viewer-canvas {
