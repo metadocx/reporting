@@ -390,6 +390,9 @@ class PDFModule extends Module {
             message: '<p><i class="fas fa-spin fa-spinner"></i> Exporting report to PDF...</p>'
         });
 
+        $('.report-graph-canvas').hide();
+        $('.report-graph-image').show();
+
         /**
          * Call export service
          */
@@ -420,6 +423,9 @@ class PDFModule extends Module {
                 thisObject.hideExportDialog();
                 thisObject.app.modules.Printing.applyPageStyles();
 
+                $('.report-graph-canvas').show();
+                $('.report-graph-image').hide();
+
             }
         });
     }
@@ -433,15 +439,8 @@ class PDFModule extends Module {
             closeButton: false
         });
 
-        //$('#reportPage').css('max-width', '');
-        //$('#reportPage').css('width', '');
-        //$('#reportPage').css('min-height', '');
-
-        //$('#reportPage').css('padding-top', '');
-        //$('#reportPage').css('padding-bottom', '');
-        //$('#reportPage').css('padding-left', '');
-        //$('#reportPage').css('padding-right', '');
-        //$('#reportPage').css('margin-right', '1px');
+        $('.report-graph-canvas').hide();
+        $('.report-graph-image').show();
 
         $.ajax({
             type: 'post',
@@ -476,7 +475,8 @@ class PDFModule extends Module {
                 }
 
                 thisObject.app.modules.Printing.applyPageStyles();
-                //$('#reportPage').css('margin-right', 'auto');
+                $('.report-graph-canvas').show();
+                $('.report-graph-image').hide();
 
                 loadingDialog.modal('hide');
 
