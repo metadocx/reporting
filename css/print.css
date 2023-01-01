@@ -17,6 +17,10 @@
     .no-print {
        display: none;
     }
+
+    .print-only {
+      display: inline;
+    }
  
     .report-viewer-canvas {
        overflow:visible;

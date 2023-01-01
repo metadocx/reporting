@@ -333,6 +333,377 @@ class CriteriaControl {
 }
 
 /** 
+ * DataFilter filters data using criteria values
+ * 
+ * @author Benoit Gauthier <bgauthier@metadocx.com>
+ * @copyright Benoit Gauthier. 
+ * @license https://github.com/metadocx/reporting/LICENSE.md
+ */
+class DataFilter {
+
+    constructor(app) {
+        this.app = app;
+        /**
+         * Model, column definition
+         */
+        this.model = [];
+        /**
+         * Data to display
+         */
+        this.data = [];
+        /**
+         * Order by settings
+         */
+        this.orderBy = [];
+        /**
+         * Group by settings
+         */
+        this.groupBy = [];
+        /**
+         * Report criterias
+         */
+        this.criterias = [];
+        /**
+         * Report criteria values
+         */
+        this.criteriaValues = null;
+
+        this.reportSection = null;
+    }
+
+    /**
+     * Sets report section to filter
+     * @param {*} oReportSection 
+     */
+    setReportSection(oReportSection) {
+        this.reportSection = oReportSection;
+        this.data = this.reportSection.data;
+        this.model = this.reportSection.model;
+        this.orderBy = this.reportSection.orderBy;
+        this.groupBy = this.reportSection.groupBy;
+        this.criterias = this.getApplicableReportCriterias();
+        this.criteriaValues = this.app.viewer.getCriteriaValues();
+    }
+
+    getApplicableReportCriterias() {
+        var applicableCriterias = [];
+        var criterias = this.app.viewer.report.getReportDefinition().criterias;
+        for (var x in criterias) {
+            var criteria = criterias[x];
+            for (var y in criteria.applyTo) {
+                if (criteria.applyTo[y].section == this.reportSection.id) {
+                    applicableCriterias.push(criteria);
+                }
+            }
+        }
+
+        return applicableCriterias;
+    }
+
+    /**
+     * Filter report section data
+     */
+    process() {
+
+        /**
+         * Make all rows visible
+         */
+        for (var x in this.data) {
+            this.data[x]['__visible'] = true;
+        }
+
+        var aCriterias = this.criterias;
+        for (var x in aCriterias) {
+
+            /**
+             * Check if criterias is enabled
+             */
+            var criteriaValue = this.app.viewer.getCriteriaValue(aCriterias[x].id);
+            if (criteriaValue && criteriaValue.enabled === false) {
+                continue;
+            }
+
+            for (var r in this.data) {
+                for (var a in aCriterias[x].applyTo) {
+
+                    if (this.hasColumn(aCriterias[x].applyTo[a].field)) {
+
+                        switch (aCriterias[x].type) {
+                            case 'DatePeriodCriteria':
+                                if (this.data[r][aCriterias[x].applyTo[a].field] != criteriaValue.value) {
+                                    this.data[r]['__visible'] = false;
+                                }
+                                break;
+                            case 'SelectCriteria':
+                                var selectedItems = criteriaValue.value;
+                                var bFound = false;
+                                for (var v in selectedItems) {
+                                    if (this.data[r][aCriterias[x].applyTo[a].field] == selectedItems[v].text) {
+                                        bFound = true;
+                                    }
+                                }
+                                if (!bFound) {
+                                    this.data[r]['__visible'] = false;
+                                }
+                                break;
+                            case 'BooleanCriteria':
+                                if (criteriaValue.value !== 'ALL') {
+                                    if (this.app.modules.DataType.toBool(this.data[r][aCriterias[x].applyTo[a].field]) != this.app.modules.DataType.toBool(criteriaValue.value)) {
+                                        this.data[r]['__visible'] = false;
+                                    }
+                                }
+
+                                break;
+                            case 'NumericCriteria':
+
+                                switch (criteriaValue.value.operator) {
+                                    case 'EQUAL':
+                                        if (this.data[r][aCriterias[x].applyTo[a].field] != criteriaValue.value.startValue) {
+                                            this.data[r]['__visible'] = false;
+                                        }
+                                        break;
+                                    case 'NOT_EQUAL':
+                                        if (this.data[r][aCriterias[x].applyTo[a].field] == criteriaValue.value.startValue) {
+                                            this.data[r]['__visible'] = false;
+                                        }
+                                        break;
+                                    case 'GREATER_THAN':
+                                        if (this.data[r][aCriterias[x].applyTo[a].field] <= criteriaValue.value.startValue) {
+                                            this.data[r]['__visible'] = false;
+                                        }
+                                        break;
+                                    case 'GREATER_OR_EQUAL':
+                                        if (this.data[r][aCriterias[x].applyTo[a].field] < criteriaValue.value.startValue) {
+                                            this.data[r]['__visible'] = false;
+                                        }
+                                        break;
+                                    case 'SMALLER_THAN':
+                                        if (this.data[r][aCriterias[x].applyTo[a].field] >= criteriaValue.value.startValue) {
+                                            this.data[r]['__visible'] = false;
+                                        }
+                                        break;
+                                    case 'SMALLER_OR_EQUAL':
+                                        if (this.data[r][aCriterias[x].applyTo[a].field] > criteriaValue.value.startValue) {
+                                            this.data[r]['__visible'] = false;
+                                        }
+                                        break;
+                                    case 'BETWEEN':
+                                        if (this.data[r][aCriterias[x].applyTo[a].field] < criteriaValue.value.startValue &&
+                                            this.data[r][aCriterias[x].applyTo[a].field] > criteriaValue.value.endValue) {
+                                            this.data[r]['__visible'] = false;
+                                        }
+                                        break;
+                                }
+
+
+                                break;
+                            case 'CheckboxCriteria':
+                                if (criteriaValue.value.indexOf(this.data[r][aCriterias[x].applyTo[a].field]) === -1) {
+                                    this.data[r]['__visible'] = false;
+                                }
+                                break;
+                        }
+
+                    }
+
+                }
+
+
+
+            }
+
+        }
+
+    }
+
+    /**
+     * Checks if model has a column
+     * @param {*} name 
+     * @returns boolean
+     */
+    hasColumn(name) {
+        for (var x in this.model) {
+            if (this.model[x].name == name) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+}
+/** 
+ * DataSorter sorts data 
+ * 
+ * @author Benoit Gauthier <bgauthier@metadocx.com>
+ * @copyright Benoit Gauthier. 
+ * @license https://github.com/metadocx/reporting/LICENSE.md
+ */
+class DataSorter {
+
+    constructor(app) {
+        this.app = app;
+        /**
+         * Model, column definition
+         */
+        this.model = [];
+        /**
+         * Data to display
+         */
+        this.data = [];
+        /**
+         * Order by settings
+         */
+        this.orderBy = [];
+        /**
+         * Group by settings
+         */
+        this.groupBy = [];
+        /**
+         * Report criterias
+         */
+        this.criterias = [];
+        /**
+         * Report criteria values
+         */
+        this.criteriaValues = null;
+
+        this.reportSection = null;
+    }
+
+    /**
+     * Sets report section to sort
+     * @param {*} oReportSection 
+     */
+    setReportSection(oReportSection) {
+        this.reportSection = oReportSection;
+        this.data = this.reportSection.data;
+        this.model = this.reportSection.model;
+        this.orderBy = this.reportSection.orderBy;
+        this.groupBy = this.reportSection.groupBy;
+        this.criterias = this.getApplicableReportCriterias();
+        this.criteriaValues = this.app.viewer.getCriteriaValues();
+    }
+
+    getApplicableReportCriterias() {
+        var applicableCriterias = [];
+        var criterias = this.app.viewer.report.getReportDefinition().criterias;
+        for (var x in criterias) {
+            var criteria = criterias[x];
+            for (var y in criteria.applyTo) {
+                if (criteria.applyTo[y].section == this.reportSection.id) {
+                    applicableCriterias.push(criteria);
+                }
+            }
+        }
+
+        return applicableCriterias;
+    }
+
+    /**
+     * Sorts report data based on orderBy criterias of report section
+     * @param {*} report 
+     * @param {*} reportSection 
+     */
+    process() {
+
+        if (!this.data) {
+            return;
+        }
+
+        this.data.sort((a, b) => {
+
+            for (var x in this.groupBy) {
+
+                var column = this.getColumn(this.groupBy[x].name)
+                var aValue = a[this.groupBy[x].name];
+                var bValue = b[this.groupBy[x].name];
+
+                switch (column.type) {
+                    case 'number':
+                        aValue = parseFloat(aValue);
+                        bValue = parseFloat(bValue);
+                        break;
+                    case 'date':
+                        aValue = moment(aValue).format('YYYY-MM-DD');
+                        bValue = moment(bValue).format('YYYY-MM-DD');
+                        break;
+                }
+
+                if (this.groupBy[x].order.toString().toLowerCase().trim() == 'desc') {
+                    if (aValue > bValue) {
+                        return -1;
+                    }
+                    if (aValue < bValue) {
+                        return 1;
+                    }
+                } else {
+                    if (aValue < bValue) {
+                        return -1;
+                    }
+                    if (aValue > bValue) {
+                        return 1;
+                    }
+                }
+            }
+
+            for (var x in this.orderBy) {
+
+                var column = this.getColumn(this.orderBy[x].name)
+                var aValue = a[this.orderBy[x].name];
+                var bValue = b[this.orderBy[x].name];
+
+                switch (column.type) {
+                    case 'number':
+                        aValue = parseFloat(aValue);
+                        bValue = parseFloat(bValue);
+                        break;
+                    case 'date':
+                        aValue = moment(aValue).format('YYYY-MM-DD');
+                        bValue = moment(bValue).format('YYYY-MM-DD');
+                        break;
+                }
+
+                if (this.orderBy[x].order.toString().toLowerCase().trim() == 'desc') {
+                    if (aValue > bValue) {
+                        return -1;
+                    }
+                    if (aValue < bValue) {
+                        return 1;
+                    }
+                } else {
+                    if (aValue < bValue) {
+                        return -1;
+                    }
+                    if (aValue > bValue) {
+                        return 1;
+                    }
+                }
+            }
+
+            return 0;
+
+        });
+
+
+
+    }
+
+    /**
+     * Returns a column from the model based on it's name
+     * @param {*} name 
+     * @returns object
+     */
+    getColumn(name) {
+        for (var x in this.model) {
+            if (this.model[x].name == name) {
+                return this.model[x];
+            }
+        }
+        return null;
+    }
+
+}
+/** 
  * DataTable renders a report section table
  * 
  * @author Benoit Gauthier <bgauthier@metadocx.com>
@@ -522,8 +893,7 @@ class DataTable {
          * DATA ROWS
          */
         s += '<tbody>';
-        this.filter();
-        this.sort();
+
         var previousRow = null;
         for (var x in this.data) {
             var row = this.data[x];
@@ -896,212 +1266,6 @@ class DataTable {
             if (this.groupCounters[x]) { nCount++; }
         }
         return nCount;
-    }
-
-    /**
-     * Filter model data using criteria values
-     */
-    filter() {
-
-        /**
-         * Make all rows visible
-         */
-        for (var x in this.data) {
-            this.data[x]['__visible'] = true;
-        }
-
-        var aCriterias = this.criterias;
-        for (var x in aCriterias) {
-
-            /**
-             * Check if criterias is enabled
-             */
-            if (!$('#criteriaEnabled_' + aCriterias[x].id).prop('checked')) {
-                continue;
-            }
-
-
-
-            for (var r in this.data) {
-                for (var a in aCriterias[x].applyTo) {
-
-                    if (this.hasColumn(aCriterias[x].applyTo[a].field)) {
-
-                        var criteriaValue = this.app.viewer.getCriteriaValue(aCriterias[x].id);
-
-                        switch (aCriterias[x].type) {
-                            case 'DatePeriodCriteria':
-                                if (this.data[r][aCriterias[x].applyTo[a].field] != criteriaValue.value) {
-                                    this.data[r]['__visible'] = false;
-                                }
-                                break;
-                            case 'SelectCriteria':
-                                var selectedItems = criteriaValue.value;
-                                var bFound = false;
-                                for (var v in selectedItems) {
-                                    if (this.data[r][aCriterias[x].applyTo[a].field] == selectedItems[v].text) {
-                                        bFound = true;
-                                    }
-                                }
-                                if (!bFound) {
-                                    this.data[r]['__visible'] = false;
-                                }
-                                break;
-                            case 'BooleanCriteria':
-                                if (criteriaValue.value !== 'ALL') {
-                                    if (this.app.modules.DataType.toBool(this.data[r][aCriterias[x].applyTo[a].field]) != this.app.modules.DataType.toBool(criteriaValue.value)) {
-                                        this.data[r]['__visible'] = false;
-                                    }
-                                }
-
-                                break;
-                            case 'NumericCriteria':
-
-                                switch (criteriaValue.value.operator) {
-                                    case 'EQUAL':
-                                        if (this.data[r][aCriterias[x].applyTo[a].field] != criteriaValue.value.startValue) {
-                                            this.data[r]['__visible'] = false;
-                                        }
-                                        break;
-                                    case 'NOT_EQUAL':
-                                        if (this.data[r][aCriterias[x].applyTo[a].field] == criteriaValue.value.startValue) {
-                                            this.data[r]['__visible'] = false;
-                                        }
-                                        break;
-                                    case 'GREATER_THAN':
-                                        if (this.data[r][aCriterias[x].applyTo[a].field] <= criteriaValue.value.startValue) {
-                                            this.data[r]['__visible'] = false;
-                                        }
-                                        break;
-                                    case 'GREATER_OR_EQUAL':
-                                        if (this.data[r][aCriterias[x].applyTo[a].field] < criteriaValue.value.startValue) {
-                                            this.data[r]['__visible'] = false;
-                                        }
-                                        break;
-                                    case 'SMALLER_THAN':
-                                        if (this.data[r][aCriterias[x].applyTo[a].field] >= criteriaValue.value.startValue) {
-                                            this.data[r]['__visible'] = false;
-                                        }
-                                        break;
-                                    case 'SMALLER_OR_EQUAL':
-                                        if (this.data[r][aCriterias[x].applyTo[a].field] > criteriaValue.value.startValue) {
-                                            this.data[r]['__visible'] = false;
-                                        }
-                                        break;
-                                    case 'BETWEEN':
-                                        if (this.data[r][aCriterias[x].applyTo[a].field] < criteriaValue.value.startValue &&
-                                            this.data[r][aCriterias[x].applyTo[a].field] > criteriaValue.value.endValue) {
-                                            this.data[r]['__visible'] = false;
-                                        }
-                                        break;
-                                }
-
-
-                                break;
-                            case 'CheckboxCriteria':
-                                if (criteriaValue.value.indexOf(this.data[r][aCriterias[x].applyTo[a].field]) === -1) {
-                                    this.data[r]['__visible'] = false;
-                                }
-                                break;
-                        }
-
-                    }
-
-                }
-
-
-
-            }
-
-        }
-
-    }
-
-
-    /**
-     * Sorts report data based on orderBy criterias of report section
-     * @param {*} report 
-     * @param {*} reportSection 
-     */
-    sort() {
-
-
-        this.data.sort((a, b) => {
-
-            for (var x in this.groupBy) {
-
-                var column = this.getColumn(this.groupBy[x].name)
-                var aValue = a[this.groupBy[x].name];
-                var bValue = b[this.groupBy[x].name];
-
-                switch (column.type) {
-                    case 'number':
-                        aValue = parseFloat(aValue);
-                        bValue = parseFloat(bValue);
-                        break;
-                    case 'date':
-                        aValue = moment(aValue).format('YYYY-MM-DD');
-                        bValue = moment(bValue).format('YYYY-MM-DD');
-                        break;
-                }
-
-                if (this.groupBy[x].order.toString().toLowerCase().trim() == 'desc') {
-                    if (aValue > bValue) {
-                        return -1;
-                    }
-                    if (aValue < bValue) {
-                        return 1;
-                    }
-                } else {
-                    if (aValue < bValue) {
-                        return -1;
-                    }
-                    if (aValue > bValue) {
-                        return 1;
-                    }
-                }
-            }
-
-            for (var x in this.orderBy) {
-
-                var column = this.getColumn(this.orderBy[x].name)
-                var aValue = a[this.orderBy[x].name];
-                var bValue = b[this.orderBy[x].name];
-
-                switch (column.type) {
-                    case 'number':
-                        aValue = parseFloat(aValue);
-                        bValue = parseFloat(bValue);
-                        break;
-                    case 'date':
-                        aValue = moment(aValue).format('YYYY-MM-DD');
-                        bValue = moment(bValue).format('YYYY-MM-DD');
-                        break;
-                }
-
-                if (this.orderBy[x].order.toString().toLowerCase().trim() == 'desc') {
-                    if (aValue > bValue) {
-                        return -1;
-                    }
-                    if (aValue < bValue) {
-                        return 1;
-                    }
-                } else {
-                    if (aValue < bValue) {
-                        return -1;
-                    }
-                    if (aValue > bValue) {
-                        return 1;
-                    }
-                }
-            }
-
-            return 0;
-
-        });
-
-
-
     }
 
     /**
@@ -1634,6 +1798,216 @@ window.__Metadocx.DataTableReportSection = DataTableReportSection;
  * @copyright Benoit Gauthier <bgauthier@metadocx.com>
  * @license https://github.com/metadocx/reporting/LICENSE.md
  */
+class GraphReportSection extends ReportSection {
+
+    constructor(app, reportSection) {
+        super(app, reportSection);
+        this._graphInstance = null;
+        this._labels = [];
+    }
+
+    render() {
+        return `<div id="${this.reportSection.id}_reportSection" class="report-section-graph">                    
+                    <canvas id="${this.reportSection.id}_graphCanvas" class="no-print report-graph-canvas"></canvas>
+                    <img id="${this.reportSection.id}_graphImage" class="print-only report-graph-image" style="width:100%;"/>                    
+                </div>`;
+    }
+
+
+
+    buildGraphDataSets() {
+
+        var dataSets = [];
+        this._labels = [];
+
+        for (var x in this.reportSection.datasets) {
+
+            var ds = this.reportSection.datasets[x];
+
+            if (ds.source = 'section') {
+
+                var data = {};
+
+                var oSection = this.app.viewer.report.getReportSection(ds.section);
+                for (var d in oSection.data) {
+                    var row = oSection.data[d];
+                    if (!row['__visible']) {
+                        continue;
+                    }
+                    if (data[row[ds.label]] == undefined) {
+
+                        data[row[ds.label]] = {
+                            label: row[ds.label],
+                            min: parseFloat(row[ds.field]),
+                            max: parseFloat(row[ds.field]),
+                            data: parseFloat(row[ds.field]),
+                            count: 1
+                        }
+                    } else {
+                        if (data[row[ds.label]].min > parseFloat(row[ds.field])) {
+                            data[row[ds.label]].min = parseFloat(row[ds.field]);
+                        }
+                        if (data[row[ds.label]].max < parseFloat(row[ds.field])) {
+                            data[row[ds.label]].max = parseFloat(row[ds.field]);
+                        }
+                        data[row[ds.label]].data += parseFloat(row[ds.field]);
+                        data[row[ds.label]].count++;
+                    }
+
+                    if (this._labels.indexOf(row[ds.label]) === -1) {
+                        this._labels.push(row[ds.label]);
+                    }
+
+                }
+
+                var dataArray = [];
+                for (var x in data) {
+
+                    /**
+                     * Apply formula on data value
+                     */
+                    switch (ds.formula) {
+                        case 'SUM':
+                            // Nothing to do sum by default
+                            break;
+                        case 'AVG':
+                            if (parseFloat(data[x].count) != 0) {
+                                data[x].data = parseFloat(data[x].data) / parseFloat(data[x].count);
+                            } else {
+                                data[x].data = 0;
+                            }
+                            break;
+                        case 'MIN':
+                            data[x].data = data[x].min;
+                            break;
+                        case 'MAX':
+                            data[x].data = data[x].max;
+                            break;
+                        case 'COUNT':
+                            data[x].data = data[x].count;
+                            break;
+                    }
+
+                    dataArray.push(data[x]);
+                }
+
+                var oDS = {
+                    label: this.getModelLabel(ds.field, oSection.model) + this.getDataSetFormula(ds.formula),
+                    data: dataArray.map(row => row.data)
+                };
+
+                /**
+                 * Copy additional dataset options (see Chart.js doc)
+                 */
+                if (ds.options) {
+                    for (var kOption in ds.options) {
+                        oDS[kOption] = ds.options[kOption];
+                    }
+                }
+
+                dataSets.push(oDS);
+
+            }
+
+
+
+        }
+
+        return dataSets;
+
+    }
+
+    getDataSetFormula(formula) {
+        if (formula == undefined || formula == '') {
+            return '';
+        }
+        switch (formula) {
+            case 'SUM':
+                return '';
+            case 'AVG':
+                return ' (avg)';
+            case 'MIN':
+                return ' (min)';
+            case 'MAX':
+                return ' (max)';
+            case 'COUNT':
+                return ' (count)';
+        }
+
+        return '';
+    }
+
+    getModelLabel(field, model) {
+        for (var x in model) {
+            if (model[x].name == field) {
+                return model[x].label;
+            }
+        }
+        return field;
+    }
+
+    buildGraphLabels(datasets) {
+
+        return this._labels;
+
+    }
+
+    initialiseJS() {
+
+        if (this.reportSection.css) {
+            for (var x in this.reportSection.css) {
+                $('#' + this.reportSection.id + '_reportSection').css(x, this.reportSection.css[x]);
+            }
+        }
+
+
+        /**
+         * Render Chart
+         */
+        const datasets = this.buildGraphDataSets();
+        const labels = this.buildGraphLabels(datasets);
+
+        var options = {};
+        if (this.reportSection.options != undefined) {
+            options = this.reportSection.options;
+        }
+
+        var plugins = [];
+
+        plugins.push({
+            afterRender: () => {
+                var graphCanvas = document.getElementById(this.reportSection.id + '_graphCanvas');
+                var graphImage = document.getElementById(this.reportSection.id + '_graphImage');
+                graphImage.src = graphCanvas.toDataURL();
+                //$('#' + this.reportSection.id + '_graphCanvas').hide();
+            },
+        });
+
+        this._graphInstance = new Chart(
+            document.getElementById(this.reportSection.id + '_graphCanvas'),
+            {
+                type: this.reportSection.chartType,
+                options: options,
+                plugins: plugins,
+                data: {
+                    labels: labels,
+                    datasets: datasets
+                }
+            }
+        );
+
+        this._graphInstance.resize();
+    }
+
+}
+window.__Metadocx.GraphReportSection = GraphReportSection;
+/** 
+ * DataTable Report section
+ * 
+ * @author Benoit Gauthier <bgauthier@metadocx.com>
+ * @copyright Benoit Gauthier <bgauthier@metadocx.com>
+ * @license https://github.com/metadocx/reporting/LICENSE.md
+ */
 class HTMLReportSection extends ReportSection {
 
     constructor(app, reportSection) {
@@ -1862,168 +2236,17 @@ class Report {
             var sReportSectionType = this.getReportDefinition().sections[kSection].type + 'ReportSection';
             var oReportSection = new window.__Metadocx[sReportSectionType](this.app, this.getReportDefinition().sections[kSection]);
 
-            if (oSection.type == 'HTML') {
-                continue;
+            switch (oSection.type) {
+                case 'HTML':
+                    s += this.renderReportSettingsHTML(oSection, oReportSection);
+                    break;
+                case 'Chart':
+                    s += this.renderReportSettingsChart(oSection, oReportSection);
+                    break;
+                case 'DataTable':
+                    s += this.renderReportSettingsDataTable(oSection, oReportSection);
+                    break;
             }
-
-            var sFields = '<table id="' + oSection.id + '_fields" class="table table-condensed report-sortable">';
-            sFields += '<tbody>';
-            for (var x in oSection.model) {
-
-                var sFieldSelected = ' checked';
-                if (!oReportSection.isColumnVisible(oSection.model[x].name)) {
-                    sFieldSelected = '';
-                }
-
-                sFields += `<tr data-section="${oSection.id}" data-column="${oSection.model[x].name}">
-                    <td style="width:30px;text-align:center;"><i class="uil uil-sort fs16"></i></td>
-                    <td style="width:30px;text-align:center;"><input id="${oSection.id}_field_${oSection.model[x].name}" type="checkbox"${sFieldSelected}/></td>
-                    <td id="${oSection.id}_label_${oSection.model[x].name}">${oSection.model[x].label}</td>
-                    <td style="width:150px;">
-                        <select id="${oSection.id}_formula_${oSection.model[x].name}" class="form-control form-control-sm" style="width:100%;">
-                            <option value=""${(oSection.model[x].formula == '' ? ' selected' : '')}>(None)</option>
-                            <option value="SUM"${(oSection.model[x].formula == 'SUM' ? ' selected' : '')}>Sum</option>
-                            <option value="AVG"${(oSection.model[x].formula == 'AVG' ? ' selected' : '')}>Average</option>
-                            <option value="MIN"${(oSection.model[x].formula == 'MIN' ? ' selected' : '')}>Min Value</option>
-                            <option value="MAX"${(oSection.model[x].formula == 'MAX' ? ' selected' : '')}>Max Value</option>
-                            <option value="COUNT"${(oSection.model[x].formula == 'COUNT' ? ' selected' : '')}>Count</option>
-                        </select>
-                    </td>
-                    <td style="width:30px;">
-                        <button class="btn btn-sm" onClick="Metadocx.viewer.showFieldPropertiesDialog('${oSection.id}', '${oSection.model[x].name}');"><i class="uil uil-ellipsis-h fs20"></i></button>
-                    </td>
-                </tr>`;
-            }
-            sFields += '</tbody>';
-            sFields += '</table>';
-
-            /**
-             * ORDER BY 
-             */
-            var sOrderBy = '<table id="' + oSection.id + '_orderBy" class="table table-condensed report-sortable">';
-            sOrderBy += '<tbody>';
-            for (var x in oSection.model) {
-
-
-                var oOrderBy = oReportSection.getOrderBy(oSection.model[x].name);
-
-                var sAscSelected = '';
-                var sDescSelected = '';
-                var sOrderBySelected = '';
-                if (oOrderBy != null) {
-                    if (oOrderBy.order == 'desc') {
-                        sAscSelected = '';
-                        sDescSelected = ' selected';
-                    } else {
-                        sAscSelected = ' selected';
-                        sDescSelected = '';
-                    }
-                    sOrderBySelected = ' checked';
-                }
-
-                sOrderBy += `<tr id="${oSection.id}_orderByRow_${oSection.model[x].name}" data-section="${oSection.id}" data-column="${oSection.model[x].name}">
-                                <td style="width:30px;text-align:center;"><i class="uil uil-sort fs16"></i></td>
-                                <td style="width:30px;text-align:center;"><input id="${oSection.id}_orderBy_${oSection.model[x].name}" type="checkbox"${sOrderBySelected}/></td>
-                                <td>${oSection.model[x].label}</td>
-                                <td style="width:150px;">
-                                    <select id="${oSection.id}_orderByOrder_${oSection.model[x].name}" class="form-control form-control-sm" style="width:100%;">
-                                        <option value="asc"${sAscSelected}>Ascending</option>
-                                        <option value="desc"${sDescSelected}>Descending</option>                                    
-                                    </select>
-                                </td>
-                            </tr>`;
-            }
-            sOrderBy += '</tbody>';
-            sOrderBy += '</table>';
-
-            /**
-             * GROUP BY 
-             */
-            var sGroupBy = '<table id="' + oSection.id + '_groupBy" class="table table-condensed report-sortable">';
-            sGroupBy += '<tbody>';
-            for (var x in oSection.model) {
-
-                var oGroupBy = oReportSection.getGroupBy(oSection.model[x].name);
-
-                var sAscSelected = '';
-                var sDescSelected = '';
-                var sGroupBySelected = '';
-                if (oGroupBy !== null) {
-                    if (oGroupBy.order == 'desc') {
-                        sAscSelected = '';
-                        sDescSelected = ' selected';
-                    } else {
-                        sAscSelected = ' selected';
-                        sDescSelected = '';
-                    }
-                    sGroupBySelected = ' checked';
-                }
-
-                sGroupBy += `<tr id="${oSection.id}_groupByRow_${oSection.model[x].name}" data-section="${oSection.id}" data-column="${oSection.model[x].name}">
-                                <td style="width:30px;text-align:center;"><i class="uil uil-sort fs16"></i></td>
-                                <td style="width:30px;text-align:center;"><input id="${oSection.id}_groupBy_${oSection.model[x].name}" type="checkbox"${sGroupBySelected}/></td>
-                                <td>${oSection.model[x].label}</td>
-                                <td style="width:150px;">
-                                <select id="${oSection.id}_groupByOrder_${oSection.model[x].name}" class="form-control form-control-sm" style="width:100%;">
-                                    <option value="asc"${sAscSelected}>Ascending</option>
-                                    <option value="desc"${sDescSelected}>Descending</option>                                    
-                                </select></td>
-                            </tr>`;
-            }
-            sGroupBy += '</tbody>';
-            sGroupBy += '</table>';
-
-            /**
-             * Main section card
-             */
-            s += `<div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title mb-0">${oSection.properties.name}</h4>
-                            </div>
-                            <div class="card-body">              
-                                <div class="accordion accordion-flush" id="reportSettingsAccordion${oSection.properties.name}">
-                                    <div class="accordion-item">
-                                        <h2 id="settingsFieldsHeader_${oSection.properties.name}" class="accordion-header">
-                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#settingsFieldsBody_${oSection.properties.name}" aria-expanded="false" aria-controls="flush-collapseOne">                                                                        
-                                                <i class="uil uil-columns fs20"></i>&nbsp;Fields
-                                            </button>
-                                        </h2>
-                                        <div id="settingsFieldsBody_${oSection.properties.name}" class="accordion-collapse collapse" aria-labelledby="reportSettingsAccordion${oSection.properties.name}">
-                                            <div class="accordion-body">                                    
-                                                ${sFields}
-                                            </div>
-                                        </div>
-                                    </div>   
-                                    
-                                    <div class="accordion-item">
-                                        <h2 id="settingsOrderByHeader_${oSection.properties.name}" class="accordion-header">
-                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#settingsOrderByBody_${oSection.properties.name}" aria-expanded="false" aria-controls="flush-collapseOne">                                                                        
-                                                <i class="uil uil-sort-amount-down fs20"></i>&nbsp;Order
-                                            </button>
-                                        </h2>
-                                        <div id="settingsOrderByBody_${oSection.properties.name}" class="accordion-collapse collapse" aria-labelledby="reportSettingsAccordion${oSection.properties.name}">
-                                            <div class="accordion-body">                                    
-                                                ${sOrderBy}
-                                            </div>
-                                        </div>
-                                    </div>   
-
-                                    <div class="accordion-item">
-                                        <h2 id="settingsGroupByHeader_${oSection.properties.name}" class="accordion-header">
-                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#settingsGroupByBody_${oSection.properties.name}" aria-expanded="false" aria-controls="flush-collapseOne">                                                                        
-                                                <i class="uil uil-layer-group fs20"></i>&nbsp;Groups
-                                            </button>
-                                        </h2>
-                                        <div id="settingsGroupByBody_${oSection.properties.name}" class="accordion-collapse collapse" aria-labelledby="reportSettingsAccordion${oSection.properties.name}">
-                                            <div class="accordion-body">                                    
-                                                ${sGroupBy}                             
-                                            </div>
-                                        </div>
-                                    </div>   
-                                </div>                                                                                                             
-                            </div>
-                        </div>`;
-
 
         }
 
@@ -2032,9 +2255,214 @@ class Report {
             <button class="btn btn-secondary mr5" onClick="Metadocx.viewer.cancelSettings();">Cancel</button>
             <button class="btn btn-primary" onClick="Metadocx.viewer.applySettings();"><i class="uil uil-check fs16" style="color:#fff;"></i>&nbsp;Apply Settings</button>
         </div>
-       `;
+        `;
 
         $('#' + this.id + '_reportSettingsZone').html(s);
+
+        /**
+         * Once html is inserted in report viewer call post render
+         */
+        for (var kSection in this.getReportDefinition().sections) {
+            var oSection = this.getReportDefinition().sections[kSection];
+            var sReportSectionType = this.getReportDefinition().sections[kSection].type + 'ReportSection';
+            var oReportSection = new window.__Metadocx[sReportSectionType](this.app, this.getReportDefinition().sections[kSection]);
+
+            switch (oSection.type) {
+                case 'HTML':
+                    this.postRenderReportSettingsHTML(oSection, oReportSection);
+                    break;
+                case 'Chart':
+                    this.postRenderReportSettingsChart(oSection, oReportSection);
+                    break;
+                case 'DataTable':
+                    this.postRenderSettingsDataTable(oSection, oReportSection);
+                    break;
+            }
+
+        }
+
+
+        this._reportSettingsRendered = true;
+
+    }
+
+
+
+    renderReportSettingsHTML(oSection, oReportSection) { return ''; }
+
+    postRenderReportSettingsHTML(oSection, oReportSection) { }
+
+    renderReportSettingsChart(oSection, oReportSection) { return ''; }
+
+    postRenderReportSettingsChart(oSection, oReportSection) { }
+
+    renderReportSettingsDataTable(oSection, oReportSection) {
+
+        var s = '';
+        var sFields = '<table id="' + oSection.id + '_fields" class="table table-condensed report-sortable">';
+        sFields += '<tbody>';
+        for (var x in oSection.model) {
+
+            var sFieldSelected = ' checked';
+            if (!oReportSection.isColumnVisible(oSection.model[x].name)) {
+                sFieldSelected = '';
+            }
+
+            sFields += `<tr data-section="${oSection.id}" data-column="${oSection.model[x].name}">
+                <td style="width:30px;text-align:center;"><i class="uil uil-sort fs16"></i></td>
+                <td style="width:30px;text-align:center;"><input id="${oSection.id}_field_${oSection.model[x].name}" type="checkbox"${sFieldSelected}/></td>
+                <td id="${oSection.id}_label_${oSection.model[x].name}">${oSection.model[x].label}</td>
+                <td style="width:150px;">
+                    <select id="${oSection.id}_formula_${oSection.model[x].name}" class="form-control form-control-sm" style="width:100%;">
+                        <option value=""${(oSection.model[x].formula == '' ? ' selected' : '')}>(None)</option>
+                        <option value="SUM"${(oSection.model[x].formula == 'SUM' ? ' selected' : '')}>Sum</option>
+                        <option value="AVG"${(oSection.model[x].formula == 'AVG' ? ' selected' : '')}>Average</option>
+                        <option value="MIN"${(oSection.model[x].formula == 'MIN' ? ' selected' : '')}>Min Value</option>
+                        <option value="MAX"${(oSection.model[x].formula == 'MAX' ? ' selected' : '')}>Max Value</option>
+                        <option value="COUNT"${(oSection.model[x].formula == 'COUNT' ? ' selected' : '')}>Count</option>
+                    </select>
+                </td>
+                <td style="width:30px;">
+                    <button class="btn btn-sm" onClick="Metadocx.viewer.showFieldPropertiesDialog('${oSection.id}', '${oSection.model[x].name}');"><i class="uil uil-ellipsis-h fs20"></i></button>
+                </td>
+            </tr>`;
+        }
+        sFields += '</tbody>';
+        sFields += '</table>';
+
+        /**
+         * ORDER BY 
+         */
+        var sOrderBy = '<table id="' + oSection.id + '_orderBy" class="table table-condensed report-sortable">';
+        sOrderBy += '<tbody>';
+        for (var x in oSection.model) {
+
+
+            var oOrderBy = oReportSection.getOrderBy(oSection.model[x].name);
+
+            var sAscSelected = '';
+            var sDescSelected = '';
+            var sOrderBySelected = '';
+            if (oOrderBy != null) {
+                if (oOrderBy.order == 'desc') {
+                    sAscSelected = '';
+                    sDescSelected = ' selected';
+                } else {
+                    sAscSelected = ' selected';
+                    sDescSelected = '';
+                }
+                sOrderBySelected = ' checked';
+            }
+
+            sOrderBy += `<tr id="${oSection.id}_orderByRow_${oSection.model[x].name}" data-section="${oSection.id}" data-column="${oSection.model[x].name}">
+                            <td style="width:30px;text-align:center;"><i class="uil uil-sort fs16"></i></td>
+                            <td style="width:30px;text-align:center;"><input id="${oSection.id}_orderBy_${oSection.model[x].name}" type="checkbox"${sOrderBySelected}/></td>
+                            <td>${oSection.model[x].label}</td>
+                            <td style="width:150px;">
+                                <select id="${oSection.id}_orderByOrder_${oSection.model[x].name}" class="form-control form-control-sm" style="width:100%;">
+                                    <option value="asc"${sAscSelected}>Ascending</option>
+                                    <option value="desc"${sDescSelected}>Descending</option>                                    
+                                </select>
+                            </td>
+                        </tr>`;
+        }
+        sOrderBy += '</tbody>';
+        sOrderBy += '</table>';
+
+        /**
+         * GROUP BY 
+         */
+        var sGroupBy = '<table id="' + oSection.id + '_groupBy" class="table table-condensed report-sortable">';
+        sGroupBy += '<tbody>';
+        for (var x in oSection.model) {
+
+            var oGroupBy = oReportSection.getGroupBy(oSection.model[x].name);
+
+            var sAscSelected = '';
+            var sDescSelected = '';
+            var sGroupBySelected = '';
+            if (oGroupBy !== null) {
+                if (oGroupBy.order == 'desc') {
+                    sAscSelected = '';
+                    sDescSelected = ' selected';
+                } else {
+                    sAscSelected = ' selected';
+                    sDescSelected = '';
+                }
+                sGroupBySelected = ' checked';
+            }
+
+            sGroupBy += `<tr id="${oSection.id}_groupByRow_${oSection.model[x].name}" data-section="${oSection.id}" data-column="${oSection.model[x].name}">
+                            <td style="width:30px;text-align:center;"><i class="uil uil-sort fs16"></i></td>
+                            <td style="width:30px;text-align:center;"><input id="${oSection.id}_groupBy_${oSection.model[x].name}" type="checkbox"${sGroupBySelected}/></td>
+                            <td>${oSection.model[x].label}</td>
+                            <td style="width:150px;">
+                            <select id="${oSection.id}_groupByOrder_${oSection.model[x].name}" class="form-control form-control-sm" style="width:100%;">
+                                <option value="asc"${sAscSelected}>Ascending</option>
+                                <option value="desc"${sDescSelected}>Descending</option>                                    
+                            </select></td>
+                        </tr>`;
+        }
+        sGroupBy += '</tbody>';
+        sGroupBy += '</table>';
+
+        /**
+         * Main section card
+         */
+        s += `<div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title mb-0">${oSection.properties.name}</h4>
+                        </div>
+                        <div class="card-body">              
+                            <div class="accordion accordion-flush" id="reportSettingsAccordion${oSection.properties.name}">
+                                <div class="accordion-item">
+                                    <h2 id="settingsFieldsHeader_${oSection.properties.name}" class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#settingsFieldsBody_${oSection.properties.name}" aria-expanded="false" aria-controls="flush-collapseOne">                                                                        
+                                            <i class="uil uil-columns fs20"></i>&nbsp;Fields
+                                        </button>
+                                    </h2>
+                                    <div id="settingsFieldsBody_${oSection.properties.name}" class="accordion-collapse collapse" aria-labelledby="reportSettingsAccordion${oSection.properties.name}">
+                                        <div class="accordion-body">                                    
+                                            ${sFields}
+                                        </div>
+                                    </div>
+                                </div>   
+                                
+                                <div class="accordion-item">
+                                    <h2 id="settingsOrderByHeader_${oSection.properties.name}" class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#settingsOrderByBody_${oSection.properties.name}" aria-expanded="false" aria-controls="flush-collapseOne">                                                                        
+                                            <i class="uil uil-sort-amount-down fs20"></i>&nbsp;Order
+                                        </button>
+                                    </h2>
+                                    <div id="settingsOrderByBody_${oSection.properties.name}" class="accordion-collapse collapse" aria-labelledby="reportSettingsAccordion${oSection.properties.name}">
+                                        <div class="accordion-body">                                    
+                                            ${sOrderBy}
+                                        </div>
+                                    </div>
+                                </div>   
+
+                                <div class="accordion-item">
+                                    <h2 id="settingsGroupByHeader_${oSection.properties.name}" class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#settingsGroupByBody_${oSection.properties.name}" aria-expanded="false" aria-controls="flush-collapseOne">                                                                        
+                                            <i class="uil uil-layer-group fs20"></i>&nbsp;Groups
+                                        </button>
+                                    </h2>
+                                    <div id="settingsGroupByBody_${oSection.properties.name}" class="accordion-collapse collapse" aria-labelledby="reportSettingsAccordion${oSection.properties.name}">
+                                        <div class="accordion-body">                                    
+                                            ${sGroupBy}                             
+                                        </div>
+                                    </div>
+                                </div>   
+                            </div>                                                                                                             
+                        </div>
+                    </div>`;
+
+
+        return s;
+
+    }
+
+    postRenderSettingsDataTable(oSection, oReportSection) {
         $('.report-sortable tbody').sortable({
             placeholder: 'ui-state-highlight',
             helper: 'clone',
@@ -2044,39 +2472,26 @@ class Report {
             },
         });
 
-
-        for (var kSection in this.getReportDefinition().sections) {
-
-            var oSection = this.getReportDefinition().sections[kSection];
-            var oReportSection = new ReportSection(this.app, this, oSection);
-
-            if (oSection.type == 'HTML') {
-                continue;
-            }
-
-            /**
-             * Reorder table rows based on orderby and groupby config
-             */
-            var reversedKeys = Object.keys(oSection.orderBy).reverse();
-            reversedKeys.forEach(key => {
-                //console.log(key, oSection.orderBy[key]);                
-                $('#' + oSection.id + '_orderByRow_' + oSection.orderBy[key].name).prependTo('#' + oSection.id + '_orderBy');
-            });
+        /**
+         * Reorder table rows based on orderby and groupby config
+         */
+        var reversedKeys = Object.keys(oSection.orderBy).reverse();
+        reversedKeys.forEach(key => {
+            //console.log(key, oSection.orderBy[key]);                
+            $('#' + oSection.id + '_orderByRow_' + oSection.orderBy[key].name).prependTo('#' + oSection.id + '_orderBy');
+        });
 
 
-            /**
-             * Reorder table rows based on orderby and groupby config
-             */
-            reversedKeys = Object.keys(oSection.groupBy).reverse();
-            reversedKeys.forEach(key => {
-                //console.log(key, oSection.orderBy[key]);                
-                $('#' + oSection.id + '_groupByRow_' + oSection.groupBy[key].name).prependTo('#' + oSection.id + '_groupBy');
-            });
-        }
-
-        this._reportSettingsRendered = true;
-
+        /**
+         * Reorder table rows based on orderby and groupby config
+         */
+        reversedKeys = Object.keys(oSection.groupBy).reverse();
+        reversedKeys.forEach(key => {
+            //console.log(key, oSection.orderBy[key]);                
+            $('#' + oSection.id + '_groupByRow_' + oSection.groupBy[key].name).prependTo('#' + oSection.id + '_groupBy');
+        });
     }
+
 
     /**
      * Renders report criteria controls HTML
@@ -2204,16 +2619,23 @@ class Report {
         }
         for (var x in this.getReportDefinition().sections) {
             var oSection = this.getReportDefinition().sections[x];
-            if (oSection.type == 'HTML') {
-                continue;
+            switch (oSection.type) {
+                case 'HTML':
+                    break;
+                case 'Chart':
+                    break;
+                case 'DataTable':
+                    this._initialReportSettings['sections'].push({
+                        id: oSection.id,
+                        properties: JSON.parse(JSON.stringify(oSection.properties)),
+                        orderBy: JSON.parse(JSON.stringify(oSection.orderBy)),
+                        groupBy: JSON.parse(JSON.stringify(oSection.groupBy)),
+                        model: JSON.parse(JSON.stringify(oSection.model)),
+                    })
+                    break;
             }
-            this._initialReportSettings['sections'] = {
-                id: oSection.id,
-                properties: JSON.parse(JSON.stringify(oSection.properties)),
-                orderBy: JSON.parse(JSON.stringify(oSection.orderBy)),
-                groupBy: JSON.parse(JSON.stringify(oSection.groupBy)),
-                model: JSON.parse(JSON.stringify(oSection.model)),
-            }
+
+
         }
     }
 
@@ -2235,7 +2657,26 @@ class Report {
 
     }
 
+    /**
+     * Filter all report section data 
+     */
+    filter() {
 
+        for (var x in this.getReportDefinition().sections) {
+            var oFilter = new DataFilter(this.app);
+            oFilter.setReportSection(this.getReportDefinition().sections[x]);
+            oFilter.process();
+        }
+
+    }
+
+    sort() {
+        for (var x in this.getReportDefinition().sections) {
+            var oSorter = new DataSorter(this.app);
+            oSorter.setReportSection(this.getReportDefinition().sections[x]);
+            oSorter.process();
+        }
+    }
 
 
 }
@@ -2252,6 +2693,7 @@ class ReportCanvas {
         this.app = app;
         this.report = report;
         this.viewer = viewer;
+        this.reportSections = [];
     }
 
     /**
@@ -2266,6 +2708,7 @@ class ReportCanvas {
 
             var sReportSectionType = this.report.getReportDefinition().sections[x].type + 'ReportSection';
             var oReportSection = new window.__Metadocx[sReportSectionType](this.app, this.report.getReportDefinition().sections[x]);
+            this.reportSections.push(oReportSection);
             sReportSection += oReportSection.render();
 
         }
@@ -2280,6 +2723,14 @@ class ReportCanvas {
 
         return s;
 
+    }
+
+    initialiseJS() {
+        for (var x in this.reportSections) {
+            if (this.reportSections[x].initialiseJS != undefined) {
+                this.reportSections[x].initialiseJS();
+            }
+        }
     }
 
 }
@@ -3067,9 +3518,17 @@ class ReportViewer extends Consolable {
 
         this.report.renderReportCriterias();
         this.report.renderReportSettings();
-        $('#' + this.options.id + '_canvas').html((new ReportCanvas(this.app, this.report, this)).render());
+        this.report.filter();
+        this.report.sort();
+
+        var oReportCanvas = new ReportCanvas(this.app, this.report, this);
+        $('#' + this.options.id + '_canvas').html(oReportCanvas.render());
+
+        oReportCanvas.initialiseJS();
+
         this.updateCSS();
         this.scaleReportSections();
+
         if (!this.report.isLoaded) {
             this.report.isLoaded = true;
             this.report.copyOriginalSettings();
@@ -5547,6 +6006,9 @@ class PDFModule extends Module {
             message: '<p><i class="fas fa-spin fa-spinner"></i> Exporting report to PDF...</p>'
         });
 
+        $('.report-graph-canvas').hide();
+        $('.report-graph-image').show();
+
         /**
          * Call export service
          */
@@ -5577,6 +6039,9 @@ class PDFModule extends Module {
                 thisObject.hideExportDialog();
                 thisObject.app.modules.Printing.applyPageStyles();
 
+                $('.report-graph-canvas').show();
+                $('.report-graph-image').hide();
+
             }
         });
     }
@@ -5590,15 +6055,8 @@ class PDFModule extends Module {
             closeButton: false
         });
 
-        //$('#reportPage').css('max-width', '');
-        //$('#reportPage').css('width', '');
-        //$('#reportPage').css('min-height', '');
-
-        //$('#reportPage').css('padding-top', '');
-        //$('#reportPage').css('padding-bottom', '');
-        //$('#reportPage').css('padding-left', '');
-        //$('#reportPage').css('padding-right', '');
-        //$('#reportPage').css('margin-right', '1px');
+        $('.report-graph-canvas').hide();
+        $('.report-graph-image').show();
 
         $.ajax({
             type: 'post',
@@ -5633,7 +6091,8 @@ class PDFModule extends Module {
                 }
 
                 thisObject.app.modules.Printing.applyPageStyles();
-                //$('#reportPage').css('margin-right', 'auto');
+                $('.report-graph-canvas').show();
+                $('.report-graph-image').hide();
 
                 loadingDialog.modal('hide');
 

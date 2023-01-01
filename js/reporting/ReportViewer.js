@@ -781,9 +781,17 @@ class ReportViewer extends Consolable {
 
         this.report.renderReportCriterias();
         this.report.renderReportSettings();
-        $('#' + this.options.id + '_canvas').html((new ReportCanvas(this.app, this.report, this)).render());
+        this.report.filter();
+        this.report.sort();
+
+        var oReportCanvas = new ReportCanvas(this.app, this.report, this);
+        $('#' + this.options.id + '_canvas').html(oReportCanvas.render());
+
+        oReportCanvas.initialiseJS();
+
         this.updateCSS();
         this.scaleReportSections();
+
         if (!this.report.isLoaded) {
             this.report.isLoaded = true;
             this.report.copyOriginalSettings();
