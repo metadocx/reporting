@@ -67,7 +67,9 @@ class ReportViewer extends Consolable {
 
         this.options = {
             "id": "metadocxReport",
+            "locale": "en",
             "toolbar": {
+                "showLocaleButton": true,
                 "showOptionsButton": true,
                 "showSettingsButton": true,
                 "showCriteriasButton": true,
@@ -180,11 +182,25 @@ class ReportViewer extends Consolable {
             return;
         }
 
+        this.app.modules.Locale.setLocale(this.options.locale);
+
 
         $('#' + this.options.id + '_headerName').html(this.report.getReportDefinition().properties.name);
         $('#' + this.options.id + '_headerDescription').html(this.report.getReportDefinition().properties.description);
 
         $('.report-toolbar-button').show();
+
+        if (this.options.toolbar.showLocaleButton) {
+            $('#' + this.options.id + '_localeGroup').show();
+        } else {
+            $('#' + this.options.id + '_localeGroup').hide();
+        }
+
+        if (this.options.toolbar.showExportButton) {
+            $('#' + this.options.id + '_export').show();
+        } else {
+            $('#' + this.options.id + '_export').hide();
+        }
 
         if (this.options.toolbar.showExportButton) {
             $('#' + this.options.id + '_export').show();
@@ -242,6 +258,8 @@ class ReportViewer extends Consolable {
         $('#' + this.options.container).html(s);
         $('.report-viewer-criterias').hide();
 
+        this.app.modules.Locale.translate();
+
     }
 
     /**
@@ -251,8 +269,8 @@ class ReportViewer extends Consolable {
 
         this.log('No report data, displaying no report warning');
         var s = `<div class="alert alert-warning mb-0 report-no-definition" role="alert">
-                    <h4 class="alert-heading">Missing report definition</h4>
-                    <p>Oups! Something went wrong. We did not get a report to load.</p>                    
+                    <h4 class="alert-heading" data-locale="MissingReportDefinition">Missing report definition</h4>
+                    <p data-locale="OupsNoReport">Oups! Something went wrong. We did not get a report to load.</p>                    
                 </div>`;
 
         $('#' + this.app.viewer.options.id + '_canvas').html(s);
@@ -302,6 +320,14 @@ class ReportViewer extends Consolable {
                      </div>
                  </div>
                  <div class="d-flex">                   
+                    <div id="${this.options.id}_localeGroup" class="btn-group me-2 mb-2 mb-sm-0 report-toolbar-button">
+                         <button id="${this.options.id}_locale" type="button" class="btn header-item dropdown-toggle" data-bs-toggle="dropdown">
+                            <i class="uil uil-english-to-chinese"></i>
+                         </button>
+                         <div id="${this.options.id}_localeOptions" class="dropdown-menu">
+                             ${this.app.modules.Locale.getLocaleMenuOptions()}
+                         </div>
+                     </div>
                      <div class="btn-group me-2 mb-2 mb-sm-0 report-toolbar-button">
                          <button id="${this.options.id}_export" type="button" class="btn header-item dropdown-toggle" data-bs-toggle="dropdown">
                             <i class="uil uil-file-export"></i>
@@ -332,7 +358,7 @@ class ReportViewer extends Consolable {
          </header>
          <div id="${this.options.id}_canvas" class="report-viewer-canvas">
          </div>
-         <div class="powered-by no-print">powered by <a href="https://www.metadocx.com" target="_blank">Metadocx</a></div>`;
+         <div class="powered-by no-print"><span data-locale="PoweredBy">powered by</span> <a href="https://www.metadocx.com" target="_blank">Metadocx</a></div>`;
 
     }
 
@@ -349,11 +375,11 @@ class ReportViewer extends Consolable {
                             <div class="row">                                
                                 <div class="col-12">                                
                                     <div class="page-title-box d-flex align-items-center justify-content-between">
-                                        <h4 class="mb-0">Criterias</h4>
+                                        <h4 class="mb-0" data-locale="Criterias">Criterias</h4>
                                         <div class="d-flex">
-                                            <button class="btn btn-primary mr5" onClick="Metadocx.viewer.report.applyCriterias();"><i class="uil uil-check fs16" style="color:#fff;"></i>&nbsp;Apply criterias</button>
-                                            <button class="btn btn-danger mr5" onClick="Metadocx.viewer.report.resetCriterias();">Reset</button>
-                                            <button class="btn btn-secondary" onClick="Metadocx.viewer.report.cancelCriterias();">Cancel</button>
+                                            <button class="btn btn-primary mr5" onClick="Metadocx.viewer.report.applyCriterias();"><i class="uil uil-check fs16" style="color:#fff;"></i>&nbsp;<span data-locale="ApplyCriterias">Apply criterias</span></button>
+                                            <button class="btn btn-danger mr5" onClick="Metadocx.viewer.report.resetCriterias();" data-locale="Reset">Reset</button>
+                                            <button class="btn btn-secondary" onClick="Metadocx.viewer.report.cancelCriterias();" data-locale="Cancel">Cancel</button>
                                         </div>
                                     </div>
                                 </div>
@@ -387,30 +413,30 @@ class ReportViewer extends Consolable {
                <div class="modal-dialog">
                  <div class="modal-content">
                  <div class="modal-header">
-                     <h5 class="modal-title">Options</h5>
+                     <h5 class="modal-title" data-locale="Options">Options</h5>
                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                  </div>
                  <div class="modal-body">
                      <div class="d-flex justify-content-between">
                          <div class="d-flex flex-column p-2">
                              <div class="mb-3">                                
-                                 <label for="paperSize" class="form-label font-weight-bold">Orientation</label>
+                                 <label for="paperSize" class="form-label font-weight-bold" data-locale="Orientation">Orientation</label>
                              
                                  <div class="form-check">
                                      <input class="form-check-input" type="radio" name="orientation" id="orientationPortrait">
-                                     <label class="form-check-label" for="orientationPortrait">
+                                     <label class="form-check-label" for="orientationPortrait" data-locale="Portrait">
                                          Portrait
                                      </label>
                                  </div>
                                  <div class="form-check">
                                      <input class="form-check-input" type="radio" name="orientation" id="orientationLandscape">
-                                     <label class="form-check-label" for="orientationLandscape">
+                                     <label class="form-check-label" for="orientationLandscape" data-locale="Landscape">
                                          Landscape
                                      </label>
                                  </div>
                              </div>
                              <div class="mb-3">                                
-                                 <label for="paperSize" class="form-label font-weight-bold">Paper size</label>
+                                 <label for="paperSize" class="form-label font-weight-bold" data-locale="PaperSize">Paper size</label>
                                  <select id="paperSize" class="form-select">
                                  ${this.app.modules.Printing.getPaperSizeOptions()}
                                  </select>
@@ -418,43 +444,43 @@ class ReportViewer extends Consolable {
                          </div>
                          <div class="d-flex flex-column p-2">
                              <div class="mb-3">                                
-                                 <label for="paperSize" class="form-label font-weight-bold">Margins</label>
+                                 <label for="paperSize" class="form-label font-weight-bold" data-locale="Margins">Margins</label>
                              
                                  <div class="mb-3 row">
-                                     <label for="topMargin" class="col-sm-4 col-form-label">Top</label>
+                                     <label for="topMargin" class="col-sm-4 col-form-label" data-locale="Top">Top</label>
                                      <div class="col-sm-6">
                                          <input type="number" class="form-control" id="topMargin" value="0" style="width:80px;margin-left:30px;">
                                      </div>
-                                     <label class="col-sm-2 col-form-label">in.</label>
+                                     <label class="col-sm-2 col-form-label" data-locale="Inches">in.</label>
                                  </div>
                                  <div class="mb-3 row">
-                                     <label for="bottomMargin" class="col-sm-4 col-form-label">Bottom</label>
+                                     <label for="bottomMargin" class="col-sm-4 col-form-label" data-locale="Bottom">Bottom</label>
                                      <div class="col-sm-6">
                                          <input type="number" class="form-control" id="bottomMargin" value="0" style="width:80px;margin-left:30px;">
                                      </div>
-                                     <label class="col-sm-2 col-form-label">in.</label>
+                                     <label class="col-sm-2 col-form-label" data-locale="Inches">in.</label>
                                  </div>
                                  <div class="mb-3 row">
-                                     <label for="leftMargin" class="col-sm-4 col-form-label">Left</label>
+                                     <label for="leftMargin" class="col-sm-4 col-form-label" data-locale="Left">Left</label>
                                      <div class="col-sm-6">
                                          <input type="number" class="form-control" id="leftMargin" value="0" style="width:80px;margin-left:30px;">
                                      </div>
-                                     <label class="col-sm-2 col-form-label">in.</label>
+                                     <label class="col-sm-2 col-form-label" data-locale="Inches">in.</label>
                                  </div>
                                  <div class="mb-3 row">
-                                     <label for="rightMargin" class="col-sm-4 col-form-label">Right</label>
+                                     <label for="rightMargin" class="col-sm-4 col-form-label" data-locale="Right">Right</label>
                                      <div class="col-sm-6">
                                          <input type="number" class="form-control" id="rightMargin" value="0" style="width:80px;margin-left:30px;">
                                      </div>
-                                     <label class="col-sm-2 col-form-label">in.</label>
+                                     <label class="col-sm-2 col-form-label" data-locale="Inches">in.</label>
                                  </div>                                                    
                              </div>
                          </div>
                      </div>
                  </div>
                  <div class="modal-footer">
-                     <button type="button" class="btn btn-secondary mr5" data-bs-dismiss="modal">Cancel</button>
-                     <button type="button" class="btn btn-primary" onClick="Metadocx.viewer.applyOptions();"><i class="fa-solid fa-check"></i>&nbsp;Apply Options</button>
+                     <button type="button" class="btn btn-secondary mr5" data-bs-dismiss="modal" data-locale="Cancel">Cancel</button>
+                     <button type="button" class="btn btn-primary" onClick="Metadocx.viewer.applyOptions();"><i class="fa-solid fa-check"></i>&nbsp;<span data-locale="ApplyOptions">Apply Options</span></button>
                  </div>
                  </div>
              </div>
@@ -565,7 +591,7 @@ class ReportViewer extends Consolable {
 
         return `<div id="${this.options.id}_settingsOffCanvas" class="offcanvas offcanvas-end report-section-offcanvas" data-bs-backdrop="static" tabindex="-1" aria-labelledby="${this.options.id}_settingsOffCanvasLabel">
                     <div class="offcanvas-header">
-                        <h5 id="${this.options.id}_settingsOffCanvasLabel" class="offcanvas-title">Report Settings</h5>
+                        <h5 id="${this.options.id}_settingsOffCanvasLabel" class="offcanvas-title" data-locale="ReportSettings">Report Settings</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
                     <div id="${this.options.id}_reportSettingsZone" class="offcanvas-body">

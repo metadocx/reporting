@@ -20,13 +20,13 @@ class BooleanCriteria extends CriteriaControl {
 
         return `<div class="form-check mb-2">
                     <input class="form-check-input" type="checkbox" id="${this.id}_yes">
-                    <label class="form-check-label" for="${this.id}_yes">
+                    <label class="form-check-label" for="${this.id}_yes" data-locale="Yes">
                         Yes
                     </label>
                 </div>
                 <div class="form-check mb-2">
                     <input class="form-check-input" type="checkbox" id="${this.id}_no">
-                    <label class="form-check-label" for="${this.id}_no">
+                    <label class="form-check-label" for="${this.id}_no" data-locale="No">
                         No
                     </label>
                 </div>`;

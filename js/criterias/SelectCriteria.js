@@ -14,11 +14,22 @@ class SelectCriteria extends CriteriaControl {
 
     initializeJS() {
 
+        var thisObject = this;
+
         if (!Array.isArray(this.reportCriteria.options)) {
             if (this.reportCriteria.options.source = 'ajax' && this.reportCriteria.options.url) {
                 this.reportCriteria.parameters.ajax = {
                     url: this.reportCriteria.options.url,
-                    dataType: 'json'
+                    dataType: 'json',
+                    data: function (params) {
+                        var data = {};
+                        for (var x in params) {
+                            data[x] = params[x];
+                        }
+                        data['locale'] = thisObject.app.modules.Locale.getCurrentLocale();
+                        return data;
+                    }
+
                 };
             }
         }
