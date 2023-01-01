@@ -119,7 +119,7 @@ class Report {
     getPaperSizeOptions() {
         var s = '';
         for (var x in this.pageSizes) {
-            s += '<option value="' + this.pageSizes[x].name + '">' + this.pageSizes[x].name + '</option>';
+            s += '<option value="' + this.pageSizes[x].name + '" data-locale="' + this.pageSizes[x].name + '">' + this.pageSizes[x].name + '</option>';
         }
         return s;
     }
@@ -193,16 +193,16 @@ class Report {
 
         s += `<div class="card">
                 <div class="card-header">
-                    <h4 class="card-title mb-0">Report properties</h4>
+                    <h4 class="card-title mb-0" data-locale="ReportProperties">Report properties</h4>
                 </div>
                 <div class="card-body">     
                     <div class="mb-4">
-                        <label class="form-label" for="reportSettingsName">Name</label>
-                        <input class="form-control" type="text" id="reportSettingsName" placeholder="Report name" value="${this.getReportDefinition().properties.name}">
+                        <label class="form-label" for="reportSettingsName" data-locale="Name">Name</label>
+                        <input class="form-control" type="text" id="reportSettingsName" placeholder="Report name" value="${this.getReportDefinition().properties.name}" data-locale="ReportName">
                     </div> 
                     <div class="mb-4">
-                        <label class="form-label" for="reportSettingsDescription">Description</label>
-                        <input class="form-control" type="text" id="reportSettingsDescription" placeholder="Report description" value="${this.getReportDefinition().properties.description}">                        
+                        <label class="form-label" for="reportSettingsDescription" data-locale="Description">Description</label>
+                        <input class="form-control" type="text" id="reportSettingsDescription" placeholder="Report description" value="${this.getReportDefinition().properties.description}" data-locale="ReportDescription">                        
                     </div> 
                 </div>
             </div>`;
@@ -228,8 +228,8 @@ class Report {
 
         s += `
         <div class="float-end">
-            <button class="btn btn-secondary mr5" onClick="Metadocx.viewer.cancelSettings();">Cancel</button>
-            <button class="btn btn-primary" onClick="Metadocx.viewer.applySettings();"><i class="uil uil-check fs16" style="color:#fff;"></i>&nbsp;Apply Settings</button>
+            <button class="btn btn-secondary mr5" onClick="Metadocx.viewer.cancelSettings();" data-locale="Cancel">Cancel</button>
+            <button class="btn btn-primary" onClick="Metadocx.viewer.applySettings();"><i class="uil uil-check fs16" style="color:#fff;"></i>&nbsp;<span data-locale="ApplySettings">Apply Settings</span></button>
         </div>
         `;
 
@@ -290,12 +290,12 @@ class Report {
                 <td id="${oSection.id}_label_${oSection.model[x].name}">${oSection.model[x].label}</td>
                 <td style="width:150px;">
                     <select id="${oSection.id}_formula_${oSection.model[x].name}" class="form-control form-control-sm" style="width:100%;">
-                        <option value=""${(oSection.model[x].formula == '' ? ' selected' : '')}>(None)</option>
-                        <option value="SUM"${(oSection.model[x].formula == 'SUM' ? ' selected' : '')}>Sum</option>
-                        <option value="AVG"${(oSection.model[x].formula == 'AVG' ? ' selected' : '')}>Average</option>
-                        <option value="MIN"${(oSection.model[x].formula == 'MIN' ? ' selected' : '')}>Min Value</option>
-                        <option value="MAX"${(oSection.model[x].formula == 'MAX' ? ' selected' : '')}>Max Value</option>
-                        <option value="COUNT"${(oSection.model[x].formula == 'COUNT' ? ' selected' : '')}>Count</option>
+                        <option value=""${(oSection.model[x].formula == '' ? ' selected' : '')} data-locale="None">(None)</option>
+                        <option value="SUM"${(oSection.model[x].formula == 'SUM' ? ' selected' : '')} data-locale="Sum">Sum</option>
+                        <option value="AVG"${(oSection.model[x].formula == 'AVG' ? ' selected' : '')} data-locale="Average">Average</option>
+                        <option value="MIN"${(oSection.model[x].formula == 'MIN' ? ' selected' : '')} data-locale="MinValue">Min Value</option>
+                        <option value="MAX"${(oSection.model[x].formula == 'MAX' ? ' selected' : '')} data-locale="Max Value">Max Value</option>
+                        <option value="COUNT"${(oSection.model[x].formula == 'COUNT' ? ' selected' : '')} data-locale="Count">Count</option>
                     </select>
                 </td>
                 <td style="width:30px;">
@@ -336,8 +336,8 @@ class Report {
                             <td>${oSection.model[x].label}</td>
                             <td style="width:150px;">
                                 <select id="${oSection.id}_orderByOrder_${oSection.model[x].name}" class="form-control form-control-sm" style="width:100%;">
-                                    <option value="asc"${sAscSelected}>Ascending</option>
-                                    <option value="desc"${sDescSelected}>Descending</option>                                    
+                                    <option value="asc"${sAscSelected} data-locale="Ascending">Ascending</option>
+                                    <option value="desc"${sDescSelected} data-locale="Descending">Descending</option>                                    
                                 </select>
                             </td>
                         </tr>`;
@@ -374,8 +374,8 @@ class Report {
                             <td>${oSection.model[x].label}</td>
                             <td style="width:150px;">
                             <select id="${oSection.id}_groupByOrder_${oSection.model[x].name}" class="form-control form-control-sm" style="width:100%;">
-                                <option value="asc"${sAscSelected}>Ascending</option>
-                                <option value="desc"${sDescSelected}>Descending</option>                                    
+                                <option value="asc"${sAscSelected} data-locale="Ascending">Ascending</option>
+                                <option value="desc"${sDescSelected} data-locale="Descending">Descending</option>                                    
                             </select></td>
                         </tr>`;
         }
@@ -394,7 +394,7 @@ class Report {
                                 <div class="accordion-item">
                                     <h2 id="settingsFieldsHeader_${oSection.properties.name}" class="accordion-header">
                                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#settingsFieldsBody_${oSection.properties.name}" aria-expanded="false" aria-controls="flush-collapseOne">                                                                        
-                                            <i class="uil uil-columns fs20"></i>&nbsp;Fields
+                                            <i class="uil uil-columns fs20"></i>&nbsp;<span data-locale="Fields">Fields</span>
                                         </button>
                                     </h2>
                                     <div id="settingsFieldsBody_${oSection.properties.name}" class="accordion-collapse collapse" aria-labelledby="reportSettingsAccordion${oSection.properties.name}">
@@ -407,7 +407,7 @@ class Report {
                                 <div class="accordion-item">
                                     <h2 id="settingsOrderByHeader_${oSection.properties.name}" class="accordion-header">
                                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#settingsOrderByBody_${oSection.properties.name}" aria-expanded="false" aria-controls="flush-collapseOne">                                                                        
-                                            <i class="uil uil-sort-amount-down fs20"></i>&nbsp;Order
+                                            <i class="uil uil-sort-amount-down fs20"></i>&nbsp;<span data-locale="Order">Order</span>
                                         </button>
                                     </h2>
                                     <div id="settingsOrderByBody_${oSection.properties.name}" class="accordion-collapse collapse" aria-labelledby="reportSettingsAccordion${oSection.properties.name}">
@@ -420,7 +420,7 @@ class Report {
                                 <div class="accordion-item">
                                     <h2 id="settingsGroupByHeader_${oSection.properties.name}" class="accordion-header">
                                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#settingsGroupByBody_${oSection.properties.name}" aria-expanded="false" aria-controls="flush-collapseOne">                                                                        
-                                            <i class="uil uil-layer-group fs20"></i>&nbsp;Groups
+                                            <i class="uil uil-layer-group fs20"></i>&nbsp;<span data-locale="Groups">Groups</span>
                                         </button>
                                     </h2>
                                     <div id="settingsGroupByBody_${oSection.properties.name}" class="accordion-collapse collapse" aria-labelledby="reportSettingsAccordion${oSection.properties.name}">

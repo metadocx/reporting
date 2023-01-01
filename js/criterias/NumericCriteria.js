@@ -59,17 +59,17 @@ class NumericCriteria extends CriteriaControl {
                 <div class="input-group mb-3">               
                     <span class="input-group-text">
                         <select id="${this.id}_operator" class="form-control form-control-sm">
-                            <option value="EQUAL">Equal</option>
-                            <option value="NOT_EQUAL">Not equal</option>
-                            <option value="GREATER_THAN">Greater than</option>
-                            <option value="GREATER_OR_EQUAL">Greater or equal</option>
-                            <option value="SMALLER_THAN">Smaller than</option>
-                            <option value="SMALLER_OR_EQUAL">Smaller or equal</option>
-                            <option value="BETWEEN">Between</option>
+                            <option value="EQUAL" data-locale="Equal">Equal</option>
+                            <option value="NOT_EQUAL" data-locale="NotEqual">Not equal</option>
+                            <option value="GREATER_THAN" data-locale="GreaterThan">Greater than</option>
+                            <option value="GREATER_OR_EQUAL" data-locale="GreaterOrEqual">Greater or equal</option>
+                            <option value="SMALLER_THAN" data-locale="SmallerThan">Smaller than</option>
+                            <option value="SMALLER_OR_EQUAL" data-locale="SmallerOrEqual">Smaller or equal</option>
+                            <option value="BETWEEN" data-locale="Between">Between</option>
                         </select>
                     </span>
                     <input id="${this.id}_start" class="form-control" type="number"/>
-                    <span id="${this.id}_betweenLabel" class="input-group-text">and</span>
+                    <span id="${this.id}_betweenLabel" class="input-group-text" data-locale="And">and</span>
                     <input id="${this.id}_end" class="form-control" type="number"/>                    
                 </div>
             </div>`;
