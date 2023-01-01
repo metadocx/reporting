@@ -12,7 +12,8 @@ var sourcemaps = require('gulp-sourcemaps');
  * DEV JS
  */
 gulp.task('build-dev', function () {
-    return gulp.src(['js/imports/*.js', 'js/core/*.js', 'js/reporting/*.js', 'js/criterias/*.js', 'js/modules/*.js', 'js/locales/*.js', 'js/bootstrap/*.js'])
+    return gulp.src(['js/imports/*.js', 'js/core/*.js', 'js/reporting/*.js', 'js/criterias/*.js',
+        'js/modules/*.js', 'js/locales/*.js', 'js/templates/*.js', 'js/bootstrap/*.js'])
         .pipe(order([
             'js/imports/*.js',
             'js/core/*.js',
@@ -20,6 +21,7 @@ gulp.task('build-dev', function () {
             'js/criterias/*.js',
             'js/modules/*.js',
             'js/locales/*.js',
+            'js/templates/*.js',
             'js/bootstrap/*.js',
         ], { base: __dirname }))
         .pipe(concat('metadocx.js'))
@@ -45,7 +47,9 @@ gulp.task('build-dev-css', function () {
  */
 gulp.task('build-prod', function () {
     return gulp
-        .src(['js/imports/*.js', 'js/core/*.js', 'js/reporting/*.js', 'js/criterias/*.js', 'js/modules/*.js', 'js/locales/*.js', 'js/bootstrap/*.js'])
+        .src(['js/imports/*.js', 'js/core/*.js', 'js/reporting/*.js',
+            'js/criterias/*.js', 'js/modules/*.js', 'js/locales/*.js',
+            'js/templates/*.js', 'js/bootstrap/*.js'])
         .pipe(order([
             'js/imports/*.js',
             'js/core/*.js',
@@ -53,6 +57,7 @@ gulp.task('build-prod', function () {
             'js/criterias/*.js',
             'js/modules/*.js',
             'js/locales/*.js',
+            'js/templates/*.js',
             'js/bootstrap/*.js',
         ], { base: __dirname }))
         .pipe(concat('metadocx.min.js'))

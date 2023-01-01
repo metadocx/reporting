@@ -92,6 +92,11 @@ class ReportViewer extends Consolable {
                     "right": 0.5
                 }
             },
+            "additionalCSS": "",
+            "coverPage": {
+                "enabled": false,
+                "template": "CoverPage1"
+            },
             "settings": {
                 "fields": true,
                 "fieldsReorder": true,

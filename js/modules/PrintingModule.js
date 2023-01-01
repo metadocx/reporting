@@ -134,14 +134,14 @@ class PrintingModule extends Module {
             height = paperSize.height;
         }
 
-        $('#reportPage').css('max-width', width + 'mm');
-        $('#reportPage').css('width', width + 'mm');
-        $('#reportPage').css('min-height', height + 'mm');
+        $('.report-page').css('max-width', width + 'mm');
+        $('.report-page').css('width', width + 'mm');
+        $('.report-page').css('min-height', height + 'mm');
 
-        $('#reportPage').css('padding-top', this.app.viewer.options.page.margins.top + 'in');
-        $('#reportPage').css('padding-bottom', this.app.viewer.options.page.margins.bottom + 'in');
-        $('#reportPage').css('padding-left', this.app.viewer.options.page.margins.left + 'in');
-        $('#reportPage').css('padding-right', this.app.viewer.options.page.margins.right + 'in');
+        $('.report-page').css('padding-top', this.app.viewer.options.page.margins.top + 'in');
+        $('.report-page').css('padding-bottom', this.app.viewer.options.page.margins.bottom + 'in');
+        $('.report-page').css('padding-left', this.app.viewer.options.page.margins.left + 'in');
+        $('.report-page').css('padding-right', this.app.viewer.options.page.margins.right + 'in');
 
     }
 

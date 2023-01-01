@@ -22,6 +22,20 @@ class ReportCanvas {
 
         var s = '';
         var sReportSection = '';
+
+        if (this.viewer.options.coverPage.enabled) {
+            // Add cover page to report
+
+            var oCover = new window.__Metadocx[this.viewer.options.coverPage.template](this.app);
+
+            s += `<div id="reportCoverPage" class="report-page orientation-${this.viewer.options.page.orientation} size-${this.viewer.options.page.paperSize.toString().toLowerCase()}">
+                    <style>
+                        ${oCover.renderCSS()}    
+                    </style>
+                    ${oCover.render()}
+                  </div>`;
+        }
+
         for (var x in this.report.getReportDefinition().sections) {
 
             var sReportSectionType = this.report.getReportDefinition().sections[x].type + 'ReportSection';
