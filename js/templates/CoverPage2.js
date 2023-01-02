@@ -1,11 +1,11 @@
 /**
- * CoverPage1 class
+ * CoverPage2 class
  * 
  * @author Benoit Gauthier <bgauthier@metadocx.com>
  * @copyright Benoit Gauthier <bgauthier@metadocx.com>
  * @license https://github.com/metadocx/reporting/LICENSE.md
  */
-class CoverPage1 extends CoverPage {
+class CoverPage2 extends CoverPage {
 
     constructor(app) {
         super(app);
@@ -57,7 +57,7 @@ class CoverPage1 extends CoverPage {
                 bottom: 0;
                 left: 0;
                 right: 0;
-                background-image : url('https://cdn.jsdelivr.net/gh/metadocx/reporting@main/assets/images/templates/CoverPage1/footer.png');
+                background-image : url('https://cdn.jsdelivr.net/gh/metadocx/reporting@main/assets/images/templates/CoverPage2/footer.png');
             }
 
             .report-cover-header {
@@ -67,7 +67,7 @@ class CoverPage1 extends CoverPage {
                 top: 0;
                 left: 0;
                 right: 0;
-                background-image : url('https://cdn.jsdelivr.net/gh/metadocx/reporting@main/assets/images/templates/CoverPage1/header.png');
+                background-image : url('https://cdn.jsdelivr.net/gh/metadocx/reporting@main/assets/images/templates/CoverPage2/header.png');
             }
         
         `;
@@ -76,4 +76,4 @@ class CoverPage1 extends CoverPage {
 
 }
 
-window.__Metadocx.CoverPage1 = CoverPage1;
+window.__Metadocx.CoverPage2 = CoverPage2;
