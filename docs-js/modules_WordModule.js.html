@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>modules/WordModule.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="BooleanCriteria.html">BooleanCriteria</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="BrowserModule.html">BrowserModule</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="BrowserModule.html#getBrowser">getBrowser</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="BrowserModule.html#isChrome">isChrome</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="BrowserModule.html#isEdge">isEdge</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="BrowserModule.html#isFirefox">isFirefox</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="BrowserModule.html#isIE">isIE</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="BrowserModule.html#isIOSChrome">isIOSChrome</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="BrowserModule.html#isSafari">isSafari</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="CheckboxCriteria.html">CheckboxCriteria</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Consolable.html">Consolable</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Consolable.html#debug">debug</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Consolable.html#error">error</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Consolable.html#log">log</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Consolable.html#warn">warn</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="ConsoleModule.html">ConsoleModule</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#assert">assert</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#buildArguments">buildArguments</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#clear">clear</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#count">count</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#countReset">countReset</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#debug">debug</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#dir">dir</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#disable">disable</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#enable">enable</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#error">error</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#group">group</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#groupCollapsed">groupCollapsed</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#groupEnd">groupEnd</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#help">help</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#info">info</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#log">log</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#profile">profile</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#profileEnd">profileEnd</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#setColor">setColor</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#setTag">setTag</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#table">table</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#time">time</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#timeEnd">timeEnd</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#timeLog">timeLog</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#trace">trace</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#warn">warn</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="CriteriaControl.html">CriteriaControl</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="CriteriaControl.html#getInstance">getInstance</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="CriteriaControl.html#getIsEnabled">getIsEnabled</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="CriteriaControl.html#getValue">getValue</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="CriteriaControl.html#initializeJS">initializeJS</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="CriteriaControl.html#render">render</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="CriteriaControl.html#setValue">setValue</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="DataTable.html">DataTable</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#buildGroupCounters">buildGroupCounters</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#closeAllGroups">closeAllGroups</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#filter">filter</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#getColumn">getColumn</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#getGroupBy">getGroupBy</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#getLevelCount">getLevelCount</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#getOrderBy">getOrderBy</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#hasColumn">hasColumn</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#hideColumn">hideColumn</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#isColumnVisible">isColumnVisible</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#postRender">postRender</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#preRender">preRender</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#render">render</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#renderGroupHeader">renderGroupHeader</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#setColumn">setColumn</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#sort">sort</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="DataTableReportSection.html">DataTableReportSection</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="DataTypeModule.html">DataTypeModule</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTypeModule.html#copyObjectProperties">copyObjectProperties</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTypeModule.html#parseFloat">parseFloat</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTypeModule.html#toBool">toBool</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="DatePeriodCriteria.html">DatePeriodCriteria</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="ExcelModule.html">ExcelModule</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="FormatModule.html">FormatModule</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="ImportModule.html">ImportModule</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Module.html">Module</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Module.html#initialize">initialize</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="NumericCriteria.html">NumericCriteria</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="PDFModule.html">PDFModule</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="PrintingModule.html">PrintingModule</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Report.html">Report</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#applyCriterias">applyCriterias</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#cancelCriterias">cancelCriterias</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#close">close</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#copyOriginalSettings">copyOriginalSettings</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#exportReport">exportReport</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#getContainerSelector">getContainerSelector</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#getId">getId</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#getPaperSizeOptions">getPaperSizeOptions</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#getReportDefinition">getReportDefinition</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#getReportDefinitionUrl">getReportDefinitionUrl</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#hideReportCriterias">hideReportCriterias</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#loadReportDefinition">loadReportDefinition</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#print">print</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#renderReportCriterias">renderReportCriterias</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#renderReportSettings">renderReportSettings</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#resetCriterias">resetCriterias</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#setContainerSelector">setContainerSelector</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#setId">setId</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#setReportDefinitionUrl">setReportDefinitionUrl</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#showReportCriterias">showReportCriterias</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="ReportCanvas.html">ReportCanvas</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportCanvas.html#render">render</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="ReportSection.html">ReportSection</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportSection.html#sort">sort</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="ReportViewer.html">ReportViewer</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#applyOptions">applyOptions</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#applySettings">applySettings</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#cancelSettings">cancelSettings</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#getContainerSelector">getContainerSelector</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#getCriteria">getCriteria</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#getCriteriaValue">getCriteriaValue</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#getCriteriaValues">getCriteriaValues</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#hideToolbar">hideToolbar</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#isCriteriaEnabled">isCriteriaEnabled</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#load">load</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#loadDefaultOptions">loadDefaultOptions</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#refreshReport">refreshReport</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#render">render</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#renderFieldPropertiesDialog">renderFieldPropertiesDialog</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#renderMainLayout">renderMainLayout</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#renderOptionsDialog">renderOptionsDialog</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#renderReportCriterias">renderReportCriterias</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#renderReportSettings">renderReportSettings</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#scaleReportSections">scaleReportSections</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#setContainerSelector">setContainerSelector</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#showFieldPropertiesDialog">showFieldPropertiesDialog</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#showNoReportAlert">showNoReportAlert</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#showReportOptions">showReportOptions</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#showReportSettings">showReportSettings</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#showToolbar">showToolbar</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#updateCSS">updateCSS</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="SelectCriteria.html">SelectCriteria</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="UIModule.html">UIModule</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="WordModule.html">WordModule</a></span></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="global.html#ProxyHandler">ProxyHandler</a></span></li>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">modules/WordModule.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Word module class
+ * 
+ * @author Benoit Gauthier &lt;bgauthier@metadocx.com>
+ * @copyright Benoit Gauthier &lt;bgauthier@metadocx.com>
+ * @license https://github.com/metadocx/reporting/LICENSE.md
+ */
+class WordModule extends Module {
+
+    constructor(app) {
+        super(app);
+        this.bootPriority = 500;
+        this.isConsoleDisabled = false;
+        this.exportDialog = null;
+    }
+
+    initialize() {
+        super.initialize();
+    }
+
+    showExportDialog() {
+
+        if (this.exportDialog === null) {
+            $(this.app.viewer.getContainerSelector()).append(this.renderExportDialog());
+            this.hookExportDialogComponents();
+            this.exportDialog = new bootstrap.Modal('#' + this.app.viewer.options.id + '_wordExportDialog', {})
+        }
+
+        $('#wordPaperSize').val(this.app.viewer.options.page.paperSize);
+
+        var paperSize = this.app.modules.Printing.getPaperSize($('#wordPaperSize').val());
+        $('#wordPaperSizeWidth').val(paperSize.width);
+        $('#wordPaperSizeHeight').val(paperSize.height);
+
+        if (this.app.viewer.options.page.orientation == Metadocx.modules.Printing.PageOrientation.Portrait) {
+            $('#wordOrientationPortrait').prop('checked', true);
+            $('#wordOrientationLandscape').prop('checked', false);
+        } else {
+            $('#wordOrientationPortrait').prop('checked', false);
+            $('#wordOrientationLandscape').prop('checked', true);
+        }
+
+        $('#wordTopMargin').val(this.app.viewer.options.page.margins.top);
+        $('#wordBottomMargin').val(this.app.viewer.options.page.margins.bottom);
+        $('#wordLeftMargin').val(this.app.viewer.options.page.margins.left);
+        $('#wordRightMargin').val(this.app.viewer.options.page.margins.right);
+
+        this.exportDialog.show();
+
+    }
+
+
+    renderExportDialog() {
+
+        return `&lt;div id="${this.app.viewer.options.id}_wordExportDialog" class="modal modal-lg" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+        &lt;div class="modal-dialog">
+          &lt;div class="modal-content">
+          &lt;div class="modal-header">
+              &lt;h5 class="modal-title">Word Export&lt;/h5>
+              &lt;button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">&lt;/button>
+          &lt;/div>
+          &lt;div class="modal-body">
+            &lt;div class="d-flex justify-content-between">
+                &lt;div class="d-flex flex-column p-2">
+                    &lt;div class="mb-3">                                
+                        &lt;label for="wordPaperSize" class="form-label font-weight-bold">Orientation&lt;/label>
+                    
+                        &lt;div class="form-check">
+                            &lt;input class="form-check-input" type="radio" name="wordOrientation" id="wordOrientationPortrait">
+                            &lt;label class="form-check-label" for="wordOrientationPortrait">
+                                Portrait
+                            &lt;/label>
+                        &lt;/div>
+                        &lt;div class="form-check">
+                            &lt;input class="form-check-input" type="radio" name="wordOrientation" id="wordOrientationLandscape">
+                            &lt;label class="form-check-label" for="wordOrientationLandscape">
+                                Landscape
+                            &lt;/label>
+                        &lt;/div>
+                    &lt;/div>
+                    &lt;div class="mb-3">                                
+                        &lt;label for="wordPaperSize" class="form-label font-weight-bold">Paper size&lt;/label>
+                        &lt;select id="wordPaperSize" class="form-select">
+                        ${this.app.modules.Printing.getPaperSizeOptions()}
+                        &lt;/select>
+                    &lt;/div>
+                    &lt;div class="mb-3 wordPaperSizeWidths" style="display:none;">                                
+                        &lt;label for="wordPaperSizeWidth" class="form-label font-weight-bold">Paper width (mm)&lt;/label>
+                        &lt;input id="wordPaperSizeWidth" class="form-control" type="number" />
+                    &lt;/div>
+                    &lt;div class="mb-3 wordPaperSizeWidths" style="display:none;">                                
+                        &lt;label for="wordPaperSizeHeight" class="form-label font-weight-bold">Paper height (mm)&lt;/label>
+                        &lt;input id="wordPaperSizeHeight" class="form-control" type="number" />
+                    &lt;/div>
+
+                    &lt;div class="form-check mb-3">
+                        &lt;input class="form-check-input" type="checkbox" id="wordGrayscale">
+                        &lt;label class="form-check-label" for="wordGrayscale">
+                            Grayscale
+                        &lt;/label>
+                    &lt;/div>
+                    &lt;div class="form-check mb-3">
+                        &lt;input class="form-check-input" type="checkbox" id="wordUseCompression" checked>
+                        &lt;label class="form-check-label" for="wordUseCompression">
+                            word Compression
+                        &lt;/label>
+                    &lt;/div>  
+                    &lt;div class="form-check mb-3">
+                        &lt;input class="form-check-input" type="checkbox" id="wordIncludeOutline" checked>
+                        &lt;label class="form-check-label" for="wordIncludeOutline">
+                            Include document outline
+                        &lt;/label>
+                    &lt;/div> 
+                    &lt;div class="form-check mb-3">
+                        &lt;input class="form-check-input" type="checkbox" id="wordPrintBackgrounds" checked>
+                        &lt;label class="form-check-label" for="wordPrintBackgrounds">
+                            Background graphics
+                        &lt;/label>
+                    &lt;/div>      
+                &lt;/div>
+                &lt;div class="d-flex flex-column p-2">
+                    &lt;div class="mb-3">                                
+                        &lt;label class="form-label font-weight-bold">Margins&lt;/label>
+              
+                        &lt;div class="mb-3 row">
+                            &lt;label for="wordTopMargin" class="col-sm-4 col-form-label">Top&lt;/label>
+                            &lt;div class="col-sm-6">
+                                &lt;input type="number" class="form-control" id="wordTopMargin" value="0" style="width:80px;margin-left:30px;">
+                            &lt;/div>
+                            &lt;label class="col-sm-2 col-form-label">in.&lt;/label>
+                        &lt;/div>
+                        &lt;div class="mb-3 row">
+                            &lt;label for="wordBottomMargin" class="col-sm-4 col-form-label">Bottom&lt;/label>
+                            &lt;div class="col-sm-6">
+                                &lt;input type="number" class="form-control" id="wordBottomMargin" value="0" style="width:80px;margin-left:30px;">
+                            &lt;/div>
+                            &lt;label class="col-sm-2 col-form-label">in.&lt;/label>
+                        &lt;/div>
+                        &lt;div class="mb-3 row">
+                            &lt;label for="wordLeftMargin" class="col-sm-4 col-form-label">Left&lt;/label>
+                            &lt;div class="col-sm-6">
+                                &lt;input type="number" class="form-control" id="wordLeftMargin" value="0" style="width:80px;margin-left:30px;">
+                            &lt;/div>
+                            &lt;label class="col-sm-2 col-form-label">in.&lt;/label>
+                        &lt;/div>
+                        &lt;div class="mb-3 row">
+                            &lt;label for="wordRightMargin" class="col-sm-4 col-form-label">Right&lt;/label>
+                            &lt;div class="col-sm-6">
+                                &lt;input type="number" class="form-control" id="wordRightMargin" value="0" style="width:80px;margin-left:30px;">
+                            &lt;/div>
+                            &lt;label class="col-sm-2 col-form-label">in.&lt;/label>
+                        &lt;/div>                                                    
+                    &lt;/div>
+                &lt;/div>
+            &lt;/div>
+            &lt;div class="row p-2">
+                &lt;div class="col-12">
+                    &lt;div class="form-check mb-2">
+                        &lt;input class="form-check-input" type="checkbox" id="wordDisplayHeader">
+                        &lt;label class="form-check-label" for="wordDisplayHeader">
+                            Display header
+                        &lt;/label>
+                    &lt;/div>    
+                &lt;/div>                
+            &lt;/div>
+            &lt;div class="row word-header-row p-2" style="display:none;">
+                &lt;div class="col-4">&lt;input id="wordHeaderLeft" type="text" class="form-control" placeholder="Left Content"/>&lt;/div>
+                &lt;div class="col-4">&lt;input id="wordHeaderCenter" type="text" class="form-control" style="text-align:center;" placeholder="Center Content"/>&lt;/div>
+                &lt;div class="col-4">&lt;input id="wordHeaderRight" type="text" style="text-align:right;" class="form-control" placeholder="Right Content"/>&lt;/div>
+            &lt;/div>
+            &lt;div class="row mb-3 word-header-row p-2" style="display:none;">
+                &lt;div class="col-12">
+                    &lt;div class="form-check mb-2">
+                        &lt;input class="form-check-input" type="checkbox" id="wordHeaderLine">
+                        &lt;label class="form-check-label" for="wordHeaderLine">
+                            Display header line
+                        &lt;/label>
+                    &lt;/div>                    
+                &lt;/div>
+            &lt;/div>
+            &lt;div class="row p-2">
+                &lt;div class="col-12">
+                    &lt;div class="form-check mb-2">
+                        &lt;input class="form-check-input" type="checkbox" id="wordDisplayFooter">
+                        &lt;label class="form-check-label" for="wordDisplayFooter">
+                            Display footer
+                        &lt;/label>
+                    &lt;/div> 
+                &lt;/div>                
+            &lt;/div>
+            &lt;div class="row word-footer-row p-2" style="display:none;">
+                &lt;div class="col-4">&lt;input id="wordFooterLeft" type="text" class="form-control" placeholder="Left Content"/>&lt;/div>
+                &lt;div class="col-4">&lt;input id="wordFooterCenter" type="text" class="form-control" style="text-align:center;" placeholder="Center Content"/>&lt;/div>
+                &lt;div class="col-4">&lt;input id="wordFooterRight" type="text" class="form-control" style="text-align:right;" class="form-control" placeholder="Right Content"/>&lt;/div>
+            &lt;/div>
+            &lt;div class="row mb-3 word-footer-row p-2" style="display:none;">
+                &lt;div class="col-12">
+                    &lt;div class="form-check mb-2">
+                        &lt;input class="form-check-input" type="checkbox" id="wordFooterLine">
+                        &lt;label class="form-check-label" for="wordFooterLine">
+                            Display footer line
+                        &lt;/label>
+                    &lt;/div>                    
+                &lt;/div>
+            &lt;/div>
+          &lt;/div>
+          &lt;div class="modal-footer">
+              &lt;button type="button" class="btn btn-secondary mr5" data-bs-dismiss="modal">Cancel&lt;/button>
+              &lt;button type="button" class="btn btn-primary" onClick="Metadocx.modules.Word.exportWord();">&lt;i class="fa-solid fa-check">&lt;/i>&amp;nbsp;Export Word&lt;/button>
+          &lt;/div>
+          &lt;/div>
+      &lt;/div>
+      &lt;/div>`;
+
+    }
+
+    hookExportDialogComponents() {
+
+        $('#wordDisplayHeader').off('click').on('click', () => {
+            if ($('#wordDisplayHeader').prop('checked')) {
+                $('.word-header-row').show();
+            } else {
+                $('.word-header-row').hide();
+            }
+        });
+
+        $('#wordDisplayFooter').off('click').on('click', () => {
+            if ($('#wordDisplayFooter').prop('checked')) {
+                $('.word-footer-row').show();
+            } else {
+                $('.word-footer-row').hide();
+            }
+        });
+
+        $('#wordPaperSize').off('change').on('change', () => {
+            if ($('#wordPaperSize').val() == 'Custom') {
+                $('.wordPaperSizeWidths').css('display', '');
+                $('.wordPaperSizeWidths').show();
+            } else {
+                $('.wordPaperSizeWidths').hide();
+            }
+
+            var paperSize = this.app.modules.Printing.getPaperSize($('#wordPaperSize').val());
+            $('#wordPaperSizeWidth').val(paperSize.width);
+            $('#wordPaperSizeHeight').val(paperSize.height);
+        });
+
+    }
+
+
+    getWordExportOptions() {
+
+        var orientation = Metadocx.modules.Printing.PageOrientation.Portrait;
+        if ($('#wordOrientationLandscape').prop('checked')) {
+            orientation = Metadocx.modules.Printing.PageOrientation.Landscape;
+        }
+
+        return {
+            "page": {
+                "orientation": orientation,
+                "paperSize": $('#wordPaperSize').val(),
+                "width": $('#wordPaperSizeWidth').val(),
+                "height": $('#wordPaperSizeHeight').val(),
+                "margins": {
+                    "top": Metadocx.modules.UI.convertInchesToMM(parseFloat($('#wordTopMargin').val())),
+                    "bottom": Metadocx.modules.UI.convertInchesToMM(parseFloat($('#wordBottomMargin').val())),
+                    "left": Metadocx.modules.UI.convertInchesToMM(parseFloat($('#wordLeftMargin').val())),
+                    "right": Metadocx.modules.UI.convertInchesToMM(parseFloat($('#wordRightMargin').val()))
+                }
+            },
+            "grayscale": $('#wordGrayscale').prop('checked'),
+            "wordCompression": $('#wordUseCompression').prop('checked'),
+            "outline": $('#wordIncludeOutline').prop('checked'),
+            "backgroundGraphics": $('#wordPrintBackgrounds').prop('checked'),
+            "header": {
+                "left": $('#wordHeaderLeft').val(),
+                "center": $('#wordHeaderCenter').val(),
+                "right": $('#wordHeaderRight').val(),
+                "displayHeaderLine": $('#wordHeaderLine').prop('checked')
+            },
+            "footer": {
+                "left": $('#wordFooterLeft').val(),
+                "center": $('#wordFooterCenter').val(),
+                "right": $('#wordFooterRight').val(),
+                "displayFooterLine": $('#wordFooterLine').prop('checked')
+            }
+        };
+
+    }
+
+    exportWprd() {
+        $.ajax({
+            type: 'post',
+            url: '/Convert/word',
+            data: {
+                ExportOptions: this.getWordExportOptions(),
+                HTML: btoa(unescape(encodeURIComponent($('#reportPage').html()))),
+            },
+            xhrFields: {
+                responseType: 'blob'
+            },
+            success: (data, status, xhr) => {
+                //console.log(data);
+                //console.log(status);
+
+                var blob = new Blob([data]);
+                var link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = "Report.docx";
+                link.click();
+
+            }
+        });
+    }
+
+
+}
+window.__Metadocx.WordModule = WordModule;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.11</a> on Thu Dec 29 2022 18:40:26 GMT+0000 (Coordinated Universal Time) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

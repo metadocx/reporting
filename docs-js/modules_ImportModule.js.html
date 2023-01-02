@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>modules/ImportModule.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="BooleanCriteria.html">BooleanCriteria</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="BrowserModule.html">BrowserModule</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="BrowserModule.html#getBrowser">getBrowser</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="BrowserModule.html#isChrome">isChrome</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="BrowserModule.html#isEdge">isEdge</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="BrowserModule.html#isFirefox">isFirefox</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="BrowserModule.html#isIE">isIE</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="BrowserModule.html#isIOSChrome">isIOSChrome</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="BrowserModule.html#isSafari">isSafari</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="CheckboxCriteria.html">CheckboxCriteria</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Consolable.html">Consolable</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Consolable.html#debug">debug</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Consolable.html#error">error</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Consolable.html#log">log</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Consolable.html#warn">warn</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="ConsoleModule.html">ConsoleModule</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#assert">assert</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#buildArguments">buildArguments</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#clear">clear</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#count">count</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#countReset">countReset</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#debug">debug</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#dir">dir</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#disable">disable</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#enable">enable</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#error">error</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#group">group</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#groupCollapsed">groupCollapsed</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#groupEnd">groupEnd</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#help">help</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#info">info</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#log">log</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#profile">profile</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#profileEnd">profileEnd</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#setColor">setColor</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#setTag">setTag</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#table">table</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#time">time</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#timeEnd">timeEnd</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#timeLog">timeLog</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#trace">trace</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#warn">warn</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="CriteriaControl.html">CriteriaControl</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="CriteriaControl.html#getInstance">getInstance</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="CriteriaControl.html#getIsEnabled">getIsEnabled</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="CriteriaControl.html#getValue">getValue</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="CriteriaControl.html#initializeJS">initializeJS</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="CriteriaControl.html#render">render</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="CriteriaControl.html#setValue">setValue</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="DataTable.html">DataTable</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#buildGroupCounters">buildGroupCounters</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#closeAllGroups">closeAllGroups</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#filter">filter</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#getColumn">getColumn</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#getGroupBy">getGroupBy</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#getLevelCount">getLevelCount</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#getOrderBy">getOrderBy</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#hasColumn">hasColumn</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#hideColumn">hideColumn</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#isColumnVisible">isColumnVisible</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#postRender">postRender</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#preRender">preRender</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#render">render</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#renderGroupHeader">renderGroupHeader</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#setColumn">setColumn</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#sort">sort</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="DataTableReportSection.html">DataTableReportSection</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="DataTypeModule.html">DataTypeModule</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTypeModule.html#copyObjectProperties">copyObjectProperties</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTypeModule.html#parseFloat">parseFloat</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTypeModule.html#toBool">toBool</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="DatePeriodCriteria.html">DatePeriodCriteria</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="ExcelModule.html">ExcelModule</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="FormatModule.html">FormatModule</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="ImportModule.html">ImportModule</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Module.html">Module</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Module.html#initialize">initialize</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="NumericCriteria.html">NumericCriteria</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="PDFModule.html">PDFModule</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="PrintingModule.html">PrintingModule</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Report.html">Report</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#applyCriterias">applyCriterias</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#cancelCriterias">cancelCriterias</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#close">close</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#copyOriginalSettings">copyOriginalSettings</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#exportReport">exportReport</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#getContainerSelector">getContainerSelector</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#getId">getId</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#getPaperSizeOptions">getPaperSizeOptions</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#getReportDefinition">getReportDefinition</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#getReportDefinitionUrl">getReportDefinitionUrl</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#hideReportCriterias">hideReportCriterias</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#loadReportDefinition">loadReportDefinition</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#print">print</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#renderReportCriterias">renderReportCriterias</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#renderReportSettings">renderReportSettings</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#resetCriterias">resetCriterias</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#setContainerSelector">setContainerSelector</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#setId">setId</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#setReportDefinitionUrl">setReportDefinitionUrl</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#showReportCriterias">showReportCriterias</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="ReportCanvas.html">ReportCanvas</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportCanvas.html#render">render</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="ReportSection.html">ReportSection</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportSection.html#sort">sort</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="ReportViewer.html">ReportViewer</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#applyOptions">applyOptions</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#applySettings">applySettings</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#cancelSettings">cancelSettings</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#getContainerSelector">getContainerSelector</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#getCriteria">getCriteria</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#getCriteriaValue">getCriteriaValue</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#getCriteriaValues">getCriteriaValues</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#hideToolbar">hideToolbar</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#isCriteriaEnabled">isCriteriaEnabled</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#load">load</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#loadDefaultOptions">loadDefaultOptions</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#refreshReport">refreshReport</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#render">render</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#renderFieldPropertiesDialog">renderFieldPropertiesDialog</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#renderMainLayout">renderMainLayout</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#renderOptionsDialog">renderOptionsDialog</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#renderReportCriterias">renderReportCriterias</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#renderReportSettings">renderReportSettings</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#scaleReportSections">scaleReportSections</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#setContainerSelector">setContainerSelector</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#showFieldPropertiesDialog">showFieldPropertiesDialog</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#showNoReportAlert">showNoReportAlert</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#showReportOptions">showReportOptions</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#showReportSettings">showReportSettings</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#showToolbar">showToolbar</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#updateCSS">updateCSS</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="SelectCriteria.html">SelectCriteria</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="UIModule.html">UIModule</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="WordModule.html">WordModule</a></span></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="global.html#ProxyHandler">ProxyHandler</a></span></li>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">modules/ImportModule.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Import module class
+ * 
+ * @author Benoit Gauthier &lt;bgauthier@metadocx.com>
+ * @copyright Benoit Gauthier &lt;bgauthier@metadocx.com>
+ * @license https://github.com/metadocx/reporting/LICENSE.md
+ */
+class ImportModule extends Module {
+
+    constructor(app) {
+        super(app);
+        this.bootPriority = 200;
+        this.isConsoleDisabled = false;
+        this.loaded = false;
+        this.onLibrairiesLoaded = null;
+        this._bInjectionWasMade = false;
+
+        this.loadStatus = {};
+
+        this.stacks = {
+            default: {
+                requires: [
+                    'Metadocx', 'jQuery', 'IconScout', 'Numeral', 'Bootstrap', 'Select2', 'Moment', 'DateRangePicker'
+                ],
+            },
+        };
+
+        this.libraries = {
+            Metadocx: {
+                head: {
+                    links: [
+                        {
+                            id: 'metadocxcss',
+                            type: 'link',
+                            priority: 100,
+                            rel: 'stylesheet',
+                            href: '/css/metadocx.css',
+                            crossorigin: 'anonymous',
+                            code: '&lt;link id="metadocxcss" rel="stylesheet" href="/css/metadocx.css" />',
+                        }
+                    ],
+                }
+            },
+            jQuery: {
+                bottom: {
+                    scripts: [
+                        {
+                            id: 'jquery',
+                            type: 'script',
+                            priority: 100,
+                            src: 'https://code.jquery.com/jquery-3.6.1.min.js',
+                            crossorigin: 'anonymous',
+                            integrity: 'sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=',
+                            code: '&lt;script id="jquery" src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous">&lt;/script>',
+                        }
+                    ],
+                }
+            },
+            FontAwesome: {
+                head: {
+                    links: [
+                        {
+                            id: 'fontawesome',
+                            type: 'link',
+                            priority: 100,
+                            rel: 'stylesheet',
+                            href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css',
+                            integrity: 'sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==',
+                            crossorigin: 'anonymous',
+                            referrerpolicy: 'no-referrer',
+                            code: '&lt;link id="fontawesome" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />',
+                        },
+                    ],
+                }
+            },
+            IconScout: {
+                head: {
+                    links: [
+                        {
+                            id: 'iconscoutcss',
+                            type: 'link',
+                            priority: 100,
+                            rel: 'stylesheet',
+                            href: 'https://unicons.iconscout.com/release/v4.0.0/css/line.css',
+                            crossorigin: 'anonymous',
+                            code: '&lt;link id="iconscoutcss" rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">        ',
+                        },
+                    ],
+                }
+            },
+            Moment: {
+                bottom: {
+                    scripts: [
+                        {
+                            id: 'momentjs',
+                            type: 'script',
+                            priority: 100,
+                            src: 'https://cdn.jsdelivr.net/momentjs/latest/moment.min.js',
+                            code: '&lt;script id="momentjs" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js">&lt;/script>',
+                        },
+                    ],
+                },
+            },
+            DateRangePicker: {
+                head: {
+                    links: [
+                        {
+                            id: 'daterangepickercss',
+                            type: 'link',
+                            priority: 100,
+                            href: 'https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css',
+                            rel: 'stylesheet',
+                            crossorigin: 'anonymous',
+                            code: '&lt;link id="daterangepickercss" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" rel="stylesheet" crossorigin="anonymous">',
+                        }
+                    ],
+                },
+                bottom: {
+                    scripts: [
+                        {
+                            id: 'daterangepickerjs',
+                            type: 'script',
+                            priority: 100,
+                            src: 'https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js',
+                            code: '&lt;script id="daterangepickerjs" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js">&lt;/script>',
+                        },
+                    ],
+                },
+            },
+            Numeral: {
+                bottom: {
+                    scripts: [
+                        {
+                            id: 'numeral',
+                            type: 'script',
+                            priority: 100,
+                            src: '//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js',
+                            code: '&lt;script id="numeral" src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js">&lt;/script>',
+                        },
+                    ],
+                },
+            },
+            Bootstrap: {
+                head: {
+                    links: [
+                        {
+                            id: 'bootstrapcss',
+                            type: 'link',
+                            priority: 100,
+                            href: 'https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css',
+                            rel: 'stylesheet',
+                            integrity: 'sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65',
+                            crossorigin: 'anonymous',
+                            code: '&lt;link id="bootstrapcss" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">',
+                        }
+                    ],
+                },
+                bottom: {
+                    scripts: [
+                        {
+                            id: 'popperjs',
+                            type: 'script',
+                            priority: 100,
+                            src: 'https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js',
+                            integrity: 'sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3',
+                            crossorigin: 'anonymous',
+                            code: '&lt;script id="popperjs" src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">&lt;/script>',
+                        },
+                        {
+                            id: 'bootstrapjs',
+                            type: 'script',
+                            priority: 110,
+                            src: 'https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js',
+                            integrity: 'sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4',
+                            crossorigin: 'anonymous',
+                            code: '&lt;script id="bootstrapjs" src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">&lt;/script>',
+                        },
+                    ],
+                }
+            },
+            Select2: {
+                head: {
+                    links: [
+                        {
+                            id: 'select2css',
+                            type: 'link',
+                            priority: 100,
+                            href: 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css',
+                            rel: 'stylesheet',
+                            crossorigin: 'anonymous',
+                            code: '&lt;link id="select2css" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />',
+                        }
+                    ],
+                },
+                bottom: {
+                    scripts: [
+                        {
+                            id: 'select2js',
+                            type: 'script',
+                            priority: 100,
+                            src: 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js',
+                            crossorigin: 'anonymous',
+                            code: '&lt;script id="select2js" src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js">&lt;/script>',
+                        },
+                    ],
+                }
+            },
+        };
+    }
+
+    initialize() {
+        super.initialize();
+    }
+
+    isLoaded() {
+
+        for (var x in this.loadStatus) {
+            if (!this.loadStatus[x].loaded) {
+                return false;
+            }
+        }
+
+        return true;
+
+    }
+
+
+
+    injectLibrary(libName) {
+        var sections = this.libraries[libName];
+        if (sections.head &amp;&amp; sections.head.links) {
+            for (var x in sections.head.links) {
+                if ($('#' + sections.head.links[x].id).length == 0) {
+                    this.log('   Injecting head link ' + sections.head.links[x].id);
+                    this.createElement(sections.head.links[x]);
+                } else {
+                    this.log('   Script ' + sections.head.links[x].id + ' already loaded');
+                }
+            }
+        }
+
+        if (sections.head &amp;&amp; sections.head.scripts) {
+            for (var x in sections.head.scripts) {
+                if ($('#' + sections.head.scripts[x].id).length == 0) {
+                    this.log('   Injecting head script ' + sections.head.scripts[x].id);
+                    this.createElement(sections.head.scripts[x]);
+                } else {
+                    this.log('   Script ' + sections.head.scripts[x].id + ' already loaded');
+                }
+            }
+        }
+
+        if (sections.bottom &amp;&amp; sections.bottom.links) {
+            for (var x in sections.bottom.links) {
+                if ($('#' + sections.bottom.links[x].id).length == 0) {
+                    this.log('   Injecting bootom link ' + sections.bottom.links[x].id);
+                    this.createElement(sections.bottom.links[x]);
+                } else {
+                    this.log('   Script ' + sections.bottom.links[x].id + ' already loaded');
+                }
+            }
+        }
+
+        if (sections.bottom &amp;&amp; sections.bottom.scripts) {
+            for (var x in sections.bottom.scripts) {
+                if ($('#' + sections.bottom.scripts[x].id).length == 0) {
+                    this.log('   Injecting bottom script ' + sections.bottom.scripts[x].id);
+                    this.createElement(sections.bottom.scripts[x]);
+                } else {
+                    this.log('   Script ' + sections.bottom.scripts[x].id + ' already loaded');
+                }
+            }
+        }
+    }
+
+    triggerLibrariesLoaded(libName) {
+
+        if (this.loadStatus[libName]) {
+            this.loadStatus[libName].loaded = true;
+        }
+
+        if (this.isLoaded()) {
+            if (this.onLibrairiesLoaded) {
+                this.onLibrairiesLoaded();
+            }
+        }
+    }
+
+    createElement(options) {
+
+        var module = this;
+
+        if (document.getElementById(id)) {
+            console.log('Package is already loaded, skipping');
+            return;
+        }
+
+        this._bInjectionWasMade = true;
+
+        this.loadStatus[options.id] = {
+            loaded: false,
+        };
+
+        (function (d, s, id) {
+            var js, lsjs = d.getElementsByTagName(s)[0];
+
+            if (d.getElementById(id)) {
+                console.log('Package is already loaded, skipping');
+                return;
+            }
+            js = d.createElement(s); js.id = id;
+            if (options.onload) {
+                js.onload = options.onload;
+            } else {
+                js.onload = () => {
+                    module.triggerLibrariesLoaded(id);
+                };
+            }
+            if (options.src) {
+                js.src = options.src;
+            }
+            if (options.crossorigin) {
+                js.crossOrigin = options.crossorigin;
+            }
+            if (options.integrity) {
+                js.integrity = options.integrity;
+            }
+            if (options.href) {
+                js.href = options.href;
+            }
+            if (options.rel) {
+                js.rel = options.rel;
+            }
+            if (!lsjs) {
+                // Inject in head
+                lsjs = document.getElementsByTagName('head')[0];
+                lsjs.appendChild(js);
+            } else {
+                lsjs.parentNode.insertBefore(js, lsjs);
+            }
+
+        }(document, options.type, options.id));
+    }
+
+    injectRequiredLibraries() {
+        console.groupCollapsed('[Metadocx] Import injectRequiredLibraries');
+
+        if (this.app.viewer.options.ui == undefined) {
+            this.app.viewer.options.ui = 'default';
+        }
+
+        this.log('Injecting required librairies for stack ' + this.app.viewer.options.ui);
+        for (var x in this.stacks[this.app.viewer.options.ui].requires) {
+            var libName = this.stacks[this.app.viewer.options.ui].requires[x];
+            this.injectLibrary(libName);
+        }
+
+        if (!this._bInjectionWasMade) {
+            // No injection made call 
+            if (this.onLibrairiesLoaded) {
+                this.onLibrairiesLoaded();
+            }
+        }
+
+    }
+
+
+}
+window.__Metadocx.ImportModule = ImportModule;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.11</a> on Thu Dec 29 2022 18:40:26 GMT+0000 (Coordinated Universal Time) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

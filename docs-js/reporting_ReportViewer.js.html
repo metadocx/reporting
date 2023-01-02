@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>reporting/ReportViewer.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="BooleanCriteria.html">BooleanCriteria</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="BrowserModule.html">BrowserModule</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="BrowserModule.html#getBrowser">getBrowser</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="BrowserModule.html#isChrome">isChrome</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="BrowserModule.html#isEdge">isEdge</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="BrowserModule.html#isFirefox">isFirefox</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="BrowserModule.html#isIE">isIE</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="BrowserModule.html#isIOSChrome">isIOSChrome</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="BrowserModule.html#isSafari">isSafari</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="CheckboxCriteria.html">CheckboxCriteria</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Consolable.html">Consolable</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Consolable.html#debug">debug</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Consolable.html#error">error</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Consolable.html#log">log</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Consolable.html#warn">warn</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="ConsoleModule.html">ConsoleModule</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#assert">assert</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#buildArguments">buildArguments</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#clear">clear</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#count">count</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#countReset">countReset</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#debug">debug</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#dir">dir</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#disable">disable</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#enable">enable</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#error">error</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#group">group</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#groupCollapsed">groupCollapsed</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#groupEnd">groupEnd</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#help">help</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#info">info</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#log">log</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#profile">profile</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#profileEnd">profileEnd</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#setColor">setColor</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#setTag">setTag</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#table">table</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#time">time</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#timeEnd">timeEnd</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#timeLog">timeLog</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#trace">trace</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#warn">warn</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="CriteriaControl.html">CriteriaControl</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="CriteriaControl.html#getInstance">getInstance</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="CriteriaControl.html#getIsEnabled">getIsEnabled</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="CriteriaControl.html#getValue">getValue</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="CriteriaControl.html#initializeJS">initializeJS</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="CriteriaControl.html#render">render</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="CriteriaControl.html#setValue">setValue</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="DataTable.html">DataTable</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#buildGroupCounters">buildGroupCounters</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#closeAllGroups">closeAllGroups</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#filter">filter</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#getColumn">getColumn</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#getGroupBy">getGroupBy</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#getLevelCount">getLevelCount</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#getOrderBy">getOrderBy</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#hasColumn">hasColumn</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#hideColumn">hideColumn</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#isColumnVisible">isColumnVisible</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#postRender">postRender</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#preRender">preRender</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#render">render</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#renderGroupHeader">renderGroupHeader</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#setColumn">setColumn</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#sort">sort</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="DataTableReportSection.html">DataTableReportSection</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="DataTypeModule.html">DataTypeModule</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTypeModule.html#copyObjectProperties">copyObjectProperties</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTypeModule.html#parseFloat">parseFloat</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTypeModule.html#toBool">toBool</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="DatePeriodCriteria.html">DatePeriodCriteria</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="ExcelModule.html">ExcelModule</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="FormatModule.html">FormatModule</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="ImportModule.html">ImportModule</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Module.html">Module</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Module.html#initialize">initialize</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="NumericCriteria.html">NumericCriteria</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="PDFModule.html">PDFModule</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="PrintingModule.html">PrintingModule</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Report.html">Report</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#applyCriterias">applyCriterias</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#cancelCriterias">cancelCriterias</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#close">close</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#copyOriginalSettings">copyOriginalSettings</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#exportReport">exportReport</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#getContainerSelector">getContainerSelector</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#getId">getId</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#getPaperSizeOptions">getPaperSizeOptions</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#getReportDefinition">getReportDefinition</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#getReportDefinitionUrl">getReportDefinitionUrl</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#hideReportCriterias">hideReportCriterias</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#loadReportDefinition">loadReportDefinition</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#print">print</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#renderReportCriterias">renderReportCriterias</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#renderReportSettings">renderReportSettings</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#resetCriterias">resetCriterias</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#setContainerSelector">setContainerSelector</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#setId">setId</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#setReportDefinitionUrl">setReportDefinitionUrl</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#showReportCriterias">showReportCriterias</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="ReportCanvas.html">ReportCanvas</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportCanvas.html#render">render</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="ReportSection.html">ReportSection</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportSection.html#sort">sort</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="ReportViewer.html">ReportViewer</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#applyOptions">applyOptions</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#applySettings">applySettings</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#cancelSettings">cancelSettings</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#getContainerSelector">getContainerSelector</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#getCriteria">getCriteria</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#getCriteriaValue">getCriteriaValue</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#getCriteriaValues">getCriteriaValues</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#hideToolbar">hideToolbar</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#isCriteriaEnabled">isCriteriaEnabled</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#load">load</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#loadDefaultOptions">loadDefaultOptions</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#refreshReport">refreshReport</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#render">render</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#renderFieldPropertiesDialog">renderFieldPropertiesDialog</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#renderMainLayout">renderMainLayout</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#renderOptionsDialog">renderOptionsDialog</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#renderReportCriterias">renderReportCriterias</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#renderReportSettings">renderReportSettings</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#scaleReportSections">scaleReportSections</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#setContainerSelector">setContainerSelector</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#showFieldPropertiesDialog">showFieldPropertiesDialog</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#showNoReportAlert">showNoReportAlert</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#showReportOptions">showReportOptions</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#showReportSettings">showReportSettings</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#showToolbar">showToolbar</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#updateCSS">updateCSS</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="SelectCriteria.html">SelectCriteria</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="UIModule.html">UIModule</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="WordModule.html">WordModule</a></span></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="global.html#ProxyHandler">ProxyHandler</a></span></li>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">reporting/ReportViewer.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/** 
+ * ReportViewer, renders report viewer UI interface 
+ * 
+ * @author Benoit Gauthier &lt;bgauthier@metadocx.com>
+ * @copyright Benoit Gauthier &lt;bgauthier@metadocx.com>
+ * @license https://github.com/metadocx/reporting/LICENSE.md
+ */
+class ReportViewer extends Consolable {
+
+    constructor(app) {
+        super();
+        /**
+         * Report criterias
+         */
+        this.criterias = null;
+        /**
+         * Initial criteria values on load
+         */
+        this.originalCriteriaValues = null;
+        /**
+         * Reference to main app
+         */
+        this.app = app;
+        /**
+         * Report viewer options
+         */
+        this.options = null;
+        /**
+         * Option Proxy instance
+         */
+        this._optionsProxy = null;
+        /**
+         * Options dialog instance 
+         */
+        this.optionsDialog = null;
+        /**
+         * Field properties dialog instance 
+         */
+        this.fieldPropertiesDialog = null;
+        /**
+         * Settings offcanvas reference
+         */
+        this.settingsOffCanvas = null;
+        /**
+         * 
+         */
+        this._bDisableApplyReportViewerOptions = false;
+        /**
+         * Element where report viewer will be rendered
+         */
+        this._containerSelector = '#root';
+        /**
+         * Report instance displayed in report viewer
+         */
+        this.report = new Report();
+
+        /**
+         * Initialize options with default options
+         */
+        this.loadDefaultOptions();
+
+    }
+
+    /**
+     * Load report default options
+     */
+    loadDefaultOptions() {
+
+        this.log('Loading default options');
+
+        this.options = {
+            "id": "metadocxReport",
+            "toolbar": {
+                "showOptionsButton": true,
+                "showSettingsButton": true,
+                "showCriteriasButton": true,
+                "showPrintButton": true,
+                "showExportButton": true,
+                "showCloseButton": true
+            },
+            "exportFormats": {
+                "pdf": true,
+                "word": false,
+                "excel": false
+            },
+            "page": {
+                "orientation": "portrait",
+                "paperSize": "Letter",
+                "margins": {
+                    "top": 0.5,
+                    "bottom": 0.5,
+                    "left": 0.5,
+                    "right": 0.5
+                }
+            },
+            "settings": {
+                "fields": true,
+                "fieldsReorder": true,
+                "fieldsSelection": true,
+                "fieldsFormula": true,
+
+                "orderBy": true,
+                "orderByReorder": true,
+                "orderBySelection": true,
+                "orderByOrder": true,
+
+                "groupBy": true,
+                "groupByReorder": true,
+                "groupBySelection": true,
+                "groupByOrder": true
+            },
+            "formats": {
+                "date": {
+                    "format": "YYYY-MM-DD"
+                },
+                "boolean": {
+                    "format": {
+                        "trueValue": "Yes",
+                        "falseValue": "No",
+                        "ALL": "All"
+                    }
+                },
+                "number": {
+                    "format": "0.00"
+                }
+            },
+            "printing": {
+                "method": "pdf"
+            }
+        };
+
+        this.options = new Proxy(this.options, ProxyHandler);
+
+    }
+
+    /**
+     * Loads a report definition file
+     */
+    load(reportDefinitionUrl) {
+
+        /**
+         * If we have a report definition file passed as parameter, load it and render
+         */
+        if (reportDefinitionUrl) {
+            this.log('Loading report ' + reportDefinitionUrl);
+            /**
+             * Create report object
+             */
+            if (this.report === null) {
+                this.report = new Report();
+            }
+            this.report.app = this.app;
+
+            window[this.options.id] = this.report;
+            this.report.setId(this.options.id);
+            this.report.setContainerSelector('#' + this.options.name + '_canvas');
+
+            this.report.onReportLoaded = () => {
+                this.applyReportViewerOptions();
+            }
+
+            this.report.onReportDefinitionFileLoaded = () => {
+                this.refreshReport();
+            }
+
+            this.report.loadReportDefinition(reportDefinitionUrl);
+            this.applyReportViewerOptions();
+            this.originalCriteriaValues = this.getCriteriaValues();
+
+        }
+
+    }
+
+
+    applyReportViewerOptions() {
+
+        if (this._bDisableApplyReportViewerOptions) {
+            return;
+        }
+
+        if (!this.report.isLoaded) {
+            // Report is not yet loaded hide all toolbar buttons
+            $('.report-toolbar-button').hide();
+            return;
+        }
+
+
+        $('#' + this.options.id + '_headerName').html(this.report.getReportDefinition().properties.name);
+        $('#' + this.options.id + '_headerDescription').html(this.report.getReportDefinition().properties.description);
+
+        $('.report-toolbar-button').show();
+
+        if (this.options.toolbar.showExportButton) {
+            $('#' + this.options.id + '_export').show();
+        } else {
+            $('#' + this.options.id + '_export').hide();
+        }
+
+        if (this.options.toolbar.showPrintButton) {
+            $('#' + this.options.id + '_print').show();
+        } else {
+            $('#' + this.options.id + '_print').hide();
+        }
+
+        if (this.options.toolbar.showCriteriasButton) {
+            $('#' + this.options.id + '_criterias').show();
+        } else {
+            $('#' + this.options.id + '_criterias').hide();
+        }
+
+        if (this.options.toolbar.showSettingsButton) {
+            $('#' + this.options.id + '_settings').show();
+        } else {
+            $('#' + this.options.id + '_settings').hide();
+        }
+
+        if (this.options.toolbar.showOptionsButton) {
+            $('#' + this.options.id + '_options').show();
+        } else {
+            $('#' + this.options.id + '_options').hide();
+        }
+
+        if (this.options.toolbar.showCloseButton &amp;&amp; window.opener != null) {
+            $('#' + this.options.id + '_close').show();
+        } else {
+            $('#' + this.options.id + '_close').hide();
+        }
+
+
+
+    }
+
+    /**
+     * Renders the report viewer
+     */
+    render() {
+        this.log('Report viewer render');
+        var s = '';
+
+        s += this.renderMainLayout();
+        s += this.renderReportCriterias();
+        s += this.renderOptionsDialog();
+        s += this.renderReportSettings();
+        s += this.renderFieldPropertiesDialog();
+
+        $('#' + this.options.container).html(s);
+        $('.report-viewer-criterias').hide();
+
+    }
+
+    /**
+     * Displays info section when no report definition file is supplied
+     */
+    showNoReportAlert() {
+
+        this.log('No report data, displaying no report warning');
+        var s = `&lt;div class="alert alert-warning mb-0 report-no-definition" role="alert">
+                    &lt;h4 class="alert-heading">Missing report definition&lt;/h4>
+                    &lt;p>Oups! Something went wrong. We did not get a report to load.&lt;/p>                    
+                &lt;/div>`;
+
+        $('#' + this.app.viewer.options.name + '_canvas').html(s);
+        $('.report-toolbar-button').hide();
+    }
+
+    /**
+     * Renders main layout html of report viewer
+     * @returns 
+     */
+    renderMainLayout() {
+
+        this.log('Render main layout');
+        var sCloseButtonClasses = '';
+        if (window.opener == null) {
+            // This window is not open by script can not use close button
+            sCloseButtonClasses = ' hidden';
+        }
+
+        var sExportPDFClasses = '';
+        if (!this.options.exportFormats.pdf) {
+            sExportPDFClasses = ' hidden';
+        }
+        var sExportWordClasses = '';
+        if (!this.options.exportFormats.word) {
+            sExportWordClasses = ' hidden';
+        }
+        var sExportExcelClasses = '';
+        if (!this.options.exportFormats.excel) {
+            sExportExcelClasses = ' hidden';
+        }
+
+        /**
+         * Main layout
+         */
+        return `&lt;header id="${this.options.name}_header" class="page-topbar no-print">
+             &lt;div class="navbar-header">
+                 &lt;div class="d-flex">
+                     &lt;div class="ms-4">
+                         &lt;div class="report-header-icon">
+                            &lt;i class="uil uil-file-graph" style="font-size: 36px;line-height: 36px;">&lt;/i>
+                         &lt;/div>
+                         &lt;div class="report-header-title-section">
+                            &lt;div id="${this.options.name}_headerName" class="report-header-title">&lt;/div>
+                            &lt;div id="${this.options.name}_headerDescription" class="report-header-description">&lt;/div>
+                         &lt;/div>
+                     &lt;/div>
+                 &lt;/div>
+                 &lt;div class="d-flex">                   
+                     &lt;div class="btn-group me-2 mb-2 mb-sm-0 report-toolbar-button">
+                         &lt;button id="${this.options.name}_export" type="button" class="btn header-item dropdown-toggle" data-bs-toggle="dropdown">
+                            &lt;i class="uil uil-file-export">&lt;/i>
+                         &lt;/button>
+                         &lt;div class="dropdown-menu">
+                             &lt;a id="${this.options.name}_exportPdf" class="dropdown-item${sExportPDFClasses}" href="#" onClick="Metadocx.viewer.report.exportReport('PDF');">PDF&lt;/a>
+                             &lt;a id="${this.options.name}_exportExcel" class="dropdown-item${sExportExcelClasses}" href="#" onClick="Metadocx.viewer.report.exportReport('Excel');">Excel&lt;/a>
+                             &lt;a id="${this.options.name}_exportWord" class="dropdown-item${sExportWordClasses}" href="#" onClick="Metadocx.viewer.report.exportReport('Word');">Word&lt;/a>
+                         &lt;/div>
+                     &lt;/div>
+                     &lt;div class="me-2 mb-2 mb-sm-0 report-toolbar-button">
+                         &lt;button id="${this.options.name}_print" type="button" class="btn header-item" onClick="Metadocx.viewer.report.print();">&lt;i class="uil uil-print">&lt;/i>&lt;/button>
+                     &lt;/div>
+                     &lt;div class="me-2 mb-2 mb-sm-0 report-toolbar-button">
+                         &lt;button id="${this.options.name}_criterias" type="button" class="btn header-item" onClick="Metadocx.viewer.report.showReportCriterias();">&lt;i class="uil uil-filter">&lt;/i>&lt;/button>
+                     &lt;/div>
+                     &lt;div class="me-2 mb-2 mb-sm-0 report-toolbar-button">
+                         &lt;button id="${this.options.name}_settings" type="button" class="btn header-item" onClick="Metadocx.viewer.showReportSettings();">&lt;i class="uil uil-file-graph">&lt;/i>&lt;/button>
+                     &lt;/div>
+                     &lt;div class="me-2 mb-2 mb-sm-0 report-toolbar-button">
+                         &lt;button id="${this.options.name}_options" type="button" class="btn header-item" onClick="Metadocx.viewer.showReportOptions();">&lt;i class="uil uil-cog">&lt;/i>&lt;/button>
+                     &lt;/div>
+                     &lt;div class="me-2 mb-2 mb-sm-0 report-toolbar-button${sCloseButtonClasses}">
+                         &lt;button id="${this.options.name}_close" type="button" class="btn header-item" onClick="Metadocx.viewer.report.close();">&lt;i class="uil uil-times">&lt;/i>&lt;/button>
+                     &lt;/div>
+                 &lt;/div>
+             &lt;/div>
+         &lt;/header>
+         &lt;div id="${this.options.name}_canvas" class="report-viewer-canvas">
+         &lt;/div>
+         &lt;div class="powered-by no-print">powered by &lt;a href="https://www.metadocx.com" target="_blank">Metadocx&lt;/a>&lt;/div>`;
+
+    }
+
+    /**
+     * Renders report criteria sections html, criterias will be rendered by the report object
+     * @returns 
+     */
+    renderReportCriterias() {
+
+        this.log('Render report criterias');
+        return `&lt;div id="${this.options.name}_criteriasZone" class="report-viewer-criterias">
+                    &lt;div class="page-content">
+                        &lt;div class="container-fluid">
+                            &lt;div class="row">                                
+                                &lt;div class="col-12">                                
+                                    &lt;div class="page-title-box d-flex align-items-center justify-content-between">
+                                        &lt;h4 class="mb-0">Criterias&lt;/h4>
+                                        &lt;div class="d-flex">
+                                            &lt;button class="btn btn-primary mr5" onClick="Metadocx.viewer.report.applyCriterias();">&lt;i class="uil uil-check fs16" style="color:#fff;">&lt;/i>&amp;nbsp;Apply criterias&lt;/button>
+                                            &lt;button class="btn btn-danger mr5" onClick="Metadocx.viewer.report.resetCriterias();">Reset&lt;/button>
+                                            &lt;button class="btn btn-secondary" onClick="Metadocx.viewer.report.cancelCriterias();">Cancel&lt;/button>
+                                        &lt;/div>
+                                    &lt;/div>
+                                &lt;/div>
+                            &lt;/div>
+                            &lt;div class="row">
+                                &lt;div class="col-12">
+                                    &lt;div class="card">
+                                        &lt;div id="${this.options.name}_criteriasBody" class="card-body">
+                                            
+                                        &lt;/div>
+                                    &lt;/div>
+                                &lt;/div>
+                            &lt;/div>            
+                        &lt;/div>
+                    &lt;/div>
+                &lt;/div>`;
+    }
+
+    /**
+     * Render report options dialoag html
+     * @returns 
+     */
+    renderOptionsDialog() {
+
+        /**
+         * Options dialog
+         */
+        this.log('Render report options dialog');
+
+        return `&lt;div id="${this.options.name}_optionsDialog" class="modal" tabindex="-1">
+               &lt;div class="modal-dialog">
+                 &lt;div class="modal-content">
+                 &lt;div class="modal-header">
+                     &lt;h5 class="modal-title">Options&lt;/h5>
+                     &lt;button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">&lt;/button>
+                 &lt;/div>
+                 &lt;div class="modal-body">
+                     &lt;div class="d-flex justify-content-between">
+                         &lt;div class="d-flex flex-column p-2">
+                             &lt;div class="mb-3">                                
+                                 &lt;label for="paperSize" class="form-label font-weight-bold">Orientation&lt;/label>
+                             
+                                 &lt;div class="form-check">
+                                     &lt;input class="form-check-input" type="radio" name="orientation" id="orientationPortrait">
+                                     &lt;label class="form-check-label" for="orientationPortrait">
+                                         Portrait
+                                     &lt;/label>
+                                 &lt;/div>
+                                 &lt;div class="form-check">
+                                     &lt;input class="form-check-input" type="radio" name="orientation" id="orientationLandscape">
+                                     &lt;label class="form-check-label" for="orientationLandscape">
+                                         Landscape
+                                     &lt;/label>
+                                 &lt;/div>
+                             &lt;/div>
+                             &lt;div class="mb-3">                                
+                                 &lt;label for="paperSize" class="form-label font-weight-bold">Paper size&lt;/label>
+                                 &lt;select id="paperSize" class="form-select">
+                                 ${this.app.modules.Printing.getPaperSizeOptions()}
+                                 &lt;/select>
+                             &lt;/div>
+                         &lt;/div>
+                         &lt;div class="d-flex flex-column p-2">
+                             &lt;div class="mb-3">                                
+                                 &lt;label for="paperSize" class="form-label font-weight-bold">Margins&lt;/label>
+                             
+                                 &lt;div class="mb-3 row">
+                                     &lt;label for="topMargin" class="col-sm-4 col-form-label">Top&lt;/label>
+                                     &lt;div class="col-sm-6">
+                                         &lt;input type="number" class="form-control" id="topMargin" value="0" style="width:80px;margin-left:30px;">
+                                     &lt;/div>
+                                     &lt;label class="col-sm-2 col-form-label">in.&lt;/label>
+                                 &lt;/div>
+                                 &lt;div class="mb-3 row">
+                                     &lt;label for="bottomMargin" class="col-sm-4 col-form-label">Bottom&lt;/label>
+                                     &lt;div class="col-sm-6">
+                                         &lt;input type="number" class="form-control" id="bottomMargin" value="0" style="width:80px;margin-left:30px;">
+                                     &lt;/div>
+                                     &lt;label class="col-sm-2 col-form-label">in.&lt;/label>
+                                 &lt;/div>
+                                 &lt;div class="mb-3 row">
+                                     &lt;label for="leftMargin" class="col-sm-4 col-form-label">Left&lt;/label>
+                                     &lt;div class="col-sm-6">
+                                         &lt;input type="number" class="form-control" id="leftMargin" value="0" style="width:80px;margin-left:30px;">
+                                     &lt;/div>
+                                     &lt;label class="col-sm-2 col-form-label">in.&lt;/label>
+                                 &lt;/div>
+                                 &lt;div class="mb-3 row">
+                                     &lt;label for="rightMargin" class="col-sm-4 col-form-label">Right&lt;/label>
+                                     &lt;div class="col-sm-6">
+                                         &lt;input type="number" class="form-control" id="rightMargin" value="0" style="width:80px;margin-left:30px;">
+                                     &lt;/div>
+                                     &lt;label class="col-sm-2 col-form-label">in.&lt;/label>
+                                 &lt;/div>                                                    
+                             &lt;/div>
+                         &lt;/div>
+                     &lt;/div>
+                 &lt;/div>
+                 &lt;div class="modal-footer">
+                     &lt;button type="button" class="btn btn-secondary mr5" data-bs-dismiss="modal">Cancel&lt;/button>
+                     &lt;button type="button" class="btn btn-primary" onClick="Metadocx.viewer.applyOptions();">&lt;i class="fa-solid fa-check">&lt;/i>&amp;nbsp;Apply Options&lt;/button>
+                 &lt;/div>
+                 &lt;/div>
+             &lt;/div>
+             &lt;/div>`;
+
+    }
+
+    /**
+     * Render report field properties dialog html
+     * @returns 
+     */
+    renderFieldPropertiesDialog() {
+
+        /**
+         * Field properties dialog
+         */
+        this.log('Render report field properties dialog');
+
+        return `&lt;div id="${this.options.name}_fieldPropertyDialog" class="modal modal-lg" tabindex="-1" data-backdrop="false">
+               &lt;div class="modal-dialog">
+                 &lt;div class="modal-content">
+                 &lt;div class="modal-header">
+                     &lt;h5 class="modal-title">Properties&lt;/h5>
+                     &lt;button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">&lt;/button>
+                 &lt;/div>
+                 &lt;div class="modal-body">
+                    &lt;div class="row">
+                            &lt;div class="col-6">
+                                &lt;div class="mb-3" style="display:none;">
+                                &lt;label for="fieldSectionID" class="col-form-label">Section ID&lt;/label>                            
+                                &lt;input type="text" class="form-control" id="fieldSectionID" readonly value=""/>
+                            &lt;/div>
+                            &lt;div class="mb-3" style="display:none;">
+                                &lt;label for="fieldName" class="col-form-label">Name&lt;/label>                            
+                                &lt;input type="text" class="form-control" id="fieldName" readonly value=""/>
+                            &lt;/div>
+                            &lt;div class="mb-3">
+                                &lt;label for="fieldLabel" class="col-form-label">Label&lt;/label>                            
+                                &lt;input type="text" class="form-control" id="fieldLabel" value=""/>                            
+                            &lt;/div>
+                            &lt;div class="mb-3">
+                                &lt;label for="fieldWidth" class="col-form-label">Width (px)&lt;/label>                            
+                                &lt;input type="number" class="form-control" id="fieldWidth" value=""/>                            
+                            &lt;/div>
+
+                            &lt;div class="form-check mb-3">
+                                &lt;input class="form-check-input" type="checkbox" id="fieldVisible">
+                                &lt;label class="form-check-label" for="fieldVisible">
+                                    Is Visible
+                                &lt;/label>
+                            &lt;/div>
+                        
+                        &lt;/div>
+                        &lt;div class="col-6">
+                            
+                            &lt;div class="mb-3" style="display:none;">
+                                &lt;label for="fieldType" class="col-form-label">Type&lt;/label>                            
+                                &lt;input type="text" class="form-control" id="fieldType" readonly value=""/>
+                            &lt;/div>
+                            &lt;div class="mb-3">
+                                &lt;label for="fieldAlign" class="col-form-label">Alignment&lt;/label>                            
+                                &lt;select id="fieldAlign" class="form-control">
+                                    &lt;option value="left">Left&lt;/option>
+                                    &lt;option value="right">Right&lt;/option>
+                                    &lt;option value="center">Center&lt;/option>
+                                &lt;/select>
+                            &lt;/div>
+
+                            &lt;div id="fieldFormula_container" class="mb-3">
+                                &lt;label for="fieldFormula" class="col-form-label">Formula&lt;/label>                            
+                                &lt;select id="fieldFormula" class="form-control">
+                                    &lt;option value="">(None)&lt;/option>
+                                    &lt;option value="SUM">Sum&lt;/option>
+                                    &lt;option value="AVG">Average&lt;/option>
+                                    &lt;option value="MIN">Min Value&lt;/option>
+                                    &lt;option value="MAX">Max Value&lt;/option>
+                                    &lt;option value="COUNT">Count&lt;/option>
+                                &lt;/select>
+                            &lt;/div>
+
+                            &lt;div id="fieldFormat_container" class="mb-3">
+                                &lt;label for="fieldFormat" class="col-form-label">Format&lt;/label>                            
+                                &lt;input type="text" class="form-control" id="fieldFormat" value=""/>                            
+                            &lt;/div>                            
+                        
+                        &lt;/div>
+                    &lt;/div>    
+
+                     
+                 &lt;/div>
+                 &lt;div class="modal-footer">
+                     &lt;button type="button" class="btn btn-secondary mr5" data-bs-dismiss="modal">Cancel&lt;/button>
+                     &lt;button type="button" class="btn btn-primary" onClick="Metadocx.viewer.applyFieldProperties();">&lt;i class="fa-solid fa-check">&lt;/i>&amp;nbsp;Apply Properties&lt;/button>
+                 &lt;/div>
+                 &lt;/div>
+             &lt;/div>
+             &lt;/div>`;
+
+    }
+
+    /**
+     * Render report settings offcanvas html
+     * @returns 
+     */
+    renderReportSettings() {
+
+        this.log('Render report settings offcanvas');
+
+        return `&lt;div id="${this.options.name}_settingsOffCanvas" class="offcanvas offcanvas-end report-section-offcanvas" data-bs-backdrop="static" tabindex="-1" aria-labelledby="${this.options.name}_settingsOffCanvasLabel">
+                    &lt;div class="offcanvas-header">
+                        &lt;h5 id="${this.options.name}_settingsOffCanvasLabel" class="offcanvas-title">Report Settings&lt;/h5>
+                        &lt;button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close">&lt;/button>
+                    &lt;/div>
+                    &lt;div id="${this.options.name}_reportSettingsZone" class="offcanvas-body">
+                        
+                    &lt;/div>
+                &lt;/div>`;
+
+    }
+
+    /**
+     * Display report options in a modal dialog
+     */
+    showFieldPropertiesDialog(sectionID, fieldName) {
+
+        if (this.fieldPropertiesDialog === null) {
+            this.fieldPropertiesDialog = new bootstrap.Modal('#' + this.options.name + '_fieldPropertyDialog', {})
+        }
+
+        var sReportSectionType = this.report.getReportSection(sectionID).type + 'ReportSection';
+        var oReportSection = new window.__Metadocx[sReportSectionType](this.app, this.report.getReportSection(sectionID));
+
+        var field = oReportSection.getColumn(fieldName);
+
+        $('#fieldSectionID').val(sectionID);
+        $('#fieldName').val(field.name);
+        $('#fieldType').val(field.type);
+        $('#fieldLabel').val(field.label);
+
+        var bIsVisible = true;
+        if (field.visible != undefined) {
+            bIsVisible = this.app.modules.DataType.toBool(field.visible);
+        }
+
+        $('#fieldVisible').prop('checked', bIsVisible);
+
+        if (field.formula != undefined) {
+            $('#fieldFormula').val(field.formula);
+        }
+        if (field.format != undefined) {
+            $('#fieldFormat').val(field.format);
+        }
+        if (field.width != undefined) {
+            $('#fieldWidth').val(field.width);
+        }
+
+
+        if (field.type == 'number') {
+            $('#fieldFormula_container').show();
+            $('#fieldFormat_container').show();
+        } else {
+            $('#fieldFormula_container').hide();
+            $('#fieldFormat_container').hide();
+        }
+
+
+
+        this.fieldPropertiesDialog.show();
+    }
+
+    applyFieldProperties() {
+
+        var sectionID = $('#fieldSectionID').val();
+        var fieldName = $('#fieldName').val();
+
+        var sReportSectionType = this.report.getReportSection(sectionID).type + 'ReportSection';
+        var oReportSection = new window.__Metadocx[sReportSectionType](this.app, this.report.getReportSection(sectionID));
+
+        var field = oReportSection.getColumn(fieldName);
+
+        field.label = $('#fieldLabel').val();
+        if ($('#fieldWidth').val() != '') {
+            field.width = parseInt($('#fieldWidth').val());
+        } else {
+            field.width = '';
+        }
+        field.visible = $('#fieldVisible').prop('checked');
+
+        if (field.type == 'number') {
+            if ($('#fieldFormula').val() != '') {
+                field.formula = $('#fieldFormula').val();
+            } else {
+                field.formula = '';
+            }
+
+            if ($('#fieldFormat').val() != '') {
+                field.format = $('#fieldFormat').val();
+            } else {
+                field.format = '';
+            }
+        }
+
+        field.align = $('#fieldAlign').val();
+
+        oReportSection.setColumn(fieldName, field);
+        this.refreshReportSettings();
+        this.refreshReport();
+
+        this.fieldPropertiesDialog.hide();
+    }
+
+    /**
+     * Returns object of all criteria values
+     * @returns 
+     */
+    getCriteriaValues() {
+
+        var values = {};
+        if (this.criterias) {
+            for (var x in this.criterias) {
+                values[this.criterias[x].id] = {
+                    id: this.criterias[x].id,
+                    enabled: this.criterias[x].getIsEnabled(),
+                    value: this.criterias[x].getValue(),
+                }
+            }
+        }
+
+        return values;
+    }
+
+    /**
+     * Returns a specific criteria value
+     * @param {*} criteria 
+     * @returns 
+     */
+    getCriteriaValue(criteriaName) {
+        return this.getCriteriaValues()[criteriaName];
+    }
+
+    /**
+     * Returns criteria 
+     * @param {*} id 
+     * @returns 
+     */
+    getCriteria(id) {
+        if (this.criterias) {
+            for (var x in this.criterias) {
+                if (this.criterias[x].id == id) {
+                    return this.criterias[x];
+                }
+            }
+        }
+    }
+
+    /**
+     * Returns is a specific criteria is enabled or not
+     * @param {*} id 
+     * @returns 
+     */
+    isCriteriaEnabled(id) {
+        return this.getCriteria(id).getIsEnabled();
+    }
+
+    /**
+     * Display report options in a modal dialog
+     */
+    showReportOptions() {
+
+        if (this.optionsDialog === null) {
+            this.optionsDialog = new bootstrap.Modal('#' + this.options.name + '_optionsDialog', {})
+        }
+
+        if (this.options.page.orientation == 'portrait') {
+            $('#orientationPortrait').prop('checked', true);
+            $('#orientationLandscape').prop('checked', false);
+        } else {
+            $('#orientationPortrait').prop('checked', false);
+            $('#orientationLandscape').prop('checked', true);
+        }
+
+        $('#paperSize').val(this.options.page.paperSize);
+
+        $('#topMargin').val(this.options.page.margins.top);
+        $('#bottomMargin').val(this.options.page.margins.bottom);
+        $('#leftMargin').val(this.options.page.margins.left);
+        $('#rightMargin').val(this.options.page.margins.right);
+
+        this.optionsDialog.show();
+    }
+
+    /**
+     * Apply report options selected by user
+     */
+    applyOptions() {
+
+        this._bDisableApplyReportViewerOptions = true;
+        this.options.page.margins.top = $('#topMargin').val();
+        this.options.page.margins.bottom = $('#bottomMargin').val();
+        this.options.page.margins.left = $('#leftMargin').val();
+        this.options.page.margins.right = $('#rightMargin').val();
+
+        this.options.page.paperSize = $('#paperSize').val();
+
+        if ($('#orientationPortrait').prop('checked')) {
+            this.options.page.orientation = 'portrait';
+        } else {
+            this.options.page.orientation = 'landscape';
+        }
+
+        this.optionsDialog.hide();
+
+        this._bDisableApplyReportViewerOptions = false;
+        this.applyReportViewerOptions();
+        this.refreshReport();
+
+    }
+
+
+    /**
+     * Refresh report view (reload the report)
+     */
+    refreshReport() {
+
+        this.report.renderReportCriterias();
+        this.report.renderReportSettings();
+        $(this.report._containerSelector).html((new ReportCanvas(this.app, this.report, this)).render());
+        this.updateCSS();
+        this.scaleReportSections();
+        if (!this.report.isLoaded) {
+            this.report.isLoaded = true;
+            this.report.copyOriginalSettings();
+            if (this.report.onReportLoaded) {
+                this.report.onReportLoaded();
+            }
+        }
+
+    }
+
+    /**
+     * Update reportPage style tag with print media css
+     */
+    updateCSS() {
+
+        var paperSize = this.app.modules.Printing.getPaperSize(this.app.viewer.options.page.paperSize);
+        var pageOrientation = this.app.viewer.options.page.orientation;
+
+        var width = 0;
+        var height = 0;
+
+        if (pageOrientation == this.app.modules.Printing.PageOrientation.Landscape) {
+            width = paperSize.height;
+            height = paperSize.width;
+        } else {
+            width = paperSize.width;
+            height = paperSize.height;
+        }
+
+        var s = `
+               
+        @media print {
+
+            html, body {
+                width: ${width}mm;
+                margin: 0;
+                padding: 0;
+            }
+
+            @page {
+                size: ${width}mm ${height}mm;
+                margin-top: ${this.options.page.margins.top}in !important;
+                margin-bottom: ${this.options.page.margins.bottom}in !important;
+                margin-left: ${this.options.page.margins.left}in !important;
+                margin-right: ${this.options.page.margins.right}in !important;
+                bleed: auto;
+                @bottom-center {
+                    content: counter(page) ' of ' counter(pages);
+                }
+            }
+
+            .report-page {
+                padding-top: 0px !important;
+                padding-bottom: 0px !important;
+                padding-left: 0px !important;
+                padding-right: 0px !important; 
+                box-shadow: none;
+                border: none;
+                margin-left: inherit;
+                margin-right: inherit;    
+                width : ${width}mm;
+                height: ${height}mm;          
+            }
+ 
+            .no-print {
+                display: none;
+            }
+          
+            .report-viewer-canvas {
+                overflow:visible;
+                height: auto;
+                padding:0px;
+            }
+                                            
+            table { page-break-after:auto }
+            tr    { page-break-inside:avoid; page-break-after:auto }
+            td    { page-break-inside:avoid; page-break-after:auto }
+            thead { display:table-header-group }
+            tfoot { display:table-footer-group }
+        }`;
+
+        $('#' + this.options.name + '_style').text(s);
+        this.app.modules.Printing.applyPageStyles();
+    }
+
+    /**
+     * Scales report section to fit in page width
+     */
+    scaleReportSections() {
+
+        $('.table-report-section').each(function () {
+
+            if ($(this).width() > 0) {
+                var ratio = $('#reportPage').width() / $(this).width();
+                if (ratio != 1) {
+                    $(this).css('transform', 'scaleX(' + parseFloat(ratio).toFixed(2) + ')');
+                    $(this).css('transform-origin', 'top left')
+                }
+            }
+
+        });
+
+    }
+
+    /**
+     * Displays report settings right off canvas
+     */
+    showReportSettings() {
+
+        if (this.settingsOffCanvas === null) {
+            this.settingsOffCanvas = new bootstrap.Offcanvas($('#' + this.options.name + '_settingsOffCanvas')[0], {})
+        }
+        this.settingsOffCanvas.show();
+
+    }
+
+    refreshReportSettings() {
+
+        for (var kSection in this.report.getReportDefinition().sections) {
+            var oSection = this.report.getReportDefinition().sections[kSection];
+
+            for (var y in oSection.model) {
+                var field = oSection.model[y];
+                var bIsVisible = true;
+                if (field.visible != undefined) {
+                    bIsVisible = this.app.modules.DataType.toBool(field.visible);
+                }
+                $('#' + oSection.id + '_field_' + oSection.model[y].name).prop('checked', bIsVisible);
+                if (field.formula) {
+                    $('#' + oSection.id + '_formula_' + oSection.model[y].name).val(field.formula);
+                } else {
+                    $('#' + oSection.id + '_formula_' + oSection.model[y].name).val('');
+                }
+                $('#' + oSection.id + '_label_' + oSection.model[y].name).html(field.label);
+
+            }
+
+        }
+
+    }
+
+    /**
+     * Cancels report settings 
+     */
+    cancelSettings() {
+        if (this.settingsOffCanvas !== null) {
+            this.settingsOffCanvas.hide();
+        }
+    }
+
+    /**
+     * Apply report settings
+     */
+    applySettings() {
+        if (this.settingsOffCanvas === null) {
+            this.settingsOffCanvas = new bootstrap.Offcanvas($('#' + this.app.viewer.options.name + '_settingsOffCanvas')[0], {})
+        }
+        this.settingsOffCanvas.hide();
+
+        // Update report properties name and description
+        this.report.getReportDefinition().properties.name = $('#reportSettingsName').val();
+        this.report.getReportDefinition().properties.description = $('#reportSettingsDescription').val();
+
+        // Update report sections 
+        for (var x in this.report.getReportDefinition().sections) {
+            var oSection = this.report.getReportDefinition().sections[x];
+
+            /**
+             * Apply field settings
+             */
+            for (var f in oSection.model) {
+                var oCol = oSection.model[f];
+                oCol.visible = $('#' + oSection.id + '_field_' + oCol.name).prop('checked');
+                oCol['formula'] = $('#' + oSection.id + '_formula_' + oCol.name).val();
+            }
+
+            /**
+             * Reorder model columns
+             */
+            $('#' + oSection.id + '_fields tbody tr').each(function () {
+                var columnName = $(this).attr('data-column');
+                oSection.model.forEach(function (item, i) {
+                    if (item.name == columnName) {
+                        oSection.model.splice(i, 1);
+                        oSection.model.unshift(item);
+                    }
+                });
+            });
+
+            oSection.model.reverse();
+
+            /**
+             * Apply order by settings
+             */
+
+            oSection.orderBy = [];
+            $('#' + oSection.id + '_orderBy tbody tr').each(function () {
+                var columnName = $(this).attr('data-column');
+
+                if ($('#' + oSection.id + '_orderBy_' + columnName).prop('checked')) {
+                    oSection.orderBy.push({
+                        "name": columnName,
+                        "order": $('#' + oSection.id + '_orderByOrder_' + columnName).val()
+                    });
+                }
+
+            });
+
+            oSection.groupBy = [];
+            $('#' + oSection.id + '_groupBy tbody tr').each(function () {
+                var columnName = $(this).attr('data-column');
+
+                if ($('#' + oSection.id + '_groupBy_' + columnName).prop('checked')) {
+                    oSection.groupBy.push({
+                        "name": columnName,
+                        "order": $('#' + oSection.id + '_groupByOrder_' + columnName).val()
+                    });
+                }
+
+            });
+
+
+        }
+
+        /**
+         * Apply settings changes
+         */
+        $('#' + this.options.id + '_headerName').html(this.report.getReportDefinition().properties.name);
+        $('#' + this.options.id + '_headerDescription').html(this.report.getReportDefinition().properties.description);
+
+        this.refreshReport();
+
+    }
+
+    /**
+     * Hide main toolbar in report viewer
+     */
+    hideToolbar() {
+        $('#' + this.report.id + '_toolbar').hide();
+    }
+
+    /**
+     * Show main toolbar in report viewer
+     */
+    showToolbar() {
+        $('#' + this.report.id + '_toolbar').show();
+    }
+
+    /**
+    * Sets container element selector
+    * @param {*} sContainerSelector 
+    * @returns 
+    */
+    setContainerSelector(sContainerSelector) {
+        this._containerSelector = sContainerSelector;
+        return this;
+    }
+
+    /**
+     * Returns container element selector
+     * @returns 
+     */
+    getContainerSelector() {
+        return this._containerSelector;
+    }
+
+}
+window.__Metadocx.ReportViewer = ReportViewer;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.11</a> on Thu Dec 29 2022 18:40:26 GMT+0000 (Coordinated Universal Time) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

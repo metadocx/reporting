@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>core/ReportSection.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="BooleanCriteria.html">BooleanCriteria</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="BrowserModule.html">BrowserModule</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="BrowserModule.html#getBrowser">getBrowser</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="BrowserModule.html#isChrome">isChrome</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="BrowserModule.html#isEdge">isEdge</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="BrowserModule.html#isFirefox">isFirefox</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="BrowserModule.html#isIE">isIE</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="BrowserModule.html#isIOSChrome">isIOSChrome</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="BrowserModule.html#isSafari">isSafari</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="CheckboxCriteria.html">CheckboxCriteria</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Consolable.html">Consolable</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Consolable.html#debug">debug</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Consolable.html#error">error</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Consolable.html#log">log</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Consolable.html#warn">warn</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="ConsoleModule.html">ConsoleModule</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#assert">assert</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#buildArguments">buildArguments</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#clear">clear</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#count">count</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#countReset">countReset</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#debug">debug</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#dir">dir</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#disable">disable</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#enable">enable</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#error">error</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#group">group</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#groupCollapsed">groupCollapsed</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#groupEnd">groupEnd</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#help">help</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#info">info</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#log">log</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#profile">profile</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#profileEnd">profileEnd</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#setColor">setColor</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#setTag">setTag</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#table">table</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#time">time</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#timeEnd">timeEnd</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#timeLog">timeLog</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#trace">trace</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ConsoleModule.html#warn">warn</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="CriteriaControl.html">CriteriaControl</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="CriteriaControl.html#getInstance">getInstance</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="CriteriaControl.html#getIsEnabled">getIsEnabled</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="CriteriaControl.html#getValue">getValue</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="CriteriaControl.html#initializeJS">initializeJS</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="CriteriaControl.html#render">render</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="CriteriaControl.html#setValue">setValue</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="DataTable.html">DataTable</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#buildGroupCounters">buildGroupCounters</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#closeAllGroups">closeAllGroups</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#filter">filter</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#getColumn">getColumn</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#getGroupBy">getGroupBy</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#getLevelCount">getLevelCount</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#getOrderBy">getOrderBy</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#hasColumn">hasColumn</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#hideColumn">hideColumn</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#isColumnVisible">isColumnVisible</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#postRender">postRender</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#preRender">preRender</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#render">render</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#renderGroupHeader">renderGroupHeader</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#setColumn">setColumn</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTable.html#sort">sort</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="DataTableReportSection.html">DataTableReportSection</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="DataTypeModule.html">DataTypeModule</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTypeModule.html#copyObjectProperties">copyObjectProperties</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTypeModule.html#parseFloat">parseFloat</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="DataTypeModule.html#toBool">toBool</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="DatePeriodCriteria.html">DatePeriodCriteria</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="ExcelModule.html">ExcelModule</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="FormatModule.html">FormatModule</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="ImportModule.html">ImportModule</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Module.html">Module</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Module.html#initialize">initialize</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="NumericCriteria.html">NumericCriteria</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="PDFModule.html">PDFModule</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="PrintingModule.html">PrintingModule</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Report.html">Report</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#applyCriterias">applyCriterias</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#cancelCriterias">cancelCriterias</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#close">close</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#copyOriginalSettings">copyOriginalSettings</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#exportReport">exportReport</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#getContainerSelector">getContainerSelector</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#getId">getId</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#getPaperSizeOptions">getPaperSizeOptions</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#getReportDefinition">getReportDefinition</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#getReportDefinitionUrl">getReportDefinitionUrl</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#hideReportCriterias">hideReportCriterias</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#loadReportDefinition">loadReportDefinition</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#print">print</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#renderReportCriterias">renderReportCriterias</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#renderReportSettings">renderReportSettings</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#resetCriterias">resetCriterias</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#setContainerSelector">setContainerSelector</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#setId">setId</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#setReportDefinitionUrl">setReportDefinitionUrl</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Report.html#showReportCriterias">showReportCriterias</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="ReportCanvas.html">ReportCanvas</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportCanvas.html#render">render</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="ReportSection.html">ReportSection</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportSection.html#sort">sort</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="ReportViewer.html">ReportViewer</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#applyOptions">applyOptions</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#applySettings">applySettings</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#cancelSettings">cancelSettings</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#getContainerSelector">getContainerSelector</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#getCriteria">getCriteria</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#getCriteriaValue">getCriteriaValue</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#getCriteriaValues">getCriteriaValues</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#hideToolbar">hideToolbar</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#isCriteriaEnabled">isCriteriaEnabled</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#load">load</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#loadDefaultOptions">loadDefaultOptions</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#refreshReport">refreshReport</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#render">render</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#renderFieldPropertiesDialog">renderFieldPropertiesDialog</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#renderMainLayout">renderMainLayout</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#renderOptionsDialog">renderOptionsDialog</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#renderReportCriterias">renderReportCriterias</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#renderReportSettings">renderReportSettings</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#scaleReportSections">scaleReportSections</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#setContainerSelector">setContainerSelector</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#showFieldPropertiesDialog">showFieldPropertiesDialog</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#showNoReportAlert">showNoReportAlert</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#showReportOptions">showReportOptions</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#showReportSettings">showReportSettings</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#showToolbar">showToolbar</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ReportViewer.html#updateCSS">updateCSS</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="SelectCriteria.html">SelectCriteria</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="UIModule.html">UIModule</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="WordModule.html">WordModule</a></span></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="global.html#ProxyHandler">ProxyHandler</a></span></li>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">core/ReportSection.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/** 
+ * 
+ * @author Benoit Gauthier &lt;bgauthier@metadocx.com>
+ * @copyright Benoit Gauthier &lt;bgauthier@metadocx.com>
+ * @license https://github.com/metadocx/reporting/LICENSE.md
+ */
+class ReportSection {
+
+    constructor(app, reportSection) {
+        /**
+         * Main app reference
+         */
+        this.app = app;
+        /**
+         * Types of report sections
+         */
+        this.ReportSectionTypes = {
+            DataTable: 'DataTable',
+            Graph: 'Graph',
+            HTML: 'HTML'
+        }
+        this.type = reportSection.type;
+        this.reportSection = reportSection;
+        this.preRender();
+    }
+
+    preRender() {
+    }
+
+
+
+    render() {
+
+    }
+
+
+
+
+    getApplicableReportCriterias() {
+        var applicableCriterias = [];
+        var criterias = this.app.viewer.report.getReportDefinition().criterias;
+        for (var x in criterias) {
+            var criteria = criterias[x];
+            for (var y in criteria.applyTo) {
+                if (criteria.applyTo[y].section == this.reportSection.id) {
+                    applicableCriterias.push(criteria);
+                }
+            }
+        }
+
+        return applicableCriterias;
+    }
+
+    criteriaAppliesToReportSection(criteria) {
+        for (var x in criteria.applyTo) {
+            if (criteria.applyTo[x].section == this.reportSection.id) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Sorts report data based on orderBy criterias of report section
+     * @param {*} report 
+     * @param {*} reportSection 
+     */
+    sort() {
+
+
+        this.reportSection.data.sort((a, b) => {
+
+            for (var x in this.reportSection.groupBy) {
+
+                var column = this.getColumn(this.reportSection.groupBy[x].name)
+                var aValue = a[this.reportSection.groupBy[x].name];
+                var bValue = b[this.reportSection.groupBy[x].name];
+
+                switch (column.type) {
+                    case 'number':
+                        aValue = parseFloat(aValue);
+                        bValue = parseFloat(bValue);
+                        break;
+                    case 'date':
+                        aValue = moment(aValue).format('YYYY-MM-DD');
+                        bValue = moment(bValue).format('YYYY-MM-DD');
+                        break;
+                }
+
+                if (this.reportSection.groupBy[x].order.toString().toLowerCase().trim() == 'desc') {
+                    if (aValue > bValue) {
+                        return -1;
+                    }
+                    if (aValue &lt; bValue) {
+                        return 1;
+                    }
+                } else {
+                    if (aValue &lt; bValue) {
+                        return -1;
+                    }
+                    if (aValue > bValue) {
+                        return 1;
+                    }
+                }
+            }
+
+            for (var x in this.reportSection.orderBy) {
+
+                var column = this.getColumn(this.reportSection.orderBy[x].name)
+                var aValue = a[this.reportSection.orderBy[x].name];
+                var bValue = b[this.reportSection.orderBy[x].name];
+
+                switch (column.type) {
+                    case 'number':
+                        aValue = parseFloat(aValue);
+                        bValue = parseFloat(bValue);
+                        break;
+                    case 'date':
+                        aValue = moment(aValue).format('YYYY-MM-DD');
+                        bValue = moment(bValue).format('YYYY-MM-DD');
+                        break;
+                }
+
+                if (this.reportSection.orderBy[x].order.toString().toLowerCase().trim() == 'desc') {
+                    if (aValue > bValue) {
+                        return -1;
+                    }
+                    if (aValue &lt; bValue) {
+                        return 1;
+                    }
+                } else {
+                    if (aValue &lt; bValue) {
+                        return -1;
+                    }
+                    if (aValue > bValue) {
+                        return 1;
+                    }
+                }
+            }
+
+            return 0;
+
+        });
+
+
+
+    }
+
+    getOrderBy(name) {
+        if (this.reportSection.orderBy) {
+            for (var x in this.reportSection.orderBy) {
+                if (this.reportSection.orderBy[x].name == name) {
+                    return this.reportSection.orderBy[x];
+                }
+            }
+        }
+
+        return null;
+    }
+
+    getGroupBy(name) {
+        if (this.reportSection.groupBy) {
+            for (var x in this.reportSection.groupBy) {
+                if (this.reportSection.groupBy[x].name == name) {
+                    return this.reportSection.groupBy[x];
+                }
+            }
+        }
+
+        return null;
+    }
+
+
+
+}
+window.__Metadocx.ReportSection = ReportSection;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.11</a> on Thu Dec 29 2022 18:40:26 GMT+0000 (Coordinated Universal Time) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>
