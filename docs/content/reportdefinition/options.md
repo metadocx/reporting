@@ -7,7 +7,12 @@ The Report Options section allows to set report viewer options directly within t
 ```JSON
 {
     "options" : {
+        "id": "metadocxReport",
+        "locale": "en",
+        "template": "Theme2",
+        "additionalCSS": "",
         "toolbar" : {
+            "showLocaleButton": true,
             "showOptionsButton" : true,
             "showSettingsButton" : true,
             "showCriteriasButton" : true,
@@ -29,6 +34,9 @@ The Report Options section allows to set report viewer options directly within t
                 "left" : 0.5,
                 "right" : 0.5
             },
+        },        
+        "coverPage": {
+            "enabled": false
         },
         "settings" : {
             
@@ -48,6 +56,24 @@ The Report Options section allows to set report viewer options directly within t
             "groupByOrder" : true
         }
     },
+    "formats": {
+        "date": {
+            "format": "YYYY-MM-DD"
+        },
+        "boolean": {
+            "format": {
+                "trueValue": "Yes",
+                "falseValue": "No",
+                "ALL": "All"
+            }
+        },
+        "number": {
+            "format": "0.00"
+        }
+    },
+    "printing": {
+        "method": "pdf"
+    }
 }
 ```
 
@@ -73,12 +99,23 @@ Metadocx.viewer.options.toolbar.showExportButton = false;
 
 ## Options
 
+### General
+
+| Property            | Description                          |
+| ------------------- | ------------------------------------ |
+| id             | `string` Unique id for report, this will be used to create id's for html elements |
+| locale         | `string` Locale to use for the report viewer (en, fr, ...) |
+| template  | `string` Name of the template class to use |
+| additionalCSS  | `string` Additional CSS to include in report |
+
+
 ### toolbar
 
 Report viewer toolbar options
 
 | Property            | Description                          |
 | ------------------- | ------------------------------------ |
+| showLocaleButton | `Boolean`, indicates if we must display the locale dropdown button in the main toolbar of the report viewer. Default value is `true`  |
 | showOptionsButton | `Boolean`, indicates if we must display the options button in the main toolbar of the report viewer. Default value is `true`  |
 | showSettingsButton | `Boolean`, indicates if we must display the report settings button in the main toolbar of the report viewer. Default value is `true` |
 | showCriteriasButton | `Boolean`, indicates if we must display the report criterias button in the main toolbar of the report viewer. Default value is `true` |
@@ -108,6 +145,11 @@ Report viewer export format options
 
     Exporting reports in other formats requires server side processing.
 
+### coverPage
+| Property            | Description                          |
+| ------------------- | ------------------------------------ |
+| enabled | `Boolean`, indicates if we include a cover page for the report  |
+
 ### page
 
 Report page options
@@ -116,7 +158,7 @@ Report page options
 | ------------------- | ------------------------------------ |
 | orientation | `enum`, indicates the page orientation of the report, default value is `portrait`  |
 | paperSize | `enum`, indicates the type of paper for printing the report, default value is `letter`  |
-| margins | `object`, page print margin settings  |
+| margins | `object`, page print margin settings (see margins below)  |
 
 #### margins
 
@@ -160,3 +202,34 @@ Report settings options, this section is available based on the `showSettingsBut
 | groupByReorder | `boolean`, indicates if user can change the order of groups, default value is `true`  |
 | groupBySelection | `boolean`, indicates if user can select groups, default value is `true`  |
 | groupByOrder | `boolean`, indicates if user can change group order by direction (ascending or descending), default value is `true`  |
+
+### formats
+
+Options on how to format each data type (number, string, dates, ...) within the report. 
+
+#### format.date
+
+| Property            | Description                          |
+| ------------------- | ------------------------------------ |
+| format | `string`, default date format, default value is `YYYY-MM-DD`  |
+
+
+#### format.boolean
+
+| Property            | Description                          |
+| ------------------- | ------------------------------------ |
+| format | `object`, text to use to represent each status of a boolean value (true, false and all) |
+
+#### format.number
+
+| Property            | Description                          |
+| ------------------- | ------------------------------------ |
+| format | `string`, default number format `0.00` |
+
+### Printing
+
+Options for prining reports
+
+| Property            | Description                          |
+| ------------------- | ------------------------------------ |
+| method | `string`, method used to print this can be `pdf` or `browser`. PDF will first convert the report in PDF format before printing the PDF gives better results than useing the default browser printing |

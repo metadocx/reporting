@@ -90,6 +90,8 @@ nav:
     - 'Report' : concepts/report.md
     - 'Sections' : concepts/sections.md
     - 'Criterias' : concepts/criterias.md
+    - 'Theme' : concepts/theme.md
+    - 'Locale' : concepts/locale.md
   - 'Creating a Report' :
     - 'Report Definition' : 
       - 'Overview' : reportdefinition/file.md
