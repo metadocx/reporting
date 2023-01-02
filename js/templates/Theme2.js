@@ -1,17 +1,17 @@
 /**
- * CoverPage2 class
+ * Theme2 class
  * 
  * @author Benoit Gauthier <bgauthier@metadocx.com>
  * @copyright Benoit Gauthier <bgauthier@metadocx.com>
  * @license https://github.com/metadocx/reporting/LICENSE.md
  */
-class CoverPage2 extends CoverPage {
+class Theme2 extends Theme {
 
     constructor(app) {
         super(app);
     }
 
-    render() {
+    renderCoverPage() {
 
         var s = '';
 
@@ -26,7 +26,7 @@ class CoverPage2 extends CoverPage {
 
     }
 
-    renderCSS() {
+    renderCoverPageCSS() {
 
         return `
 
@@ -41,33 +41,38 @@ class CoverPage2 extends CoverPage {
             .report-cover-name {
                 position: absolute;
                 top: 360px;
-                font-size: 36px;
+                font-size: 56px;
                 font-weight: bold;
+                text-align: right;
+                right: 50px;
             }
 
             .report-cover-description {
-                position: absolute;
-                top: 410px;                
+                position: absolute;                
+                top: 450px;
+                font-size: 24px;  
+                text-align: right;
+                right: 50px;         
             }
 
             .report-cover-footer {
-                height: 162px;
+                height: 310px;
                 background-size: cover;
                 position: absolute;
                 bottom: 0;
                 left: 0;
                 right: 0;
-                background-image : url('https://cdn.jsdelivr.net/gh/metadocx/reporting@main/assets/images/templates/CoverPage2/footer.png');
+                background-image : url('https://cdn.jsdelivr.net/gh/metadocx/reporting@main/assets/images/templates/Theme2/footer.png');
             }
 
             .report-cover-header {
-                height: 162px;
+                height: 255px;
                 background-size: cover;
                 position: absolute;
                 top: 0;
                 left: 0;
                 right: 0;
-                background-image : url('https://cdn.jsdelivr.net/gh/metadocx/reporting@main/assets/images/templates/CoverPage2/header.png');
+                background-image : url('https://cdn.jsdelivr.net/gh/metadocx/reporting@main/assets/images/templates/Theme2/header.png');
             }
         
         `;
@@ -76,4 +81,4 @@ class CoverPage2 extends CoverPage {
 
 }
 
-window.__Metadocx.CoverPage2 = CoverPage2;
+window.__Metadocx.Theme2 = Theme2;
