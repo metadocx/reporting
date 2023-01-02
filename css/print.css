@@ -21,6 +21,10 @@
     .print-only {
       display: inline;
     }
+
+    .page-break {
+      page-break-before: always;
+    }
  
     .report-viewer-canvas {
        overflow:visible;

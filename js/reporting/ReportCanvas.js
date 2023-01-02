@@ -44,7 +44,16 @@ class ReportCanvas {
             var sReportSectionType = this.report.getReportDefinition().sections[x].type + 'ReportSection';
             var oReportSection = new window.__Metadocx[sReportSectionType](this.app, this.report.getReportDefinition().sections[x]);
             this.reportSections.push(oReportSection);
+
+            if (this.app.modules.DataType.toBool(this.report.getReportDefinition().sections[x].breakBefore)) {
+                sReportSection += this.renderPageBreak();
+            }
+
             sReportSection += oReportSection.render();
+
+            if (this.app.modules.DataType.toBool(this.report.getReportDefinition().sections[x].breakAfter)) {
+                sReportSection += this.renderPageBreak();
+            }
 
         }
 
@@ -61,6 +70,10 @@ class ReportCanvas {
 
         return s;
 
+    }
+
+    renderPageBreak() {
+        return `<div class="page-break"></div>`;
     }
 
     initialiseJS() {
