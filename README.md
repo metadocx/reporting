@@ -5,13 +5,13 @@
 [ci::status]: https://img.shields.io/github/actions/workflow/status/metadocx/reporting/codeql.yml?branch=main&color=blue&label=CI&logo=github&logoColor=white&style=for-the-badge
 [ci::github]: https://github.com/metadocx/reporting/actions
 [documentation::badge]: https://img.shields.io/badge/DOCUMENTATION-GH%20PAGES-0078D4?style=for-the-badge&logo=git&logoColor=white
-[documentation::web]: https://metadocx.github.io/reporting/
+[documentation::web]: https://metadocx.github.io/reporting/edge/
 
 A web based reporting engine written in Javascript. 
 
 See a live [Demo](https://metadocx.com/examples/report-viewer/) here.
 
-[Read the documentation](https://metadocx.github.io/reporting/)
+[Read the documentation](https://metadocx.github.io/reporting/edge/)
 
 This is the initial commit of the source code, the library is not yet a 100% ready for production.
 
