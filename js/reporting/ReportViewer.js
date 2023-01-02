@@ -70,6 +70,8 @@ class ReportViewer extends Consolable {
         this.options = {
             "id": "metadocxReport",
             "locale": "en",
+            "additionalCSS": "",
+            "template": "Theme2",
             "toolbar": {
                 "showLocaleButton": true,
                 "showOptionsButton": true,
@@ -94,10 +96,8 @@ class ReportViewer extends Consolable {
                     "right": 0.5
                 }
             },
-            "additionalCSS": "",
             "coverPage": {
-                "enabled": false,
-                "template": "CoverPage1"
+                "enabled": false
             },
             "settings": {
                 "fields": true,
