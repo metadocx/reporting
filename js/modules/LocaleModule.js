@@ -42,6 +42,7 @@ class LocaleModule extends Module {
     getKey(key) {
         var text = this.locales[this.currentLocale][key];
         if (text == undefined || text == null) {
+            console.warn('Missing translation key ' + key);
             text = key;
         }
         return text;
