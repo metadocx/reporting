@@ -273,22 +273,6 @@ class Consolable {
 }
 
 /** 
- * CoverPage
- * 
- * @author Benoit Gauthier <bgauthier@metadocx.com>
- * @copyright Benoit Gauthier. 
- * @license https://github.com/metadocx/reporting/LICENSE.md
- */
-class CoverPage {
-
-    constructor(app) {
-        this.app = app;
-    }
-
-
-
-}
-/** 
  * CriteriaControl base class for all criteria controls
  * 
  * @author Benoit Gauthier <bgauthier@metadocx.com>
@@ -1709,6 +1693,26 @@ class ReportSection {
 }
 window.__Metadocx.ReportSection = ReportSection;
 /** 
+ * Theme
+ * 
+ * @author Benoit Gauthier <bgauthier@metadocx.com>
+ * @copyright Benoit Gauthier. 
+ * @license https://github.com/metadocx/reporting/LICENSE.md
+ */
+class Theme {
+
+    constructor(app) {
+        this.app = app;
+    }
+
+    renderCoverPage() { return ''; }
+    renderCoverPageCSS() { return ''; }
+    renderThemeCSS() { return ''; }
+
+}
+
+window.__Metadocx.Theme = Theme;
+/** 
  * DataTable Report section
  * 
  * @author Benoit Gauthier <bgauthier@metadocx.com>
@@ -2721,16 +2725,19 @@ class ReportCanvas {
         var s = '';
         var sReportSection = '';
 
+        var oReportTemplate = new Theme();
+
+        if (window.__Metadocx[this.viewer.options.template] != undefined) {
+            oReportTemplate = new window.__Metadocx[this.viewer.options.template](this.app);
+        }
+
         if (this.viewer.options.coverPage.enabled) {
             // Add cover page to report
-
-            var oCover = new window.__Metadocx[this.viewer.options.coverPage.template](this.app);
-
             s += `<div id="reportCoverPage" class="report-page orientation-${this.viewer.options.page.orientation} size-${this.viewer.options.page.paperSize.toString().toLowerCase()}">
-                    <style>
-                        ${oCover.renderCSS()}    
+                    <style id="${this.viewer.options.id}_coverPage">
+                        ${oReportTemplate.renderThemeCSS()}    
                     </style>
-                    ${oCover.render()}
+                    ${oReportTemplate.renderCoverPage()}
                   </div>`;
         }
 
@@ -2746,6 +2753,9 @@ class ReportCanvas {
         s += `<div id="reportPage" class="report-page orientation-${this.viewer.options.page.orientation} size-${this.viewer.options.page.paperSize.toString().toLowerCase()}">                
                 <div id="reportContent">
                     <style id="${this.viewer.options.id}_style">
+                    </style>
+                    <style id="${this.viewer.options.id}_theme">
+                        ${oReportTemplate.renderThemeCSS()}
                     </style>
                     ${sReportSection}
                 </div>
@@ -6907,19 +6917,19 @@ window.__Metadocx.Locales.fr = {
     "Descending": "Décroissant",
 };
 /**
- * CoverPage1 class
+ * Theme1 class
  * 
  * @author Benoit Gauthier <bgauthier@metadocx.com>
  * @copyright Benoit Gauthier <bgauthier@metadocx.com>
  * @license https://github.com/metadocx/reporting/LICENSE.md
  */
-class CoverPage1 extends CoverPage {
+class Theme1 extends Theme {
 
     constructor(app) {
         super(app);
     }
 
-    render() {
+    renderCoverPage() {
 
         var s = '';
 
@@ -6934,7 +6944,7 @@ class CoverPage1 extends CoverPage {
 
     }
 
-    renderCSS() {
+    renderCoverPageCSS() {
 
         return `
 
@@ -6965,7 +6975,7 @@ class CoverPage1 extends CoverPage {
                 bottom: 0;
                 left: 0;
                 right: 0;
-                background-image : url('https://cdn.jsdelivr.net/gh/metadocx/reporting@main/assets/images/templates/CoverPage1/footer.png');
+                background-image : url('https://cdn.jsdelivr.net/gh/metadocx/reporting@main/assets/images/templates/Theme1/footer.png');
             }
 
             .report-cover-header {
@@ -6975,7 +6985,7 @@ class CoverPage1 extends CoverPage {
                 top: 0;
                 left: 0;
                 right: 0;
-                background-image : url('https://cdn.jsdelivr.net/gh/metadocx/reporting@main/assets/images/templates/CoverPage1/header.png');
+                background-image : url('https://cdn.jsdelivr.net/gh/metadocx/reporting@main/assets/images/templates/Theme1/header.png');
             }
         
         `;
@@ -6984,21 +6994,21 @@ class CoverPage1 extends CoverPage {
 
 }
 
-window.__Metadocx.CoverPage1 = CoverPage1;
+window.__Metadocx.Theme1 = Theme1;
 /**
- * CoverPage2 class
+ * Theme2 class
  * 
  * @author Benoit Gauthier <bgauthier@metadocx.com>
  * @copyright Benoit Gauthier <bgauthier@metadocx.com>
  * @license https://github.com/metadocx/reporting/LICENSE.md
  */
-class CoverPage2 extends CoverPage {
+class Theme2 extends Theme {
 
     constructor(app) {
         super(app);
     }
 
-    render() {
+    renderCoverPage() {
 
         var s = '';
 
@@ -7013,7 +7023,7 @@ class CoverPage2 extends CoverPage {
 
     }
 
-    renderCSS() {
+    renderCoverPageCSS() {
 
         return `
 
@@ -7028,33 +7038,38 @@ class CoverPage2 extends CoverPage {
             .report-cover-name {
                 position: absolute;
                 top: 360px;
-                font-size: 36px;
+                font-size: 56px;
                 font-weight: bold;
+                text-align: right;
+                right: 50px;
             }
 
             .report-cover-description {
-                position: absolute;
-                top: 410px;                
+                position: absolute;                
+                top: 450px;
+                font-size: 24px;  
+                text-align: right;
+                right: 50px;         
             }
 
             .report-cover-footer {
-                height: 162px;
+                height: 310px;
                 background-size: cover;
                 position: absolute;
                 bottom: 0;
                 left: 0;
                 right: 0;
-                background-image : url('https://cdn.jsdelivr.net/gh/metadocx/reporting@main/assets/images/templates/CoverPage2/footer.png');
+                background-image : url('https://cdn.jsdelivr.net/gh/metadocx/reporting@main/assets/images/templates/Theme2/footer.png');
             }
 
             .report-cover-header {
-                height: 162px;
+                height: 255px;
                 background-size: cover;
                 position: absolute;
                 top: 0;
                 left: 0;
                 right: 0;
-                background-image : url('https://cdn.jsdelivr.net/gh/metadocx/reporting@main/assets/images/templates/CoverPage2/header.png');
+                background-image : url('https://cdn.jsdelivr.net/gh/metadocx/reporting@main/assets/images/templates/Theme2/header.png');
             }
         
         `;
@@ -7063,7 +7078,7 @@ class CoverPage2 extends CoverPage {
 
 }
 
-window.__Metadocx.CoverPage2 = CoverPage2;
+window.__Metadocx.Theme2 = Theme2;
 /**
  * Metadocx reporting application bootstrap
  * This will create the global Metadocx object and check for jQuery

@@ -23,16 +23,19 @@ class ReportCanvas {
         var s = '';
         var sReportSection = '';
 
+        var oReportTemplate = new Theme();
+
+        if (window.__Metadocx[this.viewer.options.template] != undefined) {
+            oReportTemplate = new window.__Metadocx[this.viewer.options.template](this.app);
+        }
+
         if (this.viewer.options.coverPage.enabled) {
             // Add cover page to report
-
-            var oCover = new window.__Metadocx[this.viewer.options.coverPage.template](this.app);
-
             s += `<div id="reportCoverPage" class="report-page orientation-${this.viewer.options.page.orientation} size-${this.viewer.options.page.paperSize.toString().toLowerCase()}">
-                    <style>
-                        ${oCover.renderCSS()}    
+                    <style id="${this.viewer.options.id}_coverPage">
+                        ${oReportTemplate.renderThemeCSS()}    
                     </style>
-                    ${oCover.render()}
+                    ${oReportTemplate.renderCoverPage()}
                   </div>`;
         }
 
@@ -48,6 +51,9 @@ class ReportCanvas {
         s += `<div id="reportPage" class="report-page orientation-${this.viewer.options.page.orientation} size-${this.viewer.options.page.paperSize.toString().toLowerCase()}">                
                 <div id="reportContent">
                     <style id="${this.viewer.options.id}_style">
+                    </style>
+                    <style id="${this.viewer.options.id}_theme">
+                        ${oReportTemplate.renderThemeCSS()}
                     </style>
                     ${sReportSection}
                 </div>
