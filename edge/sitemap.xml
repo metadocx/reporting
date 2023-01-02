@@ -26,6 +26,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://www.metadocx.com/docs/concepts/locale/</loc>
+         <lastmod>2023-01-02</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://www.metadocx.com/docs/concepts/options/</loc>
          <lastmod>2023-01-02</lastmod>
          <changefreq>daily</changefreq>
@@ -37,6 +42,11 @@
     </url>
     <url>
          <loc>https://www.metadocx.com/docs/concepts/sections/</loc>
+         <lastmod>2023-01-02</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://www.metadocx.com/docs/concepts/theme/</loc>
          <lastmod>2023-01-02</lastmod>
          <changefreq>daily</changefreq>
     </url>

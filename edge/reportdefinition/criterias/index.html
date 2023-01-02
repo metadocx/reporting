@@ -556,6 +556,34 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/theme/" class="md-nav__link">
+        Theme
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/locale/" class="md-nav__link">
+        Locale
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -677,9 +705,94 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Criterias
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         Criterias
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#types-of-criterias" class="md-nav__link">
+    Types of criterias
+  </a>
+  
+    <nav class="md-nav" aria-label="Types of criterias">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#single-and-multi-select" class="md-nav__link">
+    Single and multi select
+  </a>
+  
+    <nav class="md-nav" aria-label="Single and multi select">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loading-data-in-the-select-list" class="md-nav__link">
+    Loading data in the select list
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#date" class="md-nav__link">
+    Date
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#numeric" class="md-nav__link">
+    Numeric
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boolean" class="md-nav__link">
+    Boolean
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checkboxes" class="md-nav__link">
+    Checkboxes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -913,6 +1026,75 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#types-of-criterias" class="md-nav__link">
+    Types of criterias
+  </a>
+  
+    <nav class="md-nav" aria-label="Types of criterias">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#single-and-multi-select" class="md-nav__link">
+    Single and multi select
+  </a>
+  
+    <nav class="md-nav" aria-label="Single and multi select">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loading-data-in-the-select-list" class="md-nav__link">
+    Loading data in the select list
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#date" class="md-nav__link">
+    Date
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#numeric" class="md-nav__link">
+    Numeric
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boolean" class="md-nav__link">
+    Boolean
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checkboxes" class="md-nav__link">
+    Checkboxes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -931,8 +1113,10 @@
 
 <h1 id="criterias"><a class="toclink" href="#criterias">Criterias</a></h1>
 <p>The report criteria section contains the list of criterias available for the user. Criterias are used to filter report data. Since report criterias could be used by multiple report sections, the criterias section is located in the root of the report definition file.</p>
-<p>Type : Array of objects
-Parent : Report definition file</p>
+<ul>
+<li>Type : Array of objects</li>
+<li>Parent : Report definition file</li>
+</ul>
 <div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;criterias&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="p">{</span><span class="w"></span>
@@ -951,6 +1135,63 @@ Parent : Report definition file</p>
 <span class="w">    </span><span class="p">}</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </code></pre></div>
+<p>Criterias are global to the report and can be applied to multiple report sections. This is defined in the <code>applyTo</code> section of the criteria definition.</p>
+<h2 id="types-of-criterias"><a class="toclink" href="#types-of-criterias">Types of criterias</a></h2>
+<h3 id="single-and-multi-select"><a class="toclink" href="#single-and-multi-select">Single and multi select</a></h3>
+<ul>
+<li>Type : <code>SelectCriteria</code></li>
+</ul>
+<p>This type of criteria presents a dropdown list that allows you to select one or many values. We use select2 to display the select list. You can pass all additional settings for select2 in the <code>parameters</code> section of the criteria definition. Configuration options for select2 are available at <a href="https://select2.org/configuration/options-api">https://select2.org/configuration/options-api</a>.</p>
+<p>To enable multiple selections add the <code>"multiple" : false,</code> parameter in your criteria. This will allow you to select multiple items from the list.</p>
+<h4 id="loading-data-in-the-select-list"><a class="toclink" href="#loading-data-in-the-select-list">Loading data in the select list</a></h4>
+<p>There are multiples ways to load options in the select component. </p>
+<ul>
+<li>
+<p>Manual list, you can insert the options manually in the report definition file
+<div class="highlight"><pre><span></span><code><span class="nt">&quot;options&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;text&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Red&quot;</span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;text&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Blue&quot;</span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;text&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Green&quot;</span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;text&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Yellow&quot;</span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;text&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;White&quot;</span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;text&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Black&quot;</span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;text&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Orange&quot;</span><span class="p">}</span><span class="w"></span>
+<span class="p">],</span><span class="w"></span>
+</code></pre></div></p>
+</li>
+<li>
+<p>Ajax, you can load the options using an ajax request to an external website or service</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">&quot;options&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;source&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ajax&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/activitycodes&quot;</span><span class="w"></span>
+<span class="p">},</span><span class="w"></span>
+</code></pre></div>
+<ul>
+<li>From a report section, you can load the options using the data from a report section, you must specify the field you want to use to load the options</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">&quot;options&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;source&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;field&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;employee&quot;</span><span class="w"></span>
+<span class="p">},</span><span class="w"></span>
+</code></pre></div>
+<h3 id="date"><a class="toclink" href="#date">Date</a></h3>
+<ul>
+<li>Type : <code>DatePeriodCriteria</code></li>
+</ul>
+<h3 id="numeric"><a class="toclink" href="#numeric">Numeric</a></h3>
+<ul>
+<li>Type : <code>NumericCriteria</code></li>
+</ul>
+<h3 id="boolean"><a class="toclink" href="#boolean">Boolean</a></h3>
+<ul>
+<li>Type : <code>BooleanCriteria</code></li>
+</ul>
+<h3 id="checkboxes"><a class="toclink" href="#checkboxes">Checkboxes</a></h3>
+<ul>
+<li>Type : <code>CheckboxCriteria</code></li>
+</ul>
 
               
             </article>
