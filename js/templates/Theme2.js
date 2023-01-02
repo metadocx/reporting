@@ -9,6 +9,7 @@ class Theme2 extends Theme {
 
     constructor(app) {
         super(app);
+        this.colorScheme = ['#1C85D6', '#00A8E5', '#00C5D5', '#00DEB0', '#95EF87', '#F9F871'];
     }
 
     renderCoverPage() {
@@ -20,9 +21,27 @@ class Theme2 extends Theme {
             <div class="report-cover-name">${this.app.viewer.report.getReportDefinition().properties.name}</div>
             <div class="report-cover-description">${this.app.viewer.report.getReportDefinition().properties.description}</div>
             <div class="report-cover-footer"></div>
+            <div class="report-cover-date"><span data-locale="CreatedAt">Created at</span> ${moment().format('YYYY-MM-DD HH:mm')}</div>
+            <div class="report-cover-powered-by"><span data-locale="PoweredBy">powered by</span> <a href="https://www.metadocx.com" target="_blank">Metadocx</a></div>
         </div>`;
 
         return s;
+
+    }
+
+    renderThemeCSS() {
+
+        return `
+
+            .report-cell-header {
+                background-color: #1C85D6 !important;
+            }
+
+            .report-row-group td {
+                background-color: #7DB7E4 !important;
+            }
+        
+        `;
 
     }
 
@@ -32,6 +51,31 @@ class Theme2 extends Theme {
 
             #reportCoverPage {
                 position:relative;
+            }
+
+            .report-cover-date {
+                color: #fff;
+                position:absolute;
+                left:50px;
+                bottom:50px;
+                font-size: 9pt;
+            }
+
+            .report-cover-powered-by {
+                color: #fff;
+                position:absolute;
+                right:50px;
+                bottom:50px;
+                text-align:right;
+                font-size: 9pt;
+            }
+
+            .report-cover-powered-by a {
+                color: #ffcc00;
+            }
+
+            .report-cover-powered-by a:visited {
+                color: #ffcc00;
             }
 
             .report-cover-page {
@@ -65,6 +109,10 @@ class Theme2 extends Theme {
                 background-image : url('https://cdn.jsdelivr.net/gh/metadocx/reporting@main/assets/images/templates/Theme2/footer.png');
             }
 
+            .orientation-landscape .report-cover-header {
+                height: 332px;
+            }
+
             .report-cover-header {
                 height: 255px;
                 background-size: cover;
@@ -81,4 +129,4 @@ class Theme2 extends Theme {
 
 }
 
-window.__Metadocx.Theme2 = Theme2;
+window.__Metadocx.Themes.Theme2 = Theme2;
