@@ -947,6 +947,10 @@ class ReportViewer extends Consolable {
             .no-print {
                 display: none;
             }
+
+            .page-break {
+                page-break-before: always;
+            }
           
             .report-viewer-canvas {
                 overflow:visible;
