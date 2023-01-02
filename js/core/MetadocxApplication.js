@@ -5,7 +5,7 @@
  * @copyright Benoit Gauthier <bgauthier@metadocx.com>
  * @license https://github.com/metadocx/reporting/LICENSE.md
  */
-window.__Metadocx = { Locales: {} };
+window.__Metadocx = { Locales: {}, Themes: {} };
 
 class MetadocxApplication {
 

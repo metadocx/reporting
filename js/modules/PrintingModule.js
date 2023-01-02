@@ -145,6 +145,15 @@ class PrintingModule extends Module {
 
     }
 
+    getThemeOptions() {
+        var s = '';
+        s += '<option value="" data-locale="Default">Default</option>';
+        for (var x in window.__Metadocx.Themes) {
+            s += '<option value="' + x + '">' + x + '</option>';
+        }
+        return s;
+    }
+
 
 
 }

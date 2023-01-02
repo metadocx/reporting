@@ -1310,7 +1310,7 @@ class DataTable {
  * @copyright Benoit Gauthier <bgauthier@metadocx.com>
  * @license https://github.com/metadocx/reporting/LICENSE.md
  */
-window.__Metadocx = { Locales: {} };
+window.__Metadocx = { Locales: {}, Themes: {} };
 
 class MetadocxApplication {
 
@@ -1703,11 +1703,56 @@ class Theme {
 
     constructor(app) {
         this.app = app;
+        this.colorScheme = ['#9999ff', '#993366', '#ffffcc', '#ccffff', '#660066', '#ff8080', '#0066cc', '#ccccff', '#000080', '#ff00ff', '#ffff00', '#0000ff', '#800080', '#800000', '#008080', '#0000ff'];
+        this.applyChartColorTheme();
     }
 
-    renderCoverPage() { return ''; }
-    renderCoverPageCSS() { return ''; }
+    renderCoverPage() {
+        var s = '';
+
+        s += `<div class="report-cover-page">
+            <div class="report-cover-header"></div>
+            <div class="report-cover-name">${this.app.viewer.report.getReportDefinition().properties.name}</div>
+            <div class="report-cover-description">${this.app.viewer.report.getReportDefinition().properties.description}</div>
+            <div class="report-cover-footer"></div>
+        </div>`;
+
+        return s;
+    }
+    renderCoverPageCSS() {
+        return `
+
+            #reportCoverPage {
+                position:relative;
+            }
+
+            .report-cover-page {
+                height: 100%;
+            }
+
+            .report-cover-name {
+                position: absolute;
+                top: 360px;
+                font-size: 36px;
+                font-weight: bold;
+            }
+
+            .report-cover-description {
+                position: absolute;
+                top: 410px;                
+            }
+        `;
+    }
+
     renderThemeCSS() { return ''; }
+
+    getColorScheme() {
+        return this.colorScheme;
+    }
+
+    applyChartColorTheme() {
+
+    }
 
 }
 
@@ -2001,6 +2046,74 @@ class GraphReportSection extends ReportSection {
                 graphImage.src = graphCanvas.toDataURL();
                 //$('#' + this.reportSection.id + '_graphCanvas').hide();
             },
+            beforeUpdate: (chart, args, options) => {
+
+                var helpers = Chart.helpers;
+                var scheme = this.app.viewer.getTheme().getColorScheme();
+                var length, colorIndex, color;
+
+                var fillAlpha = 0.4;
+                var override = true;
+
+                if (scheme) {
+
+                    length = scheme.length;
+
+                    // Set scheme colors
+                    chart.config.data.datasets.forEach(function (dataset, datasetIndex) {
+                        colorIndex = datasetIndex % length;
+                        color = scheme[colorIndex];
+
+                        switch (dataset.type || chart.config.type) {
+                            // For line, radar and scatter chart, borderColor and backgroundColor (50% transparent) are set
+                            case 'line':
+                            case 'radar':
+                            case 'scatter':
+                                if (typeof dataset.backgroundColor === 'undefined' || override) {
+                                    dataset.backgroundColor = helpers.color(color).alpha(fillAlpha).rgbString();
+                                }
+                                if (typeof dataset.borderColor === 'undefined' || override) {
+                                    dataset.borderColor = color;
+                                }
+                                if (typeof dataset.pointBackgroundColor === 'undefined' || override) {
+                                    dataset.pointBackgroundColor = helpers.color(color).alpha(fillAlpha).rgbString();
+                                }
+                                if (typeof dataset.pointBorderColor === 'undefined' || override) {
+                                    dataset.pointBorderColor = color;
+                                }
+                                break;
+                            // For doughnut and pie chart, backgroundColor is set to an array of colors
+                            case 'doughnut':
+                            case 'pie':
+                            case 'polarArea':
+                                if (typeof dataset.backgroundColor === 'undefined' || override) {
+                                    dataset.backgroundColor = dataset.data.map(function (data, dataIndex) {
+                                        colorIndex = dataIndex % length;
+                                        return scheme[colorIndex];
+                                    });
+                                }
+                                break;
+                            // For bar chart backgroundColor (including fillAlpha) and borderColor are set
+                            case 'bar':
+                                if (typeof dataset.backgroundColor === 'undefined' || override) {
+                                    dataset.backgroundColor = helpers.color(color).alpha(fillAlpha).rgbString();
+                                }
+                                if (typeof dataset.borderColor === 'undefined' || override) {
+                                    dataset.borderColor = color;
+                                }
+                                break;
+                            // For the other chart, only backgroundColor is set
+                            default:
+                                if (typeof dataset.backgroundColor === 'undefined' || override) {
+                                    dataset.backgroundColor = color;
+                                }
+                                break;
+                        }
+                    });
+                }
+
+
+            }
         });
 
         this._graphInstance = new Chart(
@@ -2338,7 +2451,7 @@ class Report {
                         <option value="SUM"${(oSection.model[x].formula == 'SUM' ? ' selected' : '')} data-locale="Sum">Sum</option>
                         <option value="AVG"${(oSection.model[x].formula == 'AVG' ? ' selected' : '')} data-locale="Average">Average</option>
                         <option value="MIN"${(oSection.model[x].formula == 'MIN' ? ' selected' : '')} data-locale="MinValue">Min Value</option>
-                        <option value="MAX"${(oSection.model[x].formula == 'MAX' ? ' selected' : '')} data-locale="Max Value">Max Value</option>
+                        <option value="MAX"${(oSection.model[x].formula == 'MAX' ? ' selected' : '')} data-locale="MaxValue">Max Value</option>
                         <option value="COUNT"${(oSection.model[x].formula == 'COUNT' ? ' selected' : '')} data-locale="Count">Count</option>
                     </select>
                 </td>
@@ -2725,17 +2838,17 @@ class ReportCanvas {
         var s = '';
         var sReportSection = '';
 
-        var oReportTemplate = new Theme();
+        var oReportTemplate = new Theme(this.app);
 
-        if (window.__Metadocx[this.viewer.options.template] != undefined) {
-            oReportTemplate = new window.__Metadocx[this.viewer.options.template](this.app);
+        if (window.__Metadocx.Themes[this.viewer.options.template] != undefined) {
+            oReportTemplate = new window.__Metadocx.Themes[this.viewer.options.template](this.app);
         }
 
         if (this.viewer.options.coverPage.enabled) {
             // Add cover page to report
             s += `<div id="reportCoverPage" class="report-page orientation-${this.viewer.options.page.orientation} size-${this.viewer.options.page.paperSize.toString().toLowerCase()}">
                     <style id="${this.viewer.options.id}_coverPage">
-                        ${oReportTemplate.renderThemeCSS()}    
+                        ${oReportTemplate.renderCoverPageCSS()}    
                     </style>
                     ${oReportTemplate.renderCoverPage()}
                   </div>`;
@@ -2828,6 +2941,8 @@ class ReportViewer extends Consolable {
          */
         this.report = new Report();
 
+        this.theme = null;
+
         /**
          * Initialize options with default options
          */
@@ -2911,6 +3026,19 @@ class ReportViewer extends Consolable {
         };
 
         this.options = new Proxy(this.options, ProxyHandler);
+
+    }
+
+    getTheme() {
+
+        if (this.theme === null) {
+
+            if (window.__Metadocx.Themes[this.options.template] != undefined) {
+                this.theme = new window.__Metadocx.Themes[this.options.template](this.app);
+            }
+        }
+
+        return this.theme;
 
     }
 
@@ -3140,8 +3268,25 @@ class ReportViewer extends Consolable {
          </header>
          <div id="${this.options.id}_canvas" class="report-viewer-canvas">
          </div>
+         <div id="${this.options.id}_reportDefinitionViewer" class="report-definition-code-viewer" style="display:none;">
+            <pre id="${this.options.id}_reportDefinitionPre"></pre>
+         </div>
          <div class="powered-by no-print"><span data-locale="PoweredBy">powered by</span> <a href="https://www.metadocx.com" target="_blank">Metadocx</a></div>`;
 
+    }
+
+    showReportDefinition() {
+
+        $('#' + this.options.id + '_reportDefinitionPre').text(JSON.stringify(this.report.getReportDefinition(), null, 2));
+        $('#' + this.options.id + '_reportDefinitionViewer').show();
+        $('#' + this.options.id + '_canvas').hide();
+
+    }
+
+
+    hideReportDefinition() {
+        $('#' + this.options.id + '_reportDefinitionViewer').hide();
+        $('#' + this.options.id + '_canvas').show();
     }
 
     /**
@@ -3223,6 +3368,18 @@ class ReportViewer extends Consolable {
                                  ${this.app.modules.Printing.getPaperSizeOptions()}
                                  </select>
                              </div>
+                             <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" id="coverPage">
+                                <label class="form-check-label" for="coverPage" data-locale="CoverPage">
+                                    Cover Page
+                                </label>
+                             </div>
+                             <div class="mb-3">                                
+                                 <label for="reportTheme" class="form-label font-weight-bold" data-locale="ReportTheme">Report Theme</label>
+                                 <select id="reportTheme" class="form-select">
+                                 ${this.app.modules.Printing.getThemeOptions()}
+                                 </select>
+                             </div>
                          </div>
                          <div class="d-flex flex-column p-2">
                              <div class="mb-3">                                
@@ -3292,25 +3449,25 @@ class ReportViewer extends Consolable {
                     <div class="row">
                             <div class="col-6">
                                 <div class="mb-3" style="display:none;">
-                                <label for="fieldSectionID" class="col-form-label">Section ID</label>                            
+                                <label for="fieldSectionID" class="col-form-label" data-locale="SectionID">Section ID</label>                            
                                 <input type="text" class="form-control" id="fieldSectionID" readonly value=""/>
                             </div>
                             <div class="mb-3" style="display:none;">
-                                <label for="fieldName" class="col-form-label">Name</label>                            
+                                <label for="fieldName" class="col-form-label" data-locale="Name">Name</label>                            
                                 <input type="text" class="form-control" id="fieldName" readonly value=""/>
                             </div>
                             <div class="mb-3">
-                                <label for="fieldLabel" class="col-form-label">Label</label>                            
+                                <label for="fieldLabel" class="col-form-label" data-locale="Label">Label</label>                            
                                 <input type="text" class="form-control" id="fieldLabel" value=""/>                            
                             </div>
                             <div class="mb-3">
-                                <label for="fieldWidth" class="col-form-label">Width (px)</label>                            
+                                <label for="fieldWidth" class="col-form-label" data-locale="Width">Width (px)</label>                            
                                 <input type="number" class="form-control" id="fieldWidth" value=""/>                            
                             </div>
 
                             <div class="form-check mb-3">
                                 <input class="form-check-input" type="checkbox" id="fieldVisible">
-                                <label class="form-check-label" for="fieldVisible">
+                                <label class="form-check-label" for="fieldVisible" data-locale="IsVisible">
                                     Is Visible
                                 </label>
                             </div>
@@ -3319,15 +3476,15 @@ class ReportViewer extends Consolable {
                         <div class="col-6">
                             
                             <div class="mb-3" style="display:none;">
-                                <label for="fieldType" class="col-form-label">Type</label>                            
+                                <label for="fieldType" class="col-form-label" data-locale="Type">Type</label>                            
                                 <input type="text" class="form-control" id="fieldType" readonly value=""/>
                             </div>
                             <div class="mb-3">
-                                <label for="fieldAlign" class="col-form-label">Alignment</label>                            
+                                <label for="fieldAlign" class="col-form-label" data-locale="Alignment">Alignment</label>                            
                                 <select id="fieldAlign" class="form-control">
-                                    <option value="left">Left</option>
-                                    <option value="right">Right</option>
-                                    <option value="center">Center</option>
+                                    <option value="left" data-locale="Left">Left</option>
+                                    <option value="right" data-locale="Right">Right</option>
+                                    <option value="center" data-locale="Center">Center</option>
                                 </select>
                             </div>
 
@@ -3551,6 +3708,14 @@ class ReportViewer extends Consolable {
         $('#leftMargin').val(this.options.page.margins.left);
         $('#rightMargin').val(this.options.page.margins.right);
 
+        $('#coverPage').prop('checked', this.app.modules.DataType.toBool(this.options.coverPage.enabled));
+        if (this.options.template) {
+            $('#reportTheme').val(this.options.template);
+        } else {
+            $('#reportTheme').val('');
+        }
+
+
         this.optionsDialog.show();
     }
 
@@ -3573,6 +3738,10 @@ class ReportViewer extends Consolable {
             this.options.page.orientation = 'landscape';
         }
 
+
+        this.options.coverPage.enabled = $('#coverPage').prop('checked');
+        this.options.template = $('#reportTheme').val();
+
         this.optionsDialog.hide();
 
         this._bDisableApplyReportViewerOptions = false;
@@ -3587,6 +3756,7 @@ class ReportViewer extends Consolable {
      */
     refreshReport() {
 
+        this.theme = null;
         this.report.renderReportCriterias();
         this.report.renderReportSettings();
         this.report.filter();
@@ -5740,6 +5910,7 @@ class LocaleModule extends Module {
     getKey(key) {
         var text = this.locales[this.currentLocale][key];
         if (text == undefined || text == null) {
+            console.warn('Missing translation key ' + key);
             text = key;
         }
         return text;
@@ -6420,6 +6591,15 @@ class PrintingModule extends Module {
 
     }
 
+    getThemeOptions() {
+        var s = '';
+        s += '<option value="" data-locale="Default">Default</option>';
+        for (var x in window.__Metadocx.Themes) {
+            s += '<option value="' + x + '">' + x + '</option>';
+        }
+        return s;
+    }
+
 
 
 }
@@ -6861,6 +7041,17 @@ window.__Metadocx.Locales.en = {
     "Count": "Count",
     "Ascending": "Ascending",
     "Descending": "Descending",
+    "CoverPage": "Cover Page",
+    "Label": "Label",
+    "Width": "Width",
+    "Type": "Type",
+    "IsVisible": "Is Visible",
+    "Center": "Center",
+    "Alignment": "Alignment",
+    "SectionID": "Section ID",
+    "Default": "Default",
+    "ReportTheme": "Report Theme",
+    "CreatedAt": "Created At",
 };
 window.__Metadocx.Locales.fr = {
     "en": "Anglais",
@@ -6915,6 +7106,17 @@ window.__Metadocx.Locales.fr = {
     "Count": "Quantité",
     "Ascending": "Croissant",
     "Descending": "Décroissant",
+    "CoverPage": "Page Couverture",
+    "Label": "Libellé",
+    "Width": "Largeur",
+    "Type": "Type",
+    "IsVisible": "Est Visible",
+    "Center": "Centré",
+    "Alignment": "Alignement",
+    "SectionID": "ID de la section",
+    "Default": "Défaut",
+    "ReportTheme": "Thème du rapport",
+    "CreatedAt": "Créé le",
 };
 /**
  * Theme1 class
@@ -6927,6 +7129,7 @@ class Theme1 extends Theme {
 
     constructor(app) {
         super(app);
+        this.colorScheme = ['#A21BBF', '#295CF0', '#007EFF', '#0093F7', '#00A0D1', '#00AA9F'];
     }
 
     renderCoverPage() {
@@ -6941,6 +7144,22 @@ class Theme1 extends Theme {
         </div>`;
 
         return s;
+
+    }
+
+    renderThemeCSS() {
+
+        return `
+
+            .report-cell-header {
+                background-color: #B4A8E1 !important;
+            }
+
+            .report-row-group td {
+                background-color: #B174D8 !important;
+            }
+        
+        `;
 
     }
 
@@ -6969,7 +7188,7 @@ class Theme1 extends Theme {
             }
 
             .report-cover-footer {
-                height: 162px;
+                height: 355px;
                 background-size: cover;
                 position: absolute;
                 bottom: 0;
@@ -6979,7 +7198,7 @@ class Theme1 extends Theme {
             }
 
             .report-cover-header {
-                height: 162px;
+                height: 165px;
                 background-size: cover;
                 position: absolute;
                 top: 0;
@@ -6994,7 +7213,7 @@ class Theme1 extends Theme {
 
 }
 
-window.__Metadocx.Theme1 = Theme1;
+window.__Metadocx.Themes.Theme1 = Theme1;
 /**
  * Theme2 class
  * 
@@ -7006,6 +7225,7 @@ class Theme2 extends Theme {
 
     constructor(app) {
         super(app);
+        this.colorScheme = ['#1C85D6', '#00A8E5', '#00C5D5', '#00DEB0', '#95EF87', '#F9F871'];
     }
 
     renderCoverPage() {
@@ -7017,9 +7237,27 @@ class Theme2 extends Theme {
             <div class="report-cover-name">${this.app.viewer.report.getReportDefinition().properties.name}</div>
             <div class="report-cover-description">${this.app.viewer.report.getReportDefinition().properties.description}</div>
             <div class="report-cover-footer"></div>
+            <div class="report-cover-date"><span data-locale="CreatedAt">Created at</span> ${moment().format('YYYY-MM-DD HH:mm')}</div>
+            <div class="report-cover-powered-by"><span data-locale="PoweredBy">powered by</span> <a href="https://www.metadocx.com" target="_blank">Metadocx</a></div>
         </div>`;
 
         return s;
+
+    }
+
+    renderThemeCSS() {
+
+        return `
+
+            .report-cell-header {
+                background-color: #1C85D6 !important;
+            }
+
+            .report-row-group td {
+                background-color: #7DB7E4 !important;
+            }
+        
+        `;
 
     }
 
@@ -7029,6 +7267,31 @@ class Theme2 extends Theme {
 
             #reportCoverPage {
                 position:relative;
+            }
+
+            .report-cover-date {
+                color: #fff;
+                position:absolute;
+                left:50px;
+                bottom:50px;
+                font-size: 9pt;
+            }
+
+            .report-cover-powered-by {
+                color: #fff;
+                position:absolute;
+                right:50px;
+                bottom:50px;
+                text-align:right;
+                font-size: 9pt;
+            }
+
+            .report-cover-powered-by a {
+                color: #ffcc00;
+            }
+
+            .report-cover-powered-by a:visited {
+                color: #ffcc00;
             }
 
             .report-cover-page {
@@ -7062,6 +7325,10 @@ class Theme2 extends Theme {
                 background-image : url('https://cdn.jsdelivr.net/gh/metadocx/reporting@main/assets/images/templates/Theme2/footer.png');
             }
 
+            .orientation-landscape .report-cover-header {
+                height: 332px;
+            }
+
             .report-cover-header {
                 height: 255px;
                 background-size: cover;
@@ -7078,7 +7345,7 @@ class Theme2 extends Theme {
 
 }
 
-window.__Metadocx.Theme2 = Theme2;
+window.__Metadocx.Themes.Theme2 = Theme2;
 /**
  * Metadocx reporting application bootstrap
  * This will create the global Metadocx object and check for jQuery

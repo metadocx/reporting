@@ -188,6 +188,74 @@ class GraphReportSection extends ReportSection {
                 graphImage.src = graphCanvas.toDataURL();
                 //$('#' + this.reportSection.id + '_graphCanvas').hide();
             },
+            beforeUpdate: (chart, args, options) => {
+
+                var helpers = Chart.helpers;
+                var scheme = this.app.viewer.getTheme().getColorScheme();
+                var length, colorIndex, color;
+
+                var fillAlpha = 0.4;
+                var override = true;
+
+                if (scheme) {
+
+                    length = scheme.length;
+
+                    // Set scheme colors
+                    chart.config.data.datasets.forEach(function (dataset, datasetIndex) {
+                        colorIndex = datasetIndex % length;
+                        color = scheme[colorIndex];
+
+                        switch (dataset.type || chart.config.type) {
+                            // For line, radar and scatter chart, borderColor and backgroundColor (50% transparent) are set
+                            case 'line':
+                            case 'radar':
+                            case 'scatter':
+                                if (typeof dataset.backgroundColor === 'undefined' || override) {
+                                    dataset.backgroundColor = helpers.color(color).alpha(fillAlpha).rgbString();
+                                }
+                                if (typeof dataset.borderColor === 'undefined' || override) {
+                                    dataset.borderColor = color;
+                                }
+                                if (typeof dataset.pointBackgroundColor === 'undefined' || override) {
+                                    dataset.pointBackgroundColor = helpers.color(color).alpha(fillAlpha).rgbString();
+                                }
+                                if (typeof dataset.pointBorderColor === 'undefined' || override) {
+                                    dataset.pointBorderColor = color;
+                                }
+                                break;
+                            // For doughnut and pie chart, backgroundColor is set to an array of colors
+                            case 'doughnut':
+                            case 'pie':
+                            case 'polarArea':
+                                if (typeof dataset.backgroundColor === 'undefined' || override) {
+                                    dataset.backgroundColor = dataset.data.map(function (data, dataIndex) {
+                                        colorIndex = dataIndex % length;
+                                        return scheme[colorIndex];
+                                    });
+                                }
+                                break;
+                            // For bar chart backgroundColor (including fillAlpha) and borderColor are set
+                            case 'bar':
+                                if (typeof dataset.backgroundColor === 'undefined' || override) {
+                                    dataset.backgroundColor = helpers.color(color).alpha(fillAlpha).rgbString();
+                                }
+                                if (typeof dataset.borderColor === 'undefined' || override) {
+                                    dataset.borderColor = color;
+                                }
+                                break;
+                            // For the other chart, only backgroundColor is set
+                            default:
+                                if (typeof dataset.backgroundColor === 'undefined' || override) {
+                                    dataset.backgroundColor = color;
+                                }
+                                break;
+                        }
+                    });
+                }
+
+
+            }
         });
 
         this._graphInstance = new Chart(

@@ -9,6 +9,7 @@ class Theme1 extends Theme {
 
     constructor(app) {
         super(app);
+        this.colorScheme = ['#A21BBF', '#295CF0', '#007EFF', '#0093F7', '#00A0D1', '#00AA9F'];
     }
 
     renderCoverPage() {
@@ -23,6 +24,22 @@ class Theme1 extends Theme {
         </div>`;
 
         return s;
+
+    }
+
+    renderThemeCSS() {
+
+        return `
+
+            .report-cell-header {
+                background-color: #B4A8E1 !important;
+            }
+
+            .report-row-group td {
+                background-color: #B174D8 !important;
+            }
+        
+        `;
 
     }
 
@@ -51,7 +68,7 @@ class Theme1 extends Theme {
             }
 
             .report-cover-footer {
-                height: 162px;
+                height: 355px;
                 background-size: cover;
                 position: absolute;
                 bottom: 0;
@@ -61,7 +78,7 @@ class Theme1 extends Theme {
             }
 
             .report-cover-header {
-                height: 162px;
+                height: 165px;
                 background-size: cover;
                 position: absolute;
                 top: 0;
@@ -76,4 +93,4 @@ class Theme1 extends Theme {
 
 }
 
-window.__Metadocx.Theme1 = Theme1;
+window.__Metadocx.Themes.Theme1 = Theme1;

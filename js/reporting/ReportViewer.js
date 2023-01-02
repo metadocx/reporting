@@ -51,6 +51,8 @@ class ReportViewer extends Consolable {
          */
         this.report = new Report();
 
+        this.theme = null;
+
         /**
          * Initialize options with default options
          */
@@ -134,6 +136,19 @@ class ReportViewer extends Consolable {
         };
 
         this.options = new Proxy(this.options, ProxyHandler);
+
+    }
+
+    getTheme() {
+
+        if (this.theme === null) {
+
+            if (window.__Metadocx.Themes[this.options.template] != undefined) {
+                this.theme = new window.__Metadocx.Themes[this.options.template](this.app);
+            }
+        }
+
+        return this.theme;
 
     }
 
@@ -363,8 +378,25 @@ class ReportViewer extends Consolable {
          </header>
          <div id="${this.options.id}_canvas" class="report-viewer-canvas">
          </div>
+         <div id="${this.options.id}_reportDefinitionViewer" class="report-definition-code-viewer" style="display:none;">
+            <pre id="${this.options.id}_reportDefinitionPre"></pre>
+         </div>
          <div class="powered-by no-print"><span data-locale="PoweredBy">powered by</span> <a href="https://www.metadocx.com" target="_blank">Metadocx</a></div>`;
 
+    }
+
+    showReportDefinition() {
+
+        $('#' + this.options.id + '_reportDefinitionPre').text(JSON.stringify(this.report.getReportDefinition(), null, 2));
+        $('#' + this.options.id + '_reportDefinitionViewer').show();
+        $('#' + this.options.id + '_canvas').hide();
+
+    }
+
+
+    hideReportDefinition() {
+        $('#' + this.options.id + '_reportDefinitionViewer').hide();
+        $('#' + this.options.id + '_canvas').show();
     }
 
     /**
@@ -446,6 +478,18 @@ class ReportViewer extends Consolable {
                                  ${this.app.modules.Printing.getPaperSizeOptions()}
                                  </select>
                              </div>
+                             <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" id="coverPage">
+                                <label class="form-check-label" for="coverPage" data-locale="CoverPage">
+                                    Cover Page
+                                </label>
+                             </div>
+                             <div class="mb-3">                                
+                                 <label for="reportTheme" class="form-label font-weight-bold" data-locale="ReportTheme">Report Theme</label>
+                                 <select id="reportTheme" class="form-select">
+                                 ${this.app.modules.Printing.getThemeOptions()}
+                                 </select>
+                             </div>
                          </div>
                          <div class="d-flex flex-column p-2">
                              <div class="mb-3">                                
@@ -515,25 +559,25 @@ class ReportViewer extends Consolable {
                     <div class="row">
                             <div class="col-6">
                                 <div class="mb-3" style="display:none;">
-                                <label for="fieldSectionID" class="col-form-label">Section ID</label>                            
+                                <label for="fieldSectionID" class="col-form-label" data-locale="SectionID">Section ID</label>                            
                                 <input type="text" class="form-control" id="fieldSectionID" readonly value=""/>
                             </div>
                             <div class="mb-3" style="display:none;">
-                                <label for="fieldName" class="col-form-label">Name</label>                            
+                                <label for="fieldName" class="col-form-label" data-locale="Name">Name</label>                            
                                 <input type="text" class="form-control" id="fieldName" readonly value=""/>
                             </div>
                             <div class="mb-3">
-                                <label for="fieldLabel" class="col-form-label">Label</label>                            
+                                <label for="fieldLabel" class="col-form-label" data-locale="Label">Label</label>                            
                                 <input type="text" class="form-control" id="fieldLabel" value=""/>                            
                             </div>
                             <div class="mb-3">
-                                <label for="fieldWidth" class="col-form-label">Width (px)</label>                            
+                                <label for="fieldWidth" class="col-form-label" data-locale="Width">Width (px)</label>                            
                                 <input type="number" class="form-control" id="fieldWidth" value=""/>                            
                             </div>
 
                             <div class="form-check mb-3">
                                 <input class="form-check-input" type="checkbox" id="fieldVisible">
-                                <label class="form-check-label" for="fieldVisible">
+                                <label class="form-check-label" for="fieldVisible" data-locale="IsVisible">
                                     Is Visible
                                 </label>
                             </div>
@@ -542,15 +586,15 @@ class ReportViewer extends Consolable {
                         <div class="col-6">
                             
                             <div class="mb-3" style="display:none;">
-                                <label for="fieldType" class="col-form-label">Type</label>                            
+                                <label for="fieldType" class="col-form-label" data-locale="Type">Type</label>                            
                                 <input type="text" class="form-control" id="fieldType" readonly value=""/>
                             </div>
                             <div class="mb-3">
-                                <label for="fieldAlign" class="col-form-label">Alignment</label>                            
+                                <label for="fieldAlign" class="col-form-label" data-locale="Alignment">Alignment</label>                            
                                 <select id="fieldAlign" class="form-control">
-                                    <option value="left">Left</option>
-                                    <option value="right">Right</option>
-                                    <option value="center">Center</option>
+                                    <option value="left" data-locale="Left">Left</option>
+                                    <option value="right" data-locale="Right">Right</option>
+                                    <option value="center" data-locale="Center">Center</option>
                                 </select>
                             </div>
 
@@ -774,6 +818,14 @@ class ReportViewer extends Consolable {
         $('#leftMargin').val(this.options.page.margins.left);
         $('#rightMargin').val(this.options.page.margins.right);
 
+        $('#coverPage').prop('checked', this.app.modules.DataType.toBool(this.options.coverPage.enabled));
+        if (this.options.template) {
+            $('#reportTheme').val(this.options.template);
+        } else {
+            $('#reportTheme').val('');
+        }
+
+
         this.optionsDialog.show();
     }
 
@@ -796,6 +848,10 @@ class ReportViewer extends Consolable {
             this.options.page.orientation = 'landscape';
         }
 
+
+        this.options.coverPage.enabled = $('#coverPage').prop('checked');
+        this.options.template = $('#reportTheme').val();
+
         this.optionsDialog.hide();
 
         this._bDisableApplyReportViewerOptions = false;
@@ -810,6 +866,7 @@ class ReportViewer extends Consolable {
      */
     refreshReport() {
 
+        this.theme = null;
         this.report.renderReportCriterias();
         this.report.renderReportSettings();
         this.report.filter();
