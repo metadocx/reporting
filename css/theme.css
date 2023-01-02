@@ -803,3 +803,14 @@ i.uil {
     bottom: 10px;
     right: 40px;
 }
+
+.report-definition-code-viewer {
+    margin-top: 70px;
+    height: calc(100vh - 70px);
+    width: 100%;
+    overflow: auto;
+    font-family: 'Courier New', Courier, monospace;
+    background-color:#1F2227;
+    color: #fff;
+    padding:50px;
+}
