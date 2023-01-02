@@ -23,17 +23,17 @@ class ReportCanvas {
         var s = '';
         var sReportSection = '';
 
-        var oReportTemplate = new Theme();
+        var oReportTemplate = new Theme(this.app);
 
-        if (window.__Metadocx[this.viewer.options.template] != undefined) {
-            oReportTemplate = new window.__Metadocx[this.viewer.options.template](this.app);
+        if (window.__Metadocx.Themes[this.viewer.options.template] != undefined) {
+            oReportTemplate = new window.__Metadocx.Themes[this.viewer.options.template](this.app);
         }
 
         if (this.viewer.options.coverPage.enabled) {
             // Add cover page to report
             s += `<div id="reportCoverPage" class="report-page orientation-${this.viewer.options.page.orientation} size-${this.viewer.options.page.paperSize.toString().toLowerCase()}">
                     <style id="${this.viewer.options.id}_coverPage">
-                        ${oReportTemplate.renderThemeCSS()}    
+                        ${oReportTemplate.renderCoverPageCSS()}    
                     </style>
                     ${oReportTemplate.renderCoverPage()}
                   </div>`;
