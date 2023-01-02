@@ -20,6 +20,8 @@ class WordModule extends Module {
 
     showExportDialog() {
 
+        return this.exportWord();
+
         if (this.exportDialog === null) {
             $(this.app.viewer.getContainerSelector()).append(this.renderExportDialog());
             this.hookExportDialogComponents();
@@ -288,13 +290,27 @@ class WordModule extends Module {
 
     }
 
-    exportWprd() {
+    exportWord() {
+
+        var thisObject = this;
+
+        $('.report-graph-canvas').hide();
+        $('.report-graph-image').show();
+
+        /**
+         * Show exporting dialog
+         */
+        var exportDialog = bootbox.dialog({
+            title: 'Export to Word',
+            message: '<p><i class="fas fa-spin fa-spinner"></i> Exporting report to Word...</p>'
+        });
+
         $.ajax({
             type: 'post',
-            url: '/Convert/word',
+            url: '/Metadocx/Convert/Word',
             data: {
                 ExportOptions: this.getWordExportOptions(),
-                HTML: btoa(unescape(encodeURIComponent($('#reportPage').html()))),
+                HTML: btoa(unescape(encodeURIComponent($('#' + this.app.viewer.report.id + '_canvas').html()))),
             },
             xhrFields: {
                 responseType: 'blob'
@@ -303,11 +319,17 @@ class WordModule extends Module {
                 //console.log(data);
                 //console.log(status);
 
-                var blob = new Blob([data]);
-                var link = document.createElement('a');
-                link.href = window.URL.createObjectURL(blob);
-                link.download = "Report.docx";
-                link.click();
+                var blob = new Blob([data], { type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" });
+                var sContent = `Report has been converted to Word, click on button to download file<br><br>
+                <a class="btn btn-primary" href="${window.URL.createObjectURL(blob)}" download="Report.docx" onClick="$('.bootbox.modal').modal('hide');">Download report</a>`;
+
+                exportDialog.find('.bootbox-body').html(sContent);
+
+                //thisObject.hideExportDialog();
+                thisObject.app.modules.Printing.applyPageStyles();
+
+                $('.report-graph-canvas').show();
+                $('.report-graph-image').hide();
 
             }
         });

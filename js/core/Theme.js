@@ -21,6 +21,8 @@ class Theme {
             <div class="report-cover-name">${this.app.viewer.report.getReportDefinition().properties.name}</div>
             <div class="report-cover-description">${this.app.viewer.report.getReportDefinition().properties.description}</div>
             <div class="report-cover-footer"></div>
+            <div class="report-cover-date"><span data-locale="CreatedAt">Created at</span> ${moment().format('YYYY-MM-DD HH:mm')}</div>
+            <div class="report-cover-powered-by"><span data-locale="PoweredBy">powered by</span> <a href="https://www.metadocx.com" target="_blank">Metadocx</a></div>
         </div>`;
 
         return s;
@@ -34,6 +36,21 @@ class Theme {
 
             .report-cover-page {
                 height: 100%;
+            }
+
+            .report-cover-date {                
+                position:absolute;
+                left:50px;
+                bottom:50px;
+                font-size: 9pt;
+            }
+
+            .report-cover-powered-by {                
+                position:absolute;
+                right:50px;
+                bottom:50px;
+                text-align:right;
+                font-size: 9pt;
             }
 
             .report-cover-name {
