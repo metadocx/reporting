@@ -81,7 +81,7 @@ class ReportViewer extends Consolable {
             },
             "exportFormats": {
                 "pdf": true,
-                "word": false,
+                "word": true,
                 "excel": false
             },
             "page": {
@@ -145,6 +145,9 @@ class ReportViewer extends Consolable {
 
             if (window.__Metadocx.Themes[this.options.template] != undefined) {
                 this.theme = new window.__Metadocx.Themes[this.options.template](this.app);
+            } else {
+                // Default theme
+                this.theme = new Theme(this.app);
             }
         }
 

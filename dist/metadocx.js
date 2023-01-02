@@ -1715,6 +1715,8 @@ class Theme {
             <div class="report-cover-name">${this.app.viewer.report.getReportDefinition().properties.name}</div>
             <div class="report-cover-description">${this.app.viewer.report.getReportDefinition().properties.description}</div>
             <div class="report-cover-footer"></div>
+            <div class="report-cover-date"><span data-locale="CreatedAt">Created at</span> ${moment().format('YYYY-MM-DD HH:mm')}</div>
+            <div class="report-cover-powered-by"><span data-locale="PoweredBy">powered by</span> <a href="https://www.metadocx.com" target="_blank">Metadocx</a></div>
         </div>`;
 
         return s;
@@ -1728,6 +1730,21 @@ class Theme {
 
             .report-cover-page {
                 height: 100%;
+            }
+
+            .report-cover-date {                
+                position:absolute;
+                left:50px;
+                bottom:50px;
+                font-size: 9pt;
+            }
+
+            .report-cover-powered-by {                
+                position:absolute;
+                right:50px;
+                bottom:50px;
+                text-align:right;
+                font-size: 9pt;
             }
 
             .report-cover-name {
@@ -1793,7 +1810,7 @@ class DataTableReportSection extends ReportSection {
         if (this.app.viewer.report.getReportDefinition().properties.description) {
             s += '<h4 class="report-description">' + this.app.viewer.report.getReportDefinition().properties.description + '</h4>';
         }
-        s += '<hr>';
+        //s += '<hr/>';
         s += '</div>';
 
         s += oTable.render();
@@ -2984,7 +3001,7 @@ class ReportViewer extends Consolable {
             },
             "exportFormats": {
                 "pdf": true,
-                "word": false,
+                "word": true,
                 "excel": false
             },
             "page": {
@@ -3048,6 +3065,9 @@ class ReportViewer extends Consolable {
 
             if (window.__Metadocx.Themes[this.options.template] != undefined) {
                 this.theme = new window.__Metadocx.Themes[this.options.template](this.app);
+            } else {
+                // Default theme
+                this.theme = new Theme(this.app);
             }
         }
 
@@ -6709,6 +6729,8 @@ class WordModule extends Module {
 
     showExportDialog() {
 
+        return this.exportWord();
+
         if (this.exportDialog === null) {
             $(this.app.viewer.getContainerSelector()).append(this.renderExportDialog());
             this.hookExportDialogComponents();
@@ -6977,13 +6999,27 @@ class WordModule extends Module {
 
     }
 
-    exportWprd() {
+    exportWord() {
+
+        var thisObject = this;
+
+        $('.report-graph-canvas').hide();
+        $('.report-graph-image').show();
+
+        /**
+         * Show exporting dialog
+         */
+        var exportDialog = bootbox.dialog({
+            title: 'Export to Word',
+            message: '<p><i class="fas fa-spin fa-spinner"></i> Exporting report to Word...</p>'
+        });
+
         $.ajax({
             type: 'post',
-            url: '/Convert/word',
+            url: '/Metadocx/Convert/Word',
             data: {
                 ExportOptions: this.getWordExportOptions(),
-                HTML: btoa(unescape(encodeURIComponent($('#reportPage').html()))),
+                HTML: btoa(unescape(encodeURIComponent($('#' + this.app.viewer.report.id + '_canvas').html()))),
             },
             xhrFields: {
                 responseType: 'blob'
@@ -6992,11 +7028,17 @@ class WordModule extends Module {
                 //console.log(data);
                 //console.log(status);
 
-                var blob = new Blob([data]);
-                var link = document.createElement('a');
-                link.href = window.URL.createObjectURL(blob);
-                link.download = "Report.docx";
-                link.click();
+                var blob = new Blob([data], { type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" });
+                var sContent = `Report has been converted to Word, click on button to download file<br><br>
+                <a class="btn btn-primary" href="${window.URL.createObjectURL(blob)}" download="Report.docx" onClick="$('.bootbox.modal').modal('hide');">Download report</a>`;
+
+                exportDialog.find('.bootbox-body').html(sContent);
+
+                //thisObject.hideExportDialog();
+                thisObject.app.modules.Printing.applyPageStyles();
+
+                $('.report-graph-canvas').show();
+                $('.report-graph-image').hide();
 
             }
         });

@@ -34,7 +34,7 @@ class DataTableReportSection extends ReportSection {
         if (this.app.viewer.report.getReportDefinition().properties.description) {
             s += '<h4 class="report-description">' + this.app.viewer.report.getReportDefinition().properties.description + '</h4>';
         }
-        s += '<hr>';
+        //s += '<hr/>';
         s += '</div>';
 
         s += oTable.render();
