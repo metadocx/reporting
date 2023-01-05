@@ -526,6 +526,13 @@ class Report {
         }
         this.app.viewer.criterias = aCriterias;
 
+        // Set parent and child components
+        for (var x in aCriterias) {
+            if (aCriterias[x].reportCriteria.parent) {
+                this.app.viewer.getCriteria(aCriterias[x].reportCriteria.parent).addChildCriteria(aCriterias[x]);
+            }
+        }
+
         this._reportCriteriasRendered = true;
 
 
