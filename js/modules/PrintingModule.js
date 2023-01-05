@@ -110,6 +110,10 @@ class PrintingModule extends Module {
         return s;
     }
 
+    getPaperSizes() {
+        return Object.keys(this.PaperSize);
+    }
+
     getPaperSize(name) {
         if (this.PaperSizeProperties[name] != undefined) {
             return this.PaperSizeProperties[name];
