@@ -303,6 +303,10 @@ class ReportValidator {
                         __required: true,
                         __allowedValues: this.app.viewer.getCriteriaTypes()
                     },
+                    parent: {
+                        __type: 'string',
+                        __required: false,
+                    },
                     defaultValue: {
                         __type: 'mixed',
                         __required: false
