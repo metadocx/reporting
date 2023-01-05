@@ -411,9 +411,6 @@ class PDFModule extends Module {
 
 
                 var blob = new Blob([data]);
-                //var link = document.createElement('a');
-                //link.href = window.URL.createObjectURL(blob);
-                //link.download = "Report.pdf";
 
                 var sContent = `Report has been converted to PDF, click on button to download file<br><br>
                 <a class="btn btn-primary" href="${window.URL.createObjectURL(blob)}" download="Report.pdf" onClick="$('.bootbox.modal').modal('hide');">Download report</a>`;
