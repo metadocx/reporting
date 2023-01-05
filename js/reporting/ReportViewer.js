@@ -84,7 +84,7 @@ class ReportViewer extends Consolable {
             "exportFormats": {
                 "pdf": true,
                 "word": true,
-                "excel": false
+                "excel": true
             },
             "page": {
                 "orientation": "portrait",
