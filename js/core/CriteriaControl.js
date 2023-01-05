@@ -12,6 +12,9 @@ class CriteriaControl {
         this.app = app;
         this.reportCriteria = null;
         this._instance = null;
+        this.parentCriteria = null;
+        this.childCriterias = [];
+        this.resetChildCriteriaOnChange = true;
     }
 
     /**
@@ -54,6 +57,39 @@ class CriteriaControl {
      */
     setValue(v) {
         // must overload this function
+    }
+
+    /**
+     * Sets parent criteria control
+     * @param {*} ctl 
+     */
+    setParentCriteria(ctl) {
+        this.parentCriteria = ctl;
+    }
+
+    /**
+     * Returns parent criteria control
+     * @returns 
+     */
+    getParentCriteria() {
+        return this.parentCriteria;
+    }
+
+    /**
+     * Adds a child criteria control
+     * @param {*} ctl 
+     */
+    addChildCriteria(ctl) {
+        ctl.setParentCriteria(this);
+        this.childCriterias.push(ctl);
+    }
+
+    /**
+     * Returns child criteria controls
+     * @returns 
+     */
+    getChildCriterias() {
+        return this.childCriterias;
     }
 
 }

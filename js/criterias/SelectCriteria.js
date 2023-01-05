@@ -27,6 +27,17 @@ class SelectCriteria extends CriteriaControl {
                             data[x] = params[x];
                         }
                         data['locale'] = thisObject.app.modules.Locale.getCurrentLocale();
+                        if (thisObject.getParentCriteria() != null) {
+
+                            data['parent'] = thisObject.getParentCriteria().getValue().map(function (row) {
+                                return {
+                                    id: row.id,
+                                    text: row.text
+                                }
+                            }
+                            );
+                        }
+
                         return data;
                     }
 
@@ -35,6 +46,14 @@ class SelectCriteria extends CriteriaControl {
         }
 
         this._instance = $('#' + this.id).select2(this.reportCriteria.parameters);
+        this._instance.on('change', function () {
+            if (thisObject.resetChildCriteriaOnChange) {
+                for (var x in thisObject.getChildCriterias()) {
+                    // Reset child criterias
+                    thisObject.getChildCriterias()[x].setValue(null);
+                }
+            }
+        });
         $('#' + this.id).val(null).trigger("change");
     }
 
@@ -55,8 +74,6 @@ class SelectCriteria extends CriteriaControl {
                  * Use existing data to create options
                  */
                 sOptionTags = this.buildOptionTagsFromReportData(this.reportCriteria.options.field);
-            } else if (this.reportCriteria.options.source == 'ajax') {
-
             }
 
         }
@@ -75,6 +92,10 @@ class SelectCriteria extends CriteriaControl {
 
     getValue() {
         return this._instance.select2('data');
+    }
+
+    setValue(v) {
+        $('#' + this.id).val(v).trigger('change');
     }
 
     buildOptionTagsFromReportData(field) {
