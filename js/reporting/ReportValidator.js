@@ -128,11 +128,13 @@ class ReportValidator {
                         __type: 'string',
                         __required: false,
                         __defaultValue: 'portrait',
+                        __allowedValues: ['portrait', 'landscape'],
                     },
                     paperSize: {
                         __type: 'string',
                         __required: false,
-                        __defaultValue: 'letter',
+                        __defaultValue: 'Letter',
+                        __allowedValues: this.app.modules.Printing.getPaperSizes()
                     },
                     margins: {
                         __type: 'object',
@@ -141,21 +143,29 @@ class ReportValidator {
                             __type: 'number',
                             __required: false,
                             __defaultValue: 0.5,
+                            __minValue: 0,
+                            __maxValue: 5,
                         },
                         bottom: {
                             __type: 'number',
                             __required: false,
                             __defaultValue: 0.5,
+                            __minValue: 0,
+                            __maxValue: 5,
                         },
                         left: {
                             __type: 'number',
                             __required: false,
                             __defaultValue: 0.5,
+                            __minValue: 0,
+                            __maxValue: 5,
                         },
                         right: {
                             __type: 'number',
                             __required: false,
                             __defaultValue: 0.5,
+                            __minValue: 0,
+                            __maxValue: 5,
                         }
                     }
                 },
@@ -437,13 +447,29 @@ class ReportValidator {
                 }
             }
 
+            if (jsonXls[x].__minValue != undefined) {
+                if (this.keyExists(this.buildPath(path, x))) {
+                    if (parseFloat(this.getValue(this.buildPath(path, x))) < parseFloat(jsonXls[x].__minValue)) {
+                        this.logError('Key value is invalid ' + this.buildPath(path, x) + ' minimum value is  ' + parseFloat(jsonXls[x].__minValue) + ' got ' + parseFloat(this.getValue(this.buildPath(path, x))));
+                    }
+                }
+            }
+
+            if (jsonXls[x].__maxValue != undefined) {
+                if (this.keyExists(this.buildPath(path, x))) {
+                    if (parseFloat(this.getValue(this.buildPath(path, x))) > parseFloat(jsonXls[x].__maxValue)) {
+                        this.logError('Key value is invalid ' + this.buildPath(path, x) + ' maximum value is  ' + parseFloat(jsonXls[x].__maxValue) + ' got ' + parseFloat(this.getValue(this.buildPath(path, x))));
+                    }
+                }
+            }
+
             /**
              * Check allowed values
              */
             if (jsonXls[x].__allowedValues) {
                 // Compare value with allowed values
                 if (this.keyExists(this.buildPath(path, x))) {
-                    if (jsonXls[x].__allowedValues.indexOf(this.getValue(this.buildPath(path, x))) === -1) {
+                    if (this.getValueIndex(this.getValue(this.buildPath(path, x)), jsonXls[x].__allowedValues) === -1) {
 
                         if (jsonXls[x].__defaultValue != undefined) {
                             // Try to fix with default value                            
@@ -473,6 +499,16 @@ class ReportValidator {
             }
         }
 
+    }
+
+    /**
+     * Returns value index case insensitve
+     * @param {*} v 
+     * @param {*} a 
+     * @returns 
+     */
+    getValueIndex(v, a) {
+        return a.findIndex(item => v.toLowerCase() === item.toLowerCase());
     }
 
     /**
