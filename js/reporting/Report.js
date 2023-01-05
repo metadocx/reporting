@@ -61,6 +61,11 @@ class Report {
          */
         this.onReportDefinitionFileLoaded = null;
 
+        /**
+         * Instance of the report definition file validator
+         */
+        this._reportValidator = null;
+
     }
 
     /**
@@ -90,14 +95,13 @@ class Report {
             this._reportDefinitionUrl = reportDefinitionUrl;
         }
 
-        console.log('Report definition file is ' + this._reportDefinitionUrl);
-
         if (this._reportDefinition === null) {
             $.get(this._reportDefinitionUrl, (data, status) => {
                 this._reportDefinition = data;
                 /**
                  * Copy Report definition options to viewer options, replaces default values
                  */
+                this.validateReportDefinitionFile();
                 this.app.modules.DataType.copyObjectProperties(this.getReportDefinition().options, this.app.viewer.options);
 
                 if (this.onReportDefinitionFileLoaded) {
@@ -112,16 +116,13 @@ class Report {
 
     }
 
-    /**
-     * Returns select options for paper sizes
-     * @returns 
-     */
-    getPaperSizeOptions() {
-        var s = '';
-        for (var x in this.pageSizes) {
-            s += '<option value="' + this.pageSizes[x].name + '" data-locale="' + this.pageSizes[x].name + '">' + this.pageSizes[x].name + '</option>';
+    validateReportDefinitionFile() {
+        console.group('Validating report definition file');
+        if (this._reportValidator === null) {
+            this._reportValidator = new ReportValidator(this.app);
         }
-        return s;
+        this._reportValidator.validate(this._reportDefinition);
+        console.groupEnd();
     }
 
 
