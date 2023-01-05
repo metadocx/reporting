@@ -156,6 +156,28 @@ class ReportViewer extends Consolable {
     }
 
     /**
+     * Returns list of installed theme names
+     * @returns array
+     */
+    getThemes() {
+        return Object.keys(window.__Metadocx.Themes);
+    }
+
+    /**
+     * Returns list of availble criteria type names
+     * @returns array
+     */
+    getCriteriaTypes() {
+        var aCriteriaType = [];
+        for (var x in window.__Metadocx) {
+            if (x.endsWith('Criteria')) {
+                aCriteriaType.push(x);
+            }
+        }
+        return aCriteriaType;
+    }
+
+    /**
      * Loads a report definition file
      */
     load(reportDefinitionUrl) {
