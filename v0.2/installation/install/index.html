@@ -1,0 +1,1473 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Metadocx (Github Organization)">
+      
+      
+        <link rel="canonical" href="https://www.metadocx.com/docs/installation/install/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.3.9">
+    
+    
+      
+        <title>Quick setup - Metadocx Reporting</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.1d29e8d0.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.cbb835fc.min.css">
+        
+      
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#get-started-with-metadocx-reporting" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-component="outdated" hidden>
+        <aside class="md-banner md-banner--warning">
+          
+        </aside>
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Metadocx Reporting" class="md-header__button md-logo" aria-label="Metadocx Reporting" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Metadocx Reporting
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Quick setup
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/metadocx/reporting" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    reporting
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      Home
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="./" class="md-tabs__link md-tabs__link--active">
+        Installation
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../concepts/concepts/" class="md-tabs__link">
+        Basic Concepts
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../reportdefinition/file/" class="md-tabs__link">
+        Creating a Report
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../examples/" class="md-tabs__link">
+      Examples
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../contributing/general/" class="md-tabs__link">
+        Contributing
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Metadocx Reporting" class="md-nav__button md-logo" aria-label="Metadocx Reporting" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Metadocx Reporting
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/metadocx/reporting" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    reporting
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Installation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Installation" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Installation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Quick setup
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Quick setup
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    Quick start
+  </a>
+  
+    <nav class="md-nav" aria-label="Quick start">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#required-dependencies" class="md-nav__link">
+    Required dependencies
+  </a>
+  
+    <nav class="md-nav" aria-label="Required dependencies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#head" class="md-nav__link">
+    Head
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bottom-before-closing-body-tag" class="md-nav__link">
+    Bottom (before closing body tag)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#full-example-of-a-report-viewer-page" class="md-nav__link">
+    Full example of a report viewer page
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#report-definition-file" class="md-nav__link">
+    Report definition file
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../requirements/" class="md-nav__link">
+        Required librarires
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config/" class="md-nav__link">
+        Configuration option
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Basic Concepts
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Basic Concepts" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Basic Concepts
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/concepts/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/app/" class="md-nav__link">
+        Application
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/viewer/" class="md-nav__link">
+        Viewer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/options/" class="md-nav__link">
+        Options
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/report/" class="md-nav__link">
+        Report
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/sections/" class="md-nav__link">
+        Sections
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/criterias/" class="md-nav__link">
+        Criterias
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/theme/" class="md-nav__link">
+        Theme
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/locale/" class="md-nav__link">
+        Locale
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Creating a Report
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Creating a Report" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Creating a Report
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_4_1" type="checkbox" id="__nav_4_1" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_1">
+          Report Definition
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Report Definition" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_1">
+          <span class="md-nav__icon md-icon"></span>
+          Report Definition
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reportdefinition/file/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reportdefinition/reportproperties/" class="md-nav__link">
+        Properties
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reportdefinition/options/" class="md-nav__link">
+        Options
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reportdefinition/criterias/" class="md-nav__link">
+        Criterias
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_4_2" type="checkbox" id="__nav_4_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_2">
+          Report Sections
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Report Sections" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          Report Sections
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reportdefinition/sections/" class="md-nav__link">
+        Section
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reportdefinition/sections-properties/" class="md-nav__link">
+        Properties
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reportdefinition/sections-orderby/" class="md-nav__link">
+        Order
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reportdefinition/sections-groupby/" class="md-nav__link">
+        Groups
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reportdefinition/sections-model/" class="md-nav__link">
+        Model
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reportdefinition/sections-data/" class="md-nav__link">
+        Data
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/" class="md-nav__link">
+        Examples
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Contributing
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Contributing" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Contributing
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/general/" class="md-nav__link">
+        General Information
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/issues-and-pull-requests/" class="md-nav__link">
+        Issues and Pull Requests
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    Quick start
+  </a>
+  
+    <nav class="md-nav" aria-label="Quick start">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#required-dependencies" class="md-nav__link">
+    Required dependencies
+  </a>
+  
+    <nav class="md-nav" aria-label="Required dependencies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#head" class="md-nav__link">
+    Head
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bottom-before-closing-body-tag" class="md-nav__link">
+    Bottom (before closing body tag)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#full-example-of-a-report-viewer-page" class="md-nav__link">
+    Full example of a report viewer page
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#report-definition-file" class="md-nav__link">
+    Report definition file
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+  <a href="https://github.com/metadocx/reporting/edit/master/docs/content/installation/install.md" title="Edit this page" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+
+<h1 id="get-started-with-metadocx-reporting"><a class="toclink" href="#get-started-with-metadocx-reporting">Get started with Metadocx Reporting</a></h1>
+<h2 id="quick-start"><a class="toclink" href="#quick-start">Quick start</a></h2>
+<p>Metadocx Reporting is a powerfull, feature-packed report generation and viewer toolkit. Build professional reports quickly and with ease.</p>
+<h3 id="required-dependencies"><a class="toclink" href="#required-dependencies">Required dependencies</a></h3>
+<p>Metadocx reporting is built using other <a href="../requirements/">great open source libraries</a>. In order to use Metadocx reporting you must include the following dependencies in your web page.</p>
+<h4 id="head"><a class="toclink" href="#head">Head</a></h4>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://unicons.iconscout.com/release/v3.0.0/css/line.css&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css&quot;</span>  <span class="na">integrity</span><span class="o">=</span><span class="s">&quot;sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65&quot;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&quot;anonymous&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css&quot;</span><span class="p">/&gt;</span>
+<span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css&quot;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&quot;anonymous&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css&quot;</span> <span class="na">integrity</span><span class="o">=</span><span class="s">&quot;sha512-ELV+xyi8IhEApPS/pSj66+Jiw+sOT1Mqkzlh8ExXihe4zfqbWkxPRi8wptXIO9g73FSlhmquFlUOuMSoXz5IRw==&quot;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&quot;anonymous&quot;</span> <span class="na">referrerpolicy</span><span class="o">=</span><span class="s">&quot;no-referrer&quot;</span> <span class="p">/&gt;</span>
+<span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/theme.min.css&quot;</span> <span class="na">integrity</span><span class="o">=</span><span class="s">&quot;sha512-hbs/7O+vqWZS49DulqH1n2lVtu63t3c3MTAn0oYMINS5aT8eIAbJGDXgLt6IxDHcWyzVTgf9XyzZ9iWyVQ7mCQ==&quot;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&quot;anonymous&quot;</span> <span class="na">referrerpolicy</span><span class="o">=</span><span class="s">&quot;no-referrer&quot;</span> <span class="p">/&gt;</span>
+<span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/gh/metadocx/reporting@latest/dist/metadocx.min.css&quot;</span> <span class="p">/&gt;</span>
+</code></pre></div>
+<h4 id="bottom-before-closing-body-tag"><a class="toclink" href="#bottom-before-closing-body-tag">Bottom (before closing body tag)</a></h4>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://code.jquery.com/jquery-3.6.1.min.js&quot;</span> <span class="na">integrity</span><span class="o">=</span><span class="s">&quot;sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=&quot;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&quot;anonymous&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js&quot;</span> <span class="na">integrity</span><span class="o">=</span><span class="s">&quot;sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3&quot;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&quot;anonymous&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js&quot;</span> <span class="na">integrity</span><span class="o">=</span><span class="s">&quot;sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4&quot;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&quot;anonymous&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/momentjs/latest/moment.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/gh/metadocx/reporting@latest/dist/metadocx.min.js&quot;</span> <span class="na">data-report</span><span class="o">=</span><span class="s">&quot;data/report1.json&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>            
+</code></pre></div>
+<h4 id="full-example-of-a-report-viewer-page"><a class="toclink" href="#full-example-of-a-report-viewer-page">Full example of a report viewer page</a></h4>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;!doctype html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;en&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;width=device-width, initial-scale=1&quot;</span><span class="p">&gt;</span>              
+        <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://unicons.iconscout.com/release/v3.0.0/css/line.css&quot;</span><span class="p">&gt;</span>        
+        <span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css&quot;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">integrity</span><span class="o">=</span><span class="s">&quot;sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65&quot;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&quot;anonymous&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css&quot;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="p">/&gt;</span>
+        <span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css&quot;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&quot;anonymous&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css&quot;</span> <span class="na">integrity</span><span class="o">=</span><span class="s">&quot;sha512-ELV+xyi8IhEApPS/pSj66+Jiw+sOT1Mqkzlh8ExXihe4zfqbWkxPRi8wptXIO9g73FSlhmquFlUOuMSoXz5IRw==&quot;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&quot;anonymous&quot;</span> <span class="na">referrerpolicy</span><span class="o">=</span><span class="s">&quot;no-referrer&quot;</span> <span class="p">/&gt;</span>
+        <span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/theme.min.css&quot;</span> <span class="na">integrity</span><span class="o">=</span><span class="s">&quot;sha512-hbs/7O+vqWZS49DulqH1n2lVtu63t3c3MTAn0oYMINS5aT8eIAbJGDXgLt6IxDHcWyzVTgf9XyzZ9iWyVQ7mCQ==&quot;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&quot;anonymous&quot;</span> <span class="na">referrerpolicy</span><span class="o">=</span><span class="s">&quot;no-referrer&quot;</span> <span class="p">/&gt;</span>
+        <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/gh/metadocx/reporting@latest/dist/metadocx.min.css&quot;</span> <span class="p">/&gt;</span>
+
+    <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>        
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;root&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>        
+    <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>            
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://code.jquery.com/jquery-3.6.1.min.js&quot;</span> <span class="na">integrity</span><span class="o">=</span><span class="s">&quot;sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=&quot;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&quot;anonymous&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js&quot;</span> <span class="na">integrity</span><span class="o">=</span><span class="s">&quot;sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3&quot;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&quot;anonymous&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js&quot;</span> <span class="na">integrity</span><span class="o">=</span><span class="s">&quot;sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4&quot;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&quot;anonymous&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/momentjs/latest/moment.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/6.0.0/bootbox.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js&quot;</span> <span class="na">integrity</span><span class="o">=</span><span class="s">&quot;sha512-57oZ/vW8ANMjR/KQ6Be9v/+/h6bq9/l3f0Oc7vn6qMqyhvPd1cvKBRWWpzu0QoneImqr2SkmO4MSqU+RpHom3Q==&quot;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&quot;anonymous&quot;</span> <span class="na">referrerpolicy</span><span class="o">=</span><span class="s">&quot;no-referrer&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/gh/metadocx/reporting@latest/dist/metadocx.min.js&quot;</span> <span class="na">data-report</span><span class="o">=</span><span class="s">&quot;report.json&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>            
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></div>
+<h3 id="report-definition-file"><a class="toclink" href="#report-definition-file">Report definition file</a></h3>
+<p>The report definition file contains all the information required to generate the report. Create a report.json file and add the following content.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;timesheetsReport&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;properties&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Timesheets&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;description&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Timesheets per customer and project&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="p">},</span><span class="w"></span>
+
+<span class="w">    </span><span class="nt">&quot;options&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;toolbar&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;showOptionsButton&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;showSettingsButton&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;showCriteriasButton&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;showPrintButton&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">            </span>
+<span class="w">            </span><span class="nt">&quot;showExportButton&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;showCloseButton&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="w">        </span><span class="p">},</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;exportFormats&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;pdf&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;word&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;excel&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="w">        </span><span class="p">},</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;page&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;orientation&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;portrait&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;paperSize&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Letter&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;margins&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;top&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;bottom&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;left&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;right&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span><span class="w"></span>
+<span class="w">            </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="p">},</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;settings&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+
+<span class="w">            </span><span class="nt">&quot;fields&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;fieldsReorder&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;fieldsSelection&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;fieldsFormula&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">            </span>
+
+<span class="w">            </span><span class="nt">&quot;orderBy&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;orderByReorder&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;orderBySelection&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;orderByOrder&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="nt">&quot;groupBy&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;groupByReorder&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;groupBySelection&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;groupByOrder&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="w">        </span><span class="p">},</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;formats&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;date&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;format&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;YYYY-MM-DD&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="p">},</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;boolean&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;format&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                    </span><span class="nt">&quot;trueValue&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Yeah&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                    </span><span class="nt">&quot;falseValue&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;No way&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                    </span><span class="nt">&quot;ALL&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;All&quot;</span><span class="w"></span>
+<span class="w">                </span><span class="p">}</span><span class="w"></span>
+<span class="w">            </span><span class="p">},</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;number&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;format&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.00&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">},</span><span class="w"></span>
+
+<span class="w">    </span><span class="nt">&quot;criterias&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TimesheetDate&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Timesheet date&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;description&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Filter timesheets based on the date of the timesheet&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;DatePeriodCriteria&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;defaultValue&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;isRequired&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;parameters&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">    </span>
+<span class="w">                </span><span class="nt">&quot;locale&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;YYYY-MM-DD&quot;</span><span class="p">,</span><span class="w">                    </span>
+<span class="w">                    </span><span class="nt">&quot;separator&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot; / &quot;</span><span class="w">                    </span>
+<span class="w">                </span><span class="p">},</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;alwaysShowCalendars&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="w">            </span><span class="p">},</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;applyTo&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">                </span><span class="p">{</span><span class="nt">&quot;section&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;timesheets&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;field&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;timesheetDate&quot;</span><span class="p">}</span><span class="w"></span>
+<span class="w">            </span><span class="p">]</span><span class="w"></span>
+<span class="w">        </span><span class="p">},</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Employee&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Employee&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;description&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Filter timesheets based on the employee of the timesheet&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SelectCriteria&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;defaultValue&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;isRequired&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;parameters&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;multiple&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;allowClear&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;placeholder&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;closeOnSelect&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="w">            </span><span class="p">},</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;options&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;source&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;field&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;employee&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="p">},</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;applyTo&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">                </span><span class="p">{</span><span class="nt">&quot;section&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;timesheets&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;field&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;employee&quot;</span><span class="p">}</span><span class="w"></span>
+<span class="w">            </span><span class="p">]</span><span class="w"></span>
+<span class="w">        </span><span class="p">},</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ActivityCode&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Activity Code&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;description&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Filter timesheets based on the activity code of the timesheet&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SelectCriteria&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;defaultValue&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;isRequired&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;parameters&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;multiple&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;allowClear&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;placeholder&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;closeOnSelect&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
+<span class="w">            </span><span class="p">},</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;options&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;source&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ajax&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/activitycodes&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="p">},</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;applyTo&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">                </span><span class="p">{</span><span class="nt">&quot;section&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;timesheets&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;field&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;activityCode&quot;</span><span class="p">}</span><span class="w"></span>
+<span class="w">            </span><span class="p">]</span><span class="w"></span>
+<span class="w">        </span><span class="p">},</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;IsBillable&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Is Billable&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;description&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Filter timesheets based on the is billable status the timesheet&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;BooleanCriteria&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;defaultValue&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;isRequired&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;parameters&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">                </span>
+<span class="w">            </span><span class="p">},</span><span class="w">            </span>
+<span class="w">            </span><span class="nt">&quot;applyTo&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">                </span><span class="p">{</span><span class="nt">&quot;section&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;timesheets&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;field&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;isBillable&quot;</span><span class="p">}</span><span class="w"></span>
+<span class="w">            </span><span class="p">]</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">],</span><span class="w"> </span>
+
+<span class="w">    </span><span class="nt">&quot;sections&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;timesheets&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;DataTable&quot;</span><span class="p">,</span><span class="w">            </span>
+<span class="w">            </span><span class="nt">&quot;properties&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Timesheets&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;description&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="p">},</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;orderBy&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">                </span><span class="p">{</span><span class="w"></span>
+<span class="w">                    </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;hours&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                    </span><span class="nt">&quot;order&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;desc&quot;</span><span class="w"></span>
+<span class="w">                </span><span class="p">}</span><span class="w">    </span>
+<span class="w">            </span><span class="p">],</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;groupBy&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">                </span><span class="p">{</span><span class="w"></span>
+<span class="w">                    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;customer&quot;</span><span class="p">,</span><span class="w">                    </span>
+<span class="w">                    </span><span class="nt">&quot;order&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;asc&quot;</span><span class="w"></span>
+<span class="w">                </span><span class="p">},</span><span class="w"></span>
+<span class="w">                </span><span class="p">{</span><span class="w"></span>
+<span class="w">                    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;project&quot;</span><span class="p">,</span><span class="w">                    </span>
+<span class="w">                    </span><span class="nt">&quot;order&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;asc&quot;</span><span class="w"></span>
+<span class="w">                </span><span class="p">}</span><span class="w"></span>
+<span class="w">            </span><span class="p">],</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;model&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">                </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;referenceNumber&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;label&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Reference Number&quot;</span><span class="p">},</span><span class="w"></span>
+<span class="w">                </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;timesheetDate&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;date&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;label&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Date&quot;</span><span class="p">},</span><span class="w">                </span>
+<span class="w">                </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;employee&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;label&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Employee&quot;</span><span class="p">},</span><span class="w"></span>
+<span class="w">                </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;customer&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;label&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Customer&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;visible&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">},</span><span class="w"></span>
+<span class="w">                </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;project&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;label&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Project&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;visible&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">},</span><span class="w"></span>
+<span class="w">                </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;activityCode&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;label&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Activity Code&quot;</span><span class="p">},</span><span class="w"></span>
+<span class="w">                </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;hours&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;number&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;label&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Hours&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;align&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;right&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.00&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;width&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;90px;&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;formula&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SUM&quot;</span><span class="p">},</span><span class="w"></span>
+<span class="w">                </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;isBillable&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;boolean&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;label&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Is Billable&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;visible&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">},</span><span class="w"></span>
+<span class="w">                </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;billableHours&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;number&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;label&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Billable Hours&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;align&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;right&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.00&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;width&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;90px;&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;formula&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SUM&quot;</span><span class="p">},</span><span class="w"></span>
+<span class="w">                </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;billingRate&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;number&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;label&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Billing Rate&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;decimals&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.00$&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;align&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;right&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;width&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;90px;&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;formula&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AVG&quot;</span><span class="p">},</span><span class="w"></span>
+<span class="w">                </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;total&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;number&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;label&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Total&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;decimals&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.00$&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;align&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;right&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;width&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;90px;&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;formula&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SUM&quot;</span><span class="p">}</span><span class="w"></span>
+<span class="w">            </span><span class="p">],</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;data&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span>
+<span class="w">                </span><span class="p">[</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000001&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-10-19&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Harrison Hardey&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Apple inc.&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;Web site design&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;10 - Analysis&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">5.33</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">5.33</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">106</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mf">564.98</span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000002&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-05-25&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Matilda Fielding&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Space X&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;Web site design&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;10 - Analysis&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">1.69</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">1.69</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">102</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mf">172.38</span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000003&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-08-10&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Jessica Pratten&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Apple inc.&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;Web programming&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;50 - Programming&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">5.33</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">5.33</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">151</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mf">804.83</span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000004&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-05-13&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Jessica Pratten&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Facebook&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;Website review&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;80 - Technical Support&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">6.33</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">6.33</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">153</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mf">968.49</span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000005&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-10-25&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Piper Bateman&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Tesla&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;Web programming&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;70 - Customer Support&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">1.65</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">1.65</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">112</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mf">184.8</span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000006&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-12-09&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Jessica Pratten&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Facebook&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;Web programming&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;10 - Analysis&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">7.28</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">7.28</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">134</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mf">975.52</span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000007&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-11-23&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Amelie Lockington&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Google&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;Website review&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;60 - Tests and QA&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">2.3</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">2.3</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">138</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mf">317.4</span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000008&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-07-19&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Amelie Lockington&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Google&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;QA&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;50 - Programming&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">2.4</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">2.4</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">152</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mf">364.8</span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000009&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-02-11&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Piper Bateman&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Solar City&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;QA&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;70 - Customer Support&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">2.09</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">2.09</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">153</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mf">319.77</span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000010&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-04-11&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Harrison Hardey&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Google&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;Marketing campaign&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;50 - Programming&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">4.01</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">4.01</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">112</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mf">449.12</span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000011&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-07-29&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Jessica Pratten&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Facebook&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;Plugin integration&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;60 - Tests and QA&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">3.11</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">3.11</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">175</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mf">544.25</span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000012&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-03-17&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Amelie Lockington&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Google&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;Marketing campaign&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;80 - Technical Support&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">3.47</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">3.47</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">179</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mf">621.13</span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000013&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-02-19&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Matilda Fielding&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Tesla&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;Plugin integration&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;50 - Programming&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">1.47</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">1.47</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">145</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mf">213.15</span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000014&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-06-29&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Matilda Fielding&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Apple inc.&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;Plugin integration&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;70 - Customer Support&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">0.58</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">0.58</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">157</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mf">91.06</span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000015&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-08-14&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Piper Bateman&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Solar City&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;QA&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;80 - Technical Support&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">3.9</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">3.9</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">187</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mf">729.3</span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000016&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-08-10&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Piper Bateman&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Solar City&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;Web site design&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;10 - Analysis&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">2.78</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">2.78</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">102</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mf">283.56</span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000017&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-08-01&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Piper Bateman&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Space X&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;QA&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;10 - Analysis&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">1.96</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">1.96</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">183</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mf">358.68</span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000018&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-12-23&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Piper Bateman&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Google&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;Plugin integration&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;10 - Analysis&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">4.72</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">4.72</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">171</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mf">807.12</span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000019&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-07-27&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Matilda Fielding&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Tesla&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;Plugin integration&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;10 - Analysis&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">5.97</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">5.97</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">139</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mf">829.83</span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000020&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-08-21&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Amelie Lockington&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Facebook&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;Web site design&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;50 - Programming&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">3.52</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">3.52</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">178</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mf">626.56</span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000021&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-03-29&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Piper Bateman&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Google&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;Marketing campaign&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;10 - Analysis&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">1.06</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">1.06</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">185</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mf">196.1</span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000022&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-04-13&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Matilda Fielding&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Solar City&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;Web site design&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;70 - Customer Support&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">4.38</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">4.38</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">174</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mf">762.12</span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000023&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-03-31&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Harrison Hardey&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Facebook&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;Website review&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;50 - Programming&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">7.43</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">7.43</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">133</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mf">988.19</span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000024&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-12-10&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Jessica Pratten&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Google&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;Marketing campaign&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;70 - Customer Support&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">6.33</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">6.33</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">110</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mf">696.3</span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000025&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-03-02&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Harrison Hardey&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Google&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;Marketing campaign&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;70 - Customer Support&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">0.93</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">0.93</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">157</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mf">146.01</span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000026&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-07-09&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Jessica Pratten&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Apple inc.&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;Web programming&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;50 - Programming&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">1.42</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">1.42</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">180</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mf">255.6</span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000027&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-02-11&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Piper Bateman&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Apple inc.&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;Plugin integration&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;80 - Technical Support&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">3.64</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">3.64</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">183</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mf">666.12</span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000028&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-06-25&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Matilda Fielding&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Tesla&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;Marketing campaign&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;80 - Technical Support&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">0.57</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">0.57</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">143</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mf">81.51</span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000029&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-10-25&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Matilda Fielding&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Google&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;Website review&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;80 - Technical Support&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">5.37</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">5.37</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">190</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000030&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-12-08&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Matilda Fielding&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Tesla&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;Web programming&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;50 - Programming&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">7.6</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">7.6</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">114</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mf">866.4</span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000031&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-11-09&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Piper Bateman&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Facebook&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;Web programming&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;50 - Programming&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">7.05</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">7.05</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">150</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mf">1057.50</span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000032&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-04-14&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Jessica Pratten&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Tesla&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;Plugin integration&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;60 - Tests and QA&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">6.33</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">6.33</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">117</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mf">740.61</span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000033&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-08-04&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Amelie Lockington&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Facebook&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;Web site design&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;60 - Tests and QA&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">2.79</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">2.79</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">112</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mf">312.48</span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000034&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-02-08&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Amelie Lockington&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Solar City&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;QA&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;80 - Technical Support&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">5.34</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">5.34</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">173</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mf">923.82</span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000035&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-01-04&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Jessica Pratten&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Facebook&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;Marketing campaign&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;80 - Technical Support&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">1.57</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">1.57</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">175</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mf">274.75</span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000036&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-03-21&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Amelie Lockington&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Google&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;Marketing campaign&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;60 - Tests and QA&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">4.54</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">4.54</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">174</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mf">789.96</span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000037&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-06-07&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Piper Bateman&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Apple inc.&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;Web site design&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;80 - Technical Support&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">0.79</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">0.79</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">172</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mf">135.88</span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000038&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-01-14&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Amelie Lockington&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Apple inc.&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;Web programming&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;60 - Tests and QA&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">3.89</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">3.89</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">183</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mf">711.87</span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000039&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-01-30&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Piper Bateman&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Space X&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;Web site design&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;80 - Technical Support&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">7.2</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">7.2</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">101</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mf">727.2</span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000040&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-03-14&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Amelie Lockington&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Google&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;Website review&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;80 - Technical Support&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">4.68</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">4.68</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">104</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mf">486.72</span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000041&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-12-10&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Jessica Pratten&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Space X&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;Website review&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;60 - Tests and QA&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">7.51</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">7.51</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">164</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000042&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-06-27&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Matilda Fielding&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Apple inc.&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;QA&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;50 - Programming&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">3.82</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">3.82</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">175</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mf">668.5</span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000043&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-03-07&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Amelie Lockington&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Facebook&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;Web programming&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;10 - Analysis&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">1.06</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">1.06</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">103</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mf">109.18</span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000044&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-07-21&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Matilda Fielding&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Apple inc.&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;Website review&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;10 - Analysis&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">1.63</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">1.63</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">200</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mi">326</span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000045&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-04-05&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Amelie Lockington&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Google&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;QA&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;70 - Customer Support&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">6.32</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">6.32</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">146</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mf">922.72</span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000046&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-02-24&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Amelie Lockington&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Apple inc.&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;Plugin integration&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;60 - Tests and QA&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">6.06</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">6.06</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">109</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mf">660.54</span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000047&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-06-19&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Piper Bateman&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Solar City&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;QA&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;80 - Technical Support&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">7.22</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">7.22</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">131</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mf">945.82</span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000048&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-05-25&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Amelie Lockington&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Apple inc.&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;Web programming&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;50 - Programming&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">2.57</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000049&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-09-09&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Amelie Lockington&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Google&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;Marketing campaign&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;10 - Analysis&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">5.71</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">5.71</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">139</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mf">793.69</span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000050&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-12-01&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Jessica Pratten&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Apple inc.&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;Plugin integration&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;50 - Programming&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">1.51</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">1.51</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">125</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mf">188.75</span><span class="p">}</span><span class="w">            </span>
+<span class="w">            </span><span class="p">]</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">]</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<p>Open the index.html file created in your web browser and the report should be displayed in the report viewer.</p>
+
+              
+            </article>
+            
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../.." class="md-footer__link md-footer__link--prev" aria-label="Previous: Home" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Home
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../requirements/" class="md-footer__link md-footer__link--next" aria-label="Next: Required librarires" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Required librarires
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      <p>&copy <a href="https://github.com/metadocx/reporting"><em>Metadocx reporting</em></a><br/><span>This project is licensed under @todo.</span></p>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.top", "navigation.expand", "navigation.instant", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.b97dbffb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.6c7ad80a.min.js"></script>
+      
+    
+  </body>
+</html>
