@@ -286,6 +286,9 @@ class CriteriaControl {
         this.app = app;
         this.reportCriteria = null;
         this._instance = null;
+        this.parentCriteria = null;
+        this.childCriterias = [];
+        this.resetChildCriteriaOnChange = true;
     }
 
     /**
@@ -328,6 +331,39 @@ class CriteriaControl {
      */
     setValue(v) {
         // must overload this function
+    }
+
+    /**
+     * Sets parent criteria control
+     * @param {*} ctl 
+     */
+    setParentCriteria(ctl) {
+        this.parentCriteria = ctl;
+    }
+
+    /**
+     * Returns parent criteria control
+     * @returns 
+     */
+    getParentCriteria() {
+        return this.parentCriteria;
+    }
+
+    /**
+     * Adds a child criteria control
+     * @param {*} ctl 
+     */
+    addChildCriteria(ctl) {
+        ctl.setParentCriteria(this);
+        this.childCriterias.push(ctl);
+    }
+
+    /**
+     * Returns child criteria controls
+     * @returns 
+     */
+    getChildCriterias() {
+        return this.childCriterias;
     }
 
 }
@@ -2699,6 +2735,13 @@ class Report {
             aCriterias[x].initializeJS();
         }
         this.app.viewer.criterias = aCriterias;
+
+        // Set parent and child components
+        for (var x in aCriterias) {
+            if (aCriterias[x].reportCriteria.parent) {
+                this.app.viewer.getCriteria(aCriterias[x].reportCriteria.parent).addChildCriteria(aCriterias[x]);
+            }
+        }
 
         this._reportCriteriasRendered = true;
 
@@ -5188,6 +5231,17 @@ class SelectCriteria extends CriteriaControl {
                             data[x] = params[x];
                         }
                         data['locale'] = thisObject.app.modules.Locale.getCurrentLocale();
+                        if (thisObject.getParentCriteria() != null) {
+
+                            data['parent'] = thisObject.getParentCriteria().getValue().map(function (row) {
+                                return {
+                                    id: row.id,
+                                    text: row.text
+                                }
+                            }
+                            );
+                        }
+
                         return data;
                     }
 
@@ -5196,6 +5250,14 @@ class SelectCriteria extends CriteriaControl {
         }
 
         this._instance = $('#' + this.id).select2(this.reportCriteria.parameters);
+        this._instance.on('change', function () {
+            if (thisObject.resetChildCriteriaOnChange) {
+                for (var x in thisObject.getChildCriterias()) {
+                    // Reset child criterias
+                    thisObject.getChildCriterias()[x].setValue(null);
+                }
+            }
+        });
         $('#' + this.id).val(null).trigger("change");
     }
 
@@ -5216,8 +5278,6 @@ class SelectCriteria extends CriteriaControl {
                  * Use existing data to create options
                  */
                 sOptionTags = this.buildOptionTagsFromReportData(this.reportCriteria.options.field);
-            } else if (this.reportCriteria.options.source == 'ajax') {
-
             }
 
         }
@@ -5236,6 +5296,10 @@ class SelectCriteria extends CriteriaControl {
 
     getValue() {
         return this._instance.select2('data');
+    }
+
+    setValue(v) {
+        $('#' + this.id).val(v).trigger('change');
     }
 
     buildOptionTagsFromReportData(field) {
