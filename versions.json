@@ -1,7 +1,12 @@
 [
-    {
-      "version": "edge",
-      "title": "edge",
-      "aliases": []
-    }
+  {
+    "version": "edge",
+    "title": "edge",
+    "aliases": []
+  },
+  {
+    "version": "v0.2",
+    "title": "v0.2",
+    "aliases": []
+  }
 ]
