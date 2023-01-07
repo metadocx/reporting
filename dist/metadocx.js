@@ -890,6 +890,7 @@ class DataTable {
 
         this.groupCounters = [];
         this.grandTotal = {
+            enabled: false,
             values: this.buildGroupCounters(),
             minValues: this.buildGroupCounters(null),
             maxValues: this.buildGroupCounters(null),
@@ -982,6 +983,31 @@ class DataTable {
      * @returns string
      */
     renderGroupHeader(row, previousRow) {
+
+
+        /**
+         * Grand total calculation
+         */
+        this.grandTotal.count++;
+        for (var y in this.model) {
+            if (this.model[y].formula) {
+                this.grandTotal.enabled = true;
+                if (this.model[y].type == 'number') {
+                    // GRAND TOTAL
+
+                    this.grandTotal.values[this.model[y].name] += this.app.modules.DataType.parseFloat(row[this.model[y].name]);
+                    // Set minimum value
+                    if (this.grandTotal.minValues[this.model[y].name] == null || this.grandTotal.minValues[this.model[y].name] > this.app.modules.DataType.parseFloat(row[this.model[y].name])) {
+                        this.grandTotal.minValues[this.model[y].name] = this.app.modules.DataType.parseFloat(row[this.model[y].name]);
+                    }
+                    // Set maximum value
+                    if (this.grandTotal.maxValues[this.model[y].name] == null || this.grandTotal.maxValues[this.model[y].name] < this.app.modules.DataType.parseFloat(row[this.model[y].name])) {
+                        this.grandTotal.maxValues[this.model[y].name] = this.app.modules.DataType.parseFloat(row[this.model[y].name]);
+                    }
+                }
+            }
+        }
+
 
         if (!this.groupBy || this.groupBy.length <= 0) {
             // nothing to do
@@ -1103,7 +1129,6 @@ class DataTable {
 
         for (var x in this.groupCounters) {
             this.groupCounters[x].count++;
-            this.grandTotal.count++;
             for (var y in this.model) {
                 if (this.model[y].formula) {
                     if (this.model[y].type == 'number') {
@@ -1118,17 +1143,6 @@ class DataTable {
                             this.groupCounters[x].maxValues[this.model[y].name] = this.app.modules.DataType.parseFloat(row[this.model[y].name]);
                         }
 
-                        // GRAND TOTAL
-
-                        this.grandTotal.values[this.model[y].name] += this.app.modules.DataType.parseFloat(row[this.model[y].name]);
-                        // Set minimum value
-                        if (this.grandTotal.minValues[this.model[y].name] == null || this.grandTotal.minValues[this.model[y].name] > this.app.modules.DataType.parseFloat(row[this.model[y].name])) {
-                            this.grandTotal.minValues[this.model[y].name] = this.app.modules.DataType.parseFloat(row[this.model[y].name]);
-                        }
-                        // Set maximum value
-                        if (this.grandTotal.maxValues[this.model[y].name] == null || this.grandTotal.maxValues[this.model[y].name] < this.app.modules.DataType.parseFloat(row[this.model[y].name])) {
-                            this.grandTotal.maxValues[this.model[y].name] = this.app.modules.DataType.parseFloat(row[this.model[y].name]);
-                        }
                     }
                 }
             }
@@ -1144,10 +1158,6 @@ class DataTable {
      * @returns string
      */
     closeAllGroups() {
-        if (!this.groupBy || this.groupBy.length <= 0) {
-            // nothing to do
-            return '';
-        }
 
         var s = '';
 
@@ -1220,56 +1230,58 @@ class DataTable {
         /**
          * Add grand total
          */
-        s += `<tr class="report-row-grand-total" data-close-level="${nLevel}">`;
-        for (var y in this.model) {
-            var cellModel = this.model[y];
-            var cellStyle = 'font-weight:bold;';
-            var cellValue = '&nbsp;'
-            var cellDisplayValue = '';
-            if (cellModel['align']) {
-                cellStyle += 'text-align:' + cellModel['align'] + ';';
-            }
-            if (cellModel['width']) {
-                cellStyle += 'width:' + cellModel['width'] + ';';
-            }
-
-
-            if (this.grandTotal.values[cellModel.name] != undefined) {
-                if (cellModel['formula']) {
-                    switch (cellModel['formula']) {
-                        case 'SUM':
-                            cellValue = this.grandTotal.getSum(cellModel.name);
-                            break;
-                        case 'AVG':
-                            cellValue = this.grandTotal.getAvg(cellModel.name);
-                            break;
-                        case 'COUNT':
-                            cellValue = this.grandTotal.getCount(cellModel.name);
-                            break;
-                        case 'MIN':
-                            cellValue = this.grandTotal.getMin(cellModel.name);
-                            break;
-                        case 'MAX':
-                            cellValue = this.grandTotal.getMax(cellModel.name);
-                            break;
-                    }
-                } else {
-                    cellValue = this.grandTotal.values[cellModel.name];
+        if (this.app.modules.DataType.toBool(this.grandTotal.enabled)) {
+            s += `<tr class="report-row-grand-total" data-close-level="${nLevel}">`;
+            for (var y in this.model) {
+                var cellModel = this.model[y];
+                var cellStyle = 'font-weight:bold;';
+                var cellValue = '&nbsp;'
+                var cellDisplayValue = '';
+                if (cellModel['align']) {
+                    cellStyle += 'text-align:' + cellModel['align'] + ';';
+                }
+                if (cellModel['width']) {
+                    cellStyle += 'width:' + cellModel['width'] + ';';
                 }
 
-            }
 
-            if (cellModel['type'] == 'number' && cellModel['format']) {
-                cellDisplayValue = numeral(cellValue).format(cellModel['format']);
-            } else {
-                cellDisplayValue = cellValue;
-            }
+                if (this.grandTotal.values[cellModel.name] != undefined) {
+                    if (cellModel['formula']) {
+                        switch (cellModel['formula']) {
+                            case 'SUM':
+                                cellValue = this.grandTotal.getSum(cellModel.name);
+                                break;
+                            case 'AVG':
+                                cellValue = this.grandTotal.getAvg(cellModel.name);
+                                break;
+                            case 'COUNT':
+                                cellValue = this.grandTotal.getCount(cellModel.name);
+                                break;
+                            case 'MIN':
+                                cellValue = this.grandTotal.getMin(cellModel.name);
+                                break;
+                            case 'MAX':
+                                cellValue = this.grandTotal.getMax(cellModel.name);
+                                break;
+                        }
+                    } else {
+                        cellValue = this.grandTotal.values[cellModel.name];
+                    }
 
-            if (cellModel["visible"] == undefined || cellModel["visible"]) {
-                s += '<td class="report-row-grand-total-cell" style="' + cellStyle + '">' + cellDisplayValue + '</td>';
+                }
+
+                if (cellModel['type'] == 'number' && cellModel['format']) {
+                    cellDisplayValue = numeral(cellValue).format(cellModel['format']);
+                } else {
+                    cellDisplayValue = cellValue;
+                }
+
+                if (cellModel["visible"] == undefined || cellModel["visible"]) {
+                    s += '<td class="report-row-grand-total-cell" style="' + cellStyle + '">' + cellDisplayValue + '</td>';
+                }
             }
+            s += `</tr>`;
         }
-        s += `</tr>`;
 
         return s;
     }
@@ -4777,7 +4789,9 @@ class ReportViewer extends Consolable {
                 });
             });
 
-            oSection.model.reverse();
+            if (Array.isArray(oSection.model)) {
+                oSection.model.reverse();
+            }
 
             /**
              * Apply order by settings
@@ -7852,10 +7866,8 @@ class WordModule extends Module {
                 responseType: 'blob'
             },
             success: (data, status, xhr) => {
-                //console.log(data);
-                //console.log(status);
-
-                var blob = new Blob([data], { type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" });
+                //, { type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" }
+                var blob = new Blob([data]);
                 var sContent = `Report has been converted to Word, click on button to download file<br><br>
                 <a class="btn btn-primary" href="${window.URL.createObjectURL(blob)}" download="Report.docx" onClick="$('.bootbox.modal').modal('hide');">Download report</a>`;
 
