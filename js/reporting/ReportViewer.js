@@ -1098,7 +1098,9 @@ class ReportViewer extends Consolable {
                 });
             });
 
-            oSection.model.reverse();
+            if (Array.isArray(oSection.model)) {
+                oSection.model.reverse();
+            }
 
             /**
              * Apply order by settings
