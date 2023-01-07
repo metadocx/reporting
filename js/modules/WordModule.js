@@ -316,10 +316,8 @@ class WordModule extends Module {
                 responseType: 'blob'
             },
             success: (data, status, xhr) => {
-                //console.log(data);
-                //console.log(status);
-
-                var blob = new Blob([data], { type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" });
+                //, { type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" }
+                var blob = new Blob([data]);
                 var sContent = `Report has been converted to Word, click on button to download file<br><br>
                 <a class="btn btn-primary" href="${window.URL.createObjectURL(blob)}" download="Report.docx" onClick="$('.bootbox.modal').modal('hide');">Download report</a>`;
 
