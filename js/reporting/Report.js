@@ -117,7 +117,7 @@ class Report {
     }
 
     validateReportDefinitionFile() {
-        console.group('Validating report definition file');
+        console.group('[Metadocx] Validating report definition file');
         if (this._reportValidator === null) {
             this._reportValidator = new ReportValidator(this.app);
         }
