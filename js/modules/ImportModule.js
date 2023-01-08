@@ -35,6 +35,7 @@ class ImportModule extends Module {
                             priority: 100,
                             rel: 'stylesheet',
                             href: '/css/metadocx.css',
+                            tests: ['metadocx.css', 'metadocx.min.css'],
                             crossorigin: 'anonymous',
                             code: '<link rel="stylesheet" href="/css/metadocx.css" />',
                         }
@@ -289,7 +290,7 @@ class ImportModule extends Module {
         var sections = this.libraries[libName];
         if (sections.head && sections.head.links) {
             for (var x in sections.head.links) {
-                if (!this.isStyleSheetLoaded(sections.head.links[x].href)) {
+                if (!this.isStyleSheetLoaded(sections.head.links[x].href, sections.head.links[x].tests)) {
                     this.log('   Injecting head link ' + sections.head.links[x].id);
                     this.createElement(sections.head.links[x]);
                 } else {
@@ -311,7 +312,7 @@ class ImportModule extends Module {
 
         if (sections.bottom && sections.bottom.links) {
             for (var x in sections.bottom.links) {
-                if (!this.isStyleSheetLoaded(sections.bottom.links[x].href)) {
+                if (!this.isStyleSheetLoaded(sections.bottom.links[x].href, sections.bottom.links[x].tests)) {
                     this.log('   Injecting bootom link ' + sections.bottom.links[x].id);
                     this.createElement(sections.bottom.links[x]);
                 } else {
@@ -454,7 +455,7 @@ class ImportModule extends Module {
         var sections = this.libraries[libName];
         if (sections.head && sections.head.links) {
             for (var x in sections.head.links) {
-                if (!this.isStyleSheetLoaded(sections.head.links[x].href)) {
+                if (!this.isStyleSheetLoaded(sections.head.links[x].href, sections.head.links[x].tests)) {
                     this.log('   Style sheet ' + sections.head.links[x].id + ' is not loaded');
                     return false;
                 }
@@ -472,7 +473,7 @@ class ImportModule extends Module {
 
         if (sections.bottom && sections.bottom.links) {
             for (var x in sections.bottom.links) {
-                if (!this.isStyleSheetLoaded(sections.bottom.links[x].href)) {
+                if (!this.isStyleSheetLoaded(sections.bottom.links[x].href, sections.bottom.links[x].tests)) {
                     this.log('   Style sheet ' + sections.bottom.links[x].id + ' is not loaded');
                     return false;
                 }
@@ -492,13 +493,23 @@ class ImportModule extends Module {
 
     }
 
-    isStyleSheetLoaded(sUrl) {
+    isStyleSheetLoaded(sUrl, tests) {
 
         for (var x in document.styleSheets) {
             if (document.styleSheets[x].href) {
                 if (document.styleSheets[x].href.toLowerCase().endsWith(sUrl.toLowerCase())) {
                     return true;
                 }
+
+                if (tests != undefined && Array.isArray(tests)) {
+                    for (var t in tests) {
+                        if (document.styleSheets[x].href.toLowerCase().endsWith(tests[t].toLowerCase())) {
+                            return true;
+                        }
+
+                    }
+                }
+
             }
         }
 
