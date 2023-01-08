@@ -2339,7 +2339,7 @@ class Report {
     }
 
     validateReportDefinitionFile() {
-        console.group('Validating report definition file');
+        console.group('[Metadocx] Validating report definition file');
         if (this._reportValidator === null) {
             this._reportValidator = new ReportValidator(this.app);
         }
@@ -6396,7 +6396,7 @@ class ImportModule extends Module {
         this.stacks = {
             default: {
                 requires: [
-                    'Metadocx', 'jQuery', 'IconScout', 'Numeral', 'Bootstrap', 'Select2', 'Moment', 'DateRangePicker'
+                    'Metadocx', 'jQuery', 'jQueryUI', 'IconScout', 'Numeral', 'Bootstrap', 'Select2', 'Moment', 'DateRangePicker', 'ChartJS'
                 ],
             },
         };
@@ -6412,7 +6412,7 @@ class ImportModule extends Module {
                             rel: 'stylesheet',
                             href: '/css/metadocx.css',
                             crossorigin: 'anonymous',
-                            code: '<link id="metadocxcss" rel="stylesheet" href="/css/metadocx.css" />',
+                            code: '<link rel="stylesheet" href="/css/metadocx.css" />',
                         }
                     ],
                 }
@@ -6427,9 +6427,48 @@ class ImportModule extends Module {
                             src: 'https://code.jquery.com/jquery-3.6.1.min.js',
                             crossorigin: 'anonymous',
                             integrity: 'sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=',
-                            code: '<script id="jquery" src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>',
+                            code: '<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>',
                         }
                     ],
+                }
+            },
+            jQueryUI: {
+                head: {
+                    links: [
+                        {
+                            id: 'jqueryui',
+                            type: 'link',
+                            priority: 100,
+                            rel: 'stylesheet',
+                            href: 'https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css',
+                            integrity: 'sha512-ELV+xyi8IhEApPS/pSj66+Jiw+sOT1Mqkzlh8ExXihe4zfqbWkxPRi8wptXIO9g73FSlhmquFlUOuMSoXz5IRw==',
+                            crossorigin: 'anonymous',
+                            referrerpolicy: 'no-referrer',
+                            code: '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css" integrity="sha512-ELV+xyi8IhEApPS/pSj66+Jiw+sOT1Mqkzlh8ExXihe4zfqbWkxPRi8wptXIO9g73FSlhmquFlUOuMSoXz5IRw==" crossorigin="anonymous" referrerpolicy="no-referrer" />',
+                        },
+                        {
+                            id: 'jqueryuitheme',
+                            type: 'link',
+                            priority: 110,
+                            rel: 'stylesheet',
+                            href: 'https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/theme.min.css',
+                            integrity: 'sha512-hbs/7O+vqWZS49DulqH1n2lVtu63t3c3MTAn0oYMINS5aT8eIAbJGDXgLt6IxDHcWyzVTgf9XyzZ9iWyVQ7mCQ==',
+                            crossorigin: 'anonymous',
+                            referrerpolicy: 'no-referrer',
+                            code: '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/theme.min.css" integrity="sha512-hbs/7O+vqWZS49DulqH1n2lVtu63t3c3MTAn0oYMINS5aT8eIAbJGDXgLt6IxDHcWyzVTgf9XyzZ9iWyVQ7mCQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />',
+                        }
+                    ]
+                },
+                bottom: {
+                    scripts: [
+                        {
+                            id: 'jqueryui',
+                            type: 'script',
+                            priority: 100,
+                            src: 'https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js',
+                            code: '<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js" integrity="sha512-57oZ/vW8ANMjR/KQ6Be9v/+/h6bq9/l3f0Oc7vn6qMqyhvPd1cvKBRWWpzu0QoneImqr2SkmO4MSqU+RpHom3Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>',
+                        },
+                    ]
                 }
             },
             FontAwesome: {
@@ -6444,7 +6483,7 @@ class ImportModule extends Module {
                             integrity: 'sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==',
                             crossorigin: 'anonymous',
                             referrerpolicy: 'no-referrer',
-                            code: '<link id="fontawesome" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />',
+                            code: '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />',
                         },
                     ],
                 }
@@ -6457,9 +6496,9 @@ class ImportModule extends Module {
                             type: 'link',
                             priority: 100,
                             rel: 'stylesheet',
-                            href: 'https://unicons.iconscout.com/release/v4.0.0/css/line.css',
+                            href: 'https://unicons.iconscout.com/release/v3.0.0/css/line.css',
                             crossorigin: 'anonymous',
-                            code: '<link id="iconscoutcss" rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">        ',
+                            code: '<link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.0/css/line.css">        ',
                         },
                     ],
                 }
@@ -6472,7 +6511,7 @@ class ImportModule extends Module {
                             type: 'script',
                             priority: 100,
                             src: 'https://cdn.jsdelivr.net/momentjs/latest/moment.min.js',
-                            code: '<script id="momentjs" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>',
+                            code: '<script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>',
                         },
                     ],
                 },
@@ -6487,7 +6526,7 @@ class ImportModule extends Module {
                             href: 'https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css',
                             rel: 'stylesheet',
                             crossorigin: 'anonymous',
-                            code: '<link id="daterangepickercss" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" rel="stylesheet" crossorigin="anonymous">',
+                            code: '<link href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" rel="stylesheet" crossorigin="anonymous">',
                         }
                     ],
                 },
@@ -6498,7 +6537,7 @@ class ImportModule extends Module {
                             type: 'script',
                             priority: 100,
                             src: 'https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js',
-                            code: '<script id="daterangepickerjs" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>',
+                            code: '<script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>',
                         },
                     ],
                 },
@@ -6511,7 +6550,7 @@ class ImportModule extends Module {
                             type: 'script',
                             priority: 100,
                             src: '//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js',
-                            code: '<script id="numeral" src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>',
+                            code: '<script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>',
                         },
                     ],
                 },
@@ -6527,7 +6566,7 @@ class ImportModule extends Module {
                             rel: 'stylesheet',
                             integrity: 'sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65',
                             crossorigin: 'anonymous',
-                            code: '<link id="bootstrapcss" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">',
+                            code: '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">',
                         }
                     ],
                 },
@@ -6540,7 +6579,7 @@ class ImportModule extends Module {
                             src: 'https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js',
                             integrity: 'sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3',
                             crossorigin: 'anonymous',
-                            code: '<script id="popperjs" src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>',
+                            code: '<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>',
                         },
                         {
                             id: 'bootstrapjs',
@@ -6549,9 +6588,22 @@ class ImportModule extends Module {
                             src: 'https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js',
                             integrity: 'sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4',
                             crossorigin: 'anonymous',
-                            code: '<script id="bootstrapjs" src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>',
+                            code: '<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>',
                         },
                     ],
+                }
+            },
+            ChartJS: {
+                bottom: {
+                    scripts: [
+                        {
+                            id: 'chartjs',
+                            type: 'script',
+                            priority: 100,
+                            src: 'https://cdn.jsdelivr.net/npm/chart.js@4.1.1/dist/chart.umd.min.js',
+                            code: '<script src="https://cdn.jsdelivr.net/npm/chart.js@4.1.1/dist/chart.umd.min.js"></script>',
+                        },
+                    ]
                 }
             },
             Select2: {
@@ -6564,7 +6616,7 @@ class ImportModule extends Module {
                             href: 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css',
                             rel: 'stylesheet',
                             crossorigin: 'anonymous',
-                            code: '<link id="select2css" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />',
+                            code: '<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />',
                         }
                     ],
                 },
@@ -6576,7 +6628,7 @@ class ImportModule extends Module {
                             priority: 100,
                             src: 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js',
                             crossorigin: 'anonymous',
-                            code: '<script id="select2js" src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>',
+                            code: '<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>',
                         },
                     ],
                 }
@@ -6588,6 +6640,10 @@ class ImportModule extends Module {
         super.initialize();
     }
 
+    /**
+     * Checks if all injected items are loaded
+     * @returns 
+     */
     isLoaded() {
 
         for (var x in this.loadStatus) {
@@ -6601,12 +6657,15 @@ class ImportModule extends Module {
     }
 
 
-
+    /**
+     * Scans all required files in a library and creates link and script tags
+     * @param {*} libName 
+     */
     injectLibrary(libName) {
         var sections = this.libraries[libName];
         if (sections.head && sections.head.links) {
             for (var x in sections.head.links) {
-                if ($('#' + sections.head.links[x].id).length == 0) {
+                if (!this.isStyleSheetLoaded(sections.head.links[x].href)) {
                     this.log('   Injecting head link ' + sections.head.links[x].id);
                     this.createElement(sections.head.links[x]);
                 } else {
@@ -6617,7 +6676,7 @@ class ImportModule extends Module {
 
         if (sections.head && sections.head.scripts) {
             for (var x in sections.head.scripts) {
-                if ($('#' + sections.head.scripts[x].id).length == 0) {
+                if (!this.isScriptLoaded(sections.head.scripts[x].src)) {
                     this.log('   Injecting head script ' + sections.head.scripts[x].id);
                     this.createElement(sections.head.scripts[x]);
                 } else {
@@ -6628,7 +6687,7 @@ class ImportModule extends Module {
 
         if (sections.bottom && sections.bottom.links) {
             for (var x in sections.bottom.links) {
-                if ($('#' + sections.bottom.links[x].id).length == 0) {
+                if (!this.isStyleSheetLoaded(sections.bottom.links[x].href)) {
                     this.log('   Injecting bootom link ' + sections.bottom.links[x].id);
                     this.createElement(sections.bottom.links[x]);
                 } else {
@@ -6639,7 +6698,7 @@ class ImportModule extends Module {
 
         if (sections.bottom && sections.bottom.scripts) {
             for (var x in sections.bottom.scripts) {
-                if ($('#' + sections.bottom.scripts[x].id).length == 0) {
+                if (!this.isScriptLoaded(sections.bottom.scripts[x].src)) {
                     this.log('   Injecting bottom script ' + sections.bottom.scripts[x].id);
                     this.createElement(sections.bottom.scripts[x]);
                 } else {
@@ -6665,11 +6724,6 @@ class ImportModule extends Module {
     createElement(options) {
 
         var module = this;
-
-        if (document.getElementById(id)) {
-            console.log('Package is already loaded, skipping');
-            return;
-        }
 
         this._bInjectionWasMade = true;
 
@@ -6719,7 +6773,7 @@ class ImportModule extends Module {
     }
 
     injectRequiredLibraries() {
-        console.groupCollapsed('[Metadocx] Import injectRequiredLibraries');
+        console.groupCollapsed('[Metadocx] Checking for required link and script tags');
 
         if (this.app.viewer.options.ui == undefined) {
             this.app.viewer.options.ui = 'default';
@@ -6740,6 +6794,105 @@ class ImportModule extends Module {
 
     }
 
+    test() {
+        console.log('Testing required librairies');
+
+        if (this.app.viewer.options.ui == undefined) {
+            this.app.viewer.options.ui = 'default';
+        }
+
+        var bValid = true;
+        for (var x in this.stacks[this.app.viewer.options.ui].requires) {
+            var libName = this.stacks[this.app.viewer.options.ui].requires[x];
+            var bLibIsValid = this.testLibrary(libName);
+            if (!bLibIsValid && bValid) {
+                bValid = false;
+            }
+        }
+
+        if (bValid) {
+            console.log('All required libraries are loaded');
+        } else {
+            console.warn('Some required libraries are missing');
+        }
+
+        return bValid;
+
+    }
+
+    /**
+     * Test library link and script to se if they are loaded
+     * @param {*} libName 
+     * @returns 
+     */
+    testLibrary(libName) {
+
+        var sections = this.libraries[libName];
+        if (sections.head && sections.head.links) {
+            for (var x in sections.head.links) {
+                if (!this.isStyleSheetLoaded(sections.head.links[x].href)) {
+                    this.log('   Style sheet ' + sections.head.links[x].id + ' is not loaded');
+                    return false;
+                }
+            }
+        }
+
+        if (sections.head && sections.head.scripts) {
+            for (var x in sections.head.scripts) {
+                if (!this.isScriptLoaded(sections.head.scripts[x].src)) {
+                    this.log('   Script ' + sections.head.scripts[x].id + ' is not loaded');
+                    return false;
+                }
+            }
+        }
+
+        if (sections.bottom && sections.bottom.links) {
+            for (var x in sections.bottom.links) {
+                if (!this.isStyleSheetLoaded(sections.bottom.links[x].href)) {
+                    this.log('   Style sheet ' + sections.bottom.links[x].id + ' is not loaded');
+                    return false;
+                }
+            }
+        }
+
+        if (sections.bottom && sections.bottom.scripts) {
+            for (var x in sections.bottom.scripts) {
+                if (!this.isScriptLoaded(sections.bottom.scripts[x].src)) {
+                    this.log('   Script ' + sections.bottom.scripts[x].id + ' is not loaded');
+                    return false;
+                }
+            }
+        }
+
+        return true;
+
+    }
+
+    isStyleSheetLoaded(sUrl) {
+
+        for (var x in document.styleSheets) {
+            if (document.styleSheets[x].href) {
+                if (document.styleSheets[x].href.toLowerCase().endsWith(sUrl.toLowerCase())) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    isScriptLoaded(sUrl) {
+
+        for (var x in document.scripts) {
+            if (document.scripts[x].src) {
+                if (document.scripts[x].src.toLowerCase().endsWith(sUrl.toLowerCase())) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
 
 }
 window.__Metadocx.ImportModule = ImportModule;
