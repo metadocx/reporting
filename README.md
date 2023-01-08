@@ -9,7 +9,7 @@
 
 A web based reporting engine written in Javascript. 
 
-See a live [Demo](https://metadocx.com/examples/report-viewer4/) here.
+See a live [Demo](https://metadocx.github.io/reporting-samples/) here.
 
 [Read the documentation](https://metadocx.github.io/reporting/edge/)
 
