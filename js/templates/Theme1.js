@@ -12,6 +12,10 @@ class Theme1 extends Theme {
         this.colorScheme = ['#A21BBF', '#295CF0', '#007EFF', '#0093F7', '#00A0D1', '#00AA9F'];
     }
 
+    /**
+     * Renders cover page HTML
+     * @returns 
+     */
     renderCoverPage() {
 
         var s = '';
@@ -27,6 +31,10 @@ class Theme1 extends Theme {
 
     }
 
+    /**
+     * Renders theme css
+     * @returns 
+     */
     renderThemeCSS() {
 
         return `
@@ -43,6 +51,10 @@ class Theme1 extends Theme {
 
     }
 
+    /**
+     * Renders cover page CSS
+     * @returns 
+     */
     renderCoverPageCSS() {
 
         return `
