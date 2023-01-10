@@ -136,5 +136,18 @@ class CheckboxCriteria extends CriteriaControl {
         return values;
     }
 
+    /**
+     * Sets value for criteria
+     * @param {*} v 
+     */
+    setValue(v) {
+        $('.report-checkbox-criteria[data-criteria-id="' + this.id + '"]').prop('checked', false);
+        if (Array.isArray(v)) {
+            for (var x in v) {
+                $('.report-checkbox-criteria[data-criteria-id="' + this.id + '"][value="' + v[x] + '"]').prop('checked', true);
+            }
+        }
+    }
+
 }
 window.__Metadocx.CheckboxCriteria = CheckboxCriteria;
