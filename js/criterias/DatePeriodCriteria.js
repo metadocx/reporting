@@ -37,16 +37,29 @@ class DatePeriodCriteria extends CriteriaControl {
 
     }
 
+    /**
+     * Gets value for criteria
+     * @returns 
+     */
     getValue() {
         return {
             startDate: this._instance.data('daterangepicker').startDate.format('YYYY-MM-DD'),
             endDate: this._instance.data('daterangepicker').endDate.format('YYYY-MM-DD'),
+            selectedRange: this._instance.data('daterangepicker').chosenLabel,
         };
     }
 
+    /**
+     * Sets value for criteria
+     * @param {*} v 
+     */
     setValue(v) {
         this._instance.data('daterangepicker').setStartDate(v.startDate);
         this._instance.data('daterangepicker').setEndDate(v.endDate);
+        if (v.chosenLabel) {
+            // Apply label after start and end date
+            this._instance.data('daterangepicker').clickRange({ target: $('[data-range-key="' + v.chosenLabel + '"]').get(0) });
+        }
     }
 
     setStartDate(dt) {
