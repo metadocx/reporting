@@ -814,3 +814,7 @@ i.uil {
     color: #fff;
     padding:50px;
 }
+
+.bootbox-accept {
+    margin-left:5px;
+}

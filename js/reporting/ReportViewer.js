@@ -34,6 +34,14 @@ class ReportViewer extends Consolable {
          */
         this.optionsDialog = null;
         /**
+         * Save dialog instance
+         */
+        this.saveDialog = null;
+        /**
+         * Saved report UID
+         */
+        this.currentSavedReport = null;
+        /**
          * Field properties dialog instance 
          */
         this.fieldPropertiesDialog = null;
@@ -51,6 +59,13 @@ class ReportViewer extends Consolable {
          */
         this.report = new Report();
 
+        /**
+         * 
+         */
+        this.toastInstance = null;
+        /**
+         * 
+         */
         this.theme = null;
 
         /**
@@ -73,7 +88,8 @@ class ReportViewer extends Consolable {
             "additionalCSS": "",
             "template": "Theme2",
             "toolbar": {
-                "showLocaleButton": true,
+                "showSaveButton": true,
+                "showLocaleButton": false,
                 "showOptionsButton": true,
                 "showSettingsButton": true,
                 "showCriteriasButton": true,
@@ -297,11 +313,14 @@ class ReportViewer extends Consolable {
         s += this.renderMainLayout();
         s += this.renderReportCriterias();
         s += this.renderOptionsDialog();
+        s += this.renderSaveDialog();
         s += this.renderReportSettings();
         s += this.renderFieldPropertiesDialog();
 
         $('#' + this.options.container).html(s);
         $('.report-viewer-criterias').hide();
+
+        this.updateUI();
 
         this.app.modules.Locale.translate();
 
@@ -365,6 +384,16 @@ class ReportViewer extends Consolable {
                      </div>
                  </div>
                  <div class="d-flex">                   
+                    <div class="btn-group me-2 mb-2 mb-sm-0 report-toolbar-button">
+                         <button id="${this.options.id}_file" type="button" class="btn header-item dropdown-toggle" data-bs-toggle="dropdown">
+                            <i class="uil uil-file"></i>
+                         </button>
+                         <div class="dropdown-menu">
+                             <a id="${this.options.id}_open" class="dropdown-item" href="#" onClick="Metadocx.viewer.showSaveDialog('open');"><i class="uil uil-folder-open" style="font-size:16px;"></i> <span data-locale="Open">Open</span></a>
+                             <a id="${this.options.id}_save" class="dropdown-item" href="#" onClick="Metadocx.viewer.showSaveDialog('save');"><i class="uil uil-save" style="font-size:16px;"></i> <span data-locale="Save">Save</span></a>
+                             <a id="${this.options.id}_delete" class="dropdown-item" href="#" onClick="Metadocx.viewer.report.delete();"><i class="uil uil-trash" style="font-size:16px;"></i> <span data-locale="Delete">Delete</span></a>
+                         </div>
+                     </div>
                     <div id="${this.options.id}_localeGroup" class="btn-group me-2 mb-2 mb-sm-0 report-toolbar-button">
                          <button id="${this.options.id}_locale" type="button" class="btn header-item dropdown-toggle" data-bs-toggle="dropdown">
                             <i class="uil uil-english-to-chinese"></i>
@@ -378,9 +407,9 @@ class ReportViewer extends Consolable {
                             <i class="uil uil-file-export"></i>
                          </button>
                          <div class="dropdown-menu">
-                             <a id="${this.options.id}_exportPdf" class="dropdown-item${sExportPDFClasses}" href="#" onClick="Metadocx.viewer.report.exportReport('PDF');">PDF</a>
-                             <a id="${this.options.id}_exportExcel" class="dropdown-item${sExportExcelClasses}" href="#" onClick="Metadocx.viewer.report.exportReport('Excel');">Excel</a>
-                             <a id="${this.options.id}_exportWord" class="dropdown-item${sExportWordClasses}" href="#" onClick="Metadocx.viewer.report.exportReport('Word');">Word</a>
+                             <a id="${this.options.id}_exportPdf" class="dropdown-item${sExportPDFClasses}" href="#" onClick="Metadocx.viewer.report.exportReport('PDF');" data-locale="PDF">PDF</a>
+                             <a id="${this.options.id}_exportExcel" class="dropdown-item${sExportExcelClasses}" href="#" onClick="Metadocx.viewer.report.exportReport('Excel');" data-locale="Excel">Excel</a>
+                             <a id="${this.options.id}_exportWord" class="dropdown-item${sExportWordClasses}" href="#" onClick="Metadocx.viewer.report.exportReport('Word');" data-locale="Word">Word</a>
                          </div>
                      </div>
                      <div class="me-2 mb-2 mb-sm-0 report-toolbar-button">
@@ -406,7 +435,19 @@ class ReportViewer extends Consolable {
          <div id="${this.options.id}_reportDefinitionViewer" class="report-definition-code-viewer" style="display:none;">
             <pre id="${this.options.id}_reportDefinitionPre"></pre>
          </div>
-         <div class="powered-by no-print"><span data-locale="PoweredBy">powered by</span> <a href="https://www.metadocx.com" target="_blank">Metadocx</a></div>`;
+         <div class="powered-by no-print"><span data-locale="PoweredBy">powered by</span> <a href="https://www.metadocx.com" target="_blank">Metadocx</a></div>
+         <div class="toast-container position-fixed bottom-0 end-0 p-3">     
+         <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">                
+                <strong class="me-auto">Metadocx</strong>
+                <small></small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div id="toastBody" class="toast-body">
+                Hello, world! This is a toast message.
+            </div>
+         </div>
+        </div>`;
 
     }
 
@@ -559,6 +600,157 @@ class ReportViewer extends Consolable {
                  </div>
              </div>
              </div>`;
+
+    }
+
+
+    /**
+     * Render report save dialoag html
+     * @returns 
+     */
+    renderSaveDialog() {
+
+        /**
+         * Options dialog
+         */
+        this.log('Render report options dialog');
+
+        return `<div id="${this.options.id}_saveDialog" class="modal" tabindex="-1">
+               <div class="modal-dialog">
+                 <div class="modal-content">
+                 <div class="modal-header">
+                     <h5 id="saveDialogTitle" class="modal-title" data-locale="SavedReport">Saved report</h5>
+                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                 </div>
+                 <div class="modal-body">
+                     <div class="row">
+                        <div class="col-6 colSaveType mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="saveOption" id="newOption">
+                                <label class="form-check-label" for="newOption" data-locale="New">
+                                    New
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-6 colSaveType mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="saveOption" id="saveAsOption">
+                                <label class="form-check-label" for="saveAsOption" data-locale="SaveAs">
+                                    Save As...
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-12 saveOptionRow newOption">
+                            <div class="mb-3">
+                                <label for="saveReportName" class="col-form-label" data-locale="Name">Name</label>                                
+                                <input type="text" class="form-control" id="saveReportName" value=""/>                                
+                            </div>
+                        </div>
+
+                        <div class="col-12 saveOptionRow saveAsOption">
+                            <div class="mb-3">
+                                <label for="savedReports" class="col-form-label" data-locale="SelectReport">Select Report</label>
+                                <select id="savedReports" class="form-select">                            
+                                </select>
+                            </div>
+                        </div>
+                     </div>
+                 </div>
+                 <div class="modal-footer">
+                     <button type="button" class="btn btn-secondary mr5" data-bs-dismiss="modal" data-locale="Cancel">Cancel</button>
+                     <button id="saveDialogSaveButton" type="button" class="btn btn-primary"><i class="fa-solid fa-check"></i>&nbsp;<span data-locale="Save">Save</span></button>
+                 </div>
+                 </div>
+             </div>
+             </div>`;
+
+    }
+
+    showSaveDialog(mode) {
+
+        if (mode == undefined) {
+            mode = 'save';
+        }
+
+        if (this.saveDialog === null) {
+            this.saveDialog = new bootstrap.Modal('#' + this.options.id + '_saveDialog', {})
+        }
+
+        /**
+         * Display new and save as depending on open report
+         */
+        $('.saveOptionRow').hide();
+        $('input[name="saveOption"]').prop('checked', false);
+        if (this.currentSavedReport === null) {
+            $('#newOption').prop('checked', true);
+            $('.newOption').show();
+        } else {
+            $('#saveAsOption').prop('checked', true);
+            $('.saveAsOption').show();
+        }
+
+        /**
+         * Toggle new and save as fields
+         */
+        $('input[name="saveOption"]').off('click').on('click', () => {
+            $('.saveOptionRow').hide();
+            if ($('#newOption').prop('checked')) {
+                $('.newOption').show();
+            } else if ($('#saveAsOption').prop('checked')) {
+                $('.saveAsOption').show();
+            }
+        });
+
+        if (mode == 'open') {
+            /**
+             * Open report mode
+             */
+            $('.newOption').hide();
+            $('.saveAsOption').show();
+            $('.colSaveType').hide();
+            $('#saveDialogTitle').html(this.app.modules.Locale.getKey('OpenReport'));
+            $('#saveDialogSaveButton').attr('data-locale', 'Open');
+            $('#saveDialogSaveButton').html(this.app.modules.Locale.getKey('Open'));
+            $('#saveDialogSaveButton').off('click').on('click', () => { Metadocx.viewer.report.open(); });
+        } else {
+            /**
+             * Save report mode
+             */
+            $('#saveDialogTitle').html(this.app.modules.Locale.getKey('SavedReports'));
+            $('#saveDialogSaveButton').attr('data-locale', 'Save');
+            $('#saveDialogSaveButton').html(this.app.modules.Locale.getKey('Save'));
+            $('#saveDialogSaveButton').off('click').on('click', () => { Metadocx.viewer.report.save(); });
+        }
+
+        /**
+         * Load saved reports in select
+         */
+        this.app.modules.DB.querySavedReports(this.report.getReportDefinition().id, (data) => {
+
+            var s = '';
+            for (var x in data) {
+                s += '<option value="' + data[x].reportUID + '">' + data[x].name + '</option>';
+            }
+            $('#savedReports').find('option').remove();
+            $('#savedReports').append(s);
+
+            if (mode == 'save') {
+                /**
+                 * In save mode if no data, hide save as
+                 */
+                if (data.length == 0) {
+                    $('.colSaveType').hide();
+                } else {
+                    $('.colSaveType').show();
+                }
+            }
+
+        })
+
+        this.saveDialog.show();
+        if (this.currentSavedReport === null) {
+            $('#saveReportName').focus();
+        }
 
     }
 
@@ -725,6 +917,9 @@ class ReportViewer extends Consolable {
         this.fieldPropertiesDialog.show();
     }
 
+    /**
+     * Applies fields properties to report
+     */
     applyFieldProperties() {
 
         var sectionID = $('#fieldSectionID').val();
@@ -784,6 +979,17 @@ class ReportViewer extends Consolable {
         }
 
         return values;
+    }
+
+    /**
+     * Sets criterias values and enabled
+     * @param {*} criteriaValues 
+     */
+    setCriteriaValues(criteriaValues) {
+        for (var x in criteriaValues) {
+            this.getCriteria(x).setIsEnabled(criteriaValues[x].enabled);
+            this.getCriteria(x).setValue(criteriaValues[x].value);
+        }
     }
 
     /**
@@ -916,6 +1122,17 @@ class ReportViewer extends Consolable {
     }
 
     /**
+     * Refresh report viewer UI state
+     */
+    updateUI() {
+        if (this.currentSavedReport === null) {
+            $('#' + this.options.id + '_delete').hide();
+        } else {
+            $('#' + this.options.id + '_delete').show();
+        }
+    }
+
+    /**
      * Update reportPage style tag with print media css
      */
     updateCSS() {
@@ -1025,6 +1242,9 @@ class ReportViewer extends Consolable {
 
     }
 
+    /**
+     * Refresh report settings ui
+     */
     refreshReportSettings() {
 
         for (var kSection in this.report.getReportDefinition().sections) {
@@ -1166,6 +1386,19 @@ class ReportViewer extends Consolable {
      */
     getContainerSelector() {
         return '#' + this.options.id;
+    }
+
+    /**
+     * Displays a toast message in bottom right corner
+     * @param {*} message 
+     */
+    showToastMessage(message) {
+        if (this.toastInstance === null) {
+            this.toastInstance = new bootstrap.Toast(document.getElementById('toast'), {});
+        }
+        $('#toastBody').html(message);
+
+        this.toastInstance.show();
     }
 
 }

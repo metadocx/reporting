@@ -46,6 +46,14 @@ class CriteriaControl {
     }
 
     /**
+     * Sets is criterias is enabled or not
+     * @param {*} bEnabled 
+     */
+    setIsEnabled(bEnabled) {
+        $('#criteriaEnabled_' + this.id).prop('checked', bEnabled);
+    }
+
+    /**
      * Returns criteria value
      * @returns mixed
      */

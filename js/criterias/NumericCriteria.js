@@ -76,6 +76,10 @@ class NumericCriteria extends CriteriaControl {
 
     }
 
+    /**
+     * Get criteria value
+     * @returns 
+     */
     getValue() {
         return {
             operator: this._operatorInstance.val(),
@@ -84,8 +88,15 @@ class NumericCriteria extends CriteriaControl {
         };
     }
 
+    /**
+     * Set criteria value
+     * @param {*} v 
+     */
     setValue(v) {
-
+        this._operatorInstance.val(v.operator);
+        this._startValueInstance.val(v.startValue);
+        this._endValueInstance.val(v.endValue);
+        this.updateUI();
     }
 
 
