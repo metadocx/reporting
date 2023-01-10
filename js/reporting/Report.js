@@ -454,7 +454,6 @@ class Report {
          */
         var reversedKeys = Object.keys(oSection.orderBy).reverse();
         reversedKeys.forEach(key => {
-            //console.log(key, oSection.orderBy[key]);                
             $('#' + oSection.id + '_orderByRow_' + oSection.orderBy[key].name).prependTo('#' + oSection.id + '_orderBy');
         });
 
@@ -464,7 +463,6 @@ class Report {
          */
         reversedKeys = Object.keys(oSection.groupBy).reverse();
         reversedKeys.forEach(key => {
-            //console.log(key, oSection.orderBy[key]);                
             $('#' + oSection.id + '_groupByRow_' + oSection.groupBy[key].name).prependTo('#' + oSection.id + '_groupBy');
         });
     }
@@ -660,6 +658,96 @@ class Report {
             oSorter.setReportSection(this.getReportDefinition().sections[x]);
             oSorter.process();
         }
+    }
+
+
+    save() {
+
+        if ($('#newOption').prop('checked')) {
+            // Create new report
+
+            if ($('#saveReportName').val().trim() == '') {
+                return;
+            }
+
+            var reportUID = this.app.modules.DataType.uid();
+            this.app.modules.DB.saveReport({
+                reportId: this.getReportDefinition().id,
+                reportUID: reportUID,
+                metadocxVersion: this.app.version,
+                creationDate: moment().format('YYYY-MM-DD HH:mm:ss'),
+                name: $('#saveReportName').val(),
+                criteriaValues: Metadocx.viewer.getCriteriaValues()
+            }, () => {
+                this.app.viewer.showToastMessage('Report saved');
+            });
+            this.app.viewer.currentSavedReport = reportUID;
+            this.app.viewer.updateUI();
+            this.app.viewer.saveDialog.hide();
+
+
+        } else {
+            // Save as or replace existing report
+            var reportUID = $('#savedReports').val();
+            this.app.modules.DB.updateReport({
+                reportId: this.getReportDefinition().id,
+                reportUID: reportUID,
+                metadocxVersion: this.app.version,
+                creationDate: moment().format('YYYY-MM-DD HH:mm:ss'),
+                name: $("#savedReports option:selected").text(),
+                criteriaValues: Metadocx.viewer.getCriteriaValues()
+            }, (report) => {
+                this.app.viewer.showToastMessage(this.app.modules.Locale.getKey('ReportSaved') + ' - ' + report.name);
+            });
+            this.app.viewer.currentSavedReport = reportUID;
+            this.app.viewer.updateUI();
+            this.app.viewer.saveDialog.hide();
+
+        }
+
+
+    }
+
+    /**
+     * Open a saved report
+     */
+    open() {
+        this.app.modules.DB.getReport($('#savedReports').val(), (report) => {
+
+            if (report == null) {
+                return;
+            }
+            this.app.viewer.setCriteriaValues(report.criteriaValues);
+            this.app.viewer.currentSavedReport = report.reportUID;
+            this.app.viewer.saveDialog.hide();
+            this.app.viewer.updateUI();
+            this.app.viewer.refreshReport();
+            this.app.viewer.showToastMessage(this.app.modules.Locale.getKey('ReportOpened') + ' - ' + report.name);
+
+        });
+    }
+
+    delete() {
+
+        if (this.app.viewer.currentSavedReport === null) {
+            return;
+        }
+
+        bootbox.confirm({
+            message: this.app.modules.Locale.getKey('DeleteReport'),
+            title: this.app.modules.Locale.getKey('Delete'),
+            callback: (result) => {
+                if (result) {
+                    // Delete the report
+                    this.app.modules.DB.deleteReport(this.app.viewer.currentSavedReport,
+                        (reportUID) => {
+                            this.app.viewer.currentSavedReport = null;
+                            this.app.viewer.updateUI();
+                            this.app.viewer.showToastMessage(this.app.modules.Locale.getKey('ReportDeleted'));
+                        });
+                }
+            }
+        });
     }
 
 
