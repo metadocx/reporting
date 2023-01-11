@@ -1,7 +1,8 @@
 {
     "private": true,
     "scripts": {
-        "test": "./node_modules/mocha/bin/mocha.js",
+        "test-server": "cp -rf dist/ test/bootstrap && http-server test/bootstrap",
+        "test": "./node_modules/mocha/bin/mocha.js test/tests/bootstrap.js --reporter mochawesome --reporter-options reportDir=./test/bootstrap/report,reportFilename=index.html --timeout 10000 --recursive test/tests",
         "mkdocs": "mkdocs build -f docs/mkdocs.yml",
         "build": "gulp build-dev build-dev-css build-prod build-prod-css",
         "dev": "npm run development",
@@ -23,18 +24,21 @@
         "gulp-clean-css": "^4.3.0",
         "gulp-concat": "^2.6.1",
         "gulp-cssmin": "^0.2.0",
+        "gulp-javascript-obfuscator": "^1.1.6",
         "gulp-minify": "^3.1.0",
         "gulp-order": "^1.2.0",
+        "gulp-sourcemaps": "^3.0.0",
         "gulp-terser": "^2.1.0",
         "gulp-uglify": "^3.0.2",
+        "http-server": "^14.1.1",
         "jsdoc": "^3.6.7",
         "minami": "^1.2.3",
         "mocha": "^10.2.0",
+        "mochawesome": "^7.1.3",        
+        "puppeteer": "^19.5.0",
         "ub-jsdoc": "^3.1.2",
         "watch": "^1.0.2"
     },
-    "dependencies": {
-        "gulp-javascript-obfuscator": "^1.1.6",
-        "gulp-sourcemaps": "^3.0.0"
+    "dependencies": {       
     }
 }
