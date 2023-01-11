@@ -23,3 +23,6 @@ Thumbs.db
 /phpunit.xml
 /docs-js
 /docs/site/*
+/test/bootstrap/images/*
+/test/bootstrap/report/*
+/test/bootstrap/dist/*
