@@ -10,14 +10,14 @@
         <meta name="author" content="Metadocx (Github Organization)">
       
       
-        <link rel="canonical" href="https://www.metadocx.com/docs/contributing/issues-and-pull-requests/">
+        <link rel="canonical" href="https://github.com/metadocx/reporting/contributing/style/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.3.9">
     
     
       
-        <title>Issues and Pull Requests - Metadocx Reporting</title>
+        <title>Style Guide - Metadocx Reporting</title>
       
     
     
@@ -68,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#issues-and-pull-requests" class="md-skip">
+        <a href="#style-guide" class="md-skip">
           Skip to content
         </a>
       
@@ -107,7 +107,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Issues and Pull Requests
+              Style Guide
             
           </span>
         </div>
@@ -893,6 +893,20 @@
               
   
   
+  
+    <li class="md-nav__item">
+      <a href="../codespace/" class="md-nav__link">
+        Codespace
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
     
   
   
@@ -905,12 +919,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Issues and Pull Requests
+          Style Guide
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Issues and Pull Requests
+        Style Guide
       </a>
       
         
@@ -929,9 +943,118 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#opening-an-issue" class="md-nav__link">
-    Opening an Issue
+  <a href="#source-files" class="md-nav__link">
+    Source files
   </a>
+  
+    <nav class="md-nav" aria-label="Source files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#file-name" class="md-nav__link">
+    File name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-encoding" class="md-nav__link">
+    File encoding
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#source-file-structure" class="md-nav__link">
+    Source file structure
+  </a>
+  
+    <nav class="md-nav" aria-label="Source file structure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#license-or-copyright-information" class="md-nav__link">
+    License or copyright information
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#source-code-folders" class="md-nav__link">
+    Source code folders
+  </a>
+  
+    <nav class="md-nav" aria-label="Source code folders">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bootstrap" class="md-nav__link">
+    bootstrap
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#core" class="md-nav__link">
+    core
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#criterias" class="md-nav__link">
+    criterias
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imports" class="md-nav__link">
+    imports
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#locales" class="md-nav__link">
+    locales
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modules" class="md-nav__link">
+    modules
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reporting" class="md-nav__link">
+    reporting
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#templates" class="md-nav__link">
+    templates
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -939,6 +1062,20 @@
   
 </nav>
       
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tests/" class="md-nav__link">
+        Tests
+      </a>
     </li>
   
 
@@ -977,9 +1114,118 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#opening-an-issue" class="md-nav__link">
-    Opening an Issue
+  <a href="#source-files" class="md-nav__link">
+    Source files
   </a>
+  
+    <nav class="md-nav" aria-label="Source files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#file-name" class="md-nav__link">
+    File name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-encoding" class="md-nav__link">
+    File encoding
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#source-file-structure" class="md-nav__link">
+    Source file structure
+  </a>
+  
+    <nav class="md-nav" aria-label="Source file structure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#license-or-copyright-information" class="md-nav__link">
+    License or copyright information
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#source-code-folders" class="md-nav__link">
+    Source code folders
+  </a>
+  
+    <nav class="md-nav" aria-label="Source code folders">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bootstrap" class="md-nav__link">
+    bootstrap
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#core" class="md-nav__link">
+    core
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#criterias" class="md-nav__link">
+    criterias
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imports" class="md-nav__link">
+    imports
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#locales" class="md-nav__link">
+    locales
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modules" class="md-nav__link">
+    modules
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reporting" class="md-nav__link">
+    reporting
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#templates" class="md-nav__link">
+    templates
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -995,16 +1241,38 @@
             <article class="md-content__inner md-typeset">
               
                 
-  <a href="https://github.com/metadocx/reporting/edit/master/docs/content/contributing/issues-and-pull-requests.md" title="Edit this page" class="md-content__button md-icon">
+  <a href="https://github.com/metadocx/reporting/edit/master/docs/content/contributing/style.md" title="Edit this page" class="md-content__button md-icon">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
   </a>
 
 
 
-<h1 id="issues-and-pull-requests"><a class="toclink" href="#issues-and-pull-requests">Issues and Pull Requests</a></h1>
-<p>This project is Open Source. That means that you can contribute on enhancements, bug fixing or improving the documentation.</p>
-<h2 id="opening-an-issue"><a class="toclink" href="#opening-an-issue">Opening an Issue</a></h2>
-<p>When opening an issue, please provide details use case to let the community reproduce your problem. We also strongly suggest submitting an example report definition file with your issue in ordre to quickly reproduce the problem.</p>
+<h1 id="style-guide"><a class="toclink" href="#style-guide">Style Guide</a></h1>
+<h2 id="source-files"><a class="toclink" href="#source-files">Source files</a></h2>
+<h3 id="file-name"><a class="toclink" href="#file-name">File name</a></h3>
+<p>File names must be PascalCase and the extension must be .js</p>
+<h3 id="file-encoding"><a class="toclink" href="#file-encoding">File encoding</a></h3>
+<p>Source files are encoded in UTF-8.</p>
+<h2 id="source-file-structure"><a class="toclink" href="#source-file-structure">Source file structure</a></h2>
+<h3 id="license-or-copyright-information"><a class="toclink" href="#license-or-copyright-information">License or copyright information</a></h3>
+<p>All files must start with the standard comment including copyright and license information.</p>
+<h3 id="source-code-folders"><a class="toclink" href="#source-code-folders">Source code folders</a></h3>
+<h4 id="bootstrap"><a class="toclink" href="#bootstrap">bootstrap</a></h4>
+<p>Main initialization script will be appended at the end of the minified source file.</p>
+<h4 id="core"><a class="toclink" href="#core">core</a></h4>
+<p>Core classes that must be loaded first</p>
+<h4 id="criterias"><a class="toclink" href="#criterias">criterias</a></h4>
+<p>Criteria UI controls.</p>
+<h4 id="imports"><a class="toclink" href="#imports">imports</a></h4>
+<p>External import js code will be added at the beginning of the minified source file.</p>
+<h4 id="locales"><a class="toclink" href="#locales">locales</a></h4>
+<p>Translation files, each file must be named using the locale code (en, fr, es, ...), Will be loaded toward the end of the minified source file.</p>
+<h4 id="modules"><a class="toclink" href="#modules">modules</a></h4>
+<p>Application modules classes, will be loaded by the main application. Class names must finish with <code>Module</code></p>
+<h4 id="reporting"><a class="toclink" href="#reporting">reporting</a></h4>
+<p>Reporting module classes</p>
+<h4 id="templates"><a class="toclink" href="#templates">templates</a></h4>
+<p>Theme classes, Will be loaded toward the end of the minified source file. </p>
 
               
             </article>
@@ -1025,7 +1293,7 @@
     <nav class="md-footer__inner md-grid" aria-label="Footer" >
       
         
-        <a href="../general/" class="md-footer__link md-footer__link--prev" aria-label="Previous: General Information" rel="prev">
+        <a href="../codespace/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Codespace" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
           </div>
@@ -1034,11 +1302,26 @@
               <span class="md-footer__direction">
                 Previous
               </span>
-              General Information
+              Codespace
             </div>
           </div>
         </a>
       
+      
+        
+        <a href="../tests/" class="md-footer__link md-footer__link--next" aria-label="Next: Tests" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Tests
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
       
     </nav>
   
@@ -1047,7 +1330,7 @@
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      <p>&copy <a href="https://github.com/metadocx/reporting"><em>Metadocx reporting</em></a><br/><span>This project is licensed under @todo.</span></p>
+      <p>&copy <a href="https://github.com/metadocx/reporting"><em>Metadocx reporting</em></a><br/></p>
     </div>
   
   
