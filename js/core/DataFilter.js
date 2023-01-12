@@ -52,11 +52,11 @@ class DataFilter {
     }
 
     getApplicableReportCriterias() {
-        var applicableCriterias = [];
-        var criterias = this.app.viewer.report.getReportDefinition().criterias;
-        for (var x in criterias) {
-            var criteria = criterias[x];
-            for (var y in criteria.applyTo) {
+        let applicableCriterias = [];
+        let criterias = this.app.viewer.report.getReportDefinition().criterias;
+        for (let x in criterias) {
+            let criteria = criterias[x];
+            for (let y in criteria.applyTo) {
                 if (criteria.applyTo[y].section == this.reportSection.id) {
                     applicableCriterias.push(criteria);
                 }
@@ -74,23 +74,23 @@ class DataFilter {
         /**
          * Make all rows visible
          */
-        for (var x in this.data) {
+        for (let x in this.data) {
             this.data[x]['__visible'] = true;
         }
 
-        var aCriterias = this.criterias;
-        for (var x in aCriterias) {
+        let aCriterias = this.criterias;
+        for (let x in aCriterias) {
 
             /**
              * Check if criterias is enabled
              */
-            var criteriaValue = this.app.viewer.getCriteriaValue(aCriterias[x].id);
+            let criteriaValue = this.app.viewer.getCriteriaValue(aCriterias[x].id);
             if (criteriaValue && criteriaValue.enabled === false) {
                 continue;
             }
 
-            for (var r in this.data) {
-                for (var a in aCriterias[x].applyTo) {
+            for (let r in this.data) {
+                for (let a in aCriterias[x].applyTo) {
 
                     if (this.hasColumn(aCriterias[x].applyTo[a].field)) {
 
@@ -101,9 +101,9 @@ class DataFilter {
                                 }
                                 break;
                             case 'SelectCriteria':
-                                var selectedItems = criteriaValue.value;
-                                var bFound = false;
-                                for (var v in selectedItems) {
+                                let selectedItems = criteriaValue.value;
+                                let bFound = false;
+                                for (let v in selectedItems) {
                                     if (this.data[r][aCriterias[x].applyTo[a].field] == selectedItems[v].text) {
                                         bFound = true;
                                     }
@@ -188,7 +188,7 @@ class DataFilter {
      * @returns boolean
      */
     hasColumn(name) {
-        for (var x in this.model) {
+        for (let x in this.model) {
             if (this.model[x].name == name) {
                 return true;
             }
