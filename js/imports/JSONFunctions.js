@@ -8,25 +8,25 @@ Function.deserialise = function (key, data) {
         ;
 };
 Function.prototype.toJSON = function () {
-    var whitespace = /\s/;
-    var pair = /\(\)|\[\]|\{\}/;
+    let whitespace = /\s/;
+    let pair = /\(\)|\[\]|\{\}/;
 
-    var args = new Array();
-    var string = this.toString();
+    let args = new Array();
+    let string = this.toString();
 
-    var fat = (new RegExp(
+    let fat = (new RegExp(
         '^s*(' +
         ((this.name) ? this.name + '|' : '') +
         'function' +
         ')[^)]*\\('
     )).test(string);
 
-    var state = 'start';
-    var depth = new Array();
-    var tmp;
+    let state = 'start';
+    let depth = new Array();
+    let tmp;
 
-    for (var index = 0; index < string.length; ++index) {
-        var ch = string[index];
+    for (let index = 0; index < string.length; ++index) {
+        let ch = string[index];
 
         switch (state) {
             case 'start':
@@ -45,7 +45,7 @@ Function.prototype.toJSON = function () {
 
             case 'arg':
             case 'singleArg':
-                var escaped = depth.length > 0 && depth[depth.length - 1] == '\\';
+                let escaped = depth.length > 0 && depth[depth.length - 1] == '\\';
                 if (escaped) {
                     depth.pop();
                     continue;
@@ -67,7 +67,7 @@ Function.prototype.toJSON = function () {
                             continue;
                         }
                         if (state == 'singleArg')
-                            throw '';
+                            throw new Error('JSONFunction singleArg');
                         args.push(string.substring(tmp, index).trim());
                         state = (fat) ? 'body' : 'arrow';
                         break;
@@ -76,7 +76,7 @@ Function.prototype.toJSON = function () {
                         if (depth.length > 0)
                             continue;
                         if (state == 'singleArg')
-                            throw '';
+                            throw new Error('JSONFunction singleArg');
                         args.push(string.substring(tmp, index).trim());
                         tmp = index + 1;
                         break;
@@ -87,7 +87,7 @@ Function.prototype.toJSON = function () {
                         if (string[index - 1] != '=')
                             continue;
                         if (state == 'arg')
-                            throw '';
+                            throw new Error('JSONFunction arg');
                         args.push(string.substring(tmp, index - 1).trim());
                         state = 'body';
                         break;
@@ -121,9 +121,9 @@ Function.prototype.toJSON = function () {
                 if (whitespace.test(ch))
                     continue;
                 if (ch != '=')
-                    throw '';
+                    throw new Error('JSONFunction Error in arrow');
                 if (string[++index] != '>')
-                    throw '';
+                    throw new Error('JSONFunction Error in arrow');
                 state = 'body';
                 break;
 
@@ -141,7 +141,7 @@ Function.prototype.toJSON = function () {
                 break;
 
             default:
-                throw '';
+                throw new Error('JSONFunction');
         }
     }
 

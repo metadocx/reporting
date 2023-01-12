@@ -186,7 +186,6 @@ class GraphReportSection extends ReportSection {
                 let graphCanvas = document.getElementById(this.reportSection.id + '_graphCanvas');
                 let graphImage = document.getElementById(this.reportSection.id + '_graphImage');
                 graphImage.src = graphCanvas.toDataURL();
-                //$('#' + this.reportSection.id + '_graphCanvas').hide();
             },
             beforeUpdate: (chart, args, options) => {
 
