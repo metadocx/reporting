@@ -58,8 +58,8 @@ class MetadocxApplication {
          * 
          * List available modules in Metadocx namespace 
          */
-        var aModules = [];
-        for (var x in window.__Metadocx) {
+        let aModules = [];
+        for (let x in window.__Metadocx) {
             if (x.endsWith('Module')) {
                 aModules.push(new window.__Metadocx[x](this));
             }
@@ -77,7 +77,7 @@ class MetadocxApplication {
          * Initialize modules
          */
         console.groupCollapsed('[Metadocx] Modules initialization');
-        for (var x in aModules) {
+        for (let x in aModules) {
             this.registerModule(aModules[x]);
         }
         console.groupEnd();
@@ -85,7 +85,7 @@ class MetadocxApplication {
         /**
          * Call other initialize callback scripts
          */
-        for (var x in this.onInitializeCallbacks) {
+        for (let x in this.onInitializeCallbacks) {
             this.onInitializeCallbacks[x]();
         }
 
@@ -128,7 +128,7 @@ class MetadocxApplication {
             this.scriptTag = document.querySelector('script[src$="metadocx.min.js"]');
         }
 
-        for (var x in this.scriptTag.dataset) {
+        for (let x in this.scriptTag.dataset) {
             this.viewer.options[x] = this.scriptTag.dataset[x];
         }
 
