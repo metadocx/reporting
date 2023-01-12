@@ -52,11 +52,11 @@ class DataSorter {
     }
 
     getApplicableReportCriterias() {
-        var applicableCriterias = [];
-        var criterias = this.app.viewer.report.getReportDefinition().criterias;
-        for (var x in criterias) {
-            var criteria = criterias[x];
-            for (var y in criteria.applyTo) {
+        let applicableCriterias = [];
+        let criterias = this.app.viewer.report.getReportDefinition().criterias;
+        for (let x in criterias) {
+            let criteria = criterias[x];
+            for (let y in criteria.applyTo) {
                 if (criteria.applyTo[y].section == this.reportSection.id) {
                     applicableCriterias.push(criteria);
                 }
@@ -79,11 +79,11 @@ class DataSorter {
 
         this.data.sort((a, b) => {
 
-            for (var x in this.groupBy) {
+            for (let x in this.groupBy) {
 
-                var column = this.getColumn(this.groupBy[x].name)
-                var aValue = a[this.groupBy[x].name];
-                var bValue = b[this.groupBy[x].name];
+                let column = this.getColumn(this.groupBy[x].name)
+                let aValue = a[this.groupBy[x].name];
+                let bValue = b[this.groupBy[x].name];
 
                 switch (column.type) {
                     case 'number':
@@ -113,11 +113,11 @@ class DataSorter {
                 }
             }
 
-            for (var x in this.orderBy) {
+            for (let x in this.orderBy) {
 
-                var column = this.getColumn(this.orderBy[x].name)
-                var aValue = a[this.orderBy[x].name];
-                var bValue = b[this.orderBy[x].name];
+                let column = this.getColumn(this.orderBy[x].name)
+                let aValue = a[this.orderBy[x].name];
+                let bValue = b[this.orderBy[x].name];
 
                 switch (column.type) {
                     case 'number':
@@ -161,7 +161,7 @@ class DataSorter {
      * @returns object
      */
     getColumn(name) {
-        for (var x in this.model) {
+        for (let x in this.model) {
             if (this.model[x].name == name) {
                 return this.model[x];
             }
