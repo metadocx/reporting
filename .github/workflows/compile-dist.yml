@@ -20,7 +20,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x, 16.x, 18.x]
+        node-version: [16.x]
 
     steps:
     - name: 'Checkout source'
@@ -36,10 +36,15 @@ jobs:
         npm install
         npm run build   
         
-    - name: 'Commit'
-      run: |
-        git config user.name ${{ env.GIT_USER }}
-        git config user.email ${{ env.GIT_EMAIL }}
-        git add dist/\*
-        git commit -m "Compile distribution files"
-        git push
+    - name: Create Pull Request        
+      uses: peter-evans/create-pull-request@v4
+      with:
+        commit-message: Build distribution files
+        branch: main
+        delete-branch: false
+        title: 'Build distribution files'
+        body: |
+            Build distribution files            
+        labels: |
+            build
+        
