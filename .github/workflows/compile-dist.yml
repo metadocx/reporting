@@ -1,0 +1,50 @@
+name: Compile and push distribution files
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:  
+  # Assign commit authorship to official Github Actions bot when pushing to the `gh-pages` branch:
+  GIT_USER: 'github-actions[bot]'
+  GIT_EMAIL: '41898282+github-actions[bot]@users.noreply.github.com'
+
+jobs:
+  build:
+    permissions:
+      contents: write
+    name: 'Build distribution files'
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+    - name: 'Checkout source'
+      uses: actions/checkout@v3
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Build
+      run: |
+        npm install
+        npm run build   
+        
+    - name: Create Pull Request        
+      uses: peter-evans/create-pull-request@v4
+      with:
+        commit-message: Build distribution files
+        branch: main
+        delete-branch: false
+        title: 'Build distribution files'
+        body: |
+            Build distribution files            
+        labels: |
+            build
+        
