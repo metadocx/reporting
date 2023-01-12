@@ -1,12 +1,12 @@
-var gulp = require('gulp');
-var concat = require('gulp-concat');
-var minify = require('gulp-minify');
-var order = require('gulp-order');
-var uglify = require('gulp-terser');
-var cleanCSS = require('gulp-clean-css');
-var cssmin = require('gulp-cssmin');
-var obfuscator = require('gulp-javascript-obfuscator');
-var sourcemaps = require('gulp-sourcemaps');
+const gulp = require('gulp');
+const concat = require('gulp-concat');
+const minify = require('gulp-minify');
+const order = require('gulp-order');
+const uglify = require('gulp-terser');
+const cleanCSS = require('gulp-clean-css');
+const cssmin = require('gulp-cssmin');
+const obfuscator = require('gulp-javascript-obfuscator');
+const sourcemaps = require('gulp-sourcemaps');
 
 /**
  * DEV JS
