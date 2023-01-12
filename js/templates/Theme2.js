@@ -24,6 +24,8 @@ class Theme2 extends Theme {
             <div class="report-cover-header"></div>
             <div class="report-cover-name">${this.app.viewer.report.getReportDefinition().properties.name}</div>
             <div class="report-cover-description">${this.app.viewer.report.getReportDefinition().properties.description}</div>
+            <div class="custom-cover-author">${this.app.viewer.report.getReportDefinition().properties.author ?? ''}</div>
+            <div class="custom-cover-version">Version ${this.app.viewer.report.getReportDefinition().properties.version ?? ''}</div>
             <div class="report-cover-footer"></div>
             <div class="report-cover-date"><span data-locale="CreatedAt">Created at</span> ${moment().format('YYYY-MM-DD HH:mm')}</div>
             <div class="report-cover-powered-by"><span data-locale="PoweredBy">powered by</span> <a href="https://www.metadocx.com" target="_blank">Metadocx</a></div>
@@ -63,6 +65,21 @@ class Theme2 extends Theme {
 
             #reportCoverPage {
                 position:relative;
+            }
+
+            .custom-cover-author {
+                position: absolute;
+                right: 50px;
+                top: 500px;    
+                font-color: #c0c0c0;            
+            }
+
+            .custom-cover-version {
+                position: absolute;
+                right: 50px;
+                top: 530px;    
+                font-color: #c0c0c0;            
+                font-size:9pt;
             }
 
             .report-cover-date {
