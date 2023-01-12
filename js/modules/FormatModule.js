@@ -19,7 +19,7 @@ class FormatModule extends Module {
 
     format(value, dataType, format) {
 
-        var displayValue = '';
+        let displayValue = '';
 
         switch (dataType) {
             case 'number':

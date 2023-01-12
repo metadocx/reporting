@@ -423,7 +423,7 @@ class ReportValidator {
             path = '';
         }
 
-        for (var x in jsonXls) {
+        for (let x in jsonXls) {
             if (x.startsWith('__')) {
                 // Meta property
                 continue;
@@ -490,8 +490,8 @@ class ReportValidator {
             if (jsonXls[x].__type === 'array') {
                 if (jsonXls[x].__model) {
                     // Check model for each item of array
-                    var aItems = this.getValue(this.buildPath(path, x));
-                    for (var i in aItems) {
+                    let aItems = this.getValue(this.buildPath(path, x));
+                    for (let i in aItems) {
                         this.validateJsonFormat(jsonXls[x].__model, this.buildPath(this.buildPath(path, x), i));
                     }
                 }
@@ -538,7 +538,7 @@ class ReportValidator {
 
         //console.log('p=' + path + ', pp=' + parentPath);
 
-        for (var x in section) {
+        for (let x in section) {
 
             if (!this.keyExists(this.buildPath(path, x), definition)) {
                 this.logWarning('Found Key ' + this.buildPath(parentPath, this.buildPath(path, x)) + ' that is not defined in report definition specification');
@@ -548,9 +548,9 @@ class ReportValidator {
 
                 if (this.getValue(this.buildPath(path, x), definition) !== null && this.getValue(this.buildPath(path, x), definition).__model !== undefined) {
                     // Check model for each item of array
-                    var aItems = this.getValue(this.buildPath(path, x));
-                    var model = this.getValue(this.buildPath(path, x), definition).__model;
-                    for (var i in aItems) {
+                    let aItems = this.getValue(this.buildPath(path, x));
+                    let model = this.getValue(this.buildPath(path, x), definition).__model;
+                    for (let i in aItems) {
                         this.checkForAdditionalKeys(aItems[i], '', model, this.buildPath(parentPath, this.buildPath(this.buildPath(path, x), i)));
                     }
                 }
@@ -599,9 +599,9 @@ class ReportValidator {
             object = this.reportDefinition;
         }
 
-        var root = object;
-        var path = key.split('.');
-        for (var x in path) {
+        let root = object;
+        let path = key.split('.');
+        for (let x in path) {
             if (root[path[x]] !== undefined) {
                 root = root[path[x]];
             } else {
@@ -622,8 +622,8 @@ class ReportValidator {
             object = this.reportDefinition;
         }
 
-        var way = key.split('.');
-        var last = way.pop();
+        let way = key.split('.');
+        let last = way.pop();
 
         way.reduce(function (o, k, i, kk) {
             return o[k] = o[k] || (isFinite(i + 1 in kk ? kk[i + 1] : last) ? [] : {});
@@ -644,9 +644,9 @@ class ReportValidator {
             object = this.reportDefinition;
         }
 
-        var root = object;
-        var path = key.split('.');
-        for (var x in path) {
+        let root = object;
+        let path = key.split('.');
+        for (let x in path) {
             if (root[path[x]] !== undefined) {
                 root = root[path[x]];
             } else {

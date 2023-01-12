@@ -18,7 +18,7 @@ class Theme1 extends Theme {
      */
     renderCoverPage() {
 
-        var s = '';
+        let s = '';
 
         s += `<div class="report-cover-page">
             <div class="report-cover-header"></div>

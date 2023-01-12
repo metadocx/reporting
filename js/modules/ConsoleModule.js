@@ -388,9 +388,9 @@ class ConsoleModule extends Module {
      * @returns array
      */
     buildArguments(args) {
-        var aArguments = [];
-        var sMessage = null;
-        var nFirstArg = 0;
+        let aArguments = [];
+        let sMessage = null;
+        let nFirstArg = 0;
         if (args.length > 0) {
             if (typeof args[0] == 'string') {
                 sMessage = args[0];
@@ -407,7 +407,7 @@ class ConsoleModule extends Module {
             aArguments.push(sMessage);
         }
 
-        for (var i = nFirstArg; i < args.length; i++) {
+        for (let i = nFirstArg; i < args.length; i++) {
             aArguments.push(args[i]);
         }
 

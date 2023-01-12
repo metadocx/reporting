@@ -59,7 +59,7 @@ class DataTypeModule extends Module {
      */
     copyObjectProperties(from, to) {
 
-        for (var x in from) {
+        for (let x in from) {
             if (typeof from[x] === 'object') {
                 this.copyObjectProperties(from[x], to[x]);
             } else {

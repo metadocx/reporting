@@ -184,8 +184,8 @@ class ReportViewer extends Consolable {
      * @returns array
      */
     getCriteriaTypes() {
-        var aCriteriaType = [];
-        for (var x in window.__Metadocx) {
+        let aCriteriaType = [];
+        for (let x in window.__Metadocx) {
             if (x.endsWith('Criteria')) {
                 aCriteriaType.push(x);
             }
@@ -308,7 +308,7 @@ class ReportViewer extends Consolable {
      */
     render() {
         this.log('Report viewer render');
-        var s = '';
+        let s = '';
 
         s += this.renderMainLayout();
         s += this.renderReportCriterias();
@@ -332,7 +332,7 @@ class ReportViewer extends Consolable {
     showNoReportAlert() {
 
         this.log('No report data, displaying no report warning');
-        var s = `<div class="alert alert-warning mb-0 report-no-definition" role="alert">
+        let s = `<div class="alert alert-warning mb-0 report-no-definition" role="alert">
                     <h4 class="alert-heading" data-locale="MissingReportDefinition">Missing report definition</h4>
                     <p data-locale="OupsNoReport">Oups! Something went wrong. We did not get a report to load.</p>                    
                 </div>`;
@@ -348,21 +348,21 @@ class ReportViewer extends Consolable {
     renderMainLayout() {
 
         this.log('Render main layout');
-        var sCloseButtonClasses = '';
+        let sCloseButtonClasses = '';
         if (window.opener == null) {
             // This window is not open by script can not use close button
             sCloseButtonClasses = ' hidden';
         }
 
-        var sExportPDFClasses = '';
+        let sExportPDFClasses = '';
         if (!this.options.exportFormats.pdf) {
             sExportPDFClasses = ' hidden';
         }
-        var sExportWordClasses = '';
+        let sExportWordClasses = '';
         if (!this.options.exportFormats.word) {
             sExportWordClasses = ' hidden';
         }
-        var sExportExcelClasses = '';
+        let sExportExcelClasses = '';
         if (!this.options.exportFormats.excel) {
             sExportExcelClasses = ' hidden';
         }
@@ -727,8 +727,8 @@ class ReportViewer extends Consolable {
          */
         this.app.modules.DB.querySavedReports(this.report.getReportDefinition().id, (data) => {
 
-            var s = '';
-            for (var x in data) {
+            let s = '';
+            for (let x in data) {
                 s += '<option value="' + data[x].reportUID + '">' + data[x].name + '</option>';
             }
             $('#savedReports').find('option').remove();
@@ -876,17 +876,17 @@ class ReportViewer extends Consolable {
             this.fieldPropertiesDialog = new bootstrap.Modal('#' + this.options.id + '_fieldPropertyDialog', {})
         }
 
-        var sReportSectionType = this.report.getReportSection(sectionID).type + 'ReportSection';
-        var oReportSection = new window.__Metadocx[sReportSectionType](this.app, this.report.getReportSection(sectionID));
+        let sReportSectionType = this.report.getReportSection(sectionID).type + 'ReportSection';
+        let oReportSection = new window.__Metadocx[sReportSectionType](this.app, this.report.getReportSection(sectionID));
 
-        var field = oReportSection.getColumn(fieldName);
+        let field = oReportSection.getColumn(fieldName);
 
         $('#fieldSectionID').val(sectionID);
         $('#fieldName').val(field.name);
         $('#fieldType').val(field.type);
         $('#fieldLabel').val(field.label);
 
-        var bIsVisible = true;
+        let bIsVisible = true;
         if (field.visible != undefined) {
             bIsVisible = this.app.modules.DataType.toBool(field.visible);
         }
@@ -922,13 +922,13 @@ class ReportViewer extends Consolable {
      */
     applyFieldProperties() {
 
-        var sectionID = $('#fieldSectionID').val();
-        var fieldName = $('#fieldName').val();
+        let sectionID = $('#fieldSectionID').val();
+        let fieldName = $('#fieldName').val();
 
-        var sReportSectionType = this.report.getReportSection(sectionID).type + 'ReportSection';
-        var oReportSection = new window.__Metadocx[sReportSectionType](this.app, this.report.getReportSection(sectionID));
+        let sReportSectionType = this.report.getReportSection(sectionID).type + 'ReportSection';
+        let oReportSection = new window.__Metadocx[sReportSectionType](this.app, this.report.getReportSection(sectionID));
 
-        var field = oReportSection.getColumn(fieldName);
+        let field = oReportSection.getColumn(fieldName);
 
         field.label = $('#fieldLabel').val();
         if ($('#fieldWidth').val() != '') {
@@ -967,9 +967,9 @@ class ReportViewer extends Consolable {
      */
     getCriteriaValues() {
 
-        var values = {};
+        let values = {};
         if (this.criterias) {
-            for (var x in this.criterias) {
+            for (let x in this.criterias) {
                 values[this.criterias[x].id] = {
                     id: this.criterias[x].id,
                     enabled: this.criterias[x].getIsEnabled(),
@@ -986,7 +986,7 @@ class ReportViewer extends Consolable {
      * @param {*} criteriaValues 
      */
     setCriteriaValues(criteriaValues) {
-        for (var x in criteriaValues) {
+        for (let x in criteriaValues) {
             this.getCriteria(x).setIsEnabled(criteriaValues[x].enabled);
             this.getCriteria(x).setValue(criteriaValues[x].value);
         }
@@ -1008,7 +1008,7 @@ class ReportViewer extends Consolable {
      */
     getCriteria(id) {
         if (this.criterias) {
-            for (var x in this.criterias) {
+            for (let x in this.criterias) {
                 if (this.criterias[x].id == id) {
                     return this.criterias[x];
                 }
@@ -1103,7 +1103,7 @@ class ReportViewer extends Consolable {
         this.report.filter();
         this.report.sort();
 
-        var oReportCanvas = new ReportCanvas(this.app, this.report, this);
+        let oReportCanvas = new ReportCanvas(this.app, this.report, this);
         $('#' + this.options.id + '_canvas').html(oReportCanvas.render());
 
         oReportCanvas.initialiseJS();
@@ -1137,11 +1137,11 @@ class ReportViewer extends Consolable {
      */
     updateCSS() {
 
-        var paperSize = this.app.modules.Printing.getPaperSize(this.app.viewer.options.page.paperSize);
-        var pageOrientation = this.app.viewer.options.page.orientation;
+        let paperSize = this.app.modules.Printing.getPaperSize(this.app.viewer.options.page.paperSize);
+        let pageOrientation = this.app.viewer.options.page.orientation;
 
-        var width = 0;
-        var height = 0;
+        let width = 0;
+        let height = 0;
 
         if (pageOrientation == this.app.modules.Printing.PageOrientation.Landscape) {
             width = paperSize.height;
@@ -1151,7 +1151,7 @@ class ReportViewer extends Consolable {
             height = paperSize.height;
         }
 
-        var s = `
+        let s = `
                
         @media print {
 
@@ -1219,7 +1219,7 @@ class ReportViewer extends Consolable {
         $('.table-report-section').each(function () {
 
             if ($(this).width() > 0) {
-                var ratio = $('#reportPage').width() / $(this).width();
+                let ratio = $('#reportPage').width() / $(this).width();
                 if (ratio != 1) {
                     $(this).css('transform', 'scaleX(' + parseFloat(ratio).toFixed(2) + ')');
                     $(this).css('transform-origin', 'top left')
@@ -1247,12 +1247,12 @@ class ReportViewer extends Consolable {
      */
     refreshReportSettings() {
 
-        for (var kSection in this.report.getReportDefinition().sections) {
-            var oSection = this.report.getReportDefinition().sections[kSection];
+        for (let kSection in this.report.getReportDefinition().sections) {
+            let oSection = this.report.getReportDefinition().sections[kSection];
 
-            for (var y in oSection.model) {
-                var field = oSection.model[y];
-                var bIsVisible = true;
+            for (let y in oSection.model) {
+                let field = oSection.model[y];
+                let bIsVisible = true;
                 if (field.visible != undefined) {
                     bIsVisible = this.app.modules.DataType.toBool(field.visible);
                 }
@@ -1293,14 +1293,14 @@ class ReportViewer extends Consolable {
         this.report.getReportDefinition().properties.description = $('#reportSettingsDescription').val();
 
         // Update report sections 
-        for (var x in this.report.getReportDefinition().sections) {
-            var oSection = this.report.getReportDefinition().sections[x];
+        for (let x in this.report.getReportDefinition().sections) {
+            let oSection = this.report.getReportDefinition().sections[x];
 
             /**
              * Apply field settings
              */
-            for (var f in oSection.model) {
-                var oCol = oSection.model[f];
+            for (let f in oSection.model) {
+                let oCol = oSection.model[f];
                 oCol.visible = $('#' + oSection.id + '_field_' + oCol.name).prop('checked');
                 oCol['formula'] = $('#' + oSection.id + '_formula_' + oCol.name).val();
             }
@@ -1309,7 +1309,7 @@ class ReportViewer extends Consolable {
              * Reorder model columns
              */
             $('#' + oSection.id + '_fields tbody tr').each(function () {
-                var columnName = $(this).attr('data-column');
+                let columnName = $(this).attr('data-column');
                 oSection.model.forEach(function (item, i) {
                     if (item.name == columnName) {
                         oSection.model.splice(i, 1);
@@ -1328,7 +1328,7 @@ class ReportViewer extends Consolable {
 
             oSection.orderBy = [];
             $('#' + oSection.id + '_orderBy tbody tr').each(function () {
-                var columnName = $(this).attr('data-column');
+                let columnName = $(this).attr('data-column');
 
                 if ($('#' + oSection.id + '_orderBy_' + columnName).prop('checked')) {
                     oSection.orderBy.push({
@@ -1341,7 +1341,7 @@ class ReportViewer extends Consolable {
 
             oSection.groupBy = [];
             $('#' + oSection.id + '_groupBy tbody tr').each(function () {
-                var columnName = $(this).attr('data-column');
+                let columnName = $(this).attr('data-column');
 
                 if ($('#' + oSection.id + '_groupBy_' + columnName).prop('checked')) {
                     oSection.groupBy.push({

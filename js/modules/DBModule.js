@@ -124,7 +124,7 @@ class DBModule extends Module {
 
         this.log('Loading saved reports for ' + reportId);
 
-        var data = [];
+        let data = [];
         index.openCursor(singleKeyRange).onsuccess = (event) => {
             const cursor = event.target.result;
             if (cursor) {

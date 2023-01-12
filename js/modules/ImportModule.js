@@ -348,7 +348,7 @@ class ImportModule extends Module {
 
     createElement(options) {
 
-        var module = this;
+        let module = this;
 
         this._bInjectionWasMade = true;
 

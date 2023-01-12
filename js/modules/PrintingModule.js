@@ -103,8 +103,8 @@ class PrintingModule extends Module {
     }
 
     getPaperSizeOptions() {
-        var s = '';
-        for (var x in this.PaperSize) {
+        let s = '';
+        for (let x in this.PaperSize) {
             s += '<option value="' + this.PaperSize[x] + '">' + this.PaperSize[x] + '</option>';
         }
         return s;
@@ -124,11 +124,11 @@ class PrintingModule extends Module {
 
     applyPageStyles() {
 
-        var paperSize = this.getPaperSize(this.app.viewer.options.page.paperSize);
-        var pageOrientation = this.app.viewer.options.page.orientation;
+        let paperSize = this.getPaperSize(this.app.viewer.options.page.paperSize);
+        let pageOrientation = this.app.viewer.options.page.orientation;
 
-        var width = 0;
-        var height = 0;
+        let width = 0;
+        let height = 0;
 
         if (pageOrientation == this.PageOrientation.Landscape) {
             width = paperSize.height;
@@ -150,9 +150,9 @@ class PrintingModule extends Module {
     }
 
     getThemeOptions() {
-        var s = '';
+        let s = '';
         s += '<option value="" data-locale="Default">Default</option>';
-        for (var x in window.__Metadocx.Themes) {
+        for (let x in window.__Metadocx.Themes) {
             s += '<option value="' + x + '">' + x + '</option>';
         }
         return s;

@@ -25,7 +25,7 @@ class LocaleModule extends Module {
             this.locales[locale] = {};
         }
 
-        for (var k in keys) {
+        for (let k in keys) {
             this.locales[locale][k] = keys[k];
         }
 
@@ -40,7 +40,7 @@ class LocaleModule extends Module {
     }
 
     getKey(key) {
-        var text = this.locales[this.currentLocale][key];
+        let text = this.locales[this.currentLocale][key];
         if (text == undefined || text == null) {
             console.warn('Missing translation key ' + key);
             text = key;
@@ -53,8 +53,8 @@ class LocaleModule extends Module {
     }
 
     getLocales() {
-        var locales = [];
-        for (var x in this.locales) {
+        let locales = [];
+        for (let x in this.locales) {
             locales.push(x);
         }
         return locales;
@@ -62,7 +62,7 @@ class LocaleModule extends Module {
 
     translate() {
 
-        var thisObject = this;
+        let thisObject = this;
         $('[data-locale]').each(function () {
             if ($(this).is('input') || $(this).is('textarea')) {
                 $(this).attr('placeholder', thisObject.getKey($(this).data('locale')));
@@ -74,9 +74,9 @@ class LocaleModule extends Module {
     }
 
     getLocaleMenuOptions() {
-        var locales = this.getLocales();
-        var s = '';
-        for (var x in locales) {
+        let locales = this.getLocales();
+        let s = '';
+        for (let x in locales) {
             s += `<a id="${this.app.viewer.options.id}_locale_${locales[x]}" class="dropdown-item" href="#" onClick="Metadocx.modules.Locale.setLocale('${locales[x]}');" data-locale="${locales[x]}">${locales[x]}</a>`;
         }
         return s;
