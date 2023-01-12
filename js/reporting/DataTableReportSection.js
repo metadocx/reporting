@@ -14,7 +14,7 @@ class DataTableReportSection extends ReportSection {
 
     render() {
 
-        var oTable = new DataTable(this.app);
+        let oTable = new DataTable(this.app);
         oTable.id = 'ReportSection_' + this.reportSection.id;
         oTable.data = this.reportSection.data;
         oTable.model = this.reportSection.model;
@@ -23,7 +23,7 @@ class DataTableReportSection extends ReportSection {
         oTable.criterias = this.getApplicableReportCriterias();
         oTable.criteriaValues = this.app.viewer.getCriteriaValues();
 
-        var s = '';
+        let s = '';
 
         this.preRender();
 
@@ -44,7 +44,7 @@ class DataTableReportSection extends ReportSection {
     }
 
     getColumn(name) {
-        for (var x in this.reportSection.model) {
+        for (let x in this.reportSection.model) {
             if (this.reportSection.model[x].name == name) {
                 return this.reportSection.model[x];
             }
@@ -53,7 +53,7 @@ class DataTableReportSection extends ReportSection {
     }
 
     setColumn(name, column) {
-        for (var x in this.reportSection.model) {
+        for (let x in this.reportSection.model) {
             if (this.reportSection.model[x].name == name) {
                 this.reportSection.model[x] = column;
                 return true;
@@ -63,7 +63,7 @@ class DataTableReportSection extends ReportSection {
     }
 
     hasColumn(name) {
-        for (var x in this.reportSection.model) {
+        for (let x in this.reportSection.model) {
             if (this.reportSection.model[x].name == name) {
                 return true;
             }
@@ -73,7 +73,7 @@ class DataTableReportSection extends ReportSection {
 
     isColumnVisible(name) {
         if (this.hasColumn(name)) {
-            var column = this.getColumn(name);
+            let column = this.getColumn(name);
             if (column.visible == undefined) {
                 // visible by default
                 return true;
@@ -86,7 +86,7 @@ class DataTableReportSection extends ReportSection {
     }
 
     hideColumn(name) {
-        for (var x in this.reportSection.model) {
+        for (let x in this.reportSection.model) {
             if (this.reportSection.model[x].name == name) {
                 this.reportSection.model[x].visible = false;
             }

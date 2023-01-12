@@ -215,7 +215,7 @@ class WordModule extends Module {
                 $('.wordPaperSizeWidths').hide();
             }
 
-            var paperSize = this.app.modules.Printing.getPaperSize($('#wordPaperSize').val());
+            let paperSize = this.app.modules.Printing.getPaperSize($('#wordPaperSize').val());
             $('#wordPaperSizeWidth').val(paperSize.width);
             $('#wordPaperSizeHeight').val(paperSize.height);
         });
@@ -231,7 +231,7 @@ class WordModule extends Module {
 
     exportWord() {
 
-        var thisObject = this;
+        let thisObject = this;
 
         $('.report-graph-canvas').hide();
         $('.report-graph-image').show();
@@ -239,7 +239,7 @@ class WordModule extends Module {
         /**
          * Show exporting dialog
          */
-        var exportDialog = bootbox.dialog({
+        let exportDialog = bootbox.dialog({
             title: 'Export to Word',
             message: '<p><i class="fas fa-spin fa-spinner"></i> Exporting report to Word...</p>'
         });
@@ -256,8 +256,8 @@ class WordModule extends Module {
             },
             success: (data, status, xhr) => {
                 //, { type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" }
-                var blob = new Blob([data]);
-                var sContent = `Report has been converted to Word, click on button to download file<br><br>
+                let blob = new Blob([data]);
+                let sContent = `Report has been converted to Word, click on button to download file<br><br>
                 <a class="btn btn-primary" href="${window.URL.createObjectURL(blob)}" download="Report.docx" onClick="$('.bootbox.modal').modal('hide');">Download report</a>`;
 
                 exportDialog.find('.bootbox-body').html(sContent);

@@ -374,7 +374,7 @@ class PDFModule extends Module {
 
     exportPDF() {
 
-        var thisObject = this;
+        let thisObject = this;
 
         /**
          * Get export options and hide dialog
@@ -429,7 +429,7 @@ class PDFModule extends Module {
 
     print() {
 
-        var thisObject = this;
+        let thisObject = this;
 
         let loadingDialog = bootbox.dialog({
             message: '<p class="text-center mb-0"><i class="fas fa-spin fa-cog"></i> Generating and printing report...</p>',

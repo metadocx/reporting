@@ -20,10 +20,10 @@ class ReportCanvas {
      */
     render() {
 
-        var s = '';
-        var sReportSection = '';
+        let s = '';
+        let sReportSection = '';
 
-        var oReportTemplate = new Theme(this.app);
+        let oReportTemplate = new Theme(this.app);
 
         if (window.__Metadocx.Themes[this.viewer.options.template] != undefined) {
             oReportTemplate = new window.__Metadocx.Themes[this.viewer.options.template](this.app);
@@ -39,10 +39,10 @@ class ReportCanvas {
                   </div>`;
         }
 
-        for (var x in this.report.getReportDefinition().sections) {
+        for (let x in this.report.getReportDefinition().sections) {
 
-            var sReportSectionType = this.report.getReportDefinition().sections[x].type + 'ReportSection';
-            var oReportSection = new window.__Metadocx[sReportSectionType](this.app, this.report.getReportDefinition().sections[x]);
+            let sReportSectionType = this.report.getReportDefinition().sections[x].type + 'ReportSection';
+            let oReportSection = new window.__Metadocx[sReportSectionType](this.app, this.report.getReportDefinition().sections[x]);
             this.reportSections.push(oReportSection);
 
             if (this.app.modules.DataType.toBool(this.report.getReportDefinition().sections[x].breakBefore)) {
@@ -77,7 +77,7 @@ class ReportCanvas {
     }
 
     initialiseJS() {
-        for (var x in this.reportSections) {
+        for (let x in this.reportSections) {
             if (this.reportSections[x].initialiseJS != undefined) {
                 this.reportSections[x].initialiseJS();
             }

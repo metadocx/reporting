@@ -234,12 +234,12 @@ class ExcelModule extends Module {
         /**
          *  Get all graphs images and encode them in base64 to insert in excel
          */
-        var thisObject = this;
+        let thisObject = this;
 
         /**
          * Show exporting dialog
          */
-        var exportDialog = bootbox.dialog({
+        let exportDialog = bootbox.dialog({
             title: 'Export to Excel',
             message: '<p><i class="fas fa-spin fa-spinner"></i> Exporting report to Excel...</p>'
         });
