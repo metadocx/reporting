@@ -271,7 +271,7 @@ class ImportModule extends Module {
      */
     isLoaded() {
 
-        for (var x in this.loadStatus) {
+        for (let x in this.loadStatus) {
             if (!this.loadStatus[x].loaded) {
                 return false;
             }
@@ -287,9 +287,9 @@ class ImportModule extends Module {
      * @param {*} libName 
      */
     injectLibrary(libName) {
-        var sections = this.libraries[libName];
+        let sections = this.libraries[libName];
         if (sections.head && sections.head.links) {
-            for (var x in sections.head.links) {
+            for (let x in sections.head.links) {
                 if (!this.isStyleSheetLoaded(sections.head.links[x].href, sections.head.links[x].tests)) {
                     this.log('   Injecting head link ' + sections.head.links[x].id);
                     this.createElement(sections.head.links[x]);
@@ -300,7 +300,7 @@ class ImportModule extends Module {
         }
 
         if (sections.head && sections.head.scripts) {
-            for (var x in sections.head.scripts) {
+            for (let x in sections.head.scripts) {
                 if (!this.isScriptLoaded(sections.head.scripts[x].src)) {
                     this.log('   Injecting head script ' + sections.head.scripts[x].id);
                     this.createElement(sections.head.scripts[x]);
@@ -311,7 +311,7 @@ class ImportModule extends Module {
         }
 
         if (sections.bottom && sections.bottom.links) {
-            for (var x in sections.bottom.links) {
+            for (let x in sections.bottom.links) {
                 if (!this.isStyleSheetLoaded(sections.bottom.links[x].href, sections.bottom.links[x].tests)) {
                     this.log('   Injecting bootom link ' + sections.bottom.links[x].id);
                     this.createElement(sections.bottom.links[x]);
@@ -322,7 +322,7 @@ class ImportModule extends Module {
         }
 
         if (sections.bottom && sections.bottom.scripts) {
-            for (var x in sections.bottom.scripts) {
+            for (let x in sections.bottom.scripts) {
                 if (!this.isScriptLoaded(sections.bottom.scripts[x].src)) {
                     this.log('   Injecting bottom script ' + sections.bottom.scripts[x].id);
                     this.createElement(sections.bottom.scripts[x]);
@@ -357,7 +357,7 @@ class ImportModule extends Module {
         };
 
         (function (d, s, id) {
-            var js, lsjs = d.getElementsByTagName(s)[0];
+            let js, lsjs = d.getElementsByTagName(s)[0];
 
             if (d.getElementById(id)) {
                 console.log('Package is already loaded, skipping');
@@ -405,8 +405,8 @@ class ImportModule extends Module {
         }
 
         this.log('Injecting required librairies for stack ' + this.app.viewer.options.ui);
-        for (var x in this.stacks[this.app.viewer.options.ui].requires) {
-            var libName = this.stacks[this.app.viewer.options.ui].requires[x];
+        for (let x in this.stacks[this.app.viewer.options.ui].requires) {
+            let libName = this.stacks[this.app.viewer.options.ui].requires[x];
             this.injectLibrary(libName);
         }
 
@@ -426,10 +426,10 @@ class ImportModule extends Module {
             this.app.viewer.options.ui = 'default';
         }
 
-        var bValid = true;
-        for (var x in this.stacks[this.app.viewer.options.ui].requires) {
-            var libName = this.stacks[this.app.viewer.options.ui].requires[x];
-            var bLibIsValid = this.testLibrary(libName);
+        let bValid = true;
+        for (let x in this.stacks[this.app.viewer.options.ui].requires) {
+            let libName = this.stacks[this.app.viewer.options.ui].requires[x];
+            let bLibIsValid = this.testLibrary(libName);
             if (!bLibIsValid && bValid) {
                 bValid = false;
             }
@@ -452,9 +452,9 @@ class ImportModule extends Module {
      */
     testLibrary(libName) {
 
-        var sections = this.libraries[libName];
+        let sections = this.libraries[libName];
         if (sections.head && sections.head.links) {
-            for (var x in sections.head.links) {
+            for (let x in sections.head.links) {
                 if (!this.isStyleSheetLoaded(sections.head.links[x].href, sections.head.links[x].tests)) {
                     this.log('   Style sheet ' + sections.head.links[x].id + ' is not loaded');
                     return false;
@@ -463,7 +463,7 @@ class ImportModule extends Module {
         }
 
         if (sections.head && sections.head.scripts) {
-            for (var x in sections.head.scripts) {
+            for (let x in sections.head.scripts) {
                 if (!this.isScriptLoaded(sections.head.scripts[x].src)) {
                     this.log('   Script ' + sections.head.scripts[x].id + ' is not loaded');
                     return false;
@@ -472,7 +472,7 @@ class ImportModule extends Module {
         }
 
         if (sections.bottom && sections.bottom.links) {
-            for (var x in sections.bottom.links) {
+            for (let x in sections.bottom.links) {
                 if (!this.isStyleSheetLoaded(sections.bottom.links[x].href, sections.bottom.links[x].tests)) {
                     this.log('   Style sheet ' + sections.bottom.links[x].id + ' is not loaded');
                     return false;
@@ -481,7 +481,7 @@ class ImportModule extends Module {
         }
 
         if (sections.bottom && sections.bottom.scripts) {
-            for (var x in sections.bottom.scripts) {
+            for (let x in sections.bottom.scripts) {
                 if (!this.isScriptLoaded(sections.bottom.scripts[x].src)) {
                     this.log('   Script ' + sections.bottom.scripts[x].id + ' is not loaded');
                     return false;
@@ -495,14 +495,14 @@ class ImportModule extends Module {
 
     isStyleSheetLoaded(sUrl, tests) {
 
-        for (var x in document.styleSheets) {
+        for (let x in document.styleSheets) {
             if (document.styleSheets[x].href) {
                 if (document.styleSheets[x].href.toLowerCase().endsWith(sUrl.toLowerCase())) {
                     return true;
                 }
 
                 if (tests != undefined && Array.isArray(tests)) {
-                    for (var t in tests) {
+                    for (let t in tests) {
                         if (document.styleSheets[x].href.toLowerCase().endsWith(tests[t].toLowerCase())) {
                             return true;
                         }
@@ -518,7 +518,7 @@ class ImportModule extends Module {
 
     isScriptLoaded(sUrl) {
 
-        for (var x in document.scripts) {
+        for (let x in document.scripts) {
             if (document.scripts[x].src) {
                 if (document.scripts[x].src.toLowerCase().endsWith(sUrl.toLowerCase())) {
                     return true;
