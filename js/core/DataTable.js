@@ -117,10 +117,8 @@ class DataTable {
     isColumnVisible(name) {
         if (this.hasColumn(name)) {
             let column = this.getColumn(name);
-            if (column.visible == undefined) {
+            if (this.app.modules.DataType.toBool(column.visible, true)) {
                 // visible by default
-                return true;
-            } else if (column.visible) {
                 return true;
             }
         }
@@ -203,7 +201,6 @@ class DataTable {
                 let cellStyle = '';
                 let cellModel = this.model[y];
                 let cellValue = row[this.model[y].name];
-                let cellDisplayValue = cellValue;
 
                 if (cellModel['align']) {
                     cellStyle += 'text-align:' + cellModel['align'] + ';';
@@ -212,7 +209,7 @@ class DataTable {
                 /**
                  * Format numeric values
                  */
-                cellDisplayValue = this.app.modules.Format.format(cellValue, cellModel['type'], cellModel['format']);
+                let cellDisplayValue = this.app.modules.Format.format(cellValue, cellModel['type'], cellModel['format']);
 
                 if (cellModel["visible"] !== false) {
                     s += '<td class="report-cell-data" style="' + cellStyle + '">' + cellDisplayValue + '</td>';

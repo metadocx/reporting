@@ -22,7 +22,16 @@ class DataTypeModule extends Module {
      * @param {*} v 
      * @returns 
      */
-    toBool(v) {
+    toBool(v, defaultValue) {
+
+        if (typeof defaultValue === 'undefined') {
+            defaultValue = false;
+        }
+
+        if (typeof v === 'undefined') {
+            v = defaultValue;
+        }
+
         if (typeof v === 'string' || v instanceof String) {
             v = v.toLowerCase();
         }
