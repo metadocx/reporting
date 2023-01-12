@@ -434,7 +434,7 @@ class ConsoleModule extends Module {
      * Display help for module
      */
     help() {
-        window.open('https://developer.mozilla.org/en-US/docs/Web/API/console');
+        window.open('https://developer.mozilla.org/en-US/docs/Web/API/console', 'ConsoleHelp', 'noopener');
     }
 
 }
