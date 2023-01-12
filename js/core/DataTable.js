@@ -70,7 +70,7 @@ class DataTable {
      * @returns object
      */
     getColumn(name) {
-        for (var x in this.model) {
+        for (let x in this.model) {
             if (this.model[x].name == name) {
                 return this.model[x];
             }
@@ -85,7 +85,7 @@ class DataTable {
      * @returns boolean
      */
     setColumn(name, col) {
-        for (var x in this.model) {
+        for (let x in this.model) {
             if (this.model[x].name == name) {
                 this.model[x] = col;
                 return true;
@@ -101,7 +101,7 @@ class DataTable {
      * @returns boolean
      */
     hasColumn(name) {
-        for (var x in this.model) {
+        for (let x in this.model) {
             if (this.model[x].name == name) {
                 return true;
             }
@@ -116,7 +116,7 @@ class DataTable {
      */
     isColumnVisible(name) {
         if (this.hasColumn(name)) {
-            var column = this.getColumn(name);
+            let column = this.getColumn(name);
             if (column.visible == undefined) {
                 // visible by default
                 return true;
@@ -133,7 +133,7 @@ class DataTable {
      * @param {*} name 
      */
     hideColumn(name) {
-        for (var x in this.model) {
+        for (let x in this.model) {
             if (this.model[x].name == name) {
                 this.model[x].visible = false;
             }
@@ -161,7 +161,7 @@ class DataTable {
             getMax: function (name) { return this.maxValues[name]; }
         }
 
-        var s = '';
+        let s = '';
         s += '<table id="' + this.id + '" class="table table-bordered table-hover table-report-section" data-report-section-id="' + this.id + '">';
 
         /**
@@ -169,9 +169,9 @@ class DataTable {
          */
         s += '<thead>';
         s += '<tr class="report-row-header">';
-        for (var y in this.model) {
-            var cellModel = this.model[y];
-            var cellStyle = 'font-weight:bold;';
+        for (let y in this.model) {
+            let cellModel = this.model[y];
+            let cellStyle = 'font-weight:bold;';
             if (cellModel['align']) {
                 cellStyle += 'text-align:' + cellModel['align'] + ';';
             }
@@ -190,20 +190,20 @@ class DataTable {
          */
         s += '<tbody>';
 
-        var previousRow = null;
-        for (var x in this.data) {
-            var row = this.data[x];
+        let previousRow = null;
+        for (let x in this.data) {
+            let row = this.data[x];
             if (!row['__visible']) {
                 continue;
             }
             s += this.renderGroupHeader(row, previousRow);
 
             s += '<tr class="report-row-data">';
-            for (var y in this.model) {
-                var cellStyle = '';
-                var cellModel = this.model[y];
-                var cellValue = row[this.model[y].name];
-                var cellDisplayValue = cellValue;
+            for (let y in this.model) {
+                let cellStyle = '';
+                let cellModel = this.model[y];
+                let cellValue = row[this.model[y].name];
+                let cellDisplayValue = cellValue;
 
                 if (cellModel['align']) {
                     cellStyle += 'text-align:' + cellModel['align'] + ';';
@@ -248,7 +248,7 @@ class DataTable {
          * Grand total calculation
          */
         this.grandTotal.count++;
-        for (var y in this.model) {
+        for (let y in this.model) {
             if (this.model[y].formula) {
                 this.grandTotal.enabled = true;
                 if (this.model[y].type == 'number') {
@@ -273,12 +273,12 @@ class DataTable {
             return '';
         }
 
-        var s = '';
+        let s = '';
 
         /**
          * Check first if we must close group in reverse order
          */
-        for (var nLevel = this.getLevelCount(); nLevel >= 1; nLevel--) {
+        for (let nLevel = this.getLevelCount(); nLevel >= 1; nLevel--) {
 
             if (previousRow == null || previousRow[this.groupCounters['level' + nLevel].name] != row[this.groupCounters['level' + nLevel].name]) {
 
@@ -288,12 +288,12 @@ class DataTable {
                 if (this.groupCounters['level' + nLevel]) {
                     // Level exists close it
                     s += `<tr class="report-row-group-footer" data-close-level="${nLevel}">`;
-                    for (var y in this.model) {
+                    for (let y in this.model) {
 
-                        var cellModel = this.model[y];
-                        var cellStyle = 'font-weight:bold;';
-                        var cellValue = ''
-                        var cellDisplayValue = '';
+                        let cellModel = this.model[y];
+                        let cellStyle = 'font-weight:bold;';
+                        let cellValue = ''
+                        let cellDisplayValue = '';
 
                         if (cellModel['align']) {
                             cellStyle += 'text-align:' + cellModel['align'] + ';';
@@ -355,8 +355,8 @@ class DataTable {
         /**
          * Check if we start new groups
          */
-        var nLevel = 1;
-        for (var x in this.groupBy) {
+        let nLevel = 1;
+        for (let x in this.groupBy) {
 
             if (previousRow == null || previousRow[this.groupBy[x].name] != row[this.groupBy[x].name]) {
 
@@ -386,9 +386,9 @@ class DataTable {
         }
 
 
-        for (var x in this.groupCounters) {
+        for (let x in this.groupCounters) {
             this.groupCounters[x].count++;
-            for (var y in this.model) {
+            for (let y in this.model) {
                 if (this.model[y].formula) {
                     if (this.model[y].type == 'number') {
                         this.groupCounters[x].values[this.model[y].name] += this.app.modules.DataType.parseFloat(row[this.model[y].name]);
@@ -418,12 +418,12 @@ class DataTable {
      */
     closeAllGroups() {
 
-        var s = '';
+        let s = '';
 
         /**
          * Check first if we must close group in reverse order
          */
-        for (var nLevel = this.getLevelCount(); nLevel >= 1; nLevel--) {
+        for (let nLevel = this.getLevelCount(); nLevel >= 1; nLevel--) {
 
             /**
              * Close previous group with same level
@@ -431,11 +431,11 @@ class DataTable {
             if (this.groupCounters['level' + nLevel]) {
                 // Level exists close it
                 s += `<tr class="report-row-group-footer" data-close-level="${nLevel}">`;
-                for (var y in this.model) {
-                    var cellModel = this.model[y];
-                    var cellStyle = 'font-weight:bold;';
-                    var cellValue = '&nbsp;'
-                    var cellDisplayValue = '';
+                for (let y in this.model) {
+                    let cellModel = this.model[y];
+                    let cellStyle = 'font-weight:bold;';
+                    let cellValue = '&nbsp;'
+                    let cellDisplayValue = '';
                     if (cellModel['align']) {
                         cellStyle += 'text-align:' + cellModel['align'] + ';';
                     }
@@ -490,12 +490,12 @@ class DataTable {
          * Add grand total
          */
         if (this.app.modules.DataType.toBool(this.grandTotal.enabled)) {
-            s += `<tr class="report-row-grand-total" data-close-level="${nLevel}">`;
-            for (var y in this.model) {
-                var cellModel = this.model[y];
-                var cellStyle = 'font-weight:bold;';
-                var cellValue = '&nbsp;'
-                var cellDisplayValue = '';
+            s += `<tr class="report-row-grand-total">`;
+            for (let y in this.model) {
+                let cellModel = this.model[y];
+                let cellStyle = 'font-weight:bold;';
+                let cellValue = '&nbsp;'
+                let cellDisplayValue = '';
                 if (cellModel['align']) {
                     cellStyle += 'text-align:' + cellModel['align'] + ';';
                 }
@@ -554,8 +554,8 @@ class DataTable {
         if (defaultValue === undefined) {
             defaultValue = 0;
         }
-        var counters = {};
-        for (var x in this.model) {
+        let counters = {};
+        for (let x in this.model) {
             if (this.model[x].formula !== undefined && this.model[x].formula !== '') {
                 counters[this.model[x].name] = defaultValue;
             }
@@ -568,8 +568,8 @@ class DataTable {
      * @returns int
      */
     getLevelCount() {
-        var nCount = 0;
-        for (var x in this.groupCounters) {
+        let nCount = 0;
+        for (let x in this.groupCounters) {
             if (this.groupCounters[x]) { nCount++; }
         }
         return nCount;
@@ -582,7 +582,7 @@ class DataTable {
      */
     getOrderBy(name) {
         if (this.orderBy) {
-            for (var x in this.orderBy) {
+            for (let x in this.orderBy) {
                 if (this.orderBy[x].name == name) {
                     return this.orderBy[x];
                 }
@@ -599,7 +599,7 @@ class DataTable {
      */
     getGroupBy(name) {
         if (this.groupBy) {
-            for (var x in this.groupBy) {
+            for (let x in this.groupBy) {
                 if (this.groupBy[x].name == name) {
                     return this.groupBy[x];
                 }
