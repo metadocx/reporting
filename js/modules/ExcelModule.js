@@ -215,7 +215,7 @@ class ExcelModule extends Module {
                 $('.excelPaperSizeWidths').hide();
             }
 
-            var paperSize = this.app.modules.Printing.getPaperSize($('#excelPaperSize').val());
+            let paperSize = this.app.modules.Printing.getPaperSize($('#excelPaperSize').val());
             $('#excelPaperSizeWidth').val(paperSize.width);
             $('#excelPaperSizeHeight').val(paperSize.height);
         });
@@ -257,9 +257,9 @@ class ExcelModule extends Module {
                 responseType: 'blob'
             },
             success: (data, status, xhr) => {
-                var blob = new Blob([data]);
+                let blob = new Blob([data]);
 
-                var sContent = `Report has been converted to Excel, click on button to download file<br><br>
+                let sContent = `Report has been converted to Excel, click on button to download file<br><br>
                 <a class="btn btn-primary" href="${window.URL.createObjectURL(blob)}" download="Report.xlsx" onClick="$('.bootbox.modal').modal('hide');">Download report</a>`;
 
                 exportDialog.find('.bootbox-body').html(sContent);

@@ -24,20 +24,20 @@ class GraphReportSection extends ReportSection {
 
     buildGraphDataSets() {
 
-        var dataSets = [];
+        let dataSets = [];
         this._labels = [];
 
-        for (var x in this.reportSection.datasets) {
+        for (let x in this.reportSection.datasets) {
 
-            var ds = this.reportSection.datasets[x];
+            let ds = this.reportSection.datasets[x];
 
             if (ds.source = 'section') {
 
-                var data = {};
+                let data = {};
 
-                var oSection = this.app.viewer.report.getReportSection(ds.section);
-                for (var d in oSection.data) {
-                    var row = oSection.data[d];
+                let oSection = this.app.viewer.report.getReportSection(ds.section);
+                for (let d in oSection.data) {
+                    let row = oSection.data[d];
                     if (!row['__visible']) {
                         continue;
                     }
@@ -67,8 +67,8 @@ class GraphReportSection extends ReportSection {
 
                 }
 
-                var dataArray = [];
-                for (var x in data) {
+                let dataArray = [];
+                for (let x in data) {
 
                     /**
                      * Apply formula on data value
@@ -98,7 +98,7 @@ class GraphReportSection extends ReportSection {
                     dataArray.push(data[x]);
                 }
 
-                var oDS = {
+                let oDS = {
                     label: this.getModelLabel(ds.field, oSection.model) + this.getDataSetFormula(ds.formula),
                     data: dataArray.map(row => row.data)
                 };
@@ -107,7 +107,7 @@ class GraphReportSection extends ReportSection {
                  * Copy additional dataset options (see Chart.js doc)
                  */
                 if (ds.options) {
-                    for (var kOption in ds.options) {
+                    for (let kOption in ds.options) {
                         oDS[kOption] = ds.options[kOption];
                     }
                 }
@@ -145,7 +145,7 @@ class GraphReportSection extends ReportSection {
     }
 
     getModelLabel(field, model) {
-        for (var x in model) {
+        for (let x in model) {
             if (model[x].name == field) {
                 return model[x].label;
             }
@@ -162,7 +162,7 @@ class GraphReportSection extends ReportSection {
     initialiseJS() {
 
         if (this.reportSection.css) {
-            for (var x in this.reportSection.css) {
+            for (let x in this.reportSection.css) {
                 $('#' + this.reportSection.id + '_reportSection').css(x, this.reportSection.css[x]);
             }
         }
@@ -174,28 +174,28 @@ class GraphReportSection extends ReportSection {
         const datasets = this.buildGraphDataSets();
         const labels = this.buildGraphLabels(datasets);
 
-        var options = {};
+        let options = {};
         if (this.reportSection.options != undefined) {
             options = this.reportSection.options;
         }
 
-        var plugins = [];
+        let plugins = [];
 
         plugins.push({
             afterRender: () => {
-                var graphCanvas = document.getElementById(this.reportSection.id + '_graphCanvas');
-                var graphImage = document.getElementById(this.reportSection.id + '_graphImage');
+                let graphCanvas = document.getElementById(this.reportSection.id + '_graphCanvas');
+                let graphImage = document.getElementById(this.reportSection.id + '_graphImage');
                 graphImage.src = graphCanvas.toDataURL();
                 //$('#' + this.reportSection.id + '_graphCanvas').hide();
             },
             beforeUpdate: (chart, args, options) => {
 
-                var helpers = Chart.helpers;
-                var scheme = this.app.viewer.getTheme().getColorScheme();
-                var length, colorIndex, color;
+                let helpers = Chart.helpers;
+                let scheme = this.app.viewer.getTheme().getColorScheme();
+                let length, colorIndex, color;
 
-                var fillAlpha = 0.4;
-                var override = true;
+                let fillAlpha = 0.4;
+                let override = true;
 
                 if (scheme) {
 

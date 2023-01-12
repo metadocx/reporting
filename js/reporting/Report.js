@@ -190,7 +190,7 @@ class Report {
             return;
         }
 
-        var s = '';
+        let s = '';
 
         s += `<div class="card">
                 <div class="card-header">
@@ -208,10 +208,10 @@ class Report {
                 </div>
             </div>`;
 
-        for (var kSection in this.getReportDefinition().sections) {
-            var oSection = this.getReportDefinition().sections[kSection];
-            var sReportSectionType = this.getReportDefinition().sections[kSection].type + 'ReportSection';
-            var oReportSection = new window.__Metadocx[sReportSectionType](this.app, this.getReportDefinition().sections[kSection]);
+        for (let kSection in this.getReportDefinition().sections) {
+            let oSection = this.getReportDefinition().sections[kSection];
+            let sReportSectionType = this.getReportDefinition().sections[kSection].type + 'ReportSection';
+            let oReportSection = new window.__Metadocx[sReportSectionType](this.app, this.getReportDefinition().sections[kSection]);
 
             switch (oSection.type) {
                 case 'HTML':
@@ -239,10 +239,10 @@ class Report {
         /**
          * Once html is inserted in report viewer call post render
          */
-        for (var kSection in this.getReportDefinition().sections) {
-            var oSection = this.getReportDefinition().sections[kSection];
-            var sReportSectionType = this.getReportDefinition().sections[kSection].type + 'ReportSection';
-            var oReportSection = new window.__Metadocx[sReportSectionType](this.app, this.getReportDefinition().sections[kSection]);
+        for (let kSection in this.getReportDefinition().sections) {
+            let oSection = this.getReportDefinition().sections[kSection];
+            let sReportSectionType = this.getReportDefinition().sections[kSection].type + 'ReportSection';
+            let oReportSection = new window.__Metadocx[sReportSectionType](this.app, this.getReportDefinition().sections[kSection]);
 
             switch (oSection.type) {
                 case 'HTML':
@@ -275,12 +275,12 @@ class Report {
 
     renderReportSettingsDataTable(oSection, oReportSection) {
 
-        var s = '';
-        var sFields = '<table id="' + oSection.id + '_fields" class="table table-condensed report-sortable">';
+        let s = '';
+        let sFields = '<table id="' + oSection.id + '_fields" class="table table-condensed report-sortable">';
         sFields += '<tbody>';
-        for (var x in oSection.model) {
+        for (let x in oSection.model) {
 
-            var sFieldSelected = ' checked';
+            let sFieldSelected = ' checked';
             if (!oReportSection.isColumnVisible(oSection.model[x].name)) {
                 sFieldSelected = '';
             }
@@ -310,16 +310,16 @@ class Report {
         /**
          * ORDER BY 
          */
-        var sOrderBy = '<table id="' + oSection.id + '_orderBy" class="table table-condensed report-sortable">';
+        let sOrderBy = '<table id="' + oSection.id + '_orderBy" class="table table-condensed report-sortable">';
         sOrderBy += '<tbody>';
-        for (var x in oSection.model) {
+        for (let x in oSection.model) {
 
 
-            var oOrderBy = oReportSection.getOrderBy(oSection.model[x].name);
+            let oOrderBy = oReportSection.getOrderBy(oSection.model[x].name);
 
-            var sAscSelected = '';
-            var sDescSelected = '';
-            var sOrderBySelected = '';
+            let sAscSelected = '';
+            let sDescSelected = '';
+            let sOrderBySelected = '';
             if (oOrderBy != null) {
                 if (oOrderBy.order == 'desc') {
                     sAscSelected = '';
@@ -349,15 +349,15 @@ class Report {
         /**
          * GROUP BY 
          */
-        var sGroupBy = '<table id="' + oSection.id + '_groupBy" class="table table-condensed report-sortable">';
+        let sGroupBy = '<table id="' + oSection.id + '_groupBy" class="table table-condensed report-sortable">';
         sGroupBy += '<tbody>';
-        for (var x in oSection.model) {
+        for (let x in oSection.model) {
 
-            var oGroupBy = oReportSection.getGroupBy(oSection.model[x].name);
+            let oGroupBy = oReportSection.getGroupBy(oSection.model[x].name);
 
-            var sAscSelected = '';
-            var sDescSelected = '';
-            var sGroupBySelected = '';
+            let sAscSelected = '';
+            let sDescSelected = '';
+            let sGroupBySelected = '';
             if (oGroupBy !== null) {
                 if (oGroupBy.order == 'desc') {
                     sAscSelected = '';
@@ -452,7 +452,7 @@ class Report {
         /**
          * Reorder table rows based on orderby and groupby config
          */
-        var reversedKeys = Object.keys(oSection.orderBy).reverse();
+        let reversedKeys = Object.keys(oSection.orderBy).reverse();
         reversedKeys.forEach(key => {
             $('#' + oSection.id + '_orderByRow_' + oSection.orderBy[key].name).prependTo('#' + oSection.id + '_orderBy');
         });
@@ -482,11 +482,11 @@ class Report {
         // $('#criteriaDetails_Department').collapse('show')
         // $('#criteriaDetails_Department').collapse('hide')
 
-        var sCriterias = '';
-        var aCriterias = [];
-        for (var x in this.getReportDefinition().criterias) {
+        let sCriterias = '';
+        let aCriterias = [];
+        for (let x in this.getReportDefinition().criterias) {
 
-            var oCriteria = new window.__Metadocx[this.getReportDefinition().criterias[x].type](this.app);
+            let oCriteria = new window.__Metadocx[this.getReportDefinition().criterias[x].type](this.app);
             oCriteria.id = this.getReportDefinition().criterias[x].id;
             oCriteria.reportCriteria = this.getReportDefinition().criterias[x];
             aCriterias.push(oCriteria);
@@ -510,7 +510,7 @@ class Report {
                         </div>`;
         }
 
-        var s = `<div class="accordion accordion-flush" id="reportCriteriaAccordion">
+        let s = `<div class="accordion accordion-flush" id="reportCriteriaAccordion">
                   ${sCriterias}  
                 </div>`;
 
@@ -519,13 +519,13 @@ class Report {
         /**
          * Load JS code for components
          */
-        for (var x in aCriterias) {
+        for (let x in aCriterias) {
             aCriterias[x].initializeJS();
         }
         this.app.viewer.criterias = aCriterias;
 
         // Set parent and child components
-        for (var x in aCriterias) {
+        for (let x in aCriterias) {
             if (aCriterias[x].reportCriteria.parent) {
                 this.app.viewer.getCriteria(aCriterias[x].reportCriteria.parent).addChildCriteria(aCriterias[x]);
             }
@@ -599,8 +599,8 @@ class Report {
         this._initialReportSettings = {
             sections: [],
         }
-        for (var x in this.getReportDefinition().sections) {
-            var oSection = this.getReportDefinition().sections[x];
+        for (let x in this.getReportDefinition().sections) {
+            let oSection = this.getReportDefinition().sections[x];
             switch (oSection.type) {
                 case 'HTML':
                     break;
@@ -629,7 +629,7 @@ class Report {
 
     getReportSection(id) {
 
-        for (var x in this.getReportDefinition().sections) {
+        for (let x in this.getReportDefinition().sections) {
             if (this.getReportDefinition().sections[x].id == id) {
                 return this.getReportDefinition().sections[x];
             }
@@ -644,8 +644,8 @@ class Report {
      */
     filter() {
 
-        for (var x in this.getReportDefinition().sections) {
-            var oFilter = new DataFilter(this.app);
+        for (let x in this.getReportDefinition().sections) {
+            let oFilter = new DataFilter(this.app);
             oFilter.setReportSection(this.getReportDefinition().sections[x]);
             oFilter.process();
         }
@@ -653,8 +653,8 @@ class Report {
     }
 
     sort() {
-        for (var x in this.getReportDefinition().sections) {
-            var oSorter = new DataSorter(this.app);
+        for (let x in this.getReportDefinition().sections) {
+            let oSorter = new DataSorter(this.app);
             oSorter.setReportSection(this.getReportDefinition().sections[x]);
             oSorter.process();
         }
@@ -670,7 +670,7 @@ class Report {
                 return;
             }
 
-            var reportUID = this.app.modules.DataType.uid();
+            let reportUID = this.app.modules.DataType.uid();
             this.app.modules.DB.saveReport({
                 reportId: this.getReportDefinition().id,
                 reportUID: reportUID,
@@ -688,7 +688,7 @@ class Report {
 
         } else {
             // Save as or replace existing report
-            var reportUID = $('#savedReports').val();
+            let reportUID = $('#savedReports').val();
             this.app.modules.DB.updateReport({
                 reportId: this.getReportDefinition().id,
                 reportUID: reportUID,
