@@ -54,14 +54,14 @@ class DataTable {
      * Called before the table HTML is rendered
      */
     preRender() {
-
+        return null;
     }
 
     /**
      * Called after the table HTML is rendered
      */
     postRender() {
-
+        return null;
     }
 
     /**
