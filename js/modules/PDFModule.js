@@ -32,7 +32,7 @@ class PDFModule extends Module {
 
         $('#pdfPaperSize').val(this.app.viewer.options.page.paperSize);
 
-        var paperSize = this.app.modules.Printing.getPaperSize($('#pdfPaperSize').val());
+        let paperSize = this.app.modules.Printing.getPaperSize($('#pdfPaperSize').val());
         $('#pdfPaperSizeWidth').val(paperSize.width);
         $('#pdfPaperSizeHeight').val(paperSize.height);
 
@@ -250,7 +250,7 @@ class PDFModule extends Module {
                 $('.pdfPaperSizeWidths').hide();
             }
 
-            var paperSize = this.app.modules.Printing.getPaperSize($('#pdfPaperSize').val());
+            let paperSize = this.app.modules.Printing.getPaperSize($('#pdfPaperSize').val());
             $('#pdfPaperSizeWidth').val(paperSize.width);
             $('#pdfPaperSizeHeight').val(paperSize.height);
         });
@@ -260,80 +260,80 @@ class PDFModule extends Module {
 
     getPDFExportOptions() {
 
-        var orientation = Metadocx.modules.Printing.PageOrientation.Portrait;
+        let orientation = Metadocx.modules.Printing.PageOrientation.Portrait;
         if ($('#pdfOrientationLandscape').prop('checked')) {
             orientation = Metadocx.modules.Printing.PageOrientation.Landscape;
         }
 
-        var paperSize = this.app.viewer.options.page.paperSize;
+        let paperSize = this.app.viewer.options.page.paperSize;
         if ($('#pdfPaperSize').length > 0) {
             paperSize = $('#pdfPaperSize').val();
         }
 
-        var paperSizeInfo = this.app.modules.Printing.getPaperSize(paperSize);
-        var width = paperSizeInfo.width;
-        var height = paperSizeInfo.height;
+        let paperSizeInfo = this.app.modules.Printing.getPaperSize(paperSize);
+        let width = paperSizeInfo.width;
+        let height = paperSizeInfo.height;
         if ($('#pdfPaperSizeWidth').length > 0) {
             width = $('#pdfPaperSizeWidth').val();
         }
         if ($('#pdfPaperSizeHeight').length > 0) {
             height = $('#pdfPaperSizeHeight').val();
         }
-        var grayscale = false;
+        let grayscale = false;
         if ($('#pdfGrayscale').length > 0) {
             grayscale = $('#pdfGrayscale').prop('checked');
         }
-        var marginTop = $('#pdfTopMargin').val();
+        let marginTop = $('#pdfTopMargin').val();
         if (marginTop == undefined) {
             marginTop = this.app.viewer.options.page.margins.top;
         }
-        var marginBottom = $('#pdfBottomMargin').val();
+        let marginBottom = $('#pdfBottomMargin').val();
         if (marginBottom == undefined) {
             marginBottom = this.app.viewer.options.page.margins.bottom;
         }
-        var marginLeft = $('#pdfLeftMargin').val();
+        let marginLeft = $('#pdfLeftMargin').val();
         if (marginLeft == undefined) {
             marginLeft = this.app.viewer.options.page.margins.left;
         }
-        var marginRight = $('#pdfRightMargin').val();
+        let marginRight = $('#pdfRightMargin').val();
         if (marginRight == undefined) {
             marginRight = this.app.viewer.options.page.margins.right;
         }
-        var pdfCompression = $('#pdfUseCompression').prop('checked');
+        let pdfCompression = $('#pdfUseCompression').prop('checked');
         if (pdfCompression == undefined) {
             pdfCompression = true;
         }
-        var outline = $('#pdfIncludeOutline').prop('checked');
+        let outline = $('#pdfIncludeOutline').prop('checked');
         if (outline == undefined) {
             outline = true;
         }
-        var backgroundGraphics = $('#pdfPrintBackgrounds').prop('checked');
+        let backgroundGraphics = $('#pdfPrintBackgrounds').prop('checked');
         if (backgroundGraphics == undefined) {
             backgroundGraphics = true;
         }
 
-        var headerLeft = $('#pdfHeaderLeft').val();
+        let headerLeft = $('#pdfHeaderLeft').val();
         if (headerLeft == undefined) {
             headerLeft = '';
         }
-        var headerCenter = $('#pdfHeaderCenter').val();
+        let headerCenter = $('#pdfHeaderCenter').val();
         if (headerCenter == undefined) {
             headerCenter = '';
         }
-        var headerRight = $('#pdfHeaderRight').val();
+        let headerRight = $('#pdfHeaderRight').val();
         if (headerRight == undefined) {
             headerRight = '';
         }
 
-        var footerLeft = $('#pdfFooterLeft').val();
+        let footerLeft = $('#pdfFooterLeft').val();
         if (footerLeft == undefined) {
             footerLeft = '';
         }
-        var footerCenter = $('#pdfFooterCenter').val();
+        let footerCenter = $('#pdfFooterCenter').val();
         if (footerCenter == undefined) {
             footerCenter = '';
         }
-        var footerRight = $('#pdfFooterRight').val();
+        let footerRight = $('#pdfFooterRight').val();
         if (footerRight == undefined) {
             footerRight = '';
         }
@@ -379,13 +379,13 @@ class PDFModule extends Module {
         /**
          * Get export options and hide dialog
          */
-        var pdfOptions = this.getPDFExportOptions();
+        let pdfOptions = this.getPDFExportOptions();
         this.hideExportDialog();
 
         /**
          * Show exporting dialog
          */
-        var exportDialog = bootbox.dialog({
+        let exportDialog = bootbox.dialog({
             title: 'Export to PDF',
             message: '<p><i class="fas fa-spin fa-spinner"></i> Exporting report to PDF...</p>'
         });
@@ -410,9 +410,9 @@ class PDFModule extends Module {
             success: (data, status, xhr) => {
 
 
-                var blob = new Blob([data]);
+                let blob = new Blob([data]);
 
-                var sContent = `Report has been converted to PDF, click on button to download file<br><br>
+                let sContent = `Report has been converted to PDF, click on button to download file<br><br>
                 <a class="btn btn-primary" href="${window.URL.createObjectURL(blob)}" download="Report.pdf" onClick="$('.bootbox.modal').modal('hide');">Download report</a>`;
 
                 exportDialog.find('.bootbox-body').html(sContent);
@@ -431,7 +431,7 @@ class PDFModule extends Module {
 
         var thisObject = this;
 
-        var loadingDialog = bootbox.dialog({
+        let loadingDialog = bootbox.dialog({
             message: '<p class="text-center mb-0"><i class="fas fa-spin fa-cog"></i> Generating and printing report...</p>',
             closeButton: false
         });
@@ -453,18 +453,18 @@ class PDFModule extends Module {
                 //console.log(data);
                 //console.log(status);
 
-                var pdfBlob = new Blob([data], { type: 'application/pdf' });
+                let pdfBlob = new Blob([data], { type: 'application/pdf' });
                 pdfBlob = window.URL.createObjectURL(pdfBlob)
 
                 $('#__metadocxPDFPrint').remove();
 
-                var printFrame = document.createElement('iframe');
+                let printFrame = document.createElement('iframe');
                 printFrame.setAttribute('style', 'visibility: hidden; height: 0; width: 0; position: absolute; border: 0');
                 printFrame.setAttribute('id', '__metadocxPDFPrint');
                 printFrame.setAttribute('src', pdfBlob);
 
                 document.getElementsByTagName('body')[0].appendChild(printFrame);
-                var iframeElement = document.getElementById('__metadocxPDFPrint');
+                let iframeElement = document.getElementById('__metadocxPDFPrint');
 
                 iframeElement.onload = () => {
                     iframeElement.focus();
