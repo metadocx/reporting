@@ -12,6 +12,10 @@ class CheckboxCriteria extends CriteriaControl {
         this.options = [];
     }
 
+    initializeJS() {
+        return null;
+    }
+
     /**
      * Render criteria HTML
      * @returns 
