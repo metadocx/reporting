@@ -22,11 +22,11 @@ class CheckboxCriteria extends CriteriaControl {
      */
     render() {
 
-        var sCheckboxes = '';
+        let sCheckboxes = '';
 
         if (Array.isArray(this.reportCriteria.options)) {
 
-            for (var x in this.reportCriteria.options) {
+            for (let x in this.reportCriteria.options) {
                 sCheckboxes += `<div class="col-3 form-check mb-2">
                                     <input class="form-check-input report-checkbox-criteria" data-criteria-id="${this.id}"  type="checkbox" id="chk${this.id}_${this.reportCriteria.options[x].id}" value="${this.reportCriteria.options[x].id}">
                                     <label class="form-check-label" for="chk${this.id}_${this.reportCriteria.options[x].id}">
@@ -74,9 +74,9 @@ class CheckboxCriteria extends CriteriaControl {
      */
     buildCheckboxesFromAjaxData(response) {
 
-        var sCheckboxes = '';
-        var data = response.results;
-        for (var x in data) {
+        let sCheckboxes = '';
+        let data = response.results;
+        for (let x in data) {
             sCheckboxes += `<div class="col-3 form-check mb-2">
                                 <input class="form-check-input report-checkbox-criteria" data-criteria-id="${this.id}"  type="checkbox" id="chk${this.id}_${data[x].id}" value="${data[x].id}">
                                 <label class="form-check-label" for="chk${this.id}_${data[x].id}">
@@ -95,12 +95,12 @@ class CheckboxCriteria extends CriteriaControl {
      * @returns 
      */
     buildCheckboxesFromReportData(field) {
-        var sCheckboxes = '';
-        var aOptions = [];
-        var aReportSections = this.app.viewer.report.getReportSections();
-        for (var s in aReportSections) {
-            for (var x in aReportSections[s].data) {
-                var row = aReportSections[s].data[x];
+        let sCheckboxes = '';
+        let aOptions = [];
+        let aReportSections = this.app.viewer.report.getReportSections();
+        for (let s in aReportSections) {
+            for (let x in aReportSections[s].data) {
+                let row = aReportSections[s].data[x];
                 if (aOptions.indexOf(row[field]) === -1) {
                     aOptions.push(row[field]);
                 }
@@ -109,8 +109,8 @@ class CheckboxCriteria extends CriteriaControl {
 
         aOptions.sort();
 
-        var nIndex = 0;
-        for (var x in aOptions) {
+        let nIndex = 0;
+        for (let x in aOptions) {
             sCheckboxes += `<div class="col-3 form-check mb-2">
                                     <input class="form-check-input report-checkbox-criteria" data-criteria-id="${this.id}"  type="checkbox" id="chk${this.id}_${nIndex}" value="${aOptions[x]}">
                                     <label class="form-check-label" for="chk${this.id}_${nIndex}">
@@ -130,7 +130,7 @@ class CheckboxCriteria extends CriteriaControl {
      */
     getValue() {
 
-        var values = [];
+        let values = [];
         $('.report-checkbox-criteria[data-criteria-id="' + this.id + '"]').each(function () {
             if ($(this).prop('checked')) {
                 values.push($(this).val());
@@ -147,7 +147,7 @@ class CheckboxCriteria extends CriteriaControl {
     setValue(v) {
         $('.report-checkbox-criteria[data-criteria-id="' + this.id + '"]').prop('checked', false);
         if (Array.isArray(v)) {
-            for (var x in v) {
+            for (let x in v) {
                 $('.report-checkbox-criteria[data-criteria-id="' + this.id + '"][value="' + v[x] + '"]').prop('checked', true);
             }
         }

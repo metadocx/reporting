@@ -34,8 +34,8 @@ class BooleanCriteria extends CriteriaControl {
     }
 
     getValue() {
-        var bYes = $('#' + this.id + '_yes').prop('checked');
-        var bNo = $('#' + this.id + '_no').prop('checked');
+        let bYes = $('#' + this.id + '_yes').prop('checked');
+        let bNo = $('#' + this.id + '_no').prop('checked');
 
         if (bYes && bNo) {
             return 'ALL';

@@ -59,11 +59,11 @@ class SelectCriteria extends CriteriaControl {
 
     render() {
 
-        var sOptionTags = '';
+        let sOptionTags = '';
 
         if (Array.isArray(this.reportCriteria.options)) {
 
-            for (var x in this.reportCriteria.options) {
+            for (let x in this.reportCriteria.options) {
                 sOptionTags += `<option value="${this.reportCriteria.options[x].id}">${this.reportCriteria.options[x].text}</option>`;
             }
 
@@ -99,12 +99,12 @@ class SelectCriteria extends CriteriaControl {
     }
 
     buildOptionTagsFromReportData(field) {
-        var sOptionTags = '';
-        var aOptions = [];
-        var aReportSections = this.app.viewer.report.getReportSections();
-        for (var s in aReportSections) {
-            for (var x in aReportSections[s].data) {
-                var row = aReportSections[s].data[x];
+        let sOptionTags = '';
+        let aOptions = [];
+        let aReportSections = this.app.viewer.report.getReportSections();
+        for (let s in aReportSections) {
+            for (let x in aReportSections[s].data) {
+                let row = aReportSections[s].data[x];
                 if (aOptions.indexOf(row[field]) === -1) {
                     aOptions.push(row[field]);
                 }
@@ -113,7 +113,7 @@ class SelectCriteria extends CriteriaControl {
 
         aOptions.sort();
 
-        for (var x in aOptions) {
+        for (let x in aOptions) {
             sOptionTags += `<option value="${aOptions[x]}">${aOptions[x]}</option>`;
         }
 
