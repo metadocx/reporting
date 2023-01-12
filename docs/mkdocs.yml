@@ -1,11 +1,11 @@
 site_name: 'Metadocx Reporting'
 site_author: 'Metadocx (Github Organization)'
-copyright: '<p>&copy <a href="https://github.com/metadocx/reporting"><em>Metadocx reporting</em></a><br/><span>This project is licensed under @todo.</span></p>'
+copyright: '<p>&copy <a href="https://github.com/metadocx/reporting"><em>Metadocx reporting</em></a><br/></p>'
 repo_name: 'reporting'
 repo_url: 'https://github.com/metadocx/reporting'
 edit_uri: 'edit/master/docs/content'
 docs_dir: 'content/'
-site_url: 'https://www.metadocx.com/docs'
+site_url: 'https://github.com/metadocx/reporting'
 theme:
   name: material
   custom_dir: 'overrides/'
@@ -107,5 +107,7 @@ nav:
       - 'Data' : reportdefinition/sections-data.md
   - 'Examples' : examples.md
   - 'Contributing' : 
-    - 'General Information': contributing/general.md
-    - 'Issues and Pull Requests': contributing/issues-and-pull-requests.md
+    - 'General Information': contributing/general.md    
+    - 'Codespace': contributing/codespace.md
+    - 'Style Guide': contributing/style.md
+    - 'Tests': contributing/tests.md
