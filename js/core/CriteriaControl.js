@@ -21,12 +21,16 @@ class CriteriaControl {
      * Initializes any javascript code for this criteria
      * Sets JS object (if any) to this._instance
      */
-    initializeJS() { }
+    initializeJS() {
+        throw new Error('Must redefine function initializeJS');
+    }
 
     /**
      * Renders the criterias HTML code
      */
-    render() { }
+    render() {
+        throw new Error('Must redefine function render');
+    }
 
     /**
      * Returns current JS instance of criteria UX component
