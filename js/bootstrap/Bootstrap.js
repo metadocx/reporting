@@ -20,7 +20,7 @@ if (!window.jQuery) {
     console.log('jQuery is not loaded, adding script tag');
 
     (function (d, s, id) {
-        var js, lsjs = d.getElementsByTagName(s)[0];
+        let js, lsjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) {
             console.log('Package is already loaded, skipping');
             return;
