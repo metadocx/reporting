@@ -57,7 +57,6 @@ class DBModule extends Module {
         const request = savedReports.add(savedReport);
 
         request.onsuccess = (event) => {
-            // event.target.result
             this.log('Transaction success, report saved');
             if (callback) {
                 callback();
@@ -79,7 +78,6 @@ class DBModule extends Module {
         const request = savedReports.put(savedReport);
 
         request.onsuccess = (event) => {
-            // event.target.result === customer.ssn;
             this.log('Transaction success, report updated');
             if (callback) {
                 callback(savedReport);
@@ -101,7 +99,6 @@ class DBModule extends Module {
         const request = savedReports.get(reportUID);
 
         request.onsuccess = (event) => {
-            // event.target.result === customer.ssn;
             this.log('Transaction success, report loaded');
             if (callback) {
                 callback(event.target.result);
@@ -154,7 +151,6 @@ class DBModule extends Module {
         const request = savedReports.delete(reportUID);
 
         request.onsuccess = (event) => {
-            // event.target.result === customer.ssn;
             this.log('Transaction success, report deleted');
             if (callback) {
                 callback(reportUID);

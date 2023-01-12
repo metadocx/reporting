@@ -13,7 +13,7 @@ class BooleanCriteria extends CriteriaControl {
     }
 
     initializeJS() {
-
+        return null;
     }
 
     render() {
