@@ -22,33 +22,6 @@ class ExcelModule extends Module {
 
         return this.exportExcel();
 
-        if (this.exportDialog === null) {
-            $(this.app.viewer.getContainerSelector()).append(this.renderExportDialog());
-            this.hookExportDialogComponents();
-            this.exportDialog = new bootstrap.Modal('#' + this.app.viewer.options.id + '_excelExportDialog', {})
-        }
-
-        $('#excelPaperSize').val(this.app.viewer.options.page.paperSize);
-
-        var paperSize = this.app.modules.Printing.getPaperSize($('#excelPaperSize').val());
-        $('#excelPaperSizeWidth').val(paperSize.width);
-        $('#excelPaperSizeHeight').val(paperSize.height);
-
-        if (this.app.viewer.options.page.orientation == Metadocx.modules.Printing.PageOrientation.Portrait) {
-            $('#excelOrientationPortrait').prop('checked', true);
-            $('#excelOrientationLandscape').prop('checked', false);
-        } else {
-            $('#excelOrientationPortrait').prop('checked', false);
-            $('#excelOrientationLandscape').prop('checked', true);
-        }
-
-        $('#excelTopMargin').val(this.app.viewer.options.page.margins.top);
-        $('#excelBottomMargin').val(this.app.viewer.options.page.margins.bottom);
-        $('#excelLeftMargin').val(this.app.viewer.options.page.margins.left);
-        $('#excelRightMargin').val(this.app.viewer.options.page.margins.right);
-
-        this.exportDialog.show();
-
     }
 
 
@@ -253,42 +226,6 @@ class ExcelModule extends Module {
     getExcelExportOptions() {
 
         return {};
-
-        var orientation = Metadocx.modules.Printing.PageOrientation.Portrait;
-        if ($('#excelOrientationLandscape').prop('checked')) {
-            orientation = Metadocx.modules.Printing.PageOrientation.Landscape;
-        }
-
-        return {
-            "page": {
-                "orientation": orientation,
-                "paperSize": $('#excelPaperSize').val(),
-                "width": $('#excelPaperSizeWidth').val(),
-                "height": $('#excelPaperSizeHeight').val(),
-                "margins": {
-                    "top": Metadocx.modules.UI.convertInchesToMM(parseFloat($('#excelTopMargin').val())),
-                    "bottom": Metadocx.modules.UI.convertInchesToMM(parseFloat($('#excelBottomMargin').val())),
-                    "left": Metadocx.modules.UI.convertInchesToMM(parseFloat($('#excelLeftMargin').val())),
-                    "right": Metadocx.modules.UI.convertInchesToMM(parseFloat($('#excelRightMargin').val()))
-                }
-            },
-            "grayscale": $('#excelGrayscale').prop('checked'),
-            "excelCompression": $('#excelUseCompression').prop('checked'),
-            "outline": $('#excelIncludeOutline').prop('checked'),
-            "backgroundGraphics": $('#excelPrintBackgrounds').prop('checked'),
-            "header": {
-                "left": $('#excelHeaderLeft').val(),
-                "center": $('#excelHeaderCenter').val(),
-                "right": $('#excelHeaderRight').val(),
-                "displayHeaderLine": $('#excelHeaderLine').prop('checked')
-            },
-            "footer": {
-                "left": $('#excelFooterLeft').val(),
-                "center": $('#excelFooterCenter').val(),
-                "right": $('#excelFooterRight').val(),
-                "displayFooterLine": $('#excelFooterLine').prop('checked')
-            }
-        };
 
     }
 

@@ -22,33 +22,6 @@ class WordModule extends Module {
 
         return this.exportWord();
 
-        if (this.exportDialog === null) {
-            $(this.app.viewer.getContainerSelector()).append(this.renderExportDialog());
-            this.hookExportDialogComponents();
-            this.exportDialog = new bootstrap.Modal('#' + this.app.viewer.options.id + '_wordExportDialog', {})
-        }
-
-        $('#wordPaperSize').val(this.app.viewer.options.page.paperSize);
-
-        var paperSize = this.app.modules.Printing.getPaperSize($('#wordPaperSize').val());
-        $('#wordPaperSizeWidth').val(paperSize.width);
-        $('#wordPaperSizeHeight').val(paperSize.height);
-
-        if (this.app.viewer.options.page.orientation == Metadocx.modules.Printing.PageOrientation.Portrait) {
-            $('#wordOrientationPortrait').prop('checked', true);
-            $('#wordOrientationLandscape').prop('checked', false);
-        } else {
-            $('#wordOrientationPortrait').prop('checked', false);
-            $('#wordOrientationLandscape').prop('checked', true);
-        }
-
-        $('#wordTopMargin').val(this.app.viewer.options.page.margins.top);
-        $('#wordBottomMargin').val(this.app.viewer.options.page.margins.bottom);
-        $('#wordLeftMargin').val(this.app.viewer.options.page.margins.left);
-        $('#wordRightMargin').val(this.app.viewer.options.page.margins.right);
-
-        this.exportDialog.show();
-
     }
 
 
@@ -252,41 +225,7 @@ class WordModule extends Module {
 
     getWordExportOptions() {
 
-        var orientation = Metadocx.modules.Printing.PageOrientation.Portrait;
-        if ($('#wordOrientationLandscape').prop('checked')) {
-            orientation = Metadocx.modules.Printing.PageOrientation.Landscape;
-        }
-
-        return {
-            "page": {
-                "orientation": orientation,
-                "paperSize": $('#wordPaperSize').val(),
-                "width": $('#wordPaperSizeWidth').val(),
-                "height": $('#wordPaperSizeHeight').val(),
-                "margins": {
-                    "top": Metadocx.modules.UI.convertInchesToMM(parseFloat($('#wordTopMargin').val())),
-                    "bottom": Metadocx.modules.UI.convertInchesToMM(parseFloat($('#wordBottomMargin').val())),
-                    "left": Metadocx.modules.UI.convertInchesToMM(parseFloat($('#wordLeftMargin').val())),
-                    "right": Metadocx.modules.UI.convertInchesToMM(parseFloat($('#wordRightMargin').val()))
-                }
-            },
-            "grayscale": $('#wordGrayscale').prop('checked'),
-            "wordCompression": $('#wordUseCompression').prop('checked'),
-            "outline": $('#wordIncludeOutline').prop('checked'),
-            "backgroundGraphics": $('#wordPrintBackgrounds').prop('checked'),
-            "header": {
-                "left": $('#wordHeaderLeft').val(),
-                "center": $('#wordHeaderCenter').val(),
-                "right": $('#wordHeaderRight').val(),
-                "displayHeaderLine": $('#wordHeaderLine').prop('checked')
-            },
-            "footer": {
-                "left": $('#wordFooterLeft').val(),
-                "center": $('#wordFooterCenter').val(),
-                "right": $('#wordFooterRight').val(),
-                "displayFooterLine": $('#wordFooterLine').prop('checked')
-            }
-        };
+        return {}
 
     }
 
