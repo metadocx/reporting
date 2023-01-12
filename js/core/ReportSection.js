@@ -25,23 +25,19 @@ class ReportSection {
     }
 
     preRender() {
+        return null;
     }
-
-
 
     render() {
-
+        return null;
     }
 
-
-
-
     getApplicableReportCriterias() {
-        var applicableCriterias = [];
-        var criterias = this.app.viewer.report.getReportDefinition().criterias;
-        for (var x in criterias) {
-            var criteria = criterias[x];
-            for (var y in criteria.applyTo) {
+        let applicableCriterias = [];
+        let criterias = this.app.viewer.report.getReportDefinition().criterias;
+        for (let x in criterias) {
+            let criteria = criterias[x];
+            for (let y in criteria.applyTo) {
                 if (criteria.applyTo[y].section == this.reportSection.id) {
                     applicableCriterias.push(criteria);
                 }
@@ -52,7 +48,7 @@ class ReportSection {
     }
 
     criteriaAppliesToReportSection(criteria) {
-        for (var x in criteria.applyTo) {
+        for (let x in criteria.applyTo) {
             if (criteria.applyTo[x].section == this.reportSection.id) {
                 return true;
             }
@@ -70,11 +66,11 @@ class ReportSection {
 
         this.reportSection.data.sort((a, b) => {
 
-            for (var x in this.reportSection.groupBy) {
+            for (let x in this.reportSection.groupBy) {
 
-                var column = this.getColumn(this.reportSection.groupBy[x].name)
-                var aValue = a[this.reportSection.groupBy[x].name];
-                var bValue = b[this.reportSection.groupBy[x].name];
+                let column = this.getColumn(this.reportSection.groupBy[x].name)
+                let aValue = a[this.reportSection.groupBy[x].name];
+                let bValue = b[this.reportSection.groupBy[x].name];
 
                 switch (column.type) {
                     case 'number':
@@ -104,11 +100,11 @@ class ReportSection {
                 }
             }
 
-            for (var x in this.reportSection.orderBy) {
+            for (let x in this.reportSection.orderBy) {
 
-                var column = this.getColumn(this.reportSection.orderBy[x].name)
-                var aValue = a[this.reportSection.orderBy[x].name];
-                var bValue = b[this.reportSection.orderBy[x].name];
+                let column = this.getColumn(this.reportSection.orderBy[x].name)
+                let aValue = a[this.reportSection.orderBy[x].name];
+                let bValue = b[this.reportSection.orderBy[x].name];
 
                 switch (column.type) {
                     case 'number':
@@ -148,7 +144,7 @@ class ReportSection {
 
     getOrderBy(name) {
         if (this.reportSection.orderBy) {
-            for (var x in this.reportSection.orderBy) {
+            for (let x in this.reportSection.orderBy) {
                 if (this.reportSection.orderBy[x].name == name) {
                     return this.reportSection.orderBy[x];
                 }
@@ -160,7 +156,7 @@ class ReportSection {
 
     getGroupBy(name) {
         if (this.reportSection.groupBy) {
-            for (var x in this.reportSection.groupBy) {
+            for (let x in this.reportSection.groupBy) {
                 if (this.reportSection.groupBy[x].name == name) {
                     return this.reportSection.groupBy[x];
                 }
