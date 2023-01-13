@@ -11,9 +11,34 @@ class HTMLReportSection extends ReportSection {
         super(app, reportSection);
     }
 
+
     render() {
+
+        let content = '';
+
+        if (Array.isArray(this.reportSection.content)) {
+            // Array of strings
+            content = this.reportSection.content.join('');
+        } else if (typeof this.reportSection.content === 'object') {
+            if (this.reportSection.content.url !== undefined) {
+                // Url ajax content
+                $.ajax(this.reportSection.content.url, {
+                    async: false,
+                    dataType: 'json',
+                    success: (data, status, xhr) => {
+                        content = data.content;
+                    }
+                });
+
+            }
+        } else {
+            // Default string content
+            content = this.reportSection.content;
+        }
+
+
         return `<div class="report-section-html">
-                    ${this.reportSection.content}
+                    ${content}
                 </div>`;
     }
 
