@@ -302,7 +302,7 @@
  */
 body {
     color:#495057;
-    font: "Roboto,sans-serif";
+    font: Helvetica, Arial, Verdana, Tahoma, sans-serif;
     background-color:#f7f8fa;
 }
 
@@ -1108,4 +1108,8 @@ i.uil {
     background-color:#1F2227;
     color: #fff;
     padding:50px;
+}
+
+.bootbox-accept {
+    margin-left:5px;
 }

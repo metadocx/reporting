@@ -8,25 +8,25 @@ Function.deserialise = function (key, data) {
         ;
 };
 Function.prototype.toJSON = function () {
-    var whitespace = /\s/;
-    var pair = /\(\)|\[\]|\{\}/;
+    let whitespace = /\s/;
+    let pair = /\(\)|\[\]|\{\}/;
 
-    var args = new Array();
-    var string = this.toString();
+    let args = new Array();
+    let string = this.toString();
 
-    var fat = (new RegExp(
+    let fat = (new RegExp(
         '^s*(' +
         ((this.name) ? this.name + '|' : '') +
         'function' +
         ')[^)]*\\('
     )).test(string);
 
-    var state = 'start';
-    var depth = new Array();
-    var tmp;
+    let state = 'start';
+    let depth = new Array();
+    let tmp;
 
-    for (var index = 0; index < string.length; ++index) {
-        var ch = string[index];
+    for (let index = 0; index < string.length; ++index) {
+        let ch = string[index];
 
         switch (state) {
             case 'start':
@@ -45,7 +45,7 @@ Function.prototype.toJSON = function () {
 
             case 'arg':
             case 'singleArg':
-                var escaped = depth.length > 0 && depth[depth.length - 1] == '\\';
+                let escaped = depth.length > 0 && depth[depth.length - 1] == '\\';
                 if (escaped) {
                     depth.pop();
                     continue;
@@ -67,7 +67,7 @@ Function.prototype.toJSON = function () {
                             continue;
                         }
                         if (state == 'singleArg')
-                            throw '';
+                            throw new Error('JSONFunction singleArg');
                         args.push(string.substring(tmp, index).trim());
                         state = (fat) ? 'body' : 'arrow';
                         break;
@@ -76,7 +76,7 @@ Function.prototype.toJSON = function () {
                         if (depth.length > 0)
                             continue;
                         if (state == 'singleArg')
-                            throw '';
+                            throw new Error('JSONFunction singleArg');
                         args.push(string.substring(tmp, index).trim());
                         tmp = index + 1;
                         break;
@@ -87,7 +87,7 @@ Function.prototype.toJSON = function () {
                         if (string[index - 1] != '=')
                             continue;
                         if (state == 'arg')
-                            throw '';
+                            throw new Error('JSONFunction arg');
                         args.push(string.substring(tmp, index - 1).trim());
                         state = 'body';
                         break;
@@ -121,9 +121,9 @@ Function.prototype.toJSON = function () {
                 if (whitespace.test(ch))
                     continue;
                 if (ch != '=')
-                    throw '';
+                    throw new Error('JSONFunction Error in arrow');
                 if (string[++index] != '>')
-                    throw '';
+                    throw new Error('JSONFunction Error in arrow');
                 state = 'body';
                 break;
 
@@ -141,7 +141,7 @@ Function.prototype.toJSON = function () {
                 break;
 
             default:
-                throw '';
+                throw new Error('JSONFunction');
         }
     }
 
@@ -295,12 +295,16 @@ class CriteriaControl {
      * Initializes any javascript code for this criteria
      * Sets JS object (if any) to this._instance
      */
-    initializeJS() { }
+    initializeJS() {
+        throw new Error('Must redefine function initializeJS');
+    }
 
     /**
      * Renders the criterias HTML code
      */
-    render() { }
+    render() {
+        throw new Error('Must redefine function render');
+    }
 
     /**
      * Returns current JS instance of criteria UX component
@@ -317,6 +321,14 @@ class CriteriaControl {
      */
     getIsEnabled() {
         return $('#criteriaEnabled_' + this.id).prop('checked');
+    }
+
+    /**
+     * Sets is criterias is enabled or not
+     * @param {*} bEnabled 
+     */
+    setIsEnabled(bEnabled) {
+        $('#criteriaEnabled_' + this.id).prop('checked', bEnabled);
     }
 
     /**
@@ -422,11 +434,11 @@ class DataFilter {
     }
 
     getApplicableReportCriterias() {
-        var applicableCriterias = [];
-        var criterias = this.app.viewer.report.getReportDefinition().criterias;
-        for (var x in criterias) {
-            var criteria = criterias[x];
-            for (var y in criteria.applyTo) {
+        let applicableCriterias = [];
+        let criterias = this.app.viewer.report.getReportDefinition().criterias;
+        for (let x in criterias) {
+            let criteria = criterias[x];
+            for (let y in criteria.applyTo) {
                 if (criteria.applyTo[y].section == this.reportSection.id) {
                     applicableCriterias.push(criteria);
                 }
@@ -444,36 +456,36 @@ class DataFilter {
         /**
          * Make all rows visible
          */
-        for (var x in this.data) {
+        for (let x in this.data) {
             this.data[x]['__visible'] = true;
         }
 
-        var aCriterias = this.criterias;
-        for (var x in aCriterias) {
+        let aCriterias = this.criterias;
+        for (let x in aCriterias) {
 
             /**
              * Check if criterias is enabled
              */
-            var criteriaValue = this.app.viewer.getCriteriaValue(aCriterias[x].id);
+            let criteriaValue = this.app.viewer.getCriteriaValue(aCriterias[x].id);
             if (criteriaValue && criteriaValue.enabled === false) {
                 continue;
             }
 
-            for (var r in this.data) {
-                for (var a in aCriterias[x].applyTo) {
+            for (let r in this.data) {
+                for (let a in aCriterias[x].applyTo) {
 
                     if (this.hasColumn(aCriterias[x].applyTo[a].field)) {
 
                         switch (aCriterias[x].type) {
                             case 'DatePeriodCriteria':
-                                if (this.data[r][aCriterias[x].applyTo[a].field] != criteriaValue.value) {
+                                if (!moment(this.data[r][aCriterias[x].applyTo[a].field]).isBetween(criteriaValue.value.startDate, criteriaValue.value.endDate, undefined, '[]')) {
                                     this.data[r]['__visible'] = false;
                                 }
                                 break;
                             case 'SelectCriteria':
-                                var selectedItems = criteriaValue.value;
-                                var bFound = false;
-                                for (var v in selectedItems) {
+                                let selectedItems = criteriaValue.value;
+                                let bFound = false;
+                                for (let v in selectedItems) {
                                     if (this.data[r][aCriterias[x].applyTo[a].field] == selectedItems[v].text) {
                                         bFound = true;
                                     }
@@ -558,7 +570,7 @@ class DataFilter {
      * @returns boolean
      */
     hasColumn(name) {
-        for (var x in this.model) {
+        for (let x in this.model) {
             if (this.model[x].name == name) {
                 return true;
             }
@@ -621,11 +633,11 @@ class DataSorter {
     }
 
     getApplicableReportCriterias() {
-        var applicableCriterias = [];
-        var criterias = this.app.viewer.report.getReportDefinition().criterias;
-        for (var x in criterias) {
-            var criteria = criterias[x];
-            for (var y in criteria.applyTo) {
+        let applicableCriterias = [];
+        let criterias = this.app.viewer.report.getReportDefinition().criterias;
+        for (let x in criterias) {
+            let criteria = criterias[x];
+            for (let y in criteria.applyTo) {
                 if (criteria.applyTo[y].section == this.reportSection.id) {
                     applicableCriterias.push(criteria);
                 }
@@ -648,11 +660,11 @@ class DataSorter {
 
         this.data.sort((a, b) => {
 
-            for (var x in this.groupBy) {
+            for (let x in this.groupBy) {
 
-                var column = this.getColumn(this.groupBy[x].name)
-                var aValue = a[this.groupBy[x].name];
-                var bValue = b[this.groupBy[x].name];
+                let column = this.getColumn(this.groupBy[x].name)
+                let aValue = a[this.groupBy[x].name];
+                let bValue = b[this.groupBy[x].name];
 
                 switch (column.type) {
                     case 'number':
@@ -682,11 +694,11 @@ class DataSorter {
                 }
             }
 
-            for (var x in this.orderBy) {
+            for (let x in this.orderBy) {
 
-                var column = this.getColumn(this.orderBy[x].name)
-                var aValue = a[this.orderBy[x].name];
-                var bValue = b[this.orderBy[x].name];
+                let column = this.getColumn(this.orderBy[x].name)
+                let aValue = a[this.orderBy[x].name];
+                let bValue = b[this.orderBy[x].name];
 
                 switch (column.type) {
                     case 'number':
@@ -730,7 +742,7 @@ class DataSorter {
      * @returns object
      */
     getColumn(name) {
-        for (var x in this.model) {
+        for (let x in this.model) {
             if (this.model[x].name == name) {
                 return this.model[x];
             }
@@ -795,14 +807,14 @@ class DataTable {
      * Called before the table HTML is rendered
      */
     preRender() {
-
+        return null;
     }
 
     /**
      * Called after the table HTML is rendered
      */
     postRender() {
-
+        return null;
     }
 
     /**
@@ -811,7 +823,7 @@ class DataTable {
      * @returns object
      */
     getColumn(name) {
-        for (var x in this.model) {
+        for (let x in this.model) {
             if (this.model[x].name == name) {
                 return this.model[x];
             }
@@ -826,7 +838,7 @@ class DataTable {
      * @returns boolean
      */
     setColumn(name, col) {
-        for (var x in this.model) {
+        for (let x in this.model) {
             if (this.model[x].name == name) {
                 this.model[x] = col;
                 return true;
@@ -842,7 +854,7 @@ class DataTable {
      * @returns boolean
      */
     hasColumn(name) {
-        for (var x in this.model) {
+        for (let x in this.model) {
             if (this.model[x].name == name) {
                 return true;
             }
@@ -857,11 +869,9 @@ class DataTable {
      */
     isColumnVisible(name) {
         if (this.hasColumn(name)) {
-            var column = this.getColumn(name);
-            if (column.visible == undefined) {
+            let column = this.getColumn(name);
+            if (this.app.modules.DataType.toBool(column.visible, true)) {
                 // visible by default
-                return true;
-            } else if (column.visible) {
                 return true;
             }
         }
@@ -874,7 +884,7 @@ class DataTable {
      * @param {*} name 
      */
     hideColumn(name) {
-        for (var x in this.model) {
+        for (let x in this.model) {
             if (this.model[x].name == name) {
                 this.model[x].visible = false;
             }
@@ -902,7 +912,7 @@ class DataTable {
             getMax: function (name) { return this.maxValues[name]; }
         }
 
-        var s = '';
+        let s = '';
         s += '<table id="' + this.id + '" class="table table-bordered table-hover table-report-section" data-report-section-id="' + this.id + '">';
 
         /**
@@ -910,9 +920,9 @@ class DataTable {
          */
         s += '<thead>';
         s += '<tr class="report-row-header">';
-        for (var y in this.model) {
-            var cellModel = this.model[y];
-            var cellStyle = 'font-weight:bold;';
+        for (let y in this.model) {
+            let cellModel = this.model[y];
+            let cellStyle = 'font-weight:bold;';
             if (cellModel['align']) {
                 cellStyle += 'text-align:' + cellModel['align'] + ';';
             }
@@ -931,20 +941,19 @@ class DataTable {
          */
         s += '<tbody>';
 
-        var previousRow = null;
-        for (var x in this.data) {
-            var row = this.data[x];
+        let previousRow = null;
+        for (let x in this.data) {
+            let row = this.data[x];
             if (!row['__visible']) {
                 continue;
             }
             s += this.renderGroupHeader(row, previousRow);
 
             s += '<tr class="report-row-data">';
-            for (var y in this.model) {
-                var cellStyle = '';
-                var cellModel = this.model[y];
-                var cellValue = row[this.model[y].name];
-                var cellDisplayValue = cellValue;
+            for (let y in this.model) {
+                let cellStyle = '';
+                let cellModel = this.model[y];
+                let cellValue = row[this.model[y].name];
 
                 if (cellModel['align']) {
                     cellStyle += 'text-align:' + cellModel['align'] + ';';
@@ -953,7 +962,7 @@ class DataTable {
                 /**
                  * Format numeric values
                  */
-                cellDisplayValue = this.app.modules.Format.format(cellValue, cellModel['type'], cellModel['format']);
+                let cellDisplayValue = this.app.modules.Format.format(cellValue, cellModel['type'], cellModel['format']);
 
                 if (cellModel["visible"] !== false) {
                     s += '<td class="report-cell-data" style="' + cellStyle + '">' + cellDisplayValue + '</td>';
@@ -989,7 +998,7 @@ class DataTable {
          * Grand total calculation
          */
         this.grandTotal.count++;
-        for (var y in this.model) {
+        for (let y in this.model) {
             if (this.model[y].formula) {
                 this.grandTotal.enabled = true;
                 if (this.model[y].type == 'number') {
@@ -1014,12 +1023,12 @@ class DataTable {
             return '';
         }
 
-        var s = '';
+        let s = '';
 
         /**
          * Check first if we must close group in reverse order
          */
-        for (var nLevel = this.getLevelCount(); nLevel >= 1; nLevel--) {
+        for (let nLevel = this.getLevelCount(); nLevel >= 1; nLevel--) {
 
             if (previousRow == null || previousRow[this.groupCounters['level' + nLevel].name] != row[this.groupCounters['level' + nLevel].name]) {
 
@@ -1029,12 +1038,12 @@ class DataTable {
                 if (this.groupCounters['level' + nLevel]) {
                     // Level exists close it
                     s += `<tr class="report-row-group-footer" data-close-level="${nLevel}">`;
-                    for (var y in this.model) {
+                    for (let y in this.model) {
 
-                        var cellModel = this.model[y];
-                        var cellStyle = 'font-weight:bold;';
-                        var cellValue = ''
-                        var cellDisplayValue = '';
+                        let cellModel = this.model[y];
+                        let cellStyle = 'font-weight:bold;';
+                        let cellValue = ''
+                        let cellDisplayValue = '';
 
                         if (cellModel['align']) {
                             cellStyle += 'text-align:' + cellModel['align'] + ';';
@@ -1096,8 +1105,8 @@ class DataTable {
         /**
          * Check if we start new groups
          */
-        var nLevel = 1;
-        for (var x in this.groupBy) {
+        let nLevel = 1;
+        for (let x in this.groupBy) {
 
             if (previousRow == null || previousRow[this.groupBy[x].name] != row[this.groupBy[x].name]) {
 
@@ -1127,9 +1136,9 @@ class DataTable {
         }
 
 
-        for (var x in this.groupCounters) {
+        for (let x in this.groupCounters) {
             this.groupCounters[x].count++;
-            for (var y in this.model) {
+            for (let y in this.model) {
                 if (this.model[y].formula) {
                     if (this.model[y].type == 'number') {
                         this.groupCounters[x].values[this.model[y].name] += this.app.modules.DataType.parseFloat(row[this.model[y].name]);
@@ -1159,12 +1168,12 @@ class DataTable {
      */
     closeAllGroups() {
 
-        var s = '';
+        let s = '';
 
         /**
          * Check first if we must close group in reverse order
          */
-        for (var nLevel = this.getLevelCount(); nLevel >= 1; nLevel--) {
+        for (let nLevel = this.getLevelCount(); nLevel >= 1; nLevel--) {
 
             /**
              * Close previous group with same level
@@ -1172,11 +1181,11 @@ class DataTable {
             if (this.groupCounters['level' + nLevel]) {
                 // Level exists close it
                 s += `<tr class="report-row-group-footer" data-close-level="${nLevel}">`;
-                for (var y in this.model) {
-                    var cellModel = this.model[y];
-                    var cellStyle = 'font-weight:bold;';
-                    var cellValue = '&nbsp;'
-                    var cellDisplayValue = '';
+                for (let y in this.model) {
+                    let cellModel = this.model[y];
+                    let cellStyle = 'font-weight:bold;';
+                    let cellValue = '&nbsp;'
+                    let cellDisplayValue = '';
                     if (cellModel['align']) {
                         cellStyle += 'text-align:' + cellModel['align'] + ';';
                     }
@@ -1231,12 +1240,12 @@ class DataTable {
          * Add grand total
          */
         if (this.app.modules.DataType.toBool(this.grandTotal.enabled)) {
-            s += `<tr class="report-row-grand-total" data-close-level="${nLevel}">`;
-            for (var y in this.model) {
-                var cellModel = this.model[y];
-                var cellStyle = 'font-weight:bold;';
-                var cellValue = '&nbsp;'
-                var cellDisplayValue = '';
+            s += `<tr class="report-row-grand-total">`;
+            for (let y in this.model) {
+                let cellModel = this.model[y];
+                let cellStyle = 'font-weight:bold;';
+                let cellValue = '&nbsp;'
+                let cellDisplayValue = '';
                 if (cellModel['align']) {
                     cellStyle += 'text-align:' + cellModel['align'] + ';';
                 }
@@ -1295,8 +1304,8 @@ class DataTable {
         if (defaultValue === undefined) {
             defaultValue = 0;
         }
-        var counters = {};
-        for (var x in this.model) {
+        let counters = {};
+        for (let x in this.model) {
             if (this.model[x].formula !== undefined && this.model[x].formula !== '') {
                 counters[this.model[x].name] = defaultValue;
             }
@@ -1309,8 +1318,8 @@ class DataTable {
      * @returns int
      */
     getLevelCount() {
-        var nCount = 0;
-        for (var x in this.groupCounters) {
+        let nCount = 0;
+        for (let x in this.groupCounters) {
             if (this.groupCounters[x]) { nCount++; }
         }
         return nCount;
@@ -1323,7 +1332,7 @@ class DataTable {
      */
     getOrderBy(name) {
         if (this.orderBy) {
-            for (var x in this.orderBy) {
+            for (let x in this.orderBy) {
                 if (this.orderBy[x].name == name) {
                     return this.orderBy[x];
                 }
@@ -1340,7 +1349,7 @@ class DataTable {
      */
     getGroupBy(name) {
         if (this.groupBy) {
-            for (var x in this.groupBy) {
+            for (let x in this.groupBy) {
                 if (this.groupBy[x].name == name) {
                     return this.groupBy[x];
                 }
@@ -1411,8 +1420,8 @@ class MetadocxApplication {
          * 
          * List available modules in Metadocx namespace 
          */
-        var aModules = [];
-        for (var x in window.__Metadocx) {
+        let aModules = [];
+        for (let x in window.__Metadocx) {
             if (x.endsWith('Module')) {
                 aModules.push(new window.__Metadocx[x](this));
             }
@@ -1430,7 +1439,7 @@ class MetadocxApplication {
          * Initialize modules
          */
         console.groupCollapsed('[Metadocx] Modules initialization');
-        for (var x in aModules) {
+        for (let x in aModules) {
             this.registerModule(aModules[x]);
         }
         console.groupEnd();
@@ -1438,7 +1447,7 @@ class MetadocxApplication {
         /**
          * Call other initialize callback scripts
          */
-        for (var x in this.onInitializeCallbacks) {
+        for (let x in this.onInitializeCallbacks) {
             this.onInitializeCallbacks[x]();
         }
 
@@ -1481,7 +1490,7 @@ class MetadocxApplication {
             this.scriptTag = document.querySelector('script[src$="metadocx.min.js"]');
         }
 
-        for (var x in this.scriptTag.dataset) {
+        for (let x in this.scriptTag.dataset) {
             this.viewer.options[x] = this.scriptTag.dataset[x];
         }
 
@@ -1591,23 +1600,19 @@ class ReportSection {
     }
 
     preRender() {
+        return null;
     }
-
-
 
     render() {
-
+        return null;
     }
 
-
-
-
     getApplicableReportCriterias() {
-        var applicableCriterias = [];
-        var criterias = this.app.viewer.report.getReportDefinition().criterias;
-        for (var x in criterias) {
-            var criteria = criterias[x];
-            for (var y in criteria.applyTo) {
+        let applicableCriterias = [];
+        let criterias = this.app.viewer.report.getReportDefinition().criterias;
+        for (let x in criterias) {
+            let criteria = criterias[x];
+            for (let y in criteria.applyTo) {
                 if (criteria.applyTo[y].section == this.reportSection.id) {
                     applicableCriterias.push(criteria);
                 }
@@ -1618,7 +1623,7 @@ class ReportSection {
     }
 
     criteriaAppliesToReportSection(criteria) {
-        for (var x in criteria.applyTo) {
+        for (let x in criteria.applyTo) {
             if (criteria.applyTo[x].section == this.reportSection.id) {
                 return true;
             }
@@ -1636,11 +1641,11 @@ class ReportSection {
 
         this.reportSection.data.sort((a, b) => {
 
-            for (var x in this.reportSection.groupBy) {
+            for (let x in this.reportSection.groupBy) {
 
-                var column = this.getColumn(this.reportSection.groupBy[x].name)
-                var aValue = a[this.reportSection.groupBy[x].name];
-                var bValue = b[this.reportSection.groupBy[x].name];
+                let column = this.getColumn(this.reportSection.groupBy[x].name)
+                let aValue = a[this.reportSection.groupBy[x].name];
+                let bValue = b[this.reportSection.groupBy[x].name];
 
                 switch (column.type) {
                     case 'number':
@@ -1670,11 +1675,11 @@ class ReportSection {
                 }
             }
 
-            for (var x in this.reportSection.orderBy) {
+            for (let x in this.reportSection.orderBy) {
 
-                var column = this.getColumn(this.reportSection.orderBy[x].name)
-                var aValue = a[this.reportSection.orderBy[x].name];
-                var bValue = b[this.reportSection.orderBy[x].name];
+                let column = this.getColumn(this.reportSection.orderBy[x].name)
+                let aValue = a[this.reportSection.orderBy[x].name];
+                let bValue = b[this.reportSection.orderBy[x].name];
 
                 switch (column.type) {
                     case 'number':
@@ -1714,7 +1719,7 @@ class ReportSection {
 
     getOrderBy(name) {
         if (this.reportSection.orderBy) {
-            for (var x in this.reportSection.orderBy) {
+            for (let x in this.reportSection.orderBy) {
                 if (this.reportSection.orderBy[x].name == name) {
                     return this.reportSection.orderBy[x];
                 }
@@ -1726,7 +1731,7 @@ class ReportSection {
 
     getGroupBy(name) {
         if (this.reportSection.groupBy) {
-            for (var x in this.reportSection.groupBy) {
+            for (let x in this.reportSection.groupBy) {
                 if (this.reportSection.groupBy[x].name == name) {
                     return this.reportSection.groupBy[x];
                 }
@@ -1756,7 +1761,7 @@ class Theme {
     }
 
     renderCoverPage() {
-        var s = '';
+        let s = '';
 
         s += `<div class="report-cover-page">
             <div class="report-cover-header"></div>
@@ -1838,7 +1843,7 @@ class DataTableReportSection extends ReportSection {
 
     render() {
 
-        var oTable = new DataTable(this.app);
+        let oTable = new DataTable(this.app);
         oTable.id = 'ReportSection_' + this.reportSection.id;
         oTable.data = this.reportSection.data;
         oTable.model = this.reportSection.model;
@@ -1847,7 +1852,7 @@ class DataTableReportSection extends ReportSection {
         oTable.criterias = this.getApplicableReportCriterias();
         oTable.criteriaValues = this.app.viewer.getCriteriaValues();
 
-        var s = '';
+        let s = '';
 
         this.preRender();
 
@@ -1868,7 +1873,7 @@ class DataTableReportSection extends ReportSection {
     }
 
     getColumn(name) {
-        for (var x in this.reportSection.model) {
+        for (let x in this.reportSection.model) {
             if (this.reportSection.model[x].name == name) {
                 return this.reportSection.model[x];
             }
@@ -1877,7 +1882,7 @@ class DataTableReportSection extends ReportSection {
     }
 
     setColumn(name, column) {
-        for (var x in this.reportSection.model) {
+        for (let x in this.reportSection.model) {
             if (this.reportSection.model[x].name == name) {
                 this.reportSection.model[x] = column;
                 return true;
@@ -1887,7 +1892,7 @@ class DataTableReportSection extends ReportSection {
     }
 
     hasColumn(name) {
-        for (var x in this.reportSection.model) {
+        for (let x in this.reportSection.model) {
             if (this.reportSection.model[x].name == name) {
                 return true;
             }
@@ -1897,7 +1902,7 @@ class DataTableReportSection extends ReportSection {
 
     isColumnVisible(name) {
         if (this.hasColumn(name)) {
-            var column = this.getColumn(name);
+            let column = this.getColumn(name);
             if (column.visible == undefined) {
                 // visible by default
                 return true;
@@ -1910,7 +1915,7 @@ class DataTableReportSection extends ReportSection {
     }
 
     hideColumn(name) {
-        for (var x in this.reportSection.model) {
+        for (let x in this.reportSection.model) {
             if (this.reportSection.model[x].name == name) {
                 this.reportSection.model[x].visible = false;
             }
@@ -1947,20 +1952,20 @@ class GraphReportSection extends ReportSection {
 
     buildGraphDataSets() {
 
-        var dataSets = [];
+        let dataSets = [];
         this._labels = [];
 
-        for (var x in this.reportSection.datasets) {
+        for (let x in this.reportSection.datasets) {
 
-            var ds = this.reportSection.datasets[x];
+            let ds = this.reportSection.datasets[x];
 
             if (ds.source = 'section') {
 
-                var data = {};
+                let data = {};
 
-                var oSection = this.app.viewer.report.getReportSection(ds.section);
-                for (var d in oSection.data) {
-                    var row = oSection.data[d];
+                let oSection = this.app.viewer.report.getReportSection(ds.section);
+                for (let d in oSection.data) {
+                    let row = oSection.data[d];
                     if (!row['__visible']) {
                         continue;
                     }
@@ -1990,8 +1995,8 @@ class GraphReportSection extends ReportSection {
 
                 }
 
-                var dataArray = [];
-                for (var x in data) {
+                let dataArray = [];
+                for (let x in data) {
 
                     /**
                      * Apply formula on data value
@@ -2021,7 +2026,7 @@ class GraphReportSection extends ReportSection {
                     dataArray.push(data[x]);
                 }
 
-                var oDS = {
+                let oDS = {
                     label: this.getModelLabel(ds.field, oSection.model) + this.getDataSetFormula(ds.formula),
                     data: dataArray.map(row => row.data)
                 };
@@ -2030,7 +2035,7 @@ class GraphReportSection extends ReportSection {
                  * Copy additional dataset options (see Chart.js doc)
                  */
                 if (ds.options) {
-                    for (var kOption in ds.options) {
+                    for (let kOption in ds.options) {
                         oDS[kOption] = ds.options[kOption];
                     }
                 }
@@ -2068,7 +2073,7 @@ class GraphReportSection extends ReportSection {
     }
 
     getModelLabel(field, model) {
-        for (var x in model) {
+        for (let x in model) {
             if (model[x].name == field) {
                 return model[x].label;
             }
@@ -2085,7 +2090,7 @@ class GraphReportSection extends ReportSection {
     initialiseJS() {
 
         if (this.reportSection.css) {
-            for (var x in this.reportSection.css) {
+            for (let x in this.reportSection.css) {
                 $('#' + this.reportSection.id + '_reportSection').css(x, this.reportSection.css[x]);
             }
         }
@@ -2097,28 +2102,27 @@ class GraphReportSection extends ReportSection {
         const datasets = this.buildGraphDataSets();
         const labels = this.buildGraphLabels(datasets);
 
-        var options = {};
+        let options = {};
         if (this.reportSection.options != undefined) {
             options = this.reportSection.options;
         }
 
-        var plugins = [];
+        let plugins = [];
 
         plugins.push({
             afterRender: () => {
-                var graphCanvas = document.getElementById(this.reportSection.id + '_graphCanvas');
-                var graphImage = document.getElementById(this.reportSection.id + '_graphImage');
+                let graphCanvas = document.getElementById(this.reportSection.id + '_graphCanvas');
+                let graphImage = document.getElementById(this.reportSection.id + '_graphImage');
                 graphImage.src = graphCanvas.toDataURL();
-                //$('#' + this.reportSection.id + '_graphCanvas').hide();
             },
             beforeUpdate: (chart, args, options) => {
 
-                var helpers = Chart.helpers;
-                var scheme = this.app.viewer.getTheme().getColorScheme();
-                var length, colorIndex, color;
+                let helpers = Chart.helpers;
+                let scheme = this.app.viewer.getTheme().getColorScheme();
+                let length, colorIndex, color;
 
-                var fillAlpha = 0.4;
-                var override = true;
+                let fillAlpha = 0.4;
+                let override = true;
 
                 if (scheme) {
 
@@ -2212,9 +2216,34 @@ class HTMLReportSection extends ReportSection {
         super(app, reportSection);
     }
 
+
     render() {
+
+        let content = '';
+
+        if (Array.isArray(this.reportSection.content)) {
+            // Array of strings
+            content = this.reportSection.content.join('');
+        } else if (typeof this.reportSection.content === 'object') {
+            if (this.reportSection.content.url !== undefined) {
+                // Url ajax content
+                $.ajax(this.reportSection.content.url, {
+                    async: false,
+                    dataType: 'json',
+                    success: (data, status, xhr) => {
+                        content = data.content;
+                    }
+                });
+
+            }
+        } else {
+            // Default string content
+            content = this.reportSection.content;
+        }
+
+
         return `<div class="report-section-html">
-                    ${this.reportSection.content}
+                    ${content}
                 </div>`;
     }
 
@@ -2412,7 +2441,7 @@ class Report {
             return;
         }
 
-        var s = '';
+        let s = '';
 
         s += `<div class="card">
                 <div class="card-header">
@@ -2430,10 +2459,10 @@ class Report {
                 </div>
             </div>`;
 
-        for (var kSection in this.getReportDefinition().sections) {
-            var oSection = this.getReportDefinition().sections[kSection];
-            var sReportSectionType = this.getReportDefinition().sections[kSection].type + 'ReportSection';
-            var oReportSection = new window.__Metadocx[sReportSectionType](this.app, this.getReportDefinition().sections[kSection]);
+        for (let kSection in this.getReportDefinition().sections) {
+            let oSection = this.getReportDefinition().sections[kSection];
+            let sReportSectionType = this.getReportDefinition().sections[kSection].type + 'ReportSection';
+            let oReportSection = new window.__Metadocx[sReportSectionType](this.app, this.getReportDefinition().sections[kSection]);
 
             switch (oSection.type) {
                 case 'HTML':
@@ -2461,10 +2490,10 @@ class Report {
         /**
          * Once html is inserted in report viewer call post render
          */
-        for (var kSection in this.getReportDefinition().sections) {
-            var oSection = this.getReportDefinition().sections[kSection];
-            var sReportSectionType = this.getReportDefinition().sections[kSection].type + 'ReportSection';
-            var oReportSection = new window.__Metadocx[sReportSectionType](this.app, this.getReportDefinition().sections[kSection]);
+        for (let kSection in this.getReportDefinition().sections) {
+            let oSection = this.getReportDefinition().sections[kSection];
+            let sReportSectionType = this.getReportDefinition().sections[kSection].type + 'ReportSection';
+            let oReportSection = new window.__Metadocx[sReportSectionType](this.app, this.getReportDefinition().sections[kSection]);
 
             switch (oSection.type) {
                 case 'HTML':
@@ -2497,12 +2526,12 @@ class Report {
 
     renderReportSettingsDataTable(oSection, oReportSection) {
 
-        var s = '';
-        var sFields = '<table id="' + oSection.id + '_fields" class="table table-condensed report-sortable">';
+        let s = '';
+        let sFields = '<table id="' + oSection.id + '_fields" class="table table-condensed report-sortable">';
         sFields += '<tbody>';
-        for (var x in oSection.model) {
+        for (let x in oSection.model) {
 
-            var sFieldSelected = ' checked';
+            let sFieldSelected = ' checked';
             if (!oReportSection.isColumnVisible(oSection.model[x].name)) {
                 sFieldSelected = '';
             }
@@ -2532,16 +2561,16 @@ class Report {
         /**
          * ORDER BY 
          */
-        var sOrderBy = '<table id="' + oSection.id + '_orderBy" class="table table-condensed report-sortable">';
+        let sOrderBy = '<table id="' + oSection.id + '_orderBy" class="table table-condensed report-sortable">';
         sOrderBy += '<tbody>';
-        for (var x in oSection.model) {
+        for (let x in oSection.model) {
 
 
-            var oOrderBy = oReportSection.getOrderBy(oSection.model[x].name);
+            let oOrderBy = oReportSection.getOrderBy(oSection.model[x].name);
 
-            var sAscSelected = '';
-            var sDescSelected = '';
-            var sOrderBySelected = '';
+            let sAscSelected = '';
+            let sDescSelected = '';
+            let sOrderBySelected = '';
             if (oOrderBy != null) {
                 if (oOrderBy.order == 'desc') {
                     sAscSelected = '';
@@ -2571,15 +2600,15 @@ class Report {
         /**
          * GROUP BY 
          */
-        var sGroupBy = '<table id="' + oSection.id + '_groupBy" class="table table-condensed report-sortable">';
+        let sGroupBy = '<table id="' + oSection.id + '_groupBy" class="table table-condensed report-sortable">';
         sGroupBy += '<tbody>';
-        for (var x in oSection.model) {
+        for (let x in oSection.model) {
 
-            var oGroupBy = oReportSection.getGroupBy(oSection.model[x].name);
+            let oGroupBy = oReportSection.getGroupBy(oSection.model[x].name);
 
-            var sAscSelected = '';
-            var sDescSelected = '';
-            var sGroupBySelected = '';
+            let sAscSelected = '';
+            let sDescSelected = '';
+            let sGroupBySelected = '';
             if (oGroupBy !== null) {
                 if (oGroupBy.order == 'desc') {
                     sAscSelected = '';
@@ -2674,9 +2703,8 @@ class Report {
         /**
          * Reorder table rows based on orderby and groupby config
          */
-        var reversedKeys = Object.keys(oSection.orderBy).reverse();
+        let reversedKeys = Object.keys(oSection.orderBy).reverse();
         reversedKeys.forEach(key => {
-            //console.log(key, oSection.orderBy[key]);                
             $('#' + oSection.id + '_orderByRow_' + oSection.orderBy[key].name).prependTo('#' + oSection.id + '_orderBy');
         });
 
@@ -2686,7 +2714,6 @@ class Report {
          */
         reversedKeys = Object.keys(oSection.groupBy).reverse();
         reversedKeys.forEach(key => {
-            //console.log(key, oSection.orderBy[key]);                
             $('#' + oSection.id + '_groupByRow_' + oSection.groupBy[key].name).prependTo('#' + oSection.id + '_groupBy');
         });
     }
@@ -2706,11 +2733,11 @@ class Report {
         // $('#criteriaDetails_Department').collapse('show')
         // $('#criteriaDetails_Department').collapse('hide')
 
-        var sCriterias = '';
-        var aCriterias = [];
-        for (var x in this.getReportDefinition().criterias) {
+        let sCriterias = '';
+        let aCriterias = [];
+        for (let x in this.getReportDefinition().criterias) {
 
-            var oCriteria = new window.__Metadocx[this.getReportDefinition().criterias[x].type](this.app);
+            let oCriteria = new window.__Metadocx[this.getReportDefinition().criterias[x].type](this.app);
             oCriteria.id = this.getReportDefinition().criterias[x].id;
             oCriteria.reportCriteria = this.getReportDefinition().criterias[x];
             aCriterias.push(oCriteria);
@@ -2734,7 +2761,7 @@ class Report {
                         </div>`;
         }
 
-        var s = `<div class="accordion accordion-flush" id="reportCriteriaAccordion">
+        let s = `<div class="accordion accordion-flush" id="reportCriteriaAccordion">
                   ${sCriterias}  
                 </div>`;
 
@@ -2743,13 +2770,13 @@ class Report {
         /**
          * Load JS code for components
          */
-        for (var x in aCriterias) {
+        for (let x in aCriterias) {
             aCriterias[x].initializeJS();
         }
         this.app.viewer.criterias = aCriterias;
 
         // Set parent and child components
-        for (var x in aCriterias) {
+        for (let x in aCriterias) {
             if (aCriterias[x].reportCriteria.parent) {
                 this.app.viewer.getCriteria(aCriterias[x].reportCriteria.parent).addChildCriteria(aCriterias[x]);
             }
@@ -2823,8 +2850,8 @@ class Report {
         this._initialReportSettings = {
             sections: [],
         }
-        for (var x in this.getReportDefinition().sections) {
-            var oSection = this.getReportDefinition().sections[x];
+        for (let x in this.getReportDefinition().sections) {
+            let oSection = this.getReportDefinition().sections[x];
             switch (oSection.type) {
                 case 'HTML':
                     break;
@@ -2853,7 +2880,7 @@ class Report {
 
     getReportSection(id) {
 
-        for (var x in this.getReportDefinition().sections) {
+        for (let x in this.getReportDefinition().sections) {
             if (this.getReportDefinition().sections[x].id == id) {
                 return this.getReportDefinition().sections[x];
             }
@@ -2868,8 +2895,8 @@ class Report {
      */
     filter() {
 
-        for (var x in this.getReportDefinition().sections) {
-            var oFilter = new DataFilter(this.app);
+        for (let x in this.getReportDefinition().sections) {
+            let oFilter = new DataFilter(this.app);
             oFilter.setReportSection(this.getReportDefinition().sections[x]);
             oFilter.process();
         }
@@ -2877,11 +2904,101 @@ class Report {
     }
 
     sort() {
-        for (var x in this.getReportDefinition().sections) {
-            var oSorter = new DataSorter(this.app);
+        for (let x in this.getReportDefinition().sections) {
+            let oSorter = new DataSorter(this.app);
             oSorter.setReportSection(this.getReportDefinition().sections[x]);
             oSorter.process();
         }
+    }
+
+
+    save() {
+
+        if ($('#newOption').prop('checked')) {
+            // Create new report
+
+            if ($('#saveReportName').val().trim() == '') {
+                return;
+            }
+
+            let reportUID = this.app.modules.DataType.uid();
+            this.app.modules.DB.saveReport({
+                reportId: this.getReportDefinition().id,
+                reportUID: reportUID,
+                metadocxVersion: this.app.version,
+                creationDate: moment().format('YYYY-MM-DD HH:mm:ss'),
+                name: $('#saveReportName').val(),
+                criteriaValues: Metadocx.viewer.getCriteriaValues()
+            }, () => {
+                this.app.viewer.showToastMessage('Report saved');
+            });
+            this.app.viewer.currentSavedReport = reportUID;
+            this.app.viewer.updateUI();
+            this.app.viewer.saveDialog.hide();
+
+
+        } else {
+            // Save as or replace existing report
+            let reportUID = $('#savedReports').val();
+            this.app.modules.DB.updateReport({
+                reportId: this.getReportDefinition().id,
+                reportUID: reportUID,
+                metadocxVersion: this.app.version,
+                creationDate: moment().format('YYYY-MM-DD HH:mm:ss'),
+                name: $("#savedReports option:selected").text(),
+                criteriaValues: Metadocx.viewer.getCriteriaValues()
+            }, (report) => {
+                this.app.viewer.showToastMessage(this.app.modules.Locale.getKey('ReportSaved') + ' - ' + report.name);
+            });
+            this.app.viewer.currentSavedReport = reportUID;
+            this.app.viewer.updateUI();
+            this.app.viewer.saveDialog.hide();
+
+        }
+
+
+    }
+
+    /**
+     * Open a saved report
+     */
+    open() {
+        this.app.modules.DB.getReport($('#savedReports').val(), (report) => {
+
+            if (report == null) {
+                return;
+            }
+            this.app.viewer.setCriteriaValues(report.criteriaValues);
+            this.app.viewer.currentSavedReport = report.reportUID;
+            this.app.viewer.saveDialog.hide();
+            this.app.viewer.updateUI();
+            this.app.viewer.refreshReport();
+            this.app.viewer.showToastMessage(this.app.modules.Locale.getKey('ReportOpened') + ' - ' + report.name);
+
+        });
+    }
+
+    delete() {
+
+        if (this.app.viewer.currentSavedReport === null) {
+            return;
+        }
+
+        bootbox.confirm({
+            message: this.app.modules.Locale.getKey('DeleteReport'),
+            title: this.app.modules.Locale.getKey('Delete'),
+            callback: (result) => {
+                if (result) {
+                    // Delete the report
+                    this.app.modules.DB.deleteReport(this.app.viewer.currentSavedReport,
+                        (reportUID) => {
+                            this.app.viewer.currentSavedReport = null;
+                            this.app.viewer.updateUI();
+                            this.app.viewer.showToastMessage(this.app.modules.Locale.getKey('ReportDeleted'));
+                        });
+                }
+            }
+        });
     }
 
 
@@ -2908,10 +3025,10 @@ class ReportCanvas {
      */
     render() {
 
-        var s = '';
-        var sReportSection = '';
+        let s = '';
+        let sReportSection = '';
 
-        var oReportTemplate = new Theme(this.app);
+        let oReportTemplate = new Theme(this.app);
 
         if (window.__Metadocx.Themes[this.viewer.options.template] != undefined) {
             oReportTemplate = new window.__Metadocx.Themes[this.viewer.options.template](this.app);
@@ -2927,10 +3044,10 @@ class ReportCanvas {
                   </div>`;
         }
 
-        for (var x in this.report.getReportDefinition().sections) {
+        for (let x in this.report.getReportDefinition().sections) {
 
-            var sReportSectionType = this.report.getReportDefinition().sections[x].type + 'ReportSection';
-            var oReportSection = new window.__Metadocx[sReportSectionType](this.app, this.report.getReportDefinition().sections[x]);
+            let sReportSectionType = this.report.getReportDefinition().sections[x].type + 'ReportSection';
+            let oReportSection = new window.__Metadocx[sReportSectionType](this.app, this.report.getReportDefinition().sections[x]);
             this.reportSections.push(oReportSection);
 
             if (this.app.modules.DataType.toBool(this.report.getReportDefinition().sections[x].breakBefore)) {
@@ -2965,7 +3082,7 @@ class ReportCanvas {
     }
 
     initialiseJS() {
-        for (var x in this.reportSections) {
+        for (let x in this.reportSections) {
             if (this.reportSections[x].initialiseJS != undefined) {
                 this.reportSections[x].initialiseJS();
             }
@@ -3399,7 +3516,7 @@ class ReportValidator {
             path = '';
         }
 
-        for (var x in jsonXls) {
+        for (let x in jsonXls) {
             if (x.startsWith('__')) {
                 // Meta property
                 continue;
@@ -3466,8 +3583,8 @@ class ReportValidator {
             if (jsonXls[x].__type === 'array') {
                 if (jsonXls[x].__model) {
                     // Check model for each item of array
-                    var aItems = this.getValue(this.buildPath(path, x));
-                    for (var i in aItems) {
+                    let aItems = this.getValue(this.buildPath(path, x));
+                    for (let i in aItems) {
                         this.validateJsonFormat(jsonXls[x].__model, this.buildPath(this.buildPath(path, x), i));
                     }
                 }
@@ -3514,7 +3631,7 @@ class ReportValidator {
 
         //console.log('p=' + path + ', pp=' + parentPath);
 
-        for (var x in section) {
+        for (let x in section) {
 
             if (!this.keyExists(this.buildPath(path, x), definition)) {
                 this.logWarning('Found Key ' + this.buildPath(parentPath, this.buildPath(path, x)) + ' that is not defined in report definition specification');
@@ -3524,9 +3641,9 @@ class ReportValidator {
 
                 if (this.getValue(this.buildPath(path, x), definition) !== null && this.getValue(this.buildPath(path, x), definition).__model !== undefined) {
                     // Check model for each item of array
-                    var aItems = this.getValue(this.buildPath(path, x));
-                    var model = this.getValue(this.buildPath(path, x), definition).__model;
-                    for (var i in aItems) {
+                    let aItems = this.getValue(this.buildPath(path, x));
+                    let model = this.getValue(this.buildPath(path, x), definition).__model;
+                    for (let i in aItems) {
                         this.checkForAdditionalKeys(aItems[i], '', model, this.buildPath(parentPath, this.buildPath(this.buildPath(path, x), i)));
                     }
                 }
@@ -3575,9 +3692,9 @@ class ReportValidator {
             object = this.reportDefinition;
         }
 
-        var root = object;
-        var path = key.split('.');
-        for (var x in path) {
+        let root = object;
+        let path = key.split('.');
+        for (let x in path) {
             if (root[path[x]] !== undefined) {
                 root = root[path[x]];
             } else {
@@ -3598,8 +3715,8 @@ class ReportValidator {
             object = this.reportDefinition;
         }
 
-        var way = key.split('.');
-        var last = way.pop();
+        let way = key.split('.');
+        let last = way.pop();
 
         way.reduce(function (o, k, i, kk) {
             return o[k] = o[k] || (isFinite(i + 1 in kk ? kk[i + 1] : last) ? [] : {});
@@ -3620,9 +3737,9 @@ class ReportValidator {
             object = this.reportDefinition;
         }
 
-        var root = object;
-        var path = key.split('.');
-        for (var x in path) {
+        let root = object;
+        let path = key.split('.');
+        for (let x in path) {
             if (root[path[x]] !== undefined) {
                 root = root[path[x]];
             } else {
@@ -3725,6 +3842,14 @@ class ReportViewer extends Consolable {
          */
         this.optionsDialog = null;
         /**
+         * Save dialog instance
+         */
+        this.saveDialog = null;
+        /**
+         * Saved report UID
+         */
+        this.currentSavedReport = null;
+        /**
          * Field properties dialog instance 
          */
         this.fieldPropertiesDialog = null;
@@ -3742,6 +3867,13 @@ class ReportViewer extends Consolable {
          */
         this.report = new Report();
 
+        /**
+         * 
+         */
+        this.toastInstance = null;
+        /**
+         * 
+         */
         this.theme = null;
 
         /**
@@ -3764,7 +3896,8 @@ class ReportViewer extends Consolable {
             "additionalCSS": "",
             "template": "Theme2",
             "toolbar": {
-                "showLocaleButton": true,
+                "showSaveButton": true,
+                "showLocaleButton": false,
                 "showOptionsButton": true,
                 "showSettingsButton": true,
                 "showCriteriasButton": true,
@@ -3859,8 +3992,8 @@ class ReportViewer extends Consolable {
      * @returns array
      */
     getCriteriaTypes() {
-        var aCriteriaType = [];
-        for (var x in window.__Metadocx) {
+        let aCriteriaType = [];
+        for (let x in window.__Metadocx) {
             if (x.endsWith('Criteria')) {
                 aCriteriaType.push(x);
             }
@@ -3983,16 +4116,19 @@ class ReportViewer extends Consolable {
      */
     render() {
         this.log('Report viewer render');
-        var s = '';
+        let s = '';
 
         s += this.renderMainLayout();
         s += this.renderReportCriterias();
         s += this.renderOptionsDialog();
+        s += this.renderSaveDialog();
         s += this.renderReportSettings();
         s += this.renderFieldPropertiesDialog();
 
         $('#' + this.options.container).html(s);
         $('.report-viewer-criterias').hide();
+
+        this.updateUI();
 
         this.app.modules.Locale.translate();
 
@@ -4004,7 +4140,7 @@ class ReportViewer extends Consolable {
     showNoReportAlert() {
 
         this.log('No report data, displaying no report warning');
-        var s = `<div class="alert alert-warning mb-0 report-no-definition" role="alert">
+        let s = `<div class="alert alert-warning mb-0 report-no-definition" role="alert">
                     <h4 class="alert-heading" data-locale="MissingReportDefinition">Missing report definition</h4>
                     <p data-locale="OupsNoReport">Oups! Something went wrong. We did not get a report to load.</p>                    
                 </div>`;
@@ -4020,21 +4156,21 @@ class ReportViewer extends Consolable {
     renderMainLayout() {
 
         this.log('Render main layout');
-        var sCloseButtonClasses = '';
+        let sCloseButtonClasses = '';
         if (window.opener == null) {
             // This window is not open by script can not use close button
             sCloseButtonClasses = ' hidden';
         }
 
-        var sExportPDFClasses = '';
+        let sExportPDFClasses = '';
         if (!this.options.exportFormats.pdf) {
             sExportPDFClasses = ' hidden';
         }
-        var sExportWordClasses = '';
+        let sExportWordClasses = '';
         if (!this.options.exportFormats.word) {
             sExportWordClasses = ' hidden';
         }
-        var sExportExcelClasses = '';
+        let sExportExcelClasses = '';
         if (!this.options.exportFormats.excel) {
             sExportExcelClasses = ' hidden';
         }
@@ -4056,6 +4192,16 @@ class ReportViewer extends Consolable {
                      </div>
                  </div>
                  <div class="d-flex">                   
+                    <div class="btn-group me-2 mb-2 mb-sm-0 report-toolbar-button">
+                         <button id="${this.options.id}_file" type="button" class="btn header-item dropdown-toggle" data-bs-toggle="dropdown">
+                            <i class="uil uil-file"></i>
+                         </button>
+                         <div class="dropdown-menu">
+                             <a id="${this.options.id}_open" class="dropdown-item" href="#" onClick="Metadocx.viewer.showSaveDialog('open');"><i class="uil uil-folder-open" style="font-size:16px;"></i> <span data-locale="Open">Open</span></a>
+                             <a id="${this.options.id}_save" class="dropdown-item" href="#" onClick="Metadocx.viewer.showSaveDialog('save');"><i class="uil uil-save" style="font-size:16px;"></i> <span data-locale="Save">Save</span></a>
+                             <a id="${this.options.id}_delete" class="dropdown-item" href="#" onClick="Metadocx.viewer.report.delete();"><i class="uil uil-trash" style="font-size:16px;"></i> <span data-locale="Delete">Delete</span></a>
+                         </div>
+                     </div>
                     <div id="${this.options.id}_localeGroup" class="btn-group me-2 mb-2 mb-sm-0 report-toolbar-button">
                          <button id="${this.options.id}_locale" type="button" class="btn header-item dropdown-toggle" data-bs-toggle="dropdown">
                             <i class="uil uil-english-to-chinese"></i>
@@ -4069,9 +4215,9 @@ class ReportViewer extends Consolable {
                             <i class="uil uil-file-export"></i>
                          </button>
                          <div class="dropdown-menu">
-                             <a id="${this.options.id}_exportPdf" class="dropdown-item${sExportPDFClasses}" href="#" onClick="Metadocx.viewer.report.exportReport('PDF');">PDF</a>
-                             <a id="${this.options.id}_exportExcel" class="dropdown-item${sExportExcelClasses}" href="#" onClick="Metadocx.viewer.report.exportReport('Excel');">Excel</a>
-                             <a id="${this.options.id}_exportWord" class="dropdown-item${sExportWordClasses}" href="#" onClick="Metadocx.viewer.report.exportReport('Word');">Word</a>
+                             <a id="${this.options.id}_exportPdf" class="dropdown-item${sExportPDFClasses}" href="#" onClick="Metadocx.viewer.report.exportReport('PDF');" data-locale="PDF">PDF</a>
+                             <a id="${this.options.id}_exportExcel" class="dropdown-item${sExportExcelClasses}" href="#" onClick="Metadocx.viewer.report.exportReport('Excel');" data-locale="Excel">Excel</a>
+                             <a id="${this.options.id}_exportWord" class="dropdown-item${sExportWordClasses}" href="#" onClick="Metadocx.viewer.report.exportReport('Word');" data-locale="Word">Word</a>
                          </div>
                      </div>
                      <div class="me-2 mb-2 mb-sm-0 report-toolbar-button">
@@ -4097,7 +4243,19 @@ class ReportViewer extends Consolable {
          <div id="${this.options.id}_reportDefinitionViewer" class="report-definition-code-viewer" style="display:none;">
             <pre id="${this.options.id}_reportDefinitionPre"></pre>
          </div>
-         <div class="powered-by no-print"><span data-locale="PoweredBy">powered by</span> <a href="https://www.metadocx.com" target="_blank">Metadocx</a></div>`;
+         <div class="powered-by no-print"><span data-locale="PoweredBy">powered by</span> <a href="https://www.metadocx.com" target="_blank">Metadocx</a></div>
+         <div class="toast-container position-fixed bottom-0 end-0 p-3">     
+         <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">                
+                <strong class="me-auto">Metadocx</strong>
+                <small></small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div id="toastBody" class="toast-body">
+                Hello, world! This is a toast message.
+            </div>
+         </div>
+        </div>`;
 
     }
 
@@ -4253,6 +4411,157 @@ class ReportViewer extends Consolable {
 
     }
 
+
+    /**
+     * Render report save dialoag html
+     * @returns 
+     */
+    renderSaveDialog() {
+
+        /**
+         * Options dialog
+         */
+        this.log('Render report options dialog');
+
+        return `<div id="${this.options.id}_saveDialog" class="modal" tabindex="-1">
+               <div class="modal-dialog">
+                 <div class="modal-content">
+                 <div class="modal-header">
+                     <h5 id="saveDialogTitle" class="modal-title" data-locale="SavedReport">Saved report</h5>
+                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                 </div>
+                 <div class="modal-body">
+                     <div class="row">
+                        <div class="col-6 colSaveType mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="saveOption" id="newOption">
+                                <label class="form-check-label" for="newOption" data-locale="New">
+                                    New
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-6 colSaveType mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="saveOption" id="saveAsOption">
+                                <label class="form-check-label" for="saveAsOption" data-locale="SaveAs">
+                                    Save As...
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-12 saveOptionRow newOption">
+                            <div class="mb-3">
+                                <label for="saveReportName" class="col-form-label" data-locale="Name">Name</label>                                
+                                <input type="text" class="form-control" id="saveReportName" value=""/>                                
+                            </div>
+                        </div>
+
+                        <div class="col-12 saveOptionRow saveAsOption">
+                            <div class="mb-3">
+                                <label for="savedReports" class="col-form-label" data-locale="SelectReport">Select Report</label>
+                                <select id="savedReports" class="form-select">                            
+                                </select>
+                            </div>
+                        </div>
+                     </div>
+                 </div>
+                 <div class="modal-footer">
+                     <button type="button" class="btn btn-secondary mr5" data-bs-dismiss="modal" data-locale="Cancel">Cancel</button>
+                     <button id="saveDialogSaveButton" type="button" class="btn btn-primary"><i class="fa-solid fa-check"></i>&nbsp;<span data-locale="Save">Save</span></button>
+                 </div>
+                 </div>
+             </div>
+             </div>`;
+
+    }
+
+    showSaveDialog(mode) {
+
+        if (mode == undefined) {
+            mode = 'save';
+        }
+
+        if (this.saveDialog === null) {
+            this.saveDialog = new bootstrap.Modal('#' + this.options.id + '_saveDialog', {})
+        }
+
+        /**
+         * Display new and save as depending on open report
+         */
+        $('.saveOptionRow').hide();
+        $('input[name="saveOption"]').prop('checked', false);
+        if (this.currentSavedReport === null) {
+            $('#newOption').prop('checked', true);
+            $('.newOption').show();
+        } else {
+            $('#saveAsOption').prop('checked', true);
+            $('.saveAsOption').show();
+        }
+
+        /**
+         * Toggle new and save as fields
+         */
+        $('input[name="saveOption"]').off('click').on('click', () => {
+            $('.saveOptionRow').hide();
+            if ($('#newOption').prop('checked')) {
+                $('.newOption').show();
+            } else if ($('#saveAsOption').prop('checked')) {
+                $('.saveAsOption').show();
+            }
+        });
+
+        if (mode == 'open') {
+            /**
+             * Open report mode
+             */
+            $('.newOption').hide();
+            $('.saveAsOption').show();
+            $('.colSaveType').hide();
+            $('#saveDialogTitle').html(this.app.modules.Locale.getKey('OpenReport'));
+            $('#saveDialogSaveButton').attr('data-locale', 'Open');
+            $('#saveDialogSaveButton').html(this.app.modules.Locale.getKey('Open'));
+            $('#saveDialogSaveButton').off('click').on('click', () => { Metadocx.viewer.report.open(); });
+        } else {
+            /**
+             * Save report mode
+             */
+            $('#saveDialogTitle').html(this.app.modules.Locale.getKey('SavedReports'));
+            $('#saveDialogSaveButton').attr('data-locale', 'Save');
+            $('#saveDialogSaveButton').html(this.app.modules.Locale.getKey('Save'));
+            $('#saveDialogSaveButton').off('click').on('click', () => { Metadocx.viewer.report.save(); });
+        }
+
+        /**
+         * Load saved reports in select
+         */
+        this.app.modules.DB.querySavedReports(this.report.getReportDefinition().id, (data) => {
+
+            let s = '';
+            for (let x in data) {
+                s += '<option value="' + data[x].reportUID + '">' + data[x].name + '</option>';
+            }
+            $('#savedReports').find('option').remove();
+            $('#savedReports').append(s);
+
+            if (mode == 'save') {
+                /**
+                 * In save mode if no data, hide save as
+                 */
+                if (data.length == 0) {
+                    $('.colSaveType').hide();
+                } else {
+                    $('.colSaveType').show();
+                }
+            }
+
+        })
+
+        this.saveDialog.show();
+        if (this.currentSavedReport === null) {
+            $('#saveReportName').focus();
+        }
+
+    }
+
     /**
      * Render report field properties dialog html
      * @returns 
@@ -4375,17 +4684,17 @@ class ReportViewer extends Consolable {
             this.fieldPropertiesDialog = new bootstrap.Modal('#' + this.options.id + '_fieldPropertyDialog', {})
         }
 
-        var sReportSectionType = this.report.getReportSection(sectionID).type + 'ReportSection';
-        var oReportSection = new window.__Metadocx[sReportSectionType](this.app, this.report.getReportSection(sectionID));
+        let sReportSectionType = this.report.getReportSection(sectionID).type + 'ReportSection';
+        let oReportSection = new window.__Metadocx[sReportSectionType](this.app, this.report.getReportSection(sectionID));
 
-        var field = oReportSection.getColumn(fieldName);
+        let field = oReportSection.getColumn(fieldName);
 
         $('#fieldSectionID').val(sectionID);
         $('#fieldName').val(field.name);
         $('#fieldType').val(field.type);
         $('#fieldLabel').val(field.label);
 
-        var bIsVisible = true;
+        let bIsVisible = true;
         if (field.visible != undefined) {
             bIsVisible = this.app.modules.DataType.toBool(field.visible);
         }
@@ -4416,15 +4725,18 @@ class ReportViewer extends Consolable {
         this.fieldPropertiesDialog.show();
     }
 
+    /**
+     * Applies fields properties to report
+     */
     applyFieldProperties() {
 
-        var sectionID = $('#fieldSectionID').val();
-        var fieldName = $('#fieldName').val();
+        let sectionID = $('#fieldSectionID').val();
+        let fieldName = $('#fieldName').val();
 
-        var sReportSectionType = this.report.getReportSection(sectionID).type + 'ReportSection';
-        var oReportSection = new window.__Metadocx[sReportSectionType](this.app, this.report.getReportSection(sectionID));
+        let sReportSectionType = this.report.getReportSection(sectionID).type + 'ReportSection';
+        let oReportSection = new window.__Metadocx[sReportSectionType](this.app, this.report.getReportSection(sectionID));
 
-        var field = oReportSection.getColumn(fieldName);
+        let field = oReportSection.getColumn(fieldName);
 
         field.label = $('#fieldLabel').val();
         if ($('#fieldWidth').val() != '') {
@@ -4463,9 +4775,9 @@ class ReportViewer extends Consolable {
      */
     getCriteriaValues() {
 
-        var values = {};
+        let values = {};
         if (this.criterias) {
-            for (var x in this.criterias) {
+            for (let x in this.criterias) {
                 values[this.criterias[x].id] = {
                     id: this.criterias[x].id,
                     enabled: this.criterias[x].getIsEnabled(),
@@ -4475,6 +4787,17 @@ class ReportViewer extends Consolable {
         }
 
         return values;
+    }
+
+    /**
+     * Sets criterias values and enabled
+     * @param {*} criteriaValues 
+     */
+    setCriteriaValues(criteriaValues) {
+        for (let x in criteriaValues) {
+            this.getCriteria(x).setIsEnabled(criteriaValues[x].enabled);
+            this.getCriteria(x).setValue(criteriaValues[x].value);
+        }
     }
 
     /**
@@ -4493,7 +4816,7 @@ class ReportViewer extends Consolable {
      */
     getCriteria(id) {
         if (this.criterias) {
-            for (var x in this.criterias) {
+            for (let x in this.criterias) {
                 if (this.criterias[x].id == id) {
                     return this.criterias[x];
                 }
@@ -4588,7 +4911,7 @@ class ReportViewer extends Consolable {
         this.report.filter();
         this.report.sort();
 
-        var oReportCanvas = new ReportCanvas(this.app, this.report, this);
+        let oReportCanvas = new ReportCanvas(this.app, this.report, this);
         $('#' + this.options.id + '_canvas').html(oReportCanvas.render());
 
         oReportCanvas.initialiseJS();
@@ -4607,15 +4930,26 @@ class ReportViewer extends Consolable {
     }
 
     /**
+     * Refresh report viewer UI state
+     */
+    updateUI() {
+        if (this.currentSavedReport === null) {
+            $('#' + this.options.id + '_delete').hide();
+        } else {
+            $('#' + this.options.id + '_delete').show();
+        }
+    }
+
+    /**
      * Update reportPage style tag with print media css
      */
     updateCSS() {
 
-        var paperSize = this.app.modules.Printing.getPaperSize(this.app.viewer.options.page.paperSize);
-        var pageOrientation = this.app.viewer.options.page.orientation;
+        let paperSize = this.app.modules.Printing.getPaperSize(this.app.viewer.options.page.paperSize);
+        let pageOrientation = this.app.viewer.options.page.orientation;
 
-        var width = 0;
-        var height = 0;
+        let width = 0;
+        let height = 0;
 
         if (pageOrientation == this.app.modules.Printing.PageOrientation.Landscape) {
             width = paperSize.height;
@@ -4625,7 +4959,7 @@ class ReportViewer extends Consolable {
             height = paperSize.height;
         }
 
-        var s = `
+        let s = `
                
         @media print {
 
@@ -4693,7 +5027,7 @@ class ReportViewer extends Consolable {
         $('.table-report-section').each(function () {
 
             if ($(this).width() > 0) {
-                var ratio = $('#reportPage').width() / $(this).width();
+                let ratio = $('#reportPage').width() / $(this).width();
                 if (ratio != 1) {
                     $(this).css('transform', 'scaleX(' + parseFloat(ratio).toFixed(2) + ')');
                     $(this).css('transform-origin', 'top left')
@@ -4716,14 +5050,17 @@ class ReportViewer extends Consolable {
 
     }
 
+    /**
+     * Refresh report settings ui
+     */
     refreshReportSettings() {
 
-        for (var kSection in this.report.getReportDefinition().sections) {
-            var oSection = this.report.getReportDefinition().sections[kSection];
+        for (let kSection in this.report.getReportDefinition().sections) {
+            let oSection = this.report.getReportDefinition().sections[kSection];
 
-            for (var y in oSection.model) {
-                var field = oSection.model[y];
-                var bIsVisible = true;
+            for (let y in oSection.model) {
+                let field = oSection.model[y];
+                let bIsVisible = true;
                 if (field.visible != undefined) {
                     bIsVisible = this.app.modules.DataType.toBool(field.visible);
                 }
@@ -4764,14 +5101,14 @@ class ReportViewer extends Consolable {
         this.report.getReportDefinition().properties.description = $('#reportSettingsDescription').val();
 
         // Update report sections 
-        for (var x in this.report.getReportDefinition().sections) {
-            var oSection = this.report.getReportDefinition().sections[x];
+        for (let x in this.report.getReportDefinition().sections) {
+            let oSection = this.report.getReportDefinition().sections[x];
 
             /**
              * Apply field settings
              */
-            for (var f in oSection.model) {
-                var oCol = oSection.model[f];
+            for (let f in oSection.model) {
+                let oCol = oSection.model[f];
                 oCol.visible = $('#' + oSection.id + '_field_' + oCol.name).prop('checked');
                 oCol['formula'] = $('#' + oSection.id + '_formula_' + oCol.name).val();
             }
@@ -4780,7 +5117,7 @@ class ReportViewer extends Consolable {
              * Reorder model columns
              */
             $('#' + oSection.id + '_fields tbody tr').each(function () {
-                var columnName = $(this).attr('data-column');
+                let columnName = $(this).attr('data-column');
                 oSection.model.forEach(function (item, i) {
                     if (item.name == columnName) {
                         oSection.model.splice(i, 1);
@@ -4799,7 +5136,7 @@ class ReportViewer extends Consolable {
 
             oSection.orderBy = [];
             $('#' + oSection.id + '_orderBy tbody tr').each(function () {
-                var columnName = $(this).attr('data-column');
+                let columnName = $(this).attr('data-column');
 
                 if ($('#' + oSection.id + '_orderBy_' + columnName).prop('checked')) {
                     oSection.orderBy.push({
@@ -4812,7 +5149,7 @@ class ReportViewer extends Consolable {
 
             oSection.groupBy = [];
             $('#' + oSection.id + '_groupBy tbody tr').each(function () {
-                var columnName = $(this).attr('data-column');
+                let columnName = $(this).attr('data-column');
 
                 if ($('#' + oSection.id + '_groupBy_' + columnName).prop('checked')) {
                     oSection.groupBy.push({
@@ -4859,6 +5196,19 @@ class ReportViewer extends Consolable {
         return '#' + this.options.id;
     }
 
+    /**
+     * Displays a toast message in bottom right corner
+     * @param {*} message 
+     */
+    showToastMessage(message) {
+        if (this.toastInstance === null) {
+            this.toastInstance = new bootstrap.Toast(document.getElementById('toast'), {});
+        }
+        $('#toastBody').html(message);
+
+        this.toastInstance.show();
+    }
+
 }
 window.__Metadocx.ReportViewer = ReportViewer;
 /** 
@@ -4876,7 +5226,7 @@ class BooleanCriteria extends CriteriaControl {
     }
 
     initializeJS() {
-
+        return null;
     }
 
     render() {
@@ -4897,8 +5247,8 @@ class BooleanCriteria extends CriteriaControl {
     }
 
     getValue() {
-        var bYes = $('#' + this.id + '_yes').prop('checked');
-        var bNo = $('#' + this.id + '_no').prop('checked');
+        let bYes = $('#' + this.id + '_yes').prop('checked');
+        let bNo = $('#' + this.id + '_no').prop('checked');
 
         if (bYes && bNo) {
             return 'ALL';
@@ -4939,17 +5289,21 @@ class CheckboxCriteria extends CriteriaControl {
         this.options = [];
     }
 
+    initializeJS() {
+        return null;
+    }
+
     /**
      * Render criteria HTML
      * @returns 
      */
     render() {
 
-        var sCheckboxes = '';
+        let sCheckboxes = '';
 
         if (Array.isArray(this.reportCriteria.options)) {
 
-            for (var x in this.reportCriteria.options) {
+            for (let x in this.reportCriteria.options) {
                 sCheckboxes += `<div class="col-3 form-check mb-2">
                                     <input class="form-check-input report-checkbox-criteria" data-criteria-id="${this.id}"  type="checkbox" id="chk${this.id}_${this.reportCriteria.options[x].id}" value="${this.reportCriteria.options[x].id}">
                                     <label class="form-check-label" for="chk${this.id}_${this.reportCriteria.options[x].id}">
@@ -4997,9 +5351,9 @@ class CheckboxCriteria extends CriteriaControl {
      */
     buildCheckboxesFromAjaxData(response) {
 
-        var sCheckboxes = '';
-        var data = response.results;
-        for (var x in data) {
+        let sCheckboxes = '';
+        let data = response.results;
+        for (let x in data) {
             sCheckboxes += `<div class="col-3 form-check mb-2">
                                 <input class="form-check-input report-checkbox-criteria" data-criteria-id="${this.id}"  type="checkbox" id="chk${this.id}_${data[x].id}" value="${data[x].id}">
                                 <label class="form-check-label" for="chk${this.id}_${data[x].id}">
@@ -5018,12 +5372,12 @@ class CheckboxCriteria extends CriteriaControl {
      * @returns 
      */
     buildCheckboxesFromReportData(field) {
-        var sCheckboxes = '';
-        var aOptions = [];
-        var aReportSections = this.app.viewer.report.getReportSections();
-        for (var s in aReportSections) {
-            for (var x in aReportSections[s].data) {
-                var row = aReportSections[s].data[x];
+        let sCheckboxes = '';
+        let aOptions = [];
+        let aReportSections = this.app.viewer.report.getReportSections();
+        for (let s in aReportSections) {
+            for (let x in aReportSections[s].data) {
+                let row = aReportSections[s].data[x];
                 if (aOptions.indexOf(row[field]) === -1) {
                     aOptions.push(row[field]);
                 }
@@ -5032,8 +5386,8 @@ class CheckboxCriteria extends CriteriaControl {
 
         aOptions.sort();
 
-        var nIndex = 0;
-        for (var x in aOptions) {
+        let nIndex = 0;
+        for (let x in aOptions) {
             sCheckboxes += `<div class="col-3 form-check mb-2">
                                     <input class="form-check-input report-checkbox-criteria" data-criteria-id="${this.id}"  type="checkbox" id="chk${this.id}_${nIndex}" value="${aOptions[x]}">
                                     <label class="form-check-label" for="chk${this.id}_${nIndex}">
@@ -5053,7 +5407,7 @@ class CheckboxCriteria extends CriteriaControl {
      */
     getValue() {
 
-        var values = [];
+        let values = [];
         $('.report-checkbox-criteria[data-criteria-id="' + this.id + '"]').each(function () {
             if ($(this).prop('checked')) {
                 values.push($(this).val());
@@ -5061,6 +5415,19 @@ class CheckboxCriteria extends CriteriaControl {
         });
 
         return values;
+    }
+
+    /**
+     * Sets value for criteria
+     * @param {*} v 
+     */
+    setValue(v) {
+        $('.report-checkbox-criteria[data-criteria-id="' + this.id + '"]').prop('checked', false);
+        if (Array.isArray(v)) {
+            for (let x in v) {
+                $('.report-checkbox-criteria[data-criteria-id="' + this.id + '"][value="' + v[x] + '"]').prop('checked', true);
+            }
+        }
     }
 
 }
@@ -5104,16 +5471,29 @@ class DatePeriodCriteria extends CriteriaControl {
 
     }
 
+    /**
+     * Gets value for criteria
+     * @returns 
+     */
     getValue() {
         return {
             startDate: this._instance.data('daterangepicker').startDate.format('YYYY-MM-DD'),
             endDate: this._instance.data('daterangepicker').endDate.format('YYYY-MM-DD'),
+            selectedRange: this._instance.data('daterangepicker').chosenLabel,
         };
     }
 
+    /**
+     * Sets value for criteria
+     * @param {*} v 
+     */
     setValue(v) {
         this._instance.data('daterangepicker').setStartDate(v.startDate);
         this._instance.data('daterangepicker').setEndDate(v.endDate);
+        if (v.chosenLabel) {
+            // Apply label after start and end date
+            this._instance.data('daterangepicker').clickRange({ target: $('[data-range-key="' + v.chosenLabel + '"]').get(0) });
+        }
     }
 
     setStartDate(dt) {
@@ -5204,6 +5584,10 @@ class NumericCriteria extends CriteriaControl {
 
     }
 
+    /**
+     * Get criteria value
+     * @returns 
+     */
     getValue() {
         return {
             operator: this._operatorInstance.val(),
@@ -5212,8 +5596,15 @@ class NumericCriteria extends CriteriaControl {
         };
     }
 
+    /**
+     * Set criteria value
+     * @param {*} v 
+     */
     setValue(v) {
-
+        this._operatorInstance.val(v.operator);
+        this._startValueInstance.val(v.startValue);
+        this._endValueInstance.val(v.endValue);
+        this.updateUI();
     }
 
 
@@ -5281,11 +5672,11 @@ class SelectCriteria extends CriteriaControl {
 
     render() {
 
-        var sOptionTags = '';
+        let sOptionTags = '';
 
         if (Array.isArray(this.reportCriteria.options)) {
 
-            for (var x in this.reportCriteria.options) {
+            for (let x in this.reportCriteria.options) {
                 sOptionTags += `<option value="${this.reportCriteria.options[x].id}">${this.reportCriteria.options[x].text}</option>`;
             }
 
@@ -5321,12 +5712,12 @@ class SelectCriteria extends CriteriaControl {
     }
 
     buildOptionTagsFromReportData(field) {
-        var sOptionTags = '';
-        var aOptions = [];
-        var aReportSections = this.app.viewer.report.getReportSections();
-        for (var s in aReportSections) {
-            for (var x in aReportSections[s].data) {
-                var row = aReportSections[s].data[x];
+        let sOptionTags = '';
+        let aOptions = [];
+        let aReportSections = this.app.viewer.report.getReportSections();
+        for (let s in aReportSections) {
+            for (let x in aReportSections[s].data) {
+                let row = aReportSections[s].data[x];
                 if (aOptions.indexOf(row[field]) === -1) {
                     aOptions.push(row[field]);
                 }
@@ -5335,7 +5726,7 @@ class SelectCriteria extends CriteriaControl {
 
         aOptions.sort();
 
-        for (var x in aOptions) {
+        for (let x in aOptions) {
             sOptionTags += `<option value="${aOptions[x]}">${aOptions[x]}</option>`;
         }
 
@@ -5829,9 +6220,9 @@ class ConsoleModule extends Module {
      * @returns array
      */
     buildArguments(args) {
-        var aArguments = [];
-        var sMessage = null;
-        var nFirstArg = 0;
+        let aArguments = [];
+        let sMessage = null;
+        let nFirstArg = 0;
         if (args.length > 0) {
             if (typeof args[0] == 'string') {
                 sMessage = args[0];
@@ -5848,7 +6239,7 @@ class ConsoleModule extends Module {
             aArguments.push(sMessage);
         }
 
-        for (var i = nFirstArg; i < args.length; i++) {
+        for (let i = nFirstArg; i < args.length; i++) {
             aArguments.push(args[i]);
         }
 
@@ -5875,7 +6266,7 @@ class ConsoleModule extends Module {
      * Display help for module
      */
     help() {
-        window.open('https://developer.mozilla.org/en-US/docs/Web/API/console');
+        window.open('https://developer.mozilla.org/en-US/docs/Web/API/console', 'ConsoleHelp', 'noopener');
     }
 
 }
@@ -5904,7 +6295,16 @@ class DataTypeModule extends Module {
      * @param {*} v 
      * @returns 
      */
-    toBool(v) {
+    toBool(v, defaultValue) {
+
+        if (typeof defaultValue === 'undefined') {
+            defaultValue = false;
+        }
+
+        if (typeof v === 'undefined') {
+            v = defaultValue;
+        }
+
         if (typeof v === 'string' || v instanceof String) {
             v = v.toLowerCase();
         }
@@ -5941,7 +6341,7 @@ class DataTypeModule extends Module {
      */
     copyObjectProperties(from, to) {
 
-        for (var x in from) {
+        for (let x in from) {
             if (typeof from[x] === 'object') {
                 this.copyObjectProperties(from[x], to[x]);
             } else {
@@ -5951,8 +6351,181 @@ class DataTypeModule extends Module {
 
     }
 
+    /**
+     * Return unique ID
+     * @returns 
+     */
+    uid() {
+        return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
+            (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+        );
+    }
+
 }
 window.__Metadocx.DataTypeModule = DataTypeModule;
+/**
+ * DB module class
+ * 
+ * @author Benoit Gauthier <bgauthier@metadocx.com>
+ * @copyright Benoit Gauthier <bgauthier@metadocx.com>
+ * @license https://github.com/metadocx/reporting/LICENSE.md
+ */
+class DBModule extends Module {
+
+    constructor(app) {
+        super(app);
+        this.bootPriority = 100;
+        this.connection = null;
+    }
+
+    /**
+     * Initialize module
+     */
+    initialize() {
+        super.initialize();
+
+        this.log('Openning local database');
+        const request = window.indexedDB.open('Metadocx', 1);
+
+        request.onerror = (event) => {
+            this.error('Error in opening Metadocx database');
+        };
+
+        request.onsuccess = (event) => {
+            this.log('Local database open success');
+            this.connection = event.target.result;
+        };
+
+        request.onupgradeneeded = (event) => {
+            // Save the IDBDatabase interface
+            this.log('Local database upgrade required');
+            this.connection = event.target.result;
+
+            // Create an objectStore for this database
+            const savedReports = this.connection.createObjectStore('SavedReports', { keyPath: 'reportUID' });
+            savedReports.createIndex('reportId', 'reportId', { unique: false });
+
+        };
+
+    }
+
+    /**
+     * Save report in local db
+     * @param {*} savedReport 
+     * @param {*} callback 
+     */
+    saveReport(savedReport, callback) {
+
+        this.log('Saving report');
+        const transaction = this.connection.transaction(['SavedReports'], 'readwrite');
+        const savedReports = transaction.objectStore('SavedReports');
+        const request = savedReports.add(savedReport);
+
+        request.onsuccess = (event) => {
+            this.log('Transaction success, report saved');
+            if (callback) {
+                callback();
+            }
+        };
+
+    }
+
+    /**
+     * Updates an existing report
+     * @param {*} savedReport 
+     * @param {*} callback 
+     */
+    updateReport(savedReport, callback) {
+
+        this.log('Updating report');
+        const transaction = this.connection.transaction(['SavedReports'], 'readwrite');
+        const savedReports = transaction.objectStore('SavedReports');
+        const request = savedReports.put(savedReport);
+
+        request.onsuccess = (event) => {
+            this.log('Transaction success, report updated');
+            if (callback) {
+                callback(savedReport);
+            }
+        };
+
+    }
+
+    /**
+     * Returns a specific report using report UID
+     * @param {*} reportUID 
+     * @param {*} callback 
+     */
+    getReport(reportUID, callback) {
+
+        this.log('Loading report');
+        const transaction = this.connection.transaction(['SavedReports'], 'readwrite');
+        const savedReports = transaction.objectStore('SavedReports');
+        const request = savedReports.get(reportUID);
+
+        request.onsuccess = (event) => {
+            this.log('Transaction success, report loaded');
+            if (callback) {
+                callback(event.target.result);
+            }
+        };
+
+    }
+
+    /**
+     * List saved reports filtered by reportId
+     * @param {*} reportId 
+     * @param {*} callback 
+     */
+    querySavedReports(reportId, callback) {
+
+        const transaction = this.connection.transaction(['SavedReports'], 'readwrite');
+        const savedReports = transaction.objectStore('SavedReports');
+        const index = savedReports.index('reportId');
+        const singleKeyRange = IDBKeyRange.only(reportId);
+
+        this.log('Loading saved reports for ' + reportId);
+
+        let data = [];
+        index.openCursor(singleKeyRange).onsuccess = (event) => {
+            const cursor = event.target.result;
+            if (cursor) {
+                data.push(cursor.value);
+                cursor.continue();
+            } else {
+                // Done loading data
+                if (callback) {
+                    callback(data);
+                }
+            }
+        };
+
+    }
+
+
+    /**
+     * Updates an existing report
+     * @param {*} savedReport 
+     * @param {*} callback 
+     */
+    deleteReport(reportUID, callback) {
+
+        this.log('Deleting report');
+        const transaction = this.connection.transaction(['SavedReports'], 'readwrite');
+        const savedReports = transaction.objectStore('SavedReports');
+        const request = savedReports.delete(reportUID);
+
+        request.onsuccess = (event) => {
+            this.log('Transaction success, report deleted');
+            if (callback) {
+                callback(reportUID);
+            }
+        };
+
+    }
+
+}
+window.__Metadocx.DBModule = DBModule;
 /**
  * Excel module class
  * 
@@ -5976,33 +6549,6 @@ class ExcelModule extends Module {
     showExportDialog() {
 
         return this.exportExcel();
-
-        if (this.exportDialog === null) {
-            $(this.app.viewer.getContainerSelector()).append(this.renderExportDialog());
-            this.hookExportDialogComponents();
-            this.exportDialog = new bootstrap.Modal('#' + this.app.viewer.options.id + '_excelExportDialog', {})
-        }
-
-        $('#excelPaperSize').val(this.app.viewer.options.page.paperSize);
-
-        var paperSize = this.app.modules.Printing.getPaperSize($('#excelPaperSize').val());
-        $('#excelPaperSizeWidth').val(paperSize.width);
-        $('#excelPaperSizeHeight').val(paperSize.height);
-
-        if (this.app.viewer.options.page.orientation == Metadocx.modules.Printing.PageOrientation.Portrait) {
-            $('#excelOrientationPortrait').prop('checked', true);
-            $('#excelOrientationLandscape').prop('checked', false);
-        } else {
-            $('#excelOrientationPortrait').prop('checked', false);
-            $('#excelOrientationLandscape').prop('checked', true);
-        }
-
-        $('#excelTopMargin').val(this.app.viewer.options.page.margins.top);
-        $('#excelBottomMargin').val(this.app.viewer.options.page.margins.bottom);
-        $('#excelLeftMargin').val(this.app.viewer.options.page.margins.left);
-        $('#excelRightMargin').val(this.app.viewer.options.page.margins.right);
-
-        this.exportDialog.show();
 
     }
 
@@ -6197,7 +6743,7 @@ class ExcelModule extends Module {
                 $('.excelPaperSizeWidths').hide();
             }
 
-            var paperSize = this.app.modules.Printing.getPaperSize($('#excelPaperSize').val());
+            let paperSize = this.app.modules.Printing.getPaperSize($('#excelPaperSize').val());
             $('#excelPaperSizeWidth').val(paperSize.width);
             $('#excelPaperSizeHeight').val(paperSize.height);
         });
@@ -6209,42 +6755,6 @@ class ExcelModule extends Module {
 
         return {};
 
-        var orientation = Metadocx.modules.Printing.PageOrientation.Portrait;
-        if ($('#excelOrientationLandscape').prop('checked')) {
-            orientation = Metadocx.modules.Printing.PageOrientation.Landscape;
-        }
-
-        return {
-            "page": {
-                "orientation": orientation,
-                "paperSize": $('#excelPaperSize').val(),
-                "width": $('#excelPaperSizeWidth').val(),
-                "height": $('#excelPaperSizeHeight').val(),
-                "margins": {
-                    "top": Metadocx.modules.UI.convertInchesToMM(parseFloat($('#excelTopMargin').val())),
-                    "bottom": Metadocx.modules.UI.convertInchesToMM(parseFloat($('#excelBottomMargin').val())),
-                    "left": Metadocx.modules.UI.convertInchesToMM(parseFloat($('#excelLeftMargin').val())),
-                    "right": Metadocx.modules.UI.convertInchesToMM(parseFloat($('#excelRightMargin').val()))
-                }
-            },
-            "grayscale": $('#excelGrayscale').prop('checked'),
-            "excelCompression": $('#excelUseCompression').prop('checked'),
-            "outline": $('#excelIncludeOutline').prop('checked'),
-            "backgroundGraphics": $('#excelPrintBackgrounds').prop('checked'),
-            "header": {
-                "left": $('#excelHeaderLeft').val(),
-                "center": $('#excelHeaderCenter').val(),
-                "right": $('#excelHeaderRight').val(),
-                "displayHeaderLine": $('#excelHeaderLine').prop('checked')
-            },
-            "footer": {
-                "left": $('#excelFooterLeft').val(),
-                "center": $('#excelFooterCenter').val(),
-                "right": $('#excelFooterRight').val(),
-                "displayFooterLine": $('#excelFooterLine').prop('checked')
-            }
-        };
-
     }
 
     exportExcel() {
@@ -6252,12 +6762,12 @@ class ExcelModule extends Module {
         /**
          *  Get all graphs images and encode them in base64 to insert in excel
          */
-        var thisObject = this;
+        let thisObject = this;
 
         /**
          * Show exporting dialog
          */
-        var exportDialog = bootbox.dialog({
+        let exportDialog = bootbox.dialog({
             title: 'Export to Excel',
             message: '<p><i class="fas fa-spin fa-spinner"></i> Exporting report to Excel...</p>'
         });
@@ -6275,9 +6785,9 @@ class ExcelModule extends Module {
                 responseType: 'blob'
             },
             success: (data, status, xhr) => {
-                var blob = new Blob([data]);
+                let blob = new Blob([data]);
 
-                var sContent = `Report has been converted to Excel, click on button to download file<br><br>
+                let sContent = `Report has been converted to Excel, click on button to download file<br><br>
                 <a class="btn btn-primary" href="${window.URL.createObjectURL(blob)}" download="Report.xlsx" onClick="$('.bootbox.modal').modal('hide');">Download report</a>`;
 
                 exportDialog.find('.bootbox-body').html(sContent);
@@ -6316,7 +6826,7 @@ class FormatModule extends Module {
 
     format(value, dataType, format) {
 
-        var displayValue = '';
+        let displayValue = '';
 
         switch (dataType) {
             case 'number':
@@ -6647,7 +7157,7 @@ class ImportModule extends Module {
      */
     isLoaded() {
 
-        for (var x in this.loadStatus) {
+        for (let x in this.loadStatus) {
             if (!this.loadStatus[x].loaded) {
                 return false;
             }
@@ -6663,9 +7173,9 @@ class ImportModule extends Module {
      * @param {*} libName 
      */
     injectLibrary(libName) {
-        var sections = this.libraries[libName];
+        let sections = this.libraries[libName];
         if (sections.head && sections.head.links) {
-            for (var x in sections.head.links) {
+            for (let x in sections.head.links) {
                 if (!this.isStyleSheetLoaded(sections.head.links[x].href, sections.head.links[x].tests)) {
                     this.log('   Injecting head link ' + sections.head.links[x].id);
                     this.createElement(sections.head.links[x]);
@@ -6676,7 +7186,7 @@ class ImportModule extends Module {
         }
 
         if (sections.head && sections.head.scripts) {
-            for (var x in sections.head.scripts) {
+            for (let x in sections.head.scripts) {
                 if (!this.isScriptLoaded(sections.head.scripts[x].src)) {
                     this.log('   Injecting head script ' + sections.head.scripts[x].id);
                     this.createElement(sections.head.scripts[x]);
@@ -6687,7 +7197,7 @@ class ImportModule extends Module {
         }
 
         if (sections.bottom && sections.bottom.links) {
-            for (var x in sections.bottom.links) {
+            for (let x in sections.bottom.links) {
                 if (!this.isStyleSheetLoaded(sections.bottom.links[x].href, sections.bottom.links[x].tests)) {
                     this.log('   Injecting bootom link ' + sections.bottom.links[x].id);
                     this.createElement(sections.bottom.links[x]);
@@ -6698,7 +7208,7 @@ class ImportModule extends Module {
         }
 
         if (sections.bottom && sections.bottom.scripts) {
-            for (var x in sections.bottom.scripts) {
+            for (let x in sections.bottom.scripts) {
                 if (!this.isScriptLoaded(sections.bottom.scripts[x].src)) {
                     this.log('   Injecting bottom script ' + sections.bottom.scripts[x].id);
                     this.createElement(sections.bottom.scripts[x]);
@@ -6724,7 +7234,7 @@ class ImportModule extends Module {
 
     createElement(options) {
 
-        var module = this;
+        let module = this;
 
         this._bInjectionWasMade = true;
 
@@ -6733,7 +7243,7 @@ class ImportModule extends Module {
         };
 
         (function (d, s, id) {
-            var js, lsjs = d.getElementsByTagName(s)[0];
+            let js, lsjs = d.getElementsByTagName(s)[0];
 
             if (d.getElementById(id)) {
                 console.log('Package is already loaded, skipping');
@@ -6781,8 +7291,8 @@ class ImportModule extends Module {
         }
 
         this.log('Injecting required librairies for stack ' + this.app.viewer.options.ui);
-        for (var x in this.stacks[this.app.viewer.options.ui].requires) {
-            var libName = this.stacks[this.app.viewer.options.ui].requires[x];
+        for (let x in this.stacks[this.app.viewer.options.ui].requires) {
+            let libName = this.stacks[this.app.viewer.options.ui].requires[x];
             this.injectLibrary(libName);
         }
 
@@ -6802,10 +7312,10 @@ class ImportModule extends Module {
             this.app.viewer.options.ui = 'default';
         }
 
-        var bValid = true;
-        for (var x in this.stacks[this.app.viewer.options.ui].requires) {
-            var libName = this.stacks[this.app.viewer.options.ui].requires[x];
-            var bLibIsValid = this.testLibrary(libName);
+        let bValid = true;
+        for (let x in this.stacks[this.app.viewer.options.ui].requires) {
+            let libName = this.stacks[this.app.viewer.options.ui].requires[x];
+            let bLibIsValid = this.testLibrary(libName);
             if (!bLibIsValid && bValid) {
                 bValid = false;
             }
@@ -6828,9 +7338,9 @@ class ImportModule extends Module {
      */
     testLibrary(libName) {
 
-        var sections = this.libraries[libName];
+        let sections = this.libraries[libName];
         if (sections.head && sections.head.links) {
-            for (var x in sections.head.links) {
+            for (let x in sections.head.links) {
                 if (!this.isStyleSheetLoaded(sections.head.links[x].href, sections.head.links[x].tests)) {
                     this.log('   Style sheet ' + sections.head.links[x].id + ' is not loaded');
                     return false;
@@ -6839,7 +7349,7 @@ class ImportModule extends Module {
         }
 
         if (sections.head && sections.head.scripts) {
-            for (var x in sections.head.scripts) {
+            for (let x in sections.head.scripts) {
                 if (!this.isScriptLoaded(sections.head.scripts[x].src)) {
                     this.log('   Script ' + sections.head.scripts[x].id + ' is not loaded');
                     return false;
@@ -6848,7 +7358,7 @@ class ImportModule extends Module {
         }
 
         if (sections.bottom && sections.bottom.links) {
-            for (var x in sections.bottom.links) {
+            for (let x in sections.bottom.links) {
                 if (!this.isStyleSheetLoaded(sections.bottom.links[x].href, sections.bottom.links[x].tests)) {
                     this.log('   Style sheet ' + sections.bottom.links[x].id + ' is not loaded');
                     return false;
@@ -6857,7 +7367,7 @@ class ImportModule extends Module {
         }
 
         if (sections.bottom && sections.bottom.scripts) {
-            for (var x in sections.bottom.scripts) {
+            for (let x in sections.bottom.scripts) {
                 if (!this.isScriptLoaded(sections.bottom.scripts[x].src)) {
                     this.log('   Script ' + sections.bottom.scripts[x].id + ' is not loaded');
                     return false;
@@ -6871,14 +7381,14 @@ class ImportModule extends Module {
 
     isStyleSheetLoaded(sUrl, tests) {
 
-        for (var x in document.styleSheets) {
+        for (let x in document.styleSheets) {
             if (document.styleSheets[x].href) {
                 if (document.styleSheets[x].href.toLowerCase().endsWith(sUrl.toLowerCase())) {
                     return true;
                 }
 
                 if (tests != undefined && Array.isArray(tests)) {
-                    for (var t in tests) {
+                    for (let t in tests) {
                         if (document.styleSheets[x].href.toLowerCase().endsWith(tests[t].toLowerCase())) {
                             return true;
                         }
@@ -6894,7 +7404,7 @@ class ImportModule extends Module {
 
     isScriptLoaded(sUrl) {
 
-        for (var x in document.scripts) {
+        for (let x in document.scripts) {
             if (document.scripts[x].src) {
                 if (document.scripts[x].src.toLowerCase().endsWith(sUrl.toLowerCase())) {
                     return true;
@@ -6934,7 +7444,7 @@ class LocaleModule extends Module {
             this.locales[locale] = {};
         }
 
-        for (var k in keys) {
+        for (let k in keys) {
             this.locales[locale][k] = keys[k];
         }
 
@@ -6949,7 +7459,7 @@ class LocaleModule extends Module {
     }
 
     getKey(key) {
-        var text = this.locales[this.currentLocale][key];
+        let text = this.locales[this.currentLocale][key];
         if (text == undefined || text == null) {
             console.warn('Missing translation key ' + key);
             text = key;
@@ -6962,8 +7472,8 @@ class LocaleModule extends Module {
     }
 
     getLocales() {
-        var locales = [];
-        for (var x in this.locales) {
+        let locales = [];
+        for (let x in this.locales) {
             locales.push(x);
         }
         return locales;
@@ -6971,7 +7481,7 @@ class LocaleModule extends Module {
 
     translate() {
 
-        var thisObject = this;
+        let thisObject = this;
         $('[data-locale]').each(function () {
             if ($(this).is('input') || $(this).is('textarea')) {
                 $(this).attr('placeholder', thisObject.getKey($(this).data('locale')));
@@ -6983,9 +7493,9 @@ class LocaleModule extends Module {
     }
 
     getLocaleMenuOptions() {
-        var locales = this.getLocales();
-        var s = '';
-        for (var x in locales) {
+        let locales = this.getLocales();
+        let s = '';
+        for (let x in locales) {
             s += `<a id="${this.app.viewer.options.id}_locale_${locales[x]}" class="dropdown-item" href="#" onClick="Metadocx.modules.Locale.setLocale('${locales[x]}');" data-locale="${locales[x]}">${locales[x]}</a>`;
         }
         return s;
@@ -7028,7 +7538,7 @@ class PDFModule extends Module {
 
         $('#pdfPaperSize').val(this.app.viewer.options.page.paperSize);
 
-        var paperSize = this.app.modules.Printing.getPaperSize($('#pdfPaperSize').val());
+        let paperSize = this.app.modules.Printing.getPaperSize($('#pdfPaperSize').val());
         $('#pdfPaperSizeWidth').val(paperSize.width);
         $('#pdfPaperSizeHeight').val(paperSize.height);
 
@@ -7246,7 +7756,7 @@ class PDFModule extends Module {
                 $('.pdfPaperSizeWidths').hide();
             }
 
-            var paperSize = this.app.modules.Printing.getPaperSize($('#pdfPaperSize').val());
+            let paperSize = this.app.modules.Printing.getPaperSize($('#pdfPaperSize').val());
             $('#pdfPaperSizeWidth').val(paperSize.width);
             $('#pdfPaperSizeHeight').val(paperSize.height);
         });
@@ -7256,80 +7766,80 @@ class PDFModule extends Module {
 
     getPDFExportOptions() {
 
-        var orientation = Metadocx.modules.Printing.PageOrientation.Portrait;
+        let orientation = Metadocx.modules.Printing.PageOrientation.Portrait;
         if ($('#pdfOrientationLandscape').prop('checked')) {
             orientation = Metadocx.modules.Printing.PageOrientation.Landscape;
         }
 
-        var paperSize = this.app.viewer.options.page.paperSize;
+        let paperSize = this.app.viewer.options.page.paperSize;
         if ($('#pdfPaperSize').length > 0) {
             paperSize = $('#pdfPaperSize').val();
         }
 
-        var paperSizeInfo = this.app.modules.Printing.getPaperSize(paperSize);
-        var width = paperSizeInfo.width;
-        var height = paperSizeInfo.height;
+        let paperSizeInfo = this.app.modules.Printing.getPaperSize(paperSize);
+        let width = paperSizeInfo.width;
+        let height = paperSizeInfo.height;
         if ($('#pdfPaperSizeWidth').length > 0) {
             width = $('#pdfPaperSizeWidth').val();
         }
         if ($('#pdfPaperSizeHeight').length > 0) {
             height = $('#pdfPaperSizeHeight').val();
         }
-        var grayscale = false;
+        let grayscale = false;
         if ($('#pdfGrayscale').length > 0) {
             grayscale = $('#pdfGrayscale').prop('checked');
         }
-        var marginTop = $('#pdfTopMargin').val();
+        let marginTop = $('#pdfTopMargin').val();
         if (marginTop == undefined) {
             marginTop = this.app.viewer.options.page.margins.top;
         }
-        var marginBottom = $('#pdfBottomMargin').val();
+        let marginBottom = $('#pdfBottomMargin').val();
         if (marginBottom == undefined) {
             marginBottom = this.app.viewer.options.page.margins.bottom;
         }
-        var marginLeft = $('#pdfLeftMargin').val();
+        let marginLeft = $('#pdfLeftMargin').val();
         if (marginLeft == undefined) {
             marginLeft = this.app.viewer.options.page.margins.left;
         }
-        var marginRight = $('#pdfRightMargin').val();
+        let marginRight = $('#pdfRightMargin').val();
         if (marginRight == undefined) {
             marginRight = this.app.viewer.options.page.margins.right;
         }
-        var pdfCompression = $('#pdfUseCompression').prop('checked');
+        let pdfCompression = $('#pdfUseCompression').prop('checked');
         if (pdfCompression == undefined) {
             pdfCompression = true;
         }
-        var outline = $('#pdfIncludeOutline').prop('checked');
+        let outline = $('#pdfIncludeOutline').prop('checked');
         if (outline == undefined) {
             outline = true;
         }
-        var backgroundGraphics = $('#pdfPrintBackgrounds').prop('checked');
+        let backgroundGraphics = $('#pdfPrintBackgrounds').prop('checked');
         if (backgroundGraphics == undefined) {
             backgroundGraphics = true;
         }
 
-        var headerLeft = $('#pdfHeaderLeft').val();
+        let headerLeft = $('#pdfHeaderLeft').val();
         if (headerLeft == undefined) {
             headerLeft = '';
         }
-        var headerCenter = $('#pdfHeaderCenter').val();
+        let headerCenter = $('#pdfHeaderCenter').val();
         if (headerCenter == undefined) {
             headerCenter = '';
         }
-        var headerRight = $('#pdfHeaderRight').val();
+        let headerRight = $('#pdfHeaderRight').val();
         if (headerRight == undefined) {
             headerRight = '';
         }
 
-        var footerLeft = $('#pdfFooterLeft').val();
+        let footerLeft = $('#pdfFooterLeft').val();
         if (footerLeft == undefined) {
             footerLeft = '';
         }
-        var footerCenter = $('#pdfFooterCenter').val();
+        let footerCenter = $('#pdfFooterCenter').val();
         if (footerCenter == undefined) {
             footerCenter = '';
         }
-        var footerRight = $('#pdfFooterRight').val();
+        let footerRight = $('#pdfFooterRight').val();
         if (footerRight == undefined) {
             footerRight = '';
         }
@@ -7370,18 +7880,18 @@ class PDFModule extends Module {
 
     exportPDF() {
 
-        var thisObject = this;
+        let thisObject = this;
 
         /**
          * Get export options and hide dialog
          */
-        var pdfOptions = this.getPDFExportOptions();
+        let pdfOptions = this.getPDFExportOptions();
         this.hideExportDialog();
 
         /**
          * Show exporting dialog
          */
-        var exportDialog = bootbox.dialog({
+        let exportDialog = bootbox.dialog({
             title: 'Export to PDF',
             message: '<p><i class="fas fa-spin fa-spinner"></i> Exporting report to PDF...</p>'
         });
@@ -7406,9 +7916,9 @@ class PDFModule extends Module {
             success: (data, status, xhr) => {
 
 
-                var blob = new Blob([data]);
+                let blob = new Blob([data]);
 
-                var sContent = `Report has been converted to PDF, click on button to download file<br><br>
+                let sContent = `Report has been converted to PDF, click on button to download file<br><br>
                 <a class="btn btn-primary" href="${window.URL.createObjectURL(blob)}" download="Report.pdf" onClick="$('.bootbox.modal').modal('hide');">Download report</a>`;
 
                 exportDialog.find('.bootbox-body').html(sContent);
@@ -7425,9 +7935,9 @@ class PDFModule extends Module {
 
     print() {
 
-        var thisObject = this;
+        let thisObject = this;
 
-        var loadingDialog = bootbox.dialog({
+        let loadingDialog = bootbox.dialog({
             message: '<p class="text-center mb-0"><i class="fas fa-spin fa-cog"></i> Generating and printing report...</p>',
             closeButton: false
         });
@@ -7449,18 +7959,18 @@ class PDFModule extends Module {
                 //console.log(data);
                 //console.log(status);
 
-                var pdfBlob = new Blob([data], { type: 'application/pdf' });
+                let pdfBlob = new Blob([data], { type: 'application/pdf' });
                 pdfBlob = window.URL.createObjectURL(pdfBlob)
 
                 $('#__metadocxPDFPrint').remove();
 
-                var printFrame = document.createElement('iframe');
+                let printFrame = document.createElement('iframe');
                 printFrame.setAttribute('style', 'visibility: hidden; height: 0; width: 0; position: absolute; border: 0');
                 printFrame.setAttribute('id', '__metadocxPDFPrint');
                 printFrame.setAttribute('src', pdfBlob);
 
                 document.getElementsByTagName('body')[0].appendChild(printFrame);
-                var iframeElement = document.getElementById('__metadocxPDFPrint');
+                let iframeElement = document.getElementById('__metadocxPDFPrint');
 
                 iframeElement.onload = () => {
                     iframeElement.focus();
@@ -7587,8 +8097,8 @@ class PrintingModule extends Module {
     }
 
     getPaperSizeOptions() {
-        var s = '';
-        for (var x in this.PaperSize) {
+        let s = '';
+        for (let x in this.PaperSize) {
             s += '<option value="' + this.PaperSize[x] + '">' + this.PaperSize[x] + '</option>';
         }
         return s;
@@ -7608,11 +8118,11 @@ class PrintingModule extends Module {
 
     applyPageStyles() {
 
-        var paperSize = this.getPaperSize(this.app.viewer.options.page.paperSize);
-        var pageOrientation = this.app.viewer.options.page.orientation;
+        let paperSize = this.getPaperSize(this.app.viewer.options.page.paperSize);
+        let pageOrientation = this.app.viewer.options.page.orientation;
 
-        var width = 0;
-        var height = 0;
+        let width = 0;
+        let height = 0;
 
         if (pageOrientation == this.PageOrientation.Landscape) {
             width = paperSize.height;
@@ -7634,9 +8144,9 @@ class PrintingModule extends Module {
     }
 
     getThemeOptions() {
-        var s = '';
+        let s = '';
         s += '<option value="" data-locale="Default">Default</option>';
-        for (var x in window.__Metadocx.Themes) {
+        for (let x in window.__Metadocx.Themes) {
             s += '<option value="' + x + '">' + x + '</option>';
         }
         return s;
@@ -7735,33 +8245,6 @@ class WordModule extends Module {
     showExportDialog() {
 
         return this.exportWord();
-
-        if (this.exportDialog === null) {
-            $(this.app.viewer.getContainerSelector()).append(this.renderExportDialog());
-            this.hookExportDialogComponents();
-            this.exportDialog = new bootstrap.Modal('#' + this.app.viewer.options.id + '_wordExportDialog', {})
-        }
-
-        $('#wordPaperSize').val(this.app.viewer.options.page.paperSize);
-
-        var paperSize = this.app.modules.Printing.getPaperSize($('#wordPaperSize').val());
-        $('#wordPaperSizeWidth').val(paperSize.width);
-        $('#wordPaperSizeHeight').val(paperSize.height);
-
-        if (this.app.viewer.options.page.orientation == Metadocx.modules.Printing.PageOrientation.Portrait) {
-            $('#wordOrientationPortrait').prop('checked', true);
-            $('#wordOrientationLandscape').prop('checked', false);
-        } else {
-            $('#wordOrientationPortrait').prop('checked', false);
-            $('#wordOrientationLandscape').prop('checked', true);
-        }
-
-        $('#wordTopMargin').val(this.app.viewer.options.page.margins.top);
-        $('#wordBottomMargin').val(this.app.viewer.options.page.margins.bottom);
-        $('#wordLeftMargin').val(this.app.viewer.options.page.margins.left);
-        $('#wordRightMargin').val(this.app.viewer.options.page.margins.right);
-
-        this.exportDialog.show();
 
     }
 
@@ -7956,7 +8439,7 @@ class WordModule extends Module {
                 $('.wordPaperSizeWidths').hide();
             }
 
-            var paperSize = this.app.modules.Printing.getPaperSize($('#wordPaperSize').val());
+            let paperSize = this.app.modules.Printing.getPaperSize($('#wordPaperSize').val());
             $('#wordPaperSizeWidth').val(paperSize.width);
             $('#wordPaperSizeHeight').val(paperSize.height);
         });
@@ -7966,47 +8449,13 @@ class WordModule extends Module {
 
     getWordExportOptions() {
 
-        var orientation = Metadocx.modules.Printing.PageOrientation.Portrait;
-        if ($('#wordOrientationLandscape').prop('checked')) {
-            orientation = Metadocx.modules.Printing.PageOrientation.Landscape;
-        }
-
-        return {
-            "page": {
-                "orientation": orientation,
-                "paperSize": $('#wordPaperSize').val(),
-                "width": $('#wordPaperSizeWidth').val(),
-                "height": $('#wordPaperSizeHeight').val(),
-                "margins": {
-                    "top": Metadocx.modules.UI.convertInchesToMM(parseFloat($('#wordTopMargin').val())),
-                    "bottom": Metadocx.modules.UI.convertInchesToMM(parseFloat($('#wordBottomMargin').val())),
-                    "left": Metadocx.modules.UI.convertInchesToMM(parseFloat($('#wordLeftMargin').val())),
-                    "right": Metadocx.modules.UI.convertInchesToMM(parseFloat($('#wordRightMargin').val()))
-                }
-            },
-            "grayscale": $('#wordGrayscale').prop('checked'),
-            "wordCompression": $('#wordUseCompression').prop('checked'),
-            "outline": $('#wordIncludeOutline').prop('checked'),
-            "backgroundGraphics": $('#wordPrintBackgrounds').prop('checked'),
-            "header": {
-                "left": $('#wordHeaderLeft').val(),
-                "center": $('#wordHeaderCenter').val(),
-                "right": $('#wordHeaderRight').val(),
-                "displayHeaderLine": $('#wordHeaderLine').prop('checked')
-            },
-            "footer": {
-                "left": $('#wordFooterLeft').val(),
-                "center": $('#wordFooterCenter').val(),
-                "right": $('#wordFooterRight').val(),
-                "displayFooterLine": $('#wordFooterLine').prop('checked')
-            }
-        };
+        return {}
 
     }
 
     exportWord() {
 
-        var thisObject = this;
+        let thisObject = this;
 
         $('.report-graph-canvas').hide();
         $('.report-graph-image').show();
@@ -8014,7 +8463,7 @@ class WordModule extends Module {
         /**
          * Show exporting dialog
          */
-        var exportDialog = bootbox.dialog({
+        let exportDialog = bootbox.dialog({
             title: 'Export to Word',
             message: '<p><i class="fas fa-spin fa-spinner"></i> Exporting report to Word...</p>'
         });
@@ -8031,8 +8480,8 @@ class WordModule extends Module {
             },
             success: (data, status, xhr) => {
                 //, { type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" }
-                var blob = new Blob([data]);
-                var sContent = `Report has been converted to Word, click on button to download file<br><br>
+                let blob = new Blob([data]);
+                let sContent = `Report has been converted to Word, click on button to download file<br><br>
                 <a class="btn btn-primary" href="${window.URL.createObjectURL(blob)}" download="Report.docx" onClick="$('.bootbox.modal').modal('hide');">Download report</a>`;
 
                 exportDialog.find('.bootbox-body').html(sContent);
@@ -8114,6 +8563,22 @@ window.__Metadocx.Locales.en = {
     "Default": "Default",
     "ReportTheme": "Report Theme",
     "CreatedAt": "Created At",
+    "PDF": "PDF",
+    "Excel": "Excel",
+    "Word": "Word",
+    "Open": "Open",
+    "Save": "Save",
+    "Delete": "Delete",
+    "New": "New",
+    "SaveAs": "Save as",
+    "SavedReport": "Save report",
+    "SavedReports": "Saved reports",
+    "OpenReport": "Open Report",
+    "SelectReport": "Select Report",
+    "DeleteReport": "Delete Report",
+    "ReportDeleted": "Report Deleted",
+    "ReportOpened": "Report opened",
+    "ReportSaved": "Report saved",
 };
 window.__Metadocx.Locales.fr = {
     "en": "Anglais",
@@ -8179,6 +8644,22 @@ window.__Metadocx.Locales.fr = {
     "Default": "Défaut",
     "ReportTheme": "Thème du rapport",
     "CreatedAt": "Créé le",
+    "PDF": "PDF",
+    "Excel": "Excel",
+    "Word": "Word",
+    "Open": "Ouvrir",
+    "Save": "Sauvegarder",
+    "Delete": "Détruire",
+    "New": "Nouveau",
+    "SaveAs": "Sauvegarder sous",
+    "SavedReport": "Sauvegarde du rapport",
+    "SavedReports": "Rapports sauvegardés",
+    "OpenReport": "Ouvrir un rapport",
+    "SelectReport": "Sélectionnez un rapport",
+    "DeleteReport": "Détruire le rapport?",
+    "ReportDeleted": "Rapport détruit avec succès",
+    "ReportOpened": "Ouverture du rapport",
+    "ReportSaved": "Rapport sauvegardé",
 };
 /**
  * Theme1 class
@@ -8194,9 +8675,13 @@ class Theme1 extends Theme {
         this.colorScheme = ['#A21BBF', '#295CF0', '#007EFF', '#0093F7', '#00A0D1', '#00AA9F'];
     }
 
+    /**
+     * Renders cover page HTML
+     * @returns 
+     */
     renderCoverPage() {
 
-        var s = '';
+        let s = '';
 
         s += `<div class="report-cover-page">
             <div class="report-cover-header"></div>
@@ -8209,6 +8694,10 @@ class Theme1 extends Theme {
 
     }
 
+    /**
+     * Renders theme css
+     * @returns 
+     */
     renderThemeCSS() {
 
         return `
@@ -8225,6 +8714,10 @@ class Theme1 extends Theme {
 
     }
 
+    /**
+     * Renders cover page CSS
+     * @returns 
+     */
     renderCoverPageCSS() {
 
         return `
@@ -8290,14 +8783,20 @@ class Theme2 extends Theme {
         this.colorScheme = ['#1C85D6', '#00A8E5', '#00C5D5', '#00DEB0', '#95EF87', '#F9F871'];
     }
 
+    /**
+     * Renders cover page html
+     * @returns 
+     */
     renderCoverPage() {
 
-        var s = '';
+        let s = '';
 
         s += `<div class="report-cover-page">
             <div class="report-cover-header"></div>
             <div class="report-cover-name">${this.app.viewer.report.getReportDefinition().properties.name}</div>
             <div class="report-cover-description">${this.app.viewer.report.getReportDefinition().properties.description}</div>
+            <div class="custom-cover-author">${this.app.viewer.report.getReportDefinition().properties.author ?? ''}</div>
+            <div class="custom-cover-version">Version ${this.app.viewer.report.getReportDefinition().properties.version ?? ''}</div>
             <div class="report-cover-footer"></div>
             <div class="report-cover-date"><span data-locale="CreatedAt">Created at</span> ${moment().format('YYYY-MM-DD HH:mm')}</div>
             <div class="report-cover-powered-by"><span data-locale="PoweredBy">powered by</span> <a href="https://www.metadocx.com" target="_blank">Metadocx</a></div>
@@ -8307,6 +8806,10 @@ class Theme2 extends Theme {
 
     }
 
+    /**
+     * Renders theme css
+     * @returns 
+     */
     renderThemeCSS() {
 
         return `
@@ -8323,12 +8826,31 @@ class Theme2 extends Theme {
 
     }
 
+    /**
+     * Renders cover page css
+     * @returns 
+     */
     renderCoverPageCSS() {
 
         return `
 
             #reportCoverPage {
                 position:relative;
+            }
+
+            .custom-cover-author {
+                position: absolute;
+                right: 50px;
+                top: 500px;    
+                font-color: #c0c0c0;            
+            }
+
+            .custom-cover-version {
+                position: absolute;
+                right: 50px;
+                top: 530px;    
+                font-color: #c0c0c0;            
+                font-size:9pt;
             }
 
             .report-cover-date {
@@ -8430,7 +8952,7 @@ if (!window.jQuery) {
     console.log('jQuery is not loaded, adding script tag');
 
     (function (d, s, id) {
-        var js, lsjs = d.getElementsByTagName(s)[0];
+        let js, lsjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) {
             console.log('Package is already loaded, skipping');
             return;
