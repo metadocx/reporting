@@ -1,8 +1,7 @@
 const gulp = require('gulp');
 const concat = require('gulp-concat');
-const minify = require('gulp-minify');
 const order = require('gulp-order');
-const uglify = require('gulp-terser');
+const terser = require('gulp-terser');
 const cleanCSS = require('gulp-clean-css');
 const cssmin = require('gulp-cssmin');
 const obfuscator = require('gulp-javascript-obfuscator');
@@ -61,14 +60,8 @@ gulp.task('build-prod', function () {
             'js/bootstrap/*.js',
         ], { base: __dirname }))
         .pipe(concat('metadocx.min.js'))
-        .pipe(minify({
-            ext: {
-                src: '.js',
-                min: '.js'
-            }
-        }
-        ))
         .pipe(sourcemaps.init())
+        .pipe(terser())
         .pipe(obfuscator({
             compact: true
         }))
