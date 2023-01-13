@@ -4059,6 +4059,12 @@ class ReportViewer extends Consolable {
 
         $('.report-toolbar-button').show();
 
+        if (this.options.toolbar.showSaveButton) {
+            $('#' + this.options.id + '_file').show();
+        } else {
+            $('#' + this.options.id + '_file').hide();
+        }
+
         if (this.options.toolbar.showLocaleButton) {
             $('#' + this.options.id + '_localeGroup').show();
         } else {
@@ -4083,7 +4089,7 @@ class ReportViewer extends Consolable {
             $('#' + this.options.id + '_print').hide();
         }
 
-        if (this.options.toolbar.showCriteriasButton) {
+        if (this.options.toolbar.showCriteriasButton && this.criterias.length > 0) {
             $('#' + this.options.id + '_criterias').show();
         } else {
             $('#' + this.options.id + '_criterias').hide();
