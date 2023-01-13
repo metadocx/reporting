@@ -1375,14 +1375,18 @@ class ReportViewer extends Consolable {
      * Hide main toolbar in report viewer
      */
     hideToolbar() {
-        $('#' + this.report.id + '_toolbar').hide();
+        $('#' + this.report.id + '_header').hide();
+        $('#' + this.report.id + '_canvas').css('margin-top', '0px');
+        $('#' + this.report.id + '_canvas').css('height', '100vh');
     }
 
     /**
      * Show main toolbar in report viewer
      */
     showToolbar() {
-        $('#' + this.report.id + '_toolbar').show();
+        $('#' + this.report.id + '_header').show();
+        $('#' + this.report.id + '_canvas').css('margin-top', '70px');
+        $('#' + this.report.id + '_canvas').css('height', 'calc(100vh - 70px)');
     }
 
 
