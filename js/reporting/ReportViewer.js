@@ -112,6 +112,9 @@ class ReportViewer extends Consolable {
                     "right": 0.5
                 }
             },
+            "criterias": {
+                "automatic": false
+            },
             "coverPage": {
                 "enabled": false
             },
