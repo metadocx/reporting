@@ -34,7 +34,10 @@ The Report Options section allows to set report viewer options directly within t
                 "left" : 0.5,
                 "right" : 0.5
             },
-        },        
+        },      
+        "criterias": {
+                "automatic": false
+        },  
         "coverPage": {
             "enabled": false
         },
@@ -144,6 +147,11 @@ Report viewer export format options
 !!! Note "Export dependencies"
 
     Exporting reports in other formats requires server side processing.
+
+### criterias
+| Property            | Description                          |
+| ------------------- | ------------------------------------ |
+| automatic | `Boolean`, indicates if we create criterias automaticly based on model information, `false` by default  |
 
 ### coverPage
 | Property            | Description                          |
