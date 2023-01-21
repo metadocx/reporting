@@ -2730,8 +2730,9 @@ class Report {
             return;
         }
 
-        // $('#criteriaDetails_Department').collapse('show')
-        // $('#criteriaDetails_Department').collapse('hide')
+        if (this.app.viewer.options.criterias.automatic) {
+            this.createAutomaticCriterias();
+        }
 
         let sCriterias = '';
         let aCriterias = [];
@@ -2784,6 +2785,116 @@ class Report {
 
         this._reportCriteriasRendered = true;
 
+
+    }
+
+    /**
+     * Analyze model and add criterias for fields based on field data type
+     */
+    createAutomaticCriterias() {
+
+        for (let sectionID in this.getReportDefinition().sections) {
+
+            let oSection = this.getReportDefinition().sections[sectionID];
+
+            if (oSection.type != 'DataTable') {
+                continue;
+            }
+
+            for (let x in oSection.model) {
+                let col = oSection.model[x];
+
+                if (col.automaticCriteria !== undefined && col.automaticCriteria === false) {
+                    // Skip automatic criteria for this column
+                    continue;
+                }
+
+                switch (col.type) {
+                    case 'date':
+
+                        this.getReportDefinition().criterias.push(
+                            {
+                                "id": col.name,
+                                "name": oSection.properties.name + ' - ' + col.label,
+                                "description": "",
+                                "type": "DatePeriodCriteria",
+                                "defaultValue": null,
+                                "isRequired": false,
+                                "parameters": {
+                                    "locale": {
+                                        "format": "YYYY-MM-DD",
+                                        "separator": " / "
+                                    },
+                                    "alwaysShowCalendars": true
+                                },
+                                "applyTo": [
+                                    { "section": oSection.id, "field": col.name }
+                                ]
+                            }
+                        );
+
+                        break;
+                    case 'number':
+
+                        this.getReportDefinition().criterias.push({
+                            "id": col.name,
+                            "name": oSection.properties.name + ' - ' + col.label,
+                            "description": "",
+                            "type": "NumericCriteria",
+                            "defaultValue": null,
+                            "isRequired": false,
+                            "parameters": {
+                            },
+                            "applyTo": [
+                                { "section": oSection.id, "field": col.name }
+                            ]
+                        });
+
+                        break;
+                    case 'boolean':
+                        this.getReportDefinition().criterias.push({
+                            "id": col.name,
+                            "name": oSection.properties.name + ' - ' + col.label,
+                            "description": "",
+                            "type": "BooleanCriteria",
+                            "defaultValue": null,
+                            "isRequired": false,
+                            "parameters": {
+                            },
+                            "applyTo": [
+                                { "section": oSection.id, "field": col.name }
+                            ]
+                        });
+                        break;
+                    case 'string':
+
+                        this.getReportDefinition().criterias.push({
+                            "id": col.name,
+                            "name": oSection.properties.name + ' - ' + col.label,
+                            "description": "",
+                            "type": "SelectCriteria",
+                            "defaultValue": null,
+                            "isRequired": false,
+                            "parameters": {
+                                "multiple": true,
+                                "allowClear": true,
+                                "placeholder": "",
+                                "closeOnSelect": true
+                            },
+                            "options": {
+                                "source": "data",
+                                "field": col.name
+                            },
+                            "applyTo": [
+                                { "section": oSection.id, "field": col.name }
+                            ]
+                        });
+
+                        break;
+                }
+
+            }
+        }
 
     }
 
@@ -3919,6 +4030,9 @@ class ReportViewer extends Consolable {
                     "left": 0.5,
                     "right": 0.5
                 }
+            },
+            "criterias": {
+                "automatic": false
             },
             "coverPage": {
                 "enabled": false
@@ -5183,14 +5297,18 @@ class ReportViewer extends Consolable {
      * Hide main toolbar in report viewer
      */
     hideToolbar() {
-        $('#' + this.report.id + '_toolbar').hide();
+        $('#' + this.report.id + '_header').hide();
+        $('#' + this.report.id + '_canvas').css('margin-top', '0px');
+        $('#' + this.report.id + '_canvas').css('height', '100vh');
     }
 
     /**
      * Show main toolbar in report viewer
      */
     showToolbar() {
-        $('#' + this.report.id + '_toolbar').show();
+        $('#' + this.report.id + '_header').show();
+        $('#' + this.report.id + '_canvas').css('margin-top', '70px');
+        $('#' + this.report.id + '_canvas').css('height', 'calc(100vh - 70px)');
     }
 
 
