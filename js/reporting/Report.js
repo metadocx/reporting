@@ -496,7 +496,7 @@ class Report {
                             <h2 id="criteriaTitle${this.getReportDefinition().criterias[x].id}" class="accordion-header">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#criteriaDetails_${this.getReportDefinition().criterias[x].id}" aria-expanded="false" aria-controls="flush-collapseOne">
                                     <div class="form-check form-switch form-switch-lg">
-                                        <input class="form-check-input" type="checkbox" role="switch" id="criteriaEnabled_${this.getReportDefinition().criterias[x].id}">
+                                        <input class="form-check-input criteria-toggle" type="checkbox" role="switch" data-bs-toggle="collapse" data-bs-target id="criteriaEnabled_${this.getReportDefinition().criterias[x].id}">
                                         <label class="form-check-label" for="criteriaEnabled_${this.getReportDefinition().criterias[x].id}">&nbsp;</label>
                                     </div>                                
                                     ${this.getReportDefinition().criterias[x].name}
@@ -532,8 +532,8 @@ class Report {
             }
         }
 
-        this._reportCriteriasRendered = true;
 
+        this._reportCriteriasRendered = true;
 
     }
 
@@ -541,6 +541,8 @@ class Report {
      * Analyze model and add criterias for fields based on field data type
      */
     createAutomaticCriterias() {
+
+        let criteriaType
 
         for (let sectionID in this.getReportDefinition().sections) {
 
@@ -561,12 +563,17 @@ class Report {
                 switch (col.type) {
                     case 'date':
 
+                        criteriaType = 'DatePeriodCriteria';
+                        if (col.criteriaType !== undefined) {
+                            criteriaType = col.criteriaType;
+                        }
+
                         this.getReportDefinition().criterias.push(
                             {
                                 "id": col.name,
                                 "name": oSection.properties.name + ' - ' + col.label,
                                 "description": "",
-                                "type": "DatePeriodCriteria",
+                                "type": criteriaType,
                                 "defaultValue": null,
                                 "isRequired": false,
                                 "parameters": {
@@ -585,11 +592,16 @@ class Report {
                         break;
                     case 'number':
 
+                        criteriaType = 'NumericCriteria';
+                        if (col.criteriaType !== undefined) {
+                            criteriaType = col.criteriaType;
+                        }
+
                         this.getReportDefinition().criterias.push({
                             "id": col.name,
                             "name": oSection.properties.name + ' - ' + col.label,
                             "description": "",
-                            "type": "NumericCriteria",
+                            "type": criteriaType,
                             "defaultValue": null,
                             "isRequired": false,
                             "parameters": {
@@ -601,11 +613,17 @@ class Report {
 
                         break;
                     case 'boolean':
+
+                        criteriaType = 'BooleanCriteria';
+                        if (col.criteriaType !== undefined) {
+                            criteriaType = col.criteriaType;
+                        }
+
                         this.getReportDefinition().criterias.push({
                             "id": col.name,
                             "name": oSection.properties.name + ' - ' + col.label,
                             "description": "",
-                            "type": "BooleanCriteria",
+                            "type": criteriaType,
                             "defaultValue": null,
                             "isRequired": false,
                             "parameters": {
@@ -617,11 +635,17 @@ class Report {
                         break;
                     case 'string':
 
+                        criteriaType = 'SelectCriteria';
+                        if (col.criteriaType !== undefined) {
+                            criteriaType = col.criteriaType;
+                        }
+
+
                         this.getReportDefinition().criterias.push({
                             "id": col.name,
                             "name": oSection.properties.name + ' - ' + col.label,
                             "description": "",
-                            "type": "SelectCriteria",
+                            "type": criteriaType,
                             "defaultValue": null,
                             "isRequired": false,
                             "parameters": {

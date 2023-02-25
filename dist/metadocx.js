@@ -296,7 +296,7 @@ class CriteriaControl {
      * Sets JS object (if any) to this._instance
      */
     initializeJS() {
-        throw new Error('Must redefine function initializeJS');
+        return null;
     }
 
     /**
@@ -477,6 +477,11 @@ class DataFilter {
                     if (this.hasColumn(aCriterias[x].applyTo[a].field)) {
 
                         switch (aCriterias[x].type) {
+                            case 'TextCriteria':
+                                if (this.data[r][aCriterias[x].applyTo[a].field] != criteriaValue.value) {
+                                    this.data[r]['__visible'] = false;
+                                }
+                                break;
                             case 'DatePeriodCriteria':
                                 if (!moment(this.data[r][aCriterias[x].applyTo[a].field]).isBetween(criteriaValue.value.startDate, criteriaValue.value.endDate, undefined, '[]')) {
                                     this.data[r]['__visible'] = false;
@@ -536,8 +541,8 @@ class DataFilter {
                                         }
                                         break;
                                     case 'BETWEEN':
-                                        if (this.data[r][aCriterias[x].applyTo[a].field] < criteriaValue.value.startValue &&
-                                            this.data[r][aCriterias[x].applyTo[a].field] > criteriaValue.value.endValue) {
+                                        if (!(this.data[r][aCriterias[x].applyTo[a].field] >= criteriaValue.value.startValue &&
+                                            this.data[r][aCriterias[x].applyTo[a].field] <= criteriaValue.value.endValue)) {
                                             this.data[r]['__visible'] = false;
                                         }
                                         break;
@@ -2747,7 +2752,7 @@ class Report {
                             <h2 id="criteriaTitle${this.getReportDefinition().criterias[x].id}" class="accordion-header">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#criteriaDetails_${this.getReportDefinition().criterias[x].id}" aria-expanded="false" aria-controls="flush-collapseOne">
                                     <div class="form-check form-switch form-switch-lg">
-                                        <input class="form-check-input" type="checkbox" role="switch" id="criteriaEnabled_${this.getReportDefinition().criterias[x].id}">
+                                        <input class="form-check-input criteria-toggle" type="checkbox" role="switch" data-bs-toggle="collapse" data-bs-target id="criteriaEnabled_${this.getReportDefinition().criterias[x].id}">
                                         <label class="form-check-label" for="criteriaEnabled_${this.getReportDefinition().criterias[x].id}">&nbsp;</label>
                                     </div>                                
                                     ${this.getReportDefinition().criterias[x].name}
@@ -2783,8 +2788,8 @@ class Report {
             }
         }
 
-        this._reportCriteriasRendered = true;
 
+        this._reportCriteriasRendered = true;
 
     }
 
@@ -2792,6 +2797,8 @@ class Report {
      * Analyze model and add criterias for fields based on field data type
      */
     createAutomaticCriterias() {
+
+        let criteriaType
 
         for (let sectionID in this.getReportDefinition().sections) {
 
@@ -2812,12 +2819,17 @@ class Report {
                 switch (col.type) {
                     case 'date':
 
+                        criteriaType = 'DatePeriodCriteria';
+                        if (col.criteriaType !== undefined) {
+                            criteriaType = col.criteriaType;
+                        }
+
                         this.getReportDefinition().criterias.push(
                             {
                                 "id": col.name,
                                 "name": oSection.properties.name + ' - ' + col.label,
                                 "description": "",
-                                "type": "DatePeriodCriteria",
+                                "type": criteriaType,
                                 "defaultValue": null,
                                 "isRequired": false,
                                 "parameters": {
@@ -2836,11 +2848,16 @@ class Report {
                         break;
                     case 'number':
 
+                        criteriaType = 'NumericCriteria';
+                        if (col.criteriaType !== undefined) {
+                            criteriaType = col.criteriaType;
+                        }
+
                         this.getReportDefinition().criterias.push({
                             "id": col.name,
                             "name": oSection.properties.name + ' - ' + col.label,
                             "description": "",
-                            "type": "NumericCriteria",
+                            "type": criteriaType,
                             "defaultValue": null,
                             "isRequired": false,
                             "parameters": {
@@ -2852,11 +2869,17 @@ class Report {
 
                         break;
                     case 'boolean':
+
+                        criteriaType = 'BooleanCriteria';
+                        if (col.criteriaType !== undefined) {
+                            criteriaType = col.criteriaType;
+                        }
+
                         this.getReportDefinition().criterias.push({
                             "id": col.name,
                             "name": oSection.properties.name + ' - ' + col.label,
                             "description": "",
-                            "type": "BooleanCriteria",
+                            "type": criteriaType,
                             "defaultValue": null,
                             "isRequired": false,
                             "parameters": {
@@ -2868,11 +2891,17 @@ class Report {
                         break;
                     case 'string':
 
+                        criteriaType = 'SelectCriteria';
+                        if (col.criteriaType !== undefined) {
+                            criteriaType = col.criteriaType;
+                        }
+
+
                         this.getReportDefinition().criterias.push({
                             "id": col.name,
                             "name": oSection.properties.name + ' - ' + col.label,
                             "description": "",
-                            "type": "SelectCriteria",
+                            "type": criteriaType,
                             "defaultValue": null,
                             "isRequired": false,
                             "parameters": {
@@ -4067,6 +4096,9 @@ class ReportViewer extends Consolable {
                 "number": {
                     "format": "0.00"
                 }
+            },
+            "viewer": {
+                "method": "html"
             },
             "printing": {
                 "method": "pdf"
@@ -5350,19 +5382,31 @@ class BooleanCriteria extends CriteriaControl {
     }
 
     initializeJS() {
-        return null;
+        super.initializeJS();
+
+        $('#' + this.id + '_yes,#' + this.id + '_no').on('click', function () {
+
+            let criteriaId = $(this).attr('criteria');
+            if ($('#' + criteriaId + '_yes').prop('checked') || $('#' + criteriaId + '_no').prop('checked')) {
+                $('#criteriaEnabled_' + criteriaId).prop('checked', true);
+            } else {
+                $('#criteriaEnabled_' + criteriaId).prop('checked', false);
+            }
+
+        });
+
     }
 
     render() {
 
         return `<div class="form-check mb-2">
-                    <input class="form-check-input" type="checkbox" id="${this.id}_yes">
+                    <input class="form-check-input" type="checkbox" id="${this.id}_yes" criteria="${this.id}">
                     <label class="form-check-label" for="${this.id}_yes" data-locale="Yes">
                         Yes
                     </label>
                 </div>
                 <div class="form-check mb-2">
-                    <input class="form-check-input" type="checkbox" id="${this.id}_no">
+                    <input class="form-check-input" type="checkbox" id="${this.id}_no" criteria="${this.id}">
                     <label class="form-check-label" for="${this.id}_no" data-locale="No">
                         No
                     </label>
@@ -5374,7 +5418,7 @@ class BooleanCriteria extends CriteriaControl {
         let bYes = $('#' + this.id + '_yes').prop('checked');
         let bNo = $('#' + this.id + '_no').prop('checked');
 
-        if (bYes && bNo) {
+        if ((bYes && bNo) || (!bYes && !bNo)) {
             return 'ALL';
         } else {
             return bYes;
@@ -5751,6 +5795,8 @@ class SelectCriteria extends CriteriaControl {
 
     initializeJS() {
 
+        super.initializeJS();
+
         var thisObject = this;
 
         if (!Array.isArray(this.reportCriteria.options)) {
@@ -5790,6 +5836,14 @@ class SelectCriteria extends CriteriaControl {
                     thisObject.getChildCriterias()[x].setValue(null);
                 }
             }
+
+            if (thisObject.getValue().length > 0) {
+                $('#criteriaEnabled_' + thisObject.id).prop('checked', true);
+            } else {
+                $('#criteriaEnabled_' + thisObject.id).prop('checked', false);
+            }
+
+
         });
         $('#' + this.id).val(null).trigger("change");
     }
@@ -5862,6 +5916,57 @@ class SelectCriteria extends CriteriaControl {
 
 }
 window.__Metadocx.SelectCriteria = SelectCriteria;
+/** 
+ * TextCriteria
+ * 
+ * @author Benoit Gauthier <bgauthier@metadocx.com>
+ * @copyright Benoit Gauthier <bgauthier@metadocx.com>
+ * @license https://github.com/metadocx/reporting/LICENSE.md
+ */
+class TextCriteria extends CriteriaControl {
+
+    constructor(app) {
+        super(app);
+        this.options = [];
+    }
+
+    initializeJS() {
+        super.initializeJS();
+
+        $('#' + this.id + '').on('change', function () {
+            if ($(this).val() != '') {
+                // Make sure criteria is enabled
+                $('#criteriaEnabled_' + $(this).attr('id')).prop('checked', true);
+            }
+        });
+
+    }
+
+    render() {
+
+        return `
+            <div class="mb-3">
+                <label class="form-label" for="${this.id}">
+                    ${this.reportCriteria.name}
+                </label>                
+                <input id="${this.id}" class="form-control" type="text"/>                               
+            </div>`;
+    }
+
+    getValue() {
+        return $('#' + this.id + '').val();
+    }
+
+    setValue(v) {
+
+        $('#' + this.id + '').val(v);
+
+    }
+
+
+
+}
+window.__Metadocx.TextCriteria = TextCriteria;
 /**
  * Browser module class
  * 
@@ -8111,6 +8216,46 @@ class PDFModule extends Module {
         });
 
 
+    }
+
+    exportToImages() {
+        let thisObject = this;
+
+        /**
+         * Get export options and hide dialog
+         */
+        let pdfOptions = this.getPDFExportOptions();
+
+        $('.report-graph-canvas').hide();
+        $('.report-graph-image').show();
+
+        /**
+         * Call export service
+         */
+        $.ajax({
+            type: 'post',
+            url: '/Metadocx/Convert/PDF',
+            data: {
+                PDFOptions: pdfOptions,
+                HTML: btoa(unescape(encodeURIComponent($('#' + this.app.viewer.report.id + '_canvas').html()))),
+                ConvertToImages: true,
+            },
+            xhrFields: {
+                responseType: 'blob'
+            },
+            success: (data, status, xhr) => {
+
+
+                /*let blob = new Blob([data]);
+
+                                
+                thisObject.app.modules.Printing.applyPageStyles();
+                */
+                $('.report-graph-canvas').show();
+                $('.report-graph-image').hide();
+
+            }
+        });
     }
 
 

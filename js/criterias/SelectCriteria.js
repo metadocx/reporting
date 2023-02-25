@@ -14,6 +14,8 @@ class SelectCriteria extends CriteriaControl {
 
     initializeJS() {
 
+        super.initializeJS();
+
         var thisObject = this;
 
         if (!Array.isArray(this.reportCriteria.options)) {
@@ -53,6 +55,14 @@ class SelectCriteria extends CriteriaControl {
                     thisObject.getChildCriterias()[x].setValue(null);
                 }
             }
+
+            if (thisObject.getValue().length > 0) {
+                $('#criteriaEnabled_' + thisObject.id).prop('checked', true);
+            } else {
+                $('#criteriaEnabled_' + thisObject.id).prop('checked', false);
+            }
+
+
         });
         $('#' + this.id).val(null).trigger("change");
     }

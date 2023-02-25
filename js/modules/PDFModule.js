@@ -483,6 +483,46 @@ class PDFModule extends Module {
 
     }
 
+    exportToImages() {
+        let thisObject = this;
+
+        /**
+         * Get export options and hide dialog
+         */
+        let pdfOptions = this.getPDFExportOptions();
+
+        $('.report-graph-canvas').hide();
+        $('.report-graph-image').show();
+
+        /**
+         * Call export service
+         */
+        $.ajax({
+            type: 'post',
+            url: '/Metadocx/Convert/PDF',
+            data: {
+                PDFOptions: pdfOptions,
+                HTML: btoa(unescape(encodeURIComponent($('#' + this.app.viewer.report.id + '_canvas').html()))),
+                ConvertToImages: true,
+            },
+            xhrFields: {
+                responseType: 'blob'
+            },
+            success: (data, status, xhr) => {
+
+
+                /*let blob = new Blob([data]);
+
+                                
+                thisObject.app.modules.Printing.applyPageStyles();
+                */
+                $('.report-graph-canvas').show();
+                $('.report-graph-image').hide();
+
+            }
+        });
+    }
+
 
 }
 window.__Metadocx.PDFModule = PDFModule;

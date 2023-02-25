@@ -95,6 +95,11 @@ class DataFilter {
                     if (this.hasColumn(aCriterias[x].applyTo[a].field)) {
 
                         switch (aCriterias[x].type) {
+                            case 'TextCriteria':
+                                if (this.data[r][aCriterias[x].applyTo[a].field] != criteriaValue.value) {
+                                    this.data[r]['__visible'] = false;
+                                }
+                                break;
                             case 'DatePeriodCriteria':
                                 if (!moment(this.data[r][aCriterias[x].applyTo[a].field]).isBetween(criteriaValue.value.startDate, criteriaValue.value.endDate, undefined, '[]')) {
                                     this.data[r]['__visible'] = false;
@@ -154,8 +159,8 @@ class DataFilter {
                                         }
                                         break;
                                     case 'BETWEEN':
-                                        if (this.data[r][aCriterias[x].applyTo[a].field] < criteriaValue.value.startValue &&
-                                            this.data[r][aCriterias[x].applyTo[a].field] > criteriaValue.value.endValue) {
+                                        if (!(this.data[r][aCriterias[x].applyTo[a].field] >= criteriaValue.value.startValue &&
+                                            this.data[r][aCriterias[x].applyTo[a].field] <= criteriaValue.value.endValue)) {
                                             this.data[r]['__visible'] = false;
                                         }
                                         break;

@@ -149,6 +149,9 @@ class ReportViewer extends Consolable {
                     "format": "0.00"
                 }
             },
+            "viewer": {
+                "method": "html"
+            },
             "printing": {
                 "method": "pdf"
             }
