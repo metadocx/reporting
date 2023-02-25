@@ -22,7 +22,7 @@ class CriteriaControl {
      * Sets JS object (if any) to this._instance
      */
     initializeJS() {
-        throw new Error('Must redefine function initializeJS');
+        return null;
     }
 
     /**
