@@ -16,9 +16,9 @@
     "require": {
         "php": "^7.3|^8.0",
         "ext-json": "*",
-        "metadocx/php-pdf-converter": "1.0.*",
-        "metadocx/php-word-converter": "1.0.*",
-        "metadocx/php-excel-converter": "1.0.*"
+        "metadocx/php-pdf-converter": "*",
+        "metadocx/php-word-converter": "*",
+        "metadocx/php-excel-converter": "*"
     },    
     "autoload": {
         "psr-4": {

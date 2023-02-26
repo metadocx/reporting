@@ -397,13 +397,15 @@ class PDFModule extends Module {
         /**
          * Call export service
          */
+
+
         $.ajax({
             type: 'post',
             url: '/Metadocx/Convert/PDF',
             data: {
                 PDFOptions: pdfOptions,
                 HTML: btoa(unescape(encodeURIComponent($('#reportPage')[0].outerHTML))),
-                CoverPage: btoa(unescape(encodeURIComponent($('#reportCoverPage')[0].outerHTML))),
+                CoverPage: ($('#reportCoverPage').length > 0 ? btoa(unescape(encodeURIComponent($('#reportCoverPage')[0].outerHTML))) : ''),
             },
             xhrFields: {
                 responseType: 'blob'
@@ -445,7 +447,8 @@ class PDFModule extends Module {
             url: '/Metadocx/Convert/PDF',
             data: {
                 PDFOptions: this.getPDFExportOptions(),
-                HTML: btoa(unescape(encodeURIComponent($('#' + this.app.viewer.report.id + '_canvas').html()))),
+                HTML: btoa(unescape(encodeURIComponent($('#reportPage')[0].outerHTML))),
+                CoverPage: ($('#reportCoverPage').length > 0 ? btoa(unescape(encodeURIComponent($('#reportCoverPage')[0].outerHTML))) : ''),
             },
             xhrFields: {
                 responseType: 'blob'
@@ -508,9 +511,8 @@ class PDFModule extends Module {
             url: '/Metadocx/Convert/PDF',
             data: {
                 PDFOptions: pdfOptions,
-                //HTML: btoa(unescape(encodeURIComponent($('#' + this.app.viewer.report.id + '_canvas').html()))),
                 HTML: btoa(unescape(encodeURIComponent($('#reportPage')[0].outerHTML))),
-                CoverPage: btoa(unescape(encodeURIComponent($('#reportCoverPage')[0].outerHTML))),
+                CoverPage: ($('#reportCoverPage').length > 0 ? btoa(unescape(encodeURIComponent($('#reportCoverPage')[0].outerHTML))) : ''),
                 ConvertToImages: true,
             },
             success: (data, status, xhr) => {
