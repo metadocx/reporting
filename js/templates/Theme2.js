@@ -126,6 +126,7 @@ class Theme2 extends Theme {
                 font-size: 24px;  
                 text-align: right;
                 right: 50px;         
+                width: 100%;
             }
 
             .report-cover-footer {

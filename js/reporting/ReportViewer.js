@@ -68,6 +68,8 @@ class ReportViewer extends Consolable {
          */
         this.theme = null;
 
+        this.loadingDialog = null;
+
         /**
          * Initialize options with default options
          */
@@ -204,6 +206,13 @@ class ReportViewer extends Consolable {
      */
     load(reportDefinitionUrl) {
 
+        if (this.loadingDialog === null) {
+            this.loadingDialog = bootbox.dialog({
+                message: '<p class="text-center mb-0"><i class="uil uil-cog"></i> Generating report...</p>',
+                closeButton: false
+            });
+        }
+
         /**
          * If we have a report definition file passed as parameter, load it and render
          */
@@ -213,7 +222,7 @@ class ReportViewer extends Consolable {
              * Create report object
              */
             if (this.report === null) {
-                this.report = new Report();
+                this.report = new Report(this.app);
             }
             this.report.app = this.app;
 
@@ -222,6 +231,18 @@ class ReportViewer extends Consolable {
 
             this.report.onReportLoaded = () => {
                 this.applyReportViewerOptions();
+                if (this.options.viewer.method == 'PDF') {
+                    this.app.modules.PDF.exportToImages(() => {
+                        if (this.loadingDialog !== null) {
+                            this.loadingDialog.modal('hide');
+                        }
+                    });
+                } else {
+                    if (this.loadingDialog !== null) {
+                        this.loadingDialog.modal('hide');
+                    }
+                }
+
             }
 
             this.report.onReportDefinitionFileLoaded = () => {
@@ -310,8 +331,6 @@ class ReportViewer extends Consolable {
         } else {
             $('#' + this.options.id + '_close').hide();
         }
-
-
 
     }
 
@@ -443,6 +462,8 @@ class ReportViewer extends Consolable {
              </div>
          </header>
          <div id="${this.options.id}_canvas" class="report-viewer-canvas">
+         </div>
+         <div id="${this.options.id}_pageViewer" class="report-viewer-canvas" style="display:none;">
          </div>
          <div id="${this.options.id}_reportDefinitionViewer" class="report-definition-code-viewer" style="display:none;">
             <pre id="${this.options.id}_reportDefinitionPre"></pre>
@@ -1109,6 +1130,7 @@ class ReportViewer extends Consolable {
      */
     refreshReport() {
 
+        this.report.addLoadEvent('ReportViewer_refreshReport');
         this.theme = null;
         this.report.renderReportCriterias();
         this.report.renderReportSettings();
@@ -1126,10 +1148,8 @@ class ReportViewer extends Consolable {
         if (!this.report.isLoaded) {
             this.report.isLoaded = true;
             this.report.copyOriginalSettings();
-            if (this.report.onReportLoaded) {
-                this.report.onReportLoaded();
-            }
         }
+        this.report.setLoadEventCompleted('ReportViewer_refreshReport');
 
     }
 

@@ -6,9 +6,11 @@
  * @copyright Benoit Gauthier <bgauthier@metadocx.com>
  * @license https://github.com/metadocx/reporting/LICENSE.md
  */
-class Report {
+class Report extends Consolable {
 
-    constructor() {
+    constructor(app) {
+
+        super(app);
 
         /**
          * Report id
@@ -24,12 +26,6 @@ class Report {
          * Report definition object
          */
         this._reportDefinition = null;
-
-
-        /**
-         * Reference to Metadocx app
-         */
-        this.app = null;
 
         /**
          * Indicates if we rendered the report criteria html and js
@@ -66,6 +62,11 @@ class Report {
          */
         this._reportValidator = null;
 
+        /**
+         * List of loads events that must be completed before report is considered loaded
+         */
+        this._loadEvents = {};
+
     }
 
     /**
@@ -86,10 +87,37 @@ class Report {
         return this.id;
     }
 
+    addLoadEvent(name) {
+        this.log('Load event :: ' + name);
+        this._loadEvents[name] = false;
+    }
+
+    setLoadEventCompleted(name) {
+        this.log('Load event :: ' + name + ' completed');
+        this._loadEvents[name] = true;
+        if (this.checkIfReportIsLoaded()) {
+            this.app.modules.Console.log('Report is loaded, calling onReportLoaded');
+            if (this.onReportLoaded !== null) {
+                this.onReportLoaded();
+            }
+        }
+    }
+
+    checkIfReportIsLoaded() {
+        for (let x in this._loadEvents) {
+            if (this._loadEvents[x] == false) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     /**
     * Loads report definition file
     */
     loadReportDefinition(reportDefinitionUrl) {
+
+        this.addLoadEvent('loadReportDefinition');
 
         if (reportDefinitionUrl != undefined) {
             this._reportDefinitionUrl = reportDefinitionUrl;
@@ -104,14 +132,19 @@ class Report {
                 this.validateReportDefinitionFile();
                 this.app.modules.DataType.copyObjectProperties(this.getReportDefinition().options, this.app.viewer.options);
 
+
                 if (this.onReportDefinitionFileLoaded) {
                     this.onReportDefinitionFileLoaded();
                 }
+                this.setLoadEventCompleted('loadReportDefinition');
+
             });
         } else {
+
             if (this.onReportDefinitionFileLoaded) {
                 this.onReportDefinitionFileLoaded();
             }
+            this.setLoadEventCompleted('loadReportDefinition');
         }
 
     }
