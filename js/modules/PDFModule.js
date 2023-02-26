@@ -340,6 +340,7 @@ class PDFModule extends Module {
 
 
         return {
+            "coverpage": this.app.viewer.options.coverPage.enabled,
             "page": {
                 "orientation": orientation,
                 "paperSize": paperSize,
@@ -396,13 +397,15 @@ class PDFModule extends Module {
         /**
          * Call export service
          */
+
+
         $.ajax({
             type: 'post',
             url: '/Metadocx/Convert/PDF',
             data: {
                 PDFOptions: pdfOptions,
-                HTML: btoa(unescape(encodeURIComponent($('#' + this.app.viewer.report.id + '_canvas').html()))),
-
+                HTML: btoa(unescape(encodeURIComponent($('#reportPage')[0].outerHTML))),
+                CoverPage: ($('#reportCoverPage').length > 0 ? btoa(unescape(encodeURIComponent($('#reportCoverPage')[0].outerHTML))) : ''),
             },
             xhrFields: {
                 responseType: 'blob'
@@ -444,7 +447,8 @@ class PDFModule extends Module {
             url: '/Metadocx/Convert/PDF',
             data: {
                 PDFOptions: this.getPDFExportOptions(),
-                HTML: btoa(unescape(encodeURIComponent($('#' + this.app.viewer.report.id + '_canvas').html()))),
+                HTML: btoa(unescape(encodeURIComponent($('#reportPage')[0].outerHTML))),
+                CoverPage: ($('#reportCoverPage').length > 0 ? btoa(unescape(encodeURIComponent($('#reportCoverPage')[0].outerHTML))) : ''),
             },
             xhrFields: {
                 responseType: 'blob'
@@ -483,13 +487,18 @@ class PDFModule extends Module {
 
     }
 
-    exportToImages() {
+    exportToImages(callback) {
         let thisObject = this;
 
         /**
          * Get export options and hide dialog
          */
         let pdfOptions = this.getPDFExportOptions();
+
+        /*let loadingDialog = bootbox.dialog({
+            message: '<p class="text-center mb-0"><i class="fas fa-spin fa-cog"></i> Generating report...</p>',
+            closeButton: false
+        });*/
 
         $('.report-graph-canvas').hide();
         $('.report-graph-image').show();
@@ -502,22 +511,32 @@ class PDFModule extends Module {
             url: '/Metadocx/Convert/PDF',
             data: {
                 PDFOptions: pdfOptions,
-                HTML: btoa(unescape(encodeURIComponent($('#' + this.app.viewer.report.id + '_canvas').html()))),
+                HTML: btoa(unescape(encodeURIComponent($('#reportPage')[0].outerHTML))),
+                CoverPage: ($('#reportCoverPage').length > 0 ? btoa(unescape(encodeURIComponent($('#reportCoverPage')[0].outerHTML))) : ''),
                 ConvertToImages: true,
-            },
-            xhrFields: {
-                responseType: 'blob'
             },
             success: (data, status, xhr) => {
 
+                let s = '';
+                let pageNumber = 1;
+                for (let x in data) {
+                    s += `<div id="reportPage${pageNumber}" class="report-page">
+                        <img style="width:100%;" src="${data[x]}"/>
+                    </div>`;
+                }
 
-                /*let blob = new Blob([data]);
+                $('#metadocxReport_pageViewer').html(s);
+                $('#metadocxReport_canvas').hide();
+                $('#metadocxReport_pageViewer').show();
 
-                                
-                thisObject.app.modules.Printing.applyPageStyles();
-                */
+                thisObject.app.modules.Printing.applyPageStyles(false);
+
                 $('.report-graph-canvas').show();
                 $('.report-graph-image').hide();
+
+                if (callback) {
+                    callback();
+                }
 
             }
         });

@@ -11,6 +11,8 @@ class GraphReportSection extends ReportSection {
         super(app, reportSection);
         this._graphInstance = null;
         this._labels = [];
+        this._graphRendered = false;
+        this.onGraphRendered = null;
     }
 
     render() {
@@ -161,6 +163,8 @@ class GraphReportSection extends ReportSection {
 
     initialiseJS() {
 
+        this.app.viewer.report.addLoadEvent(this.reportSection.id + '_initializeJS');
+
         if (this.reportSection.css) {
             for (let x in this.reportSection.css) {
                 $('#' + this.reportSection.id + '_reportSection').css(x, this.reportSection.css[x]);
@@ -186,6 +190,11 @@ class GraphReportSection extends ReportSection {
                 let graphCanvas = document.getElementById(this.reportSection.id + '_graphCanvas');
                 let graphImage = document.getElementById(this.reportSection.id + '_graphImage');
                 graphImage.src = graphCanvas.toDataURL();
+                this._graphRendered = true;
+                if (this.onGraphRendered !== null) {
+                    this.onGraphRendered();
+                }
+                this.app.viewer.report.setLoadEventCompleted(this.reportSection.id + '_initializeJS');
             },
             beforeUpdate: (chart, args, options) => {
 

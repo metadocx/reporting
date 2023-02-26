@@ -1944,6 +1944,8 @@ class GraphReportSection extends ReportSection {
         super(app, reportSection);
         this._graphInstance = null;
         this._labels = [];
+        this._graphRendered = false;
+        this.onGraphRendered = null;
     }
 
     render() {
@@ -2094,6 +2096,8 @@ class GraphReportSection extends ReportSection {
 
     initialiseJS() {
 
+        this.app.viewer.report.addLoadEvent(this.reportSection.id + '_initializeJS');
+
         if (this.reportSection.css) {
             for (let x in this.reportSection.css) {
                 $('#' + this.reportSection.id + '_reportSection').css(x, this.reportSection.css[x]);
@@ -2119,6 +2123,11 @@ class GraphReportSection extends ReportSection {
                 let graphCanvas = document.getElementById(this.reportSection.id + '_graphCanvas');
                 let graphImage = document.getElementById(this.reportSection.id + '_graphImage');
                 graphImage.src = graphCanvas.toDataURL();
+                this._graphRendered = true;
+                if (this.onGraphRendered !== null) {
+                    this.onGraphRendered();
+                }
+                this.app.viewer.report.setLoadEventCompleted(this.reportSection.id + '_initializeJS');
             },
             beforeUpdate: (chart, args, options) => {
 
@@ -2262,9 +2271,11 @@ window.__Metadocx.HTMLReportSection = HTMLReportSection;
  * @copyright Benoit Gauthier <bgauthier@metadocx.com>
  * @license https://github.com/metadocx/reporting/LICENSE.md
  */
-class Report {
+class Report extends Consolable {
 
-    constructor() {
+    constructor(app) {
+
+        super(app);
 
         /**
          * Report id
@@ -2280,12 +2291,6 @@ class Report {
          * Report definition object
          */
         this._reportDefinition = null;
-
-
-        /**
-         * Reference to Metadocx app
-         */
-        this.app = null;
 
         /**
          * Indicates if we rendered the report criteria html and js
@@ -2322,6 +2327,11 @@ class Report {
          */
         this._reportValidator = null;
 
+        /**
+         * List of loads events that must be completed before report is considered loaded
+         */
+        this._loadEvents = {};
+
     }
 
     /**
@@ -2342,10 +2352,37 @@ class Report {
         return this.id;
     }
 
+    addLoadEvent(name) {
+        this.log('Load event :: ' + name);
+        this._loadEvents[name] = false;
+    }
+
+    setLoadEventCompleted(name) {
+        this.log('Load event :: ' + name + ' completed');
+        this._loadEvents[name] = true;
+        if (this.checkIfReportIsLoaded()) {
+            this.app.modules.Console.log('Report is loaded, calling onReportLoaded');
+            if (this.onReportLoaded !== null) {
+                this.onReportLoaded();
+            }
+        }
+    }
+
+    checkIfReportIsLoaded() {
+        for (let x in this._loadEvents) {
+            if (this._loadEvents[x] == false) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     /**
     * Loads report definition file
     */
     loadReportDefinition(reportDefinitionUrl) {
+
+        this.addLoadEvent('loadReportDefinition');
 
         if (reportDefinitionUrl != undefined) {
             this._reportDefinitionUrl = reportDefinitionUrl;
@@ -2360,14 +2397,19 @@ class Report {
                 this.validateReportDefinitionFile();
                 this.app.modules.DataType.copyObjectProperties(this.getReportDefinition().options, this.app.viewer.options);
 
+
                 if (this.onReportDefinitionFileLoaded) {
                     this.onReportDefinitionFileLoaded();
                 }
+                this.setLoadEventCompleted('loadReportDefinition');
+
             });
         } else {
+
             if (this.onReportDefinitionFileLoaded) {
                 this.onReportDefinitionFileLoaded();
             }
+            this.setLoadEventCompleted('loadReportDefinition');
         }
 
     }
@@ -4016,6 +4058,8 @@ class ReportViewer extends Consolable {
          */
         this.theme = null;
 
+        this.loadingDialog = null;
+
         /**
          * Initialize options with default options
          */
@@ -4152,6 +4196,13 @@ class ReportViewer extends Consolable {
      */
     load(reportDefinitionUrl) {
 
+        if (this.loadingDialog === null) {
+            this.loadingDialog = bootbox.dialog({
+                message: '<p class="text-center mb-0"><i class="uil uil-cog"></i> Generating report...</p>',
+                closeButton: false
+            });
+        }
+
         /**
          * If we have a report definition file passed as parameter, load it and render
          */
@@ -4161,7 +4212,7 @@ class ReportViewer extends Consolable {
              * Create report object
              */
             if (this.report === null) {
-                this.report = new Report();
+                this.report = new Report(this.app);
             }
             this.report.app = this.app;
 
@@ -4170,6 +4221,18 @@ class ReportViewer extends Consolable {
 
             this.report.onReportLoaded = () => {
                 this.applyReportViewerOptions();
+                if (this.options.viewer.method == 'PDF') {
+                    this.app.modules.PDF.exportToImages(() => {
+                        if (this.loadingDialog !== null) {
+                            this.loadingDialog.modal('hide');
+                        }
+                    });
+                } else {
+                    if (this.loadingDialog !== null) {
+                        this.loadingDialog.modal('hide');
+                    }
+                }
+
             }
 
             this.report.onReportDefinitionFileLoaded = () => {
@@ -4258,8 +4321,6 @@ class ReportViewer extends Consolable {
         } else {
             $('#' + this.options.id + '_close').hide();
         }
-
-
 
     }
 
@@ -4391,6 +4452,8 @@ class ReportViewer extends Consolable {
              </div>
          </header>
          <div id="${this.options.id}_canvas" class="report-viewer-canvas">
+         </div>
+         <div id="${this.options.id}_pageViewer" class="report-viewer-canvas" style="display:none;">
          </div>
          <div id="${this.options.id}_reportDefinitionViewer" class="report-definition-code-viewer" style="display:none;">
             <pre id="${this.options.id}_reportDefinitionPre"></pre>
@@ -5057,6 +5120,7 @@ class ReportViewer extends Consolable {
      */
     refreshReport() {
 
+        this.report.addLoadEvent('ReportViewer_refreshReport');
         this.theme = null;
         this.report.renderReportCriterias();
         this.report.renderReportSettings();
@@ -5074,10 +5138,8 @@ class ReportViewer extends Consolable {
         if (!this.report.isLoaded) {
             this.report.isLoaded = true;
             this.report.copyOriginalSettings();
-            if (this.report.onReportLoaded) {
-                this.report.onReportLoaded();
-            }
         }
+        this.report.setLoadEventCompleted('ReportViewer_refreshReport');
 
     }
 
@@ -8075,6 +8137,7 @@ class PDFModule extends Module {
 
 
         return {
+            "coverpage": this.app.viewer.options.coverPage.enabled,
             "page": {
                 "orientation": orientation,
                 "paperSize": paperSize,
@@ -8131,13 +8194,15 @@ class PDFModule extends Module {
         /**
          * Call export service
          */
+
+
         $.ajax({
             type: 'post',
             url: '/Metadocx/Convert/PDF',
             data: {
                 PDFOptions: pdfOptions,
-                HTML: btoa(unescape(encodeURIComponent($('#' + this.app.viewer.report.id + '_canvas').html()))),
-
+                HTML: btoa(unescape(encodeURIComponent($('#reportPage')[0].outerHTML))),
+                CoverPage: ($('#reportCoverPage').length > 0 ? btoa(unescape(encodeURIComponent($('#reportCoverPage')[0].outerHTML))) : ''),
             },
             xhrFields: {
                 responseType: 'blob'
@@ -8179,7 +8244,8 @@ class PDFModule extends Module {
             url: '/Metadocx/Convert/PDF',
             data: {
                 PDFOptions: this.getPDFExportOptions(),
-                HTML: btoa(unescape(encodeURIComponent($('#' + this.app.viewer.report.id + '_canvas').html()))),
+                HTML: btoa(unescape(encodeURIComponent($('#reportPage')[0].outerHTML))),
+                CoverPage: ($('#reportCoverPage').length > 0 ? btoa(unescape(encodeURIComponent($('#reportCoverPage')[0].outerHTML))) : ''),
             },
             xhrFields: {
                 responseType: 'blob'
@@ -8218,13 +8284,18 @@ class PDFModule extends Module {
 
     }
 
-    exportToImages() {
+    exportToImages(callback) {
         let thisObject = this;
 
         /**
          * Get export options and hide dialog
          */
         let pdfOptions = this.getPDFExportOptions();
+
+        /*let loadingDialog = bootbox.dialog({
+            message: '<p class="text-center mb-0"><i class="fas fa-spin fa-cog"></i> Generating report...</p>',
+            closeButton: false
+        });*/
 
         $('.report-graph-canvas').hide();
         $('.report-graph-image').show();
@@ -8237,22 +8308,32 @@ class PDFModule extends Module {
             url: '/Metadocx/Convert/PDF',
             data: {
                 PDFOptions: pdfOptions,
-                HTML: btoa(unescape(encodeURIComponent($('#' + this.app.viewer.report.id + '_canvas').html()))),
+                HTML: btoa(unescape(encodeURIComponent($('#reportPage')[0].outerHTML))),
+                CoverPage: ($('#reportCoverPage').length > 0 ? btoa(unescape(encodeURIComponent($('#reportCoverPage')[0].outerHTML))) : ''),
                 ConvertToImages: true,
-            },
-            xhrFields: {
-                responseType: 'blob'
             },
             success: (data, status, xhr) => {
 
+                let s = '';
+                let pageNumber = 1;
+                for (let x in data) {
+                    s += `<div id="reportPage${pageNumber}" class="report-page">
+                        <img style="width:100%;" src="${data[x]}"/>
+                    </div>`;
+                }
 
-                /*let blob = new Blob([data]);
+                $('#metadocxReport_pageViewer').html(s);
+                $('#metadocxReport_canvas').hide();
+                $('#metadocxReport_pageViewer').show();
 
-                                
-                thisObject.app.modules.Printing.applyPageStyles();
-                */
+                thisObject.app.modules.Printing.applyPageStyles(false);
+
                 $('.report-graph-canvas').show();
                 $('.report-graph-image').hide();
+
+                if (callback) {
+                    callback();
+                }
 
             }
         });
@@ -8385,7 +8466,11 @@ class PrintingModule extends Module {
         }
     }
 
-    applyPageStyles() {
+    applyPageStyles(bPadding) {
+
+        if (bPadding === undefined) {
+            bPadding = true;
+        }
 
         let paperSize = this.getPaperSize(this.app.viewer.options.page.paperSize);
         let pageOrientation = this.app.viewer.options.page.orientation;
@@ -8405,11 +8490,17 @@ class PrintingModule extends Module {
         $('.report-page').css('width', width + 'mm');
         $('.report-page').css('min-height', height + 'mm');
 
-        $('.report-page').css('padding-top', this.app.viewer.options.page.margins.top + 'in');
-        $('.report-page').css('padding-bottom', this.app.viewer.options.page.margins.bottom + 'in');
-        $('.report-page').css('padding-left', this.app.viewer.options.page.margins.left + 'in');
-        $('.report-page').css('padding-right', this.app.viewer.options.page.margins.right + 'in');
+        if (bPadding) {
+            $('.report-page').css('padding-top', this.app.viewer.options.page.margins.top + 'in');
+            $('.report-page').css('padding-bottom', this.app.viewer.options.page.margins.bottom + 'in');
+            $('.report-page').css('padding-left', this.app.viewer.options.page.margins.left + 'in');
+            $('.report-page').css('padding-right', this.app.viewer.options.page.margins.right + 'in');
+        }
 
+    }
+
+    removeCoverPagePadding() {
+        $('#reportCoverPage').css('padding', '0px');
     }
 
     getThemeOptions() {
@@ -9166,6 +9257,7 @@ class Theme2 extends Theme {
                 font-size: 24px;  
                 text-align: right;
                 right: 50px;         
+                width: 100%;
             }
 
             .report-cover-footer {
