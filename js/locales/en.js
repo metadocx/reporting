@@ -78,4 +78,5 @@ window.__Metadocx.Locales.en = {
     "ReportDeleted": "Report Deleted",
     "ReportOpened": "Report opened",
     "ReportSaved": "Report saved",
+    "GoogleDrive": "Google Drive",
 };

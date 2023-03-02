@@ -123,7 +123,25 @@ class Report extends Consolable {
             this._reportDefinitionUrl = reportDefinitionUrl;
         }
 
-        if (this._reportDefinition === null) {
+        if (typeof reportDefinitionUrl === 'object') {
+            this._reportDefinition = reportDefinitionUrl;
+
+
+            this._reportCriteriasRendered = false;
+            this._reportSettingsRendered = false;
+
+            /**
+             * Copy Report definition options to viewer options, replaces default values
+             */
+            this.validateReportDefinitionFile();
+            this.app.modules.DataType.copyObjectProperties(this.getReportDefinition().options, this.app.viewer.options);
+
+
+            if (this.onReportDefinitionFileLoaded) {
+                this.onReportDefinitionFileLoaded();
+            }
+            this.setLoadEventCompleted('loadReportDefinition');
+        } else if (this._reportDefinition === null) {
             $.get(this._reportDefinitionUrl, (data, status) => {
                 this._reportDefinition = data;
                 /**

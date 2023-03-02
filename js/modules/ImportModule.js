@@ -258,6 +258,32 @@ class ImportModule extends Module {
                     ],
                 }
             },
+            GoogleAPI: {
+                bottom: {
+                    scripts: [
+                        {
+                            id: 'googleApi',
+                            type: 'script',
+                            priority: 100,
+                            async: true,
+                            defer: true,
+                            src: 'https://apis.google.com/js/api.js',
+                            code: '<script async defer src="https://apis.google.com/js/api.js"></script>',
+                            onload: function () { Metadocx.modules.Google.gApiLoaded(); },
+                        },
+                        {
+                            id: 'googleClient',
+                            type: 'script',
+                            priority: 100,
+                            async: true,
+                            defer: true,
+                            src: 'https://accounts.google.com/gsi/client',
+                            code: '<script async defer src="https://accounts.google.com/gsi/client"></script>',
+                            onload: function () { Metadocx.modules.Google.gClientLoaded(); },
+                        },
+                    ]
+                }
+            },
         };
     }
 
@@ -370,6 +396,12 @@ class ImportModule extends Module {
                 js.onload = () => {
                     module.triggerLibrariesLoaded(id);
                 };
+            }
+            if (options.async) {
+                js.async = true;
+            }
+            if (options.defer) {
+                js.defer = true;
             }
             if (options.src) {
                 js.src = options.src;

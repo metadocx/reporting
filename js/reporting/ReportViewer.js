@@ -156,6 +156,11 @@ class ReportViewer extends Consolable {
             },
             "printing": {
                 "method": "pdf"
+            },
+            "modules": {
+                "Google": {
+                    "enabled": false
+                }
             }
         };
 
@@ -217,7 +222,11 @@ class ReportViewer extends Consolable {
          * If we have a report definition file passed as parameter, load it and render
          */
         if (reportDefinitionUrl) {
-            this.log('Loading report ' + reportDefinitionUrl);
+            if (typeof reportDefinitionUrl === 'object') {
+                this.log('Loading report definition object');
+            } else {
+                this.log('Loading report ' + reportDefinitionUrl);
+            }
             /**
              * Create report object
              */
@@ -239,7 +248,11 @@ class ReportViewer extends Consolable {
                     });
                 } else {
                     if (this.loadingDialog !== null) {
-                        this.loadingDialog.modal('hide');
+                        /**
+                         * @todo bug modal too quick
+                         * https://github.com/twbs/bootstrap/issues/25008
+                         */
+                        setTimeout(() => { this.loadingDialog.modal('hide'); }, 500);
                     }
                 }
 
@@ -332,6 +345,10 @@ class ReportViewer extends Consolable {
             $('#' + this.options.id + '_close').hide();
         }
 
+        if (this.options.modules.Google.enabled) {
+            this.app.modules.Google.loadGoogleAPI();
+        }
+
     }
 
     /**
@@ -347,6 +364,11 @@ class ReportViewer extends Consolable {
         s += this.renderSaveDialog();
         s += this.renderReportSettings();
         s += this.renderFieldPropertiesDialog();
+
+        if ($('#' + this.options.container).length == 0) {
+            // Append container to body if not found
+            $('body').prepend('<div id="' + this.options.container + '"></div>');
+        }
 
         $('#' + this.options.container).html(s);
         $('.report-viewer-criterias').hide();
@@ -690,6 +712,7 @@ class ReportViewer extends Consolable {
                      </div>
                  </div>
                  <div class="modal-footer">
+                     <button id="openGoogleDrive" type="button" class="btn btn-light me-auto" data-bs-dismiss="modal" onclick="Metadocx.modules.Google.showGoogleDocPicker()"><i class="fa-solid fa-folder"></i>&nbsp;<span data-locale="GoogleDrive">Google Drive</span></button>
                      <button type="button" class="btn btn-secondary mr5" data-bs-dismiss="modal" data-locale="Cancel">Cancel</button>
                      <button id="saveDialogSaveButton" type="button" class="btn btn-primary"><i class="fa-solid fa-check"></i>&nbsp;<span data-locale="Save">Save</span></button>
                  </div>
