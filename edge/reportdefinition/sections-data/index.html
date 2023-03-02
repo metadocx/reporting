@@ -410,20 +410,6 @@
 
             
           
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../installation/config/" class="md-nav__link">
-        Configuration option
-      </a>
-    </li>
-  
-
-            
-          
         </ul>
       </nav>
     </li>
@@ -492,6 +478,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../../concepts/modules/" class="md-nav__link">
+        Modules
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../concepts/viewer/" class="md-nav__link">
         Viewer
       </a>
@@ -506,8 +506,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../../concepts/options/" class="md-nav__link">
-        Options
+      <a href="../../concepts/report/" class="md-nav__link">
+        Report
       </a>
     </li>
   
@@ -520,8 +520,22 @@
   
   
     <li class="md-nav__item">
-      <a href="../../concepts/report/" class="md-nav__link">
-        Report
+      <a href="../../concepts/reportdefinitionfile/" class="md-nav__link">
+        Report definition file
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/options/" class="md-nav__link">
+        Options
       </a>
     </li>
   
@@ -991,6 +1005,14 @@
 <li>Type : Array of Objects OR Object</li>
 <li>Parent element : <a href="../sections/">Report Section</a></li>
 </ul>
+<div class="highlight"><pre><span></span><code><span class="nt">&quot;data&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span>
+<span class="p">[</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000001&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-10-19&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Harrison Hardey&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Apple inc.&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;Web site design&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;10 - Analysis&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">5.33</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">5.33</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">106</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mf">564.98</span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000002&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-05-25&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Matilda Fielding&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Space X&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;Web site design&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;10 - Analysis&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">1.69</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">1.69</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">102</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mf">172.38</span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;referenceNumber&quot;</span><span class="p">:</span><span class="s2">&quot;000003&quot;</span><span class="p">,</span><span class="nt">&quot;timesheetDate&quot;</span><span class="p">:</span><span class="s2">&quot;2022-08-10&quot;</span><span class="p">,</span><span class="nt">&quot;employee&quot;</span><span class="p">:</span><span class="s2">&quot;Jessica Pratten&quot;</span><span class="p">,</span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="s2">&quot;Apple inc.&quot;</span><span class="p">,</span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="s2">&quot;Web programming&quot;</span><span class="p">,</span><span class="nt">&quot;activityCode&quot;</span><span class="p">:</span><span class="s2">&quot;50 - Programming&quot;</span><span class="p">,</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="mf">5.33</span><span class="p">,</span><span class="nt">&quot;isBillable&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;billableHours&quot;</span><span class="p">:</span><span class="mf">5.33</span><span class="p">,</span><span class="nt">&quot;billingRate&quot;</span><span class="p">:</span><span class="mi">151</span><span class="p">,</span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="mf">804.83</span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="err">...</span><span class="w"></span>
+<span class="p">]</span><span class="w"></span>
+</code></pre></div>
 
               
             </article>

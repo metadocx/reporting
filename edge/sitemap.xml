@@ -31,12 +31,22 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://github.com/metadocx/reporting/concepts/modules/</loc>
+         <lastmod>2023-03-02</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://github.com/metadocx/reporting/concepts/options/</loc>
          <lastmod>2023-03-02</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/metadocx/reporting/concepts/report/</loc>
+         <lastmod>2023-03-02</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://github.com/metadocx/reporting/concepts/reportdefinitionfile/</loc>
          <lastmod>2023-03-02</lastmod>
          <changefreq>daily</changefreq>
     </url>
@@ -72,11 +82,6 @@
     </url>
     <url>
          <loc>https://github.com/metadocx/reporting/contributing/tests/</loc>
-         <lastmod>2023-03-02</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://github.com/metadocx/reporting/installation/config/</loc>
          <lastmod>2023-03-02</lastmod>
          <changefreq>daily</changefreq>
     </url>
