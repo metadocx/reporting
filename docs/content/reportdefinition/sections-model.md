@@ -1,9 +1,9 @@
 # Report Section - Model
 
-The model section contains the information on the data of the report section, this will include the label of the data, it's type and how we wish to format it on the report.
+The model section contains the information on the data of the report section, this will include the label of the data, it's data type and how we wish to format it on the report.
 
 - Type : Array of Objects
-- Parent element : Report Section
+- Parent element : [Report Section](sections.md)
 
 ```JSON
  "model" : [
@@ -35,3 +35,4 @@ The model section contains the information on the data of the report section, th
 | formula  | `string` Formula to apply to column, this can be SUM, AVG, COUNT, MIN or MAX |
 | decimals  | `number` Number of decimals for numeric columns |
 | automaticCriteria  | `boolean` Indicates if we must create criteria automaticly, `true` by default |
+| criteriaType | `string` Type of criteria to use, by default the data type will determine the type of criteria to use |

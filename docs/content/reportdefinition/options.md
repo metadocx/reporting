@@ -10,7 +10,7 @@ The Report Options section allows to set report viewer options directly within t
         "id": "metadocxReport",
         "locale": "en",
         "template": "Theme2",
-        "additionalCSS": "",
+        "additionalCSS": "",        
         "toolbar" : {
             "showLocaleButton": true,
             "showOptionsButton" : true,
@@ -21,8 +21,7 @@ The Report Options section allows to set report viewer options directly within t
             "showCloseButton" : true
         },
         "exportFormats" : {
-            "pdf" : true,
-            "word" : true,
+            "pdf" : true,            
             "excel" : true
         },
         "page" : {
@@ -36,28 +35,19 @@ The Report Options section allows to set report viewer options directly within t
             },
         },      
         "criterias": {
-                "automatic": false
+            "automatic": true
         },  
         "coverPage": {
             "enabled": false
         },
-        "settings" : {
-            
-            "fields" : true,
-            "fieldsReorder" : true,
-            "fieldsSelection" : true,
-            "fieldsFormula" : true,            
-            
-            "orderBy" : true,
-            "orderByReorder" : true,
-            "orderBySelection" : true,
-            "orderByOrder" : true,
-
-            "groupBy" : true,
-            "groupByReorder" : true,
-            "groupBySelection" : true,
-            "groupByOrder" : true
-        }
+        "viewer": {
+            "method": "html"
+        },
+        "modules" : {
+            "Google": {
+                "enabled" : false
+            }
+        }        
     },
     "formats": {
         "date": {
@@ -180,36 +170,6 @@ Page print margin settings
 | right | `number`, right margin of page in inches, default value is 0.5  |
 
 
-### settings
-
-Report settings options, this section is available based on the `showSettingsButton` value defined in the toolbar section.
-
-#### Fields
-
-| Property            | Description                          |
-| ------------------- | ------------------------------------ |
-| fields | `boolean`, indicates if the fields section is available or not, default value is `true`  |
-| fieldsReorder | `boolean`, indicates if user can reorder report fields, default value is `true`  |
-| fieldsSelection | `boolean`, indicates if user can select displayed report fields, default value is `true`  |
-| fieldsFormula | `boolean`, indicates if user can apply formulas on report fields, default value is `true`  |
-
-#### Order
-
-| Property            | Description                          |
-| ------------------- | ------------------------------------ |
-| orderBy | `boolean`, indicates if the order by section is available or not, default value is `true`  |
-| orderByReorder | `boolean`, indicates if user can change order by field order , default value is `true`  |
-| orderBySelection | `boolean`, indicates if user can select order by fields, default value is `true`  |
-| orderByOrder | `boolean`, indicates if user can change order by direction (ascending or descending), default value is `true`  |
-
-#### Groups
-
-| Property            | Description                          |
-| ------------------- | ------------------------------------ |
-| groupBy | `boolean`, indicates if the group by section is available or not, default value is `true`  |
-| groupByReorder | `boolean`, indicates if user can change the order of groups, default value is `true`  |
-| groupBySelection | `boolean`, indicates if user can select groups, default value is `true`  |
-| groupByOrder | `boolean`, indicates if user can change group order by direction (ascending or descending), default value is `true`  |
 
 ### formats
 

@@ -80,14 +80,15 @@ nav:
   - 'Home': index.md        
   - 'Installation' : 
     - 'Quick setup' : installation/install.md
-    - 'Required librarires' : installation/requirements.md 
-    - 'Configuration option' : installation/config.md
+    - 'Required librarires' : installation/requirements.md     
   - 'Basic Concepts' :
     - 'Overview' : concepts/concepts.md
     - 'Application' : concepts/app.md
+    - 'Modules' : concepts/modules.md
     - 'Viewer' : concepts/viewer.md
-    - 'Options' : concepts/options.md
     - 'Report' : concepts/report.md
+    - 'Report definition file' : concepts/reportdefinitionfile.md
+    - 'Options' : concepts/options.md    
     - 'Sections' : concepts/sections.md
     - 'Criterias' : concepts/criterias.md
     - 'Theme' : concepts/theme.md

@@ -34,6 +34,8 @@ Include these script tags before your closing body tag
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js" integrity="sha512-57oZ/vW8ANMjR/KQ6Be9v/+/h6bq9/l3f0Oc7vn6qMqyhvPd1cvKBRWWpzu0QoneImqr2SkmO4MSqU+RpHom3Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.1.1/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/metadocx/reporting@latest/dist/metadocx.min.js" data-report="data/report1.json"></script>            
 
 ```
@@ -92,6 +94,7 @@ Create an index.html file and copy the following code in this file.
     <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/6.0.0/bootbox.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js" integrity="sha512-57oZ/vW8ANMjR/KQ6Be9v/+/h6bq9/l3f0Oc7vn6qMqyhvPd1cvKBRWWpzu0QoneImqr2SkmO4MSqU+RpHom3Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.1.1/dist/chart.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/metadocx/reporting@latest/dist/metadocx.min.js" data-container="metadocx-report" data-report="report.json"></script>            
 </html>
 ```
@@ -131,24 +134,7 @@ The report definition file contains all the information required to generate the
                 "left" : 0.5,
                 "right" : 0.5
             }
-        },
-        "settings" : {
-            
-            "fields" : true,
-            "fieldsReorder" : true,
-            "fieldsSelection" : true,
-            "fieldsFormula" : true,            
-            
-            "orderBy" : true,
-            "orderByReorder" : true,
-            "orderBySelection" : true,
-            "orderByOrder" : true,
-
-            "groupBy" : true,
-            "groupByReorder" : true,
-            "groupBySelection" : true,
-            "groupByOrder" : true
-        },
+        },        
         "formats" : {
             "date" : {
                 "format" : "YYYY-MM-DD"

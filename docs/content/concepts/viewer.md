@@ -8,3 +8,5 @@ The viewer is created automaticly and is accessible via the Metadocx application
 Metadocx.viewer
 
 ```
+
+The viewer object contains the currently loaded Report object.

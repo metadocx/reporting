@@ -1381,7 +1381,7 @@ class MetadocxApplication {
         /**
          * Metadocx version
          */
-        this.version = '0.1.0';
+        this.version = '0.3.0';
 
         /**
          * Application modules 
@@ -4127,22 +4127,6 @@ class ReportViewer extends Consolable {
             },
             "coverPage": {
                 "enabled": false
-            },
-            "settings": {
-                "fields": true,
-                "fieldsReorder": true,
-                "fieldsSelection": true,
-                "fieldsFormula": true,
-
-                "orderBy": true,
-                "orderByReorder": true,
-                "orderBySelection": true,
-                "orderByOrder": true,
-
-                "groupBy": true,
-                "groupByReorder": true,
-                "groupBySelection": true,
-                "groupByOrder": true
             },
             "formats": {
                 "date": {
