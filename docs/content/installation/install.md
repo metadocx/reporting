@@ -58,7 +58,13 @@ Metadocx will render the report viewer with the `metadocx-report` html element i
 </body>
 ```
 
-#### Full example of a report viewer page 
+## Full example of a report viewer page 
+
+
+### Main web page file (index.html)
+
+Create an index.html file and copy the following code in this file.
+
 ```HTML
 <!doctype html>
 <html lang="en">
@@ -90,7 +96,7 @@ Metadocx will render the report viewer with the `metadocx-report` html element i
 </html>
 ```
 
-### Report definition file
+### Report definition file (report.json)
 
 The report definition file contains all the information required to generate the report. Create a report.json file and add the following content.
 
@@ -330,5 +336,31 @@ The report definition file contains all the information required to generate the
     ]
 }
 ```
+### Displaying the report
 
-Open the index.html file created in your web browser and the report should be displayed in the report viewer.
+In order to view the report you must open the index.html file from a web server. If you try to load the report file (index.html) from your hard drive you will get multiple security warnings from your web browser, this will include SameSite and CORS errors in your console.
+
+#### Loading the report using nodejs / npm
+
+You can setup a quick web server using npm commands in the root folder where the index.html file is located
+
+```bash
+    npm install -g serve
+    serve
+```
+You can then access the report using the link displayed by serve, in the example below http://localhost:3000
+
+![Example output](serve-output.png)
+
+#### Loading the report using php
+
+You can start a simple web server using PHP to display the report, the following command will start a web server on your local ip 127.0.0.1 and port 3000
+
+```bash
+    php -S 127.0.0.1:3000
+``` 
+
+You can then access the report using http://localhost:3000
+
+![Example output](php-output.png)
+

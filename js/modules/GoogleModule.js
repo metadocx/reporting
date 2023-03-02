@@ -28,10 +28,10 @@ class GoogleModule extends Module {
             'https://www.googleapis.com/auth/drive.metadata.readonly',
         ];
         // Set to Client ID and API key from the Developer Console
-        this.CLIENT_ID = '1067863296230-m01tnf6n445a3c030n078f6nuoijrhnn.apps.googleusercontent.com';
-        this.API_KEY = 'AIzaSyBm4_gqbUcAyW18unaz9CifSO6QwFSfRvs';
+        this.CLIENT_ID = '<YOUR CLIENT ID>';
+        this.API_KEY = '<YOUR API KEY>';
         this.DISCOVERY_DOC = 'https://sheets.googleapis.com/$discovery/rest?version=v4';
-        this.APP_ID = 'metadocx-379103';
+        this.APP_ID = '<YOUR APP ID>';
 
         this.tokenClient = null;
         this.accessToken = null;
