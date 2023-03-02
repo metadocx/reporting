@@ -78,4 +78,5 @@ window.__Metadocx.Locales.fr = {
     "ReportDeleted": "Rapport détruit avec succès",
     "ReportOpened": "Ouverture du rapport",
     "ReportSaved": "Rapport sauvegardé",
+    "GoogleDrive": "Google Drive",
 };

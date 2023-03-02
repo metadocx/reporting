@@ -9,6 +9,9 @@ Metadocx Reporting is a powerfull, feature-packed report generation and viewer t
 Metadocx reporting is built using other [great open source libraries](requirements.md). In order to use Metadocx reporting you must include the following dependencies in your web page.
 
 #### Head
+
+Include these link tags in the head section of your html page
+
 ```HTML
 <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.0/css/line.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"  integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -20,6 +23,9 @@ Metadocx reporting is built using other [great open source libraries](requiremen
 ```
 
 #### Bottom (before closing body tag)
+
+Include these script tags before your closing body tag
+
 ```HTML
 <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
@@ -30,6 +36,26 @@ Metadocx reporting is built using other [great open source libraries](requiremen
 <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/metadocx/reporting@latest/dist/metadocx.min.js" data-report="data/report1.json"></script>            
 
+```
+
+#### Container element
+
+Metadocx will render the report viewer with the `metadocx-report` html element in your web page. This is the default id of the element where we will insert the generated report html. You can change the name of this element by using the `data-container` attribut eon the metadocx.js script tage element.
+
+!!! Note "Missing element"
+
+    If the element does not exist in the web page, it will be prepended to the body element.
+
+##### Example : Adding data-container attribute 
+```HTML
+<script src="https://cdn.jsdelivr.net/gh/metadocx/reporting@latest/dist/metadocx.min.js" data-container="metadocx-report" data-report="data/report1.json"></script>
+```
+
+##### Example : Adding the element to your web page
+```HTML
+<body>
+    <div id="metadocx-report"></div>
+</body>
 ```
 
 #### Full example of a report viewer page 
@@ -49,10 +75,10 @@ Metadocx reporting is built using other [great open source libraries](requiremen
           
     </head>
     <body>        
-        <div id="root"></div>        
+        <div id="metadocx-report"></div>        
     </body>            
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
@@ -60,7 +86,7 @@ Metadocx reporting is built using other [great open source libraries](requiremen
     <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/6.0.0/bootbox.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js" integrity="sha512-57oZ/vW8ANMjR/KQ6Be9v/+/h6bq9/l3f0Oc7vn6qMqyhvPd1cvKBRWWpzu0QoneImqr2SkmO4MSqU+RpHom3Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdn.jsdelivr.net/gh/metadocx/reporting@latest/dist/metadocx.min.js" data-report="report.json"></script>            
+    <script src="https://cdn.jsdelivr.net/gh/metadocx/reporting@latest/dist/metadocx.min.js" data-container="metadocx-report" data-report="report.json"></script>            
 </html>
 ```
 

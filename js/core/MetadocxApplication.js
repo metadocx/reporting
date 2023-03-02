@@ -140,7 +140,7 @@ class MetadocxApplication {
         }
 
         if (!this.viewer.options.container) {
-            this.viewer.options.container = "root";
+            this.viewer.options.container = "metadocx-report";
         }
 
     }
