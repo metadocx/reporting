@@ -410,20 +410,6 @@
 
             
           
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../installation/config/" class="md-nav__link">
-        Configuration option
-      </a>
-    </li>
-  
-
-            
-          
         </ul>
       </nav>
     </li>
@@ -492,6 +478,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../../concepts/modules/" class="md-nav__link">
+        Modules
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../concepts/viewer/" class="md-nav__link">
         Viewer
       </a>
@@ -506,8 +506,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../../concepts/options/" class="md-nav__link">
-        Options
+      <a href="../../concepts/report/" class="md-nav__link">
+        Report
       </a>
     </li>
   
@@ -520,8 +520,22 @@
   
   
     <li class="md-nav__item">
-      <a href="../../concepts/report/" class="md-nav__link">
-        Report
+      <a href="../../concepts/reportdefinitionfile/" class="md-nav__link">
+        Report definition file
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/options/" class="md-nav__link">
+        Options
       </a>
     </li>
   
@@ -989,8 +1003,19 @@
 <p>The groupBy section contains a list of groups that will group the report data in sections and sub sections.</p>
 <ul>
 <li>Type : Array of Objects</li>
-<li>Parent element : Report Section</li>
+<li>Parent element : <a href="../sections/">Report Section</a></li>
 </ul>
+<div class="highlight"><pre><span></span><code><span class="w"> </span><span class="nt">&quot;groupBy&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;customer&quot;</span><span class="p">,</span><span class="w">  </span><span class="c1">// Name of column to group by              </span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;order&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;asc&quot;</span><span class="w">      </span><span class="c1">// Group by order asc | desc</span><span class="w"></span>
+<span class="w">    </span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;project&quot;</span><span class="p">,</span><span class="w">                    </span>
+<span class="w">        </span><span class="nt">&quot;order&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;asc&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">],</span><span class="w"></span>
+</code></pre></div>
 
               
             </article>

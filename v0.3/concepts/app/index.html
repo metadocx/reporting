@@ -410,20 +410,6 @@
 
             
           
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../installation/config/" class="md-nav__link">
-        Configuration option
-      </a>
-    </li>
-  
-
-            
-          
         </ul>
       </nav>
     </li>
@@ -549,6 +535,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../modules/" class="md-nav__link">
+        Modules
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../viewer/" class="md-nav__link">
         Viewer
       </a>
@@ -563,8 +563,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../options/" class="md-nav__link">
-        Options
+      <a href="../report/" class="md-nav__link">
+        Report
       </a>
     </li>
   
@@ -577,8 +577,22 @@
   
   
     <li class="md-nav__item">
-      <a href="../report/" class="md-nav__link">
-        Report
+      <a href="../reportdefinitionfile/" class="md-nav__link">
+        Report definition file
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../options/" class="md-nav__link">
+        Options
       </a>
     </li>
   
@@ -1087,6 +1101,10 @@
 <td>viewer</td>
 <td>ReportViewer instance</td>
 </tr>
+<tr>
+<td>modules</td>
+<td>List of all loaded modules</td>
+</tr>
 </tbody>
 </table>
 <h2 id="methods"><a class="toclink" href="#methods">Methods</a></h2>
@@ -1100,15 +1118,15 @@
 <tbody>
 <tr>
 <td>initialize</td>
-<td>Called when script is loaded by Bootstrap.js</td>
+<td>Called when script is loaded by Bootstrap.js, the Bootstrap.js file is the entry point of the library.</td>
 </tr>
 <tr>
 <td>loadScriptTagOptions</td>
-<td>Checks script tag used to load metadocx.js if anu <code>data-</code> attributes are passed to app</td>
+<td>Checks html script tag used to load metadocx.js file. All <code>data-</code> attributes are copied to the <code>Metadocx.viewer.options</code> options array. This function is called by initialized on page load.</td>
 </tr>
 <tr>
 <td>registerModule</td>
-<td>Loads a module</td>
+<td>Loads and initialize a module</td>
 </tr>
 </tbody>
 </table>
@@ -1117,6 +1135,13 @@
 <p class="admonition-title">Information</p>
 <p>No events</p>
 </div>
+<h1 id="metadocx-namesapces"><a class="toclink" href="#metadocx-namesapces">Metadocx namesapces</a></h1>
+<p>In order to access all modules, classes and objects created by the Metadocx library we created a global variable called <code>__Metadocx</code> accessible from the <code>window</code> object. This variable is created in the <a href="https://github.com/metadocx/reporting/blob/main/js/core/MetadocxApplication.js"><code>MetadocxApplication.js</code></a> file</p>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="nb">window</span><span class="p">.</span><span class="nx">__Metadocx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">Locales</span><span class="o">:</span><span class="w"> </span><span class="p">{},</span><span class="w"></span>
+<span class="w">        </span><span class="nx">Themes</span><span class="o">:</span><span class="w"> </span><span class="p">{}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+</code></pre></div>
 
               
             </article>
@@ -1153,13 +1178,13 @@
       
       
         
-        <a href="../viewer/" class="md-footer__link md-footer__link--next" aria-label="Next: Viewer" rel="next">
+        <a href="../modules/" class="md-footer__link md-footer__link--next" aria-label="Next: Modules" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              Viewer
+              Modules
             </div>
           </div>
           <div class="md-footer__button md-icon">

@@ -410,20 +410,6 @@
 
             
           
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../installation/config/" class="md-nav__link">
-        Configuration option
-      </a>
-    </li>
-  
-
-            
-          
         </ul>
       </nav>
     </li>
@@ -494,6 +480,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../modules/" class="md-nav__link">
+        Modules
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../viewer/" class="md-nav__link">
         Viewer
       </a>
@@ -508,8 +508,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../options/" class="md-nav__link">
-        Options
+      <a href="../report/" class="md-nav__link">
+        Report
       </a>
     </li>
   
@@ -522,8 +522,22 @@
   
   
     <li class="md-nav__item">
-      <a href="../report/" class="md-nav__link">
-        Report
+      <a href="../reportdefinitionfile/" class="md-nav__link">
+        Report definition file
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../options/" class="md-nav__link">
+        Options
       </a>
     </li>
   
@@ -559,9 +573,75 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Criterias
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         Criterias
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#boolean-criteria" class="md-nav__link">
+    Boolean criteria
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#check-box-criteria" class="md-nav__link">
+    Check box criteria
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#date-criteria" class="md-nav__link">
+    Date criteria
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#number-criteria" class="md-nav__link">
+    Number criteria
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#select-list-criteria" class="md-nav__link">
+    Select list criteria
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#text-criteria" class="md-nav__link">
+    Text criteria
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -967,6 +1047,56 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#boolean-criteria" class="md-nav__link">
+    Boolean criteria
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#check-box-criteria" class="md-nav__link">
+    Check box criteria
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#date-criteria" class="md-nav__link">
+    Date criteria
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#number-criteria" class="md-nav__link">
+    Number criteria
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#select-list-criteria" class="md-nav__link">
+    Select list criteria
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#text-criteria" class="md-nav__link">
+    Text criteria
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -985,6 +1115,18 @@
 
 <h1 id="criterias"><a class="toclink" href="#criterias">Criterias</a></h1>
 <p>Report criterias allow users to filter out report data. You can define multiple criterias per report and apply them to one or many report sections.</p>
+<h2 id="boolean-criteria"><a class="toclink" href="#boolean-criteria">Boolean criteria</a></h2>
+<p>Allows user to filter data based on boolean (Yes, No) columns. The criteria allows for selection of Yes, No and All.</p>
+<h2 id="check-box-criteria"><a class="toclink" href="#check-box-criteria">Check box criteria</a></h2>
+<p>Check box criteria will offer a list of possible options for a specific column in the report. This is usefull for small lists of values.</p>
+<h2 id="date-criteria"><a class="toclink" href="#date-criteria">Date criteria</a></h2>
+<p>Date criteria will filter date time columns.</p>
+<h2 id="number-criteria"><a class="toclink" href="#number-criteria">Number criteria</a></h2>
+<p>Number criteria will filter numeric columns. This criteria allows for different operators : equal, not equal, between, greater, smaller, greater or equal, smaller or equal.</p>
+<h2 id="select-list-criteria"><a class="toclink" href="#select-list-criteria">Select list criteria</a></h2>
+<p>Select list criteria display a combo box to select one or many values. This criteria is similar to the check box criteria but is best suited for a larger volume of options.</p>
+<h2 id="text-criteria"><a class="toclink" href="#text-criteria">Text criteria</a></h2>
+<p>Text criteria will filter text column using a like patern, if the text contains the search term anywhere in the text the row will be displayed.</p>
 
               
             </article>

@@ -410,20 +410,6 @@
 
             
           
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../installation/config/" class="md-nav__link">
-        Configuration option
-      </a>
-    </li>
-  
-
-            
-          
         </ul>
       </nav>
     </li>
@@ -492,6 +478,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../../concepts/modules/" class="md-nav__link">
+        Modules
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../concepts/viewer/" class="md-nav__link">
         Viewer
       </a>
@@ -506,8 +506,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../../concepts/options/" class="md-nav__link">
-        Options
+      <a href="../../concepts/report/" class="md-nav__link">
+        Report
       </a>
     </li>
   
@@ -520,8 +520,22 @@
   
   
     <li class="md-nav__item">
-      <a href="../../concepts/report/" class="md-nav__link">
-        Report
+      <a href="../../concepts/reportdefinitionfile/" class="md-nav__link">
+        Report definition file
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/options/" class="md-nav__link">
+        Options
       </a>
     </li>
   
@@ -989,8 +1003,15 @@
 <p>The orderBy section contains a list of order by directives that will order the data in the generated report.</p>
 <ul>
 <li>Type : Array of Objects</li>
-<li>Parent element : Report Section</li>
+<li>Parent element : <a href="../sections/">Report Section</a></li>
 </ul>
+<div class="highlight"><pre><span></span><code><span class="nt">&quot;orderBy&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;hours&quot;</span><span class="p">,</span><span class="w">  </span><span class="c1">// Field name</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;order&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;desc&quot;</span><span class="w">   </span><span class="c1">// Sort order asc | desc</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w">    </span>
+<span class="p">],</span><span class="w"></span>
+</code></pre></div>
 
               
             </article>
