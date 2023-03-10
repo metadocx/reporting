@@ -1066,16 +1066,16 @@
 <div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;/js/metadocx.js&quot;</span> <span class="na">data-report</span><span class="o">=</span><span class="s">&quot;data/report1.json&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>         
 </code></pre></div>
 <p>Or you can manually load the report using the following JavaScript command </p>
-<p><div class="highlight"><pre><span></span><code><span class="nx">Metadocx</span><span class="p">.</span><span class="nx">viewer</span><span class="p">.</span><span class="nx">load</span><span class="p">(</span><span class="s1">&#39;data/report1.json&#39;</span><span class="p">);</span><span class="w"></span>
+<p><div class="highlight"><pre><span></span><code><span class="nx">Metadocx</span><span class="p">.</span><span class="nx">reporting</span><span class="p">.</span><span class="nx">viewer</span><span class="p">.</span><span class="nx">load</span><span class="p">(</span><span class="s1">&#39;data/report1.json&#39;</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 Loading the report definition file will automaticly render the report in the viewer.</p>
 <p>Once the report is loaded, you can access the report definition object using the following JavaScript code</p>
-<div class="highlight"><pre><span></span><code><span class="nx">Metadocx</span><span class="p">.</span><span class="nx">viewer</span><span class="p">.</span><span class="nx">report</span><span class="p">.</span><span class="nx">getReportDefinition</span><span class="p">();</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nx">Metadocx</span><span class="p">.</span><span class="nx">reporting</span><span class="p">.</span><span class="nx">viewer</span><span class="p">.</span><span class="nx">report</span><span class="p">.</span><span class="nx">getReportDefinition</span><span class="p">();</span><span class="w"></span>
 </code></pre></div>
 <h2 id="displaying-the-report-definition"><a class="toclink" href="#displaying-the-report-definition">Displaying the report definition</a></h2>
 <p>While debugging your report you can view the report definition file in the report viewer using the followin commands in your developer console.</p>
-<div class="highlight"><pre><span></span><code><span class="nx">Metadocx</span><span class="p">.</span><span class="nx">viewer</span><span class="p">.</span><span class="nx">showReportDefinition</span><span class="p">();</span><span class="w"></span>
-<span class="nx">Metadocx</span><span class="p">.</span><span class="nx">viewer</span><span class="p">.</span><span class="nx">hideReportDefinition</span><span class="p">();</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nx">Metadocx</span><span class="p">.</span><span class="nx">reporting</span><span class="p">.</span><span class="nx">viewer</span><span class="p">.</span><span class="nx">showReportDefinition</span><span class="p">();</span><span class="w"></span>
+<span class="nx">Metadocx</span><span class="p">.</span><span class="nx">reporting</span><span class="p">.</span><span class="nx">viewer</span><span class="p">.</span><span class="nx">hideReportDefinition</span><span class="p">();</span><span class="w"></span>
 </code></pre></div>
 <h2 id="example-report-definition-file"><a class="toclink" href="#example-report-definition-file">Example Report Definition File</a></h2>
 <div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
