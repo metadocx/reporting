@@ -26,13 +26,13 @@ describe('DateTime Criteria', function () {
          * Enable metadocx cover page and refresh report
          */
         let numberOfRows = await page.evaluate(() => {
-            Metadocx.viewer.options.coverPage.enabled = false;
-            Metadocx.viewer.getCriteria('TimesheetDate').setIsEnabled(true)
-            Metadocx.viewer.getCriteria('TimesheetDate').setValue({
+            Metadocx.reporting.viewer.options.coverPage.enabled = false;
+            Metadocx.reporting.viewer.getCriteria('TimesheetDate').setIsEnabled(true)
+            Metadocx.reporting.viewer.getCriteria('TimesheetDate').setValue({
                 startDate: '2022-12-01',
                 endDate: '2022-12-31'
             });
-            Metadocx.viewer.refreshReport();
+            Metadocx.reporting.viewer.refreshReport();
 
             return $('.report-row-data').length;
 

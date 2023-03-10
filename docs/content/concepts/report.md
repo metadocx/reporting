@@ -5,5 +5,5 @@ The report object is the actual report that is displayed in the viewer. The repo
 You can access the active report via the viewer object 
 
 ```js
-Metadocx.viewer.report
+Metadocx.reporting.viewer.report
 ```

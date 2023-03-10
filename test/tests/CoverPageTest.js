@@ -26,8 +26,8 @@ describe('Cover page', function () {
          * Enable metadocx cover page and refresh report
          */
         await page.evaluate(() => {
-            Metadocx.viewer.options.coverPage.enabled = true;
-            Metadocx.viewer.refreshReport();
+            Metadocx.reporting.viewer.options.coverPage.enabled = true;
+            Metadocx.reporting.viewer.refreshReport();
         });
 
         await page.screenshot({ path: './test/bootstrap/images/cover-page-enabled.png', fullPage: true });
@@ -45,8 +45,8 @@ describe('Cover page', function () {
          * Enable metadocx cover page and refresh report
          */
         await page.evaluate(() => {
-            Metadocx.viewer.options.coverPage.enabled = false;
-            Metadocx.viewer.refreshReport();
+            Metadocx.reporting.viewer.options.coverPage.enabled = false;
+            Metadocx.reporting.viewer.refreshReport();
         });
 
         await page.screenshot({ path: './test/bootstrap/images/cover-page-disabled.png', fullPage: true });

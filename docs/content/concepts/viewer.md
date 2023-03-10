@@ -5,7 +5,7 @@ The viewer is created automaticly and is accessible via the Metadocx application
 
 ```js
 
-Metadocx.viewer
+Metadocx.reporting.viewer
 
 ```
 

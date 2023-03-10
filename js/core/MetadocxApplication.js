@@ -35,10 +35,9 @@ class MetadocxApplication {
          */
         this.scriptTag = null;
 
-        /**
-         * ReportViewer instance
-         */
-        this.viewer = new ReportViewer(this);
+        this.reporting = {
+            viewer: new ReportViewer(this),
+        };
 
     }
 
@@ -99,10 +98,10 @@ class MetadocxApplication {
             */
             this.modules.UI.renderReportViewer(this);
 
-            if (this.viewer.options.report) {
-                this.viewer.load(this.viewer.options.report);
+            if (this.reporting.viewer.options.report) {
+                this.reporting.viewer.load(this.reporting.viewer.options.report);
             } else {
-                this.viewer.showNoReportAlert();
+                this.reporting.viewer.showNoReportAlert();
             }
         }
         /**
@@ -129,18 +128,18 @@ class MetadocxApplication {
         }
 
         for (let x in this.scriptTag.dataset) {
-            this.viewer.options[x] = this.scriptTag.dataset[x];
+            this.reporting.viewer.options[x] = this.scriptTag.dataset[x];
         }
 
         /**
          * Check if we have a name if not set default value
          */
-        if (!this.viewer.options.id) {
-            this.viewer.options.id = "metadocxReport";
+        if (!this.reporting.viewer.options.id) {
+            this.reporting.viewer.options.id = "metadocxReport";
         }
 
-        if (!this.viewer.options.container) {
-            this.viewer.options.container = "metadocx-report";
+        if (!this.reporting.viewer.options.container) {
+            this.reporting.viewer.options.container = "metadocx-report";
         }
 
     }

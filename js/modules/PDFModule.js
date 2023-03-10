@@ -25,18 +25,18 @@ class PDFModule extends Module {
 
         if (this.exportDialog === null) {
 
-            $('#' + this.app.viewer.options.container).append(this.renderExportDialog());
+            $('#' + this.app.reporting.viewer.options.container).append(this.renderExportDialog());
             this.hookExportDialogComponents();
-            this.exportDialog = new bootstrap.Modal('#' + this.app.viewer.options.id + '_pdfExportDialog', {})
+            this.exportDialog = new bootstrap.Modal('#' + this.app.reporting.viewer.options.id + '_pdfExportDialog', {})
         }
 
-        $('#pdfPaperSize').val(this.app.viewer.options.page.paperSize);
+        $('#pdfPaperSize').val(this.app.reporting.viewer.options.page.paperSize);
 
         let paperSize = this.app.modules.Printing.getPaperSize($('#pdfPaperSize').val());
         $('#pdfPaperSizeWidth').val(paperSize.width);
         $('#pdfPaperSizeHeight').val(paperSize.height);
 
-        if (this.app.viewer.options.page.orientation == Metadocx.modules.Printing.PageOrientation.Portrait) {
+        if (this.app.reporting.viewer.options.page.orientation == Metadocx.modules.Printing.PageOrientation.Portrait) {
             $('#pdfOrientationPortrait').prop('checked', true);
             $('#pdfOrientationLandscape').prop('checked', false);
         } else {
@@ -44,10 +44,10 @@ class PDFModule extends Module {
             $('#pdfOrientationLandscape').prop('checked', true);
         }
 
-        $('#pdfTopMargin').val(this.app.viewer.options.page.margins.top);
-        $('#pdfBottomMargin').val(this.app.viewer.options.page.margins.bottom);
-        $('#pdfLeftMargin').val(this.app.viewer.options.page.margins.left);
-        $('#pdfRightMargin').val(this.app.viewer.options.page.margins.right);
+        $('#pdfTopMargin').val(this.app.reporting.viewer.options.page.margins.top);
+        $('#pdfBottomMargin').val(this.app.reporting.viewer.options.page.margins.bottom);
+        $('#pdfLeftMargin').val(this.app.reporting.viewer.options.page.margins.left);
+        $('#pdfRightMargin').val(this.app.reporting.viewer.options.page.margins.right);
 
         this.exportDialog.show();
 
@@ -62,7 +62,7 @@ class PDFModule extends Module {
 
     renderExportDialog() {
 
-        return `<div id="${this.app.viewer.options.id}_pdfExportDialog" class="modal modal-lg" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+        return `<div id="${this.app.reporting.viewer.options.id}_pdfExportDialog" class="modal modal-lg" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
         <div class="modal-dialog">
           <div class="modal-content">
           <div class="modal-header">
@@ -265,7 +265,7 @@ class PDFModule extends Module {
             orientation = Metadocx.modules.Printing.PageOrientation.Landscape;
         }
 
-        let paperSize = this.app.viewer.options.page.paperSize;
+        let paperSize = this.app.reporting.viewer.options.page.paperSize;
         if ($('#pdfPaperSize').length > 0) {
             paperSize = $('#pdfPaperSize').val();
         }
@@ -285,19 +285,19 @@ class PDFModule extends Module {
         }
         let marginTop = $('#pdfTopMargin').val();
         if (marginTop == undefined) {
-            marginTop = this.app.viewer.options.page.margins.top;
+            marginTop = this.app.reporting.viewer.options.page.margins.top;
         }
         let marginBottom = $('#pdfBottomMargin').val();
         if (marginBottom == undefined) {
-            marginBottom = this.app.viewer.options.page.margins.bottom;
+            marginBottom = this.app.reporting.viewer.options.page.margins.bottom;
         }
         let marginLeft = $('#pdfLeftMargin').val();
         if (marginLeft == undefined) {
-            marginLeft = this.app.viewer.options.page.margins.left;
+            marginLeft = this.app.reporting.viewer.options.page.margins.left;
         }
         let marginRight = $('#pdfRightMargin').val();
         if (marginRight == undefined) {
-            marginRight = this.app.viewer.options.page.margins.right;
+            marginRight = this.app.reporting.viewer.options.page.margins.right;
         }
         let pdfCompression = $('#pdfUseCompression').prop('checked');
         if (pdfCompression == undefined) {
@@ -340,7 +340,7 @@ class PDFModule extends Module {
 
 
         return {
-            "coverpage": this.app.viewer.options.coverPage.enabled,
+            "coverpage": this.app.reporting.viewer.options.coverPage.enabled,
             "page": {
                 "orientation": orientation,
                 "paperSize": paperSize,

@@ -27,7 +27,7 @@ class WordModule extends Module {
 
     renderExportDialog() {
 
-        return `<div id="${this.app.viewer.options.id}_wordExportDialog" class="modal modal-lg" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+        return `<div id="${this.app.reporting.viewer.options.id}_wordExportDialog" class="modal modal-lg" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
         <div class="modal-dialog">
           <div class="modal-content">
           <div class="modal-header">
@@ -249,7 +249,7 @@ class WordModule extends Module {
             url: '/Metadocx/Convert/Word',
             data: {
                 ExportOptions: this.getWordExportOptions(),
-                HTML: btoa(unescape(encodeURIComponent($('#' + this.app.viewer.report.id + '_canvas').html()))),
+                HTML: btoa(unescape(encodeURIComponent($('#' + this.app.reporting.viewer.report.id + '_canvas').html()))),
             },
             xhrFields: {
                 responseType: 'blob'

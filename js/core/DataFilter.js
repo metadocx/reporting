@@ -48,12 +48,12 @@ class DataFilter {
         this.orderBy = this.reportSection.orderBy;
         this.groupBy = this.reportSection.groupBy;
         this.criterias = this.getApplicableReportCriterias();
-        this.criteriaValues = this.app.viewer.getCriteriaValues();
+        this.criteriaValues = this.app.reporting.viewer.getCriteriaValues();
     }
 
     getApplicableReportCriterias() {
         let applicableCriterias = [];
-        let criterias = this.app.viewer.report.getReportDefinition().criterias;
+        let criterias = this.app.reporting.viewer.report.getReportDefinition().criterias;
         for (let x in criterias) {
             let criteria = criterias[x];
             for (let y in criteria.applyTo) {
@@ -84,7 +84,7 @@ class DataFilter {
             /**
              * Check if criterias is enabled
              */
-            let criteriaValue = this.app.viewer.getCriteriaValue(aCriterias[x].id);
+            let criteriaValue = this.app.reporting.viewer.getCriteriaValue(aCriterias[x].id);
             if (criteriaValue && criteriaValue.enabled === false) {
                 continue;
             }

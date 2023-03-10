@@ -21,7 +21,7 @@ const ProxyHandler = {
     set(target, key, value) {
 
         target[key] = value;
-        Metadocx.viewer.applyReportViewerOptions();
+        Metadocx.reporting.viewer.applyReportViewerOptions();
         return true;
     }
 };

@@ -37,7 +37,7 @@ class GraphReportSection extends ReportSection {
 
                 let data = {};
 
-                let oSection = this.app.viewer.report.getReportSection(ds.section);
+                let oSection = this.app.reporting.viewer.report.getReportSection(ds.section);
                 for (let d in oSection.data) {
                     let row = oSection.data[d];
                     if (!row['__visible']) {
@@ -163,7 +163,7 @@ class GraphReportSection extends ReportSection {
 
     initialiseJS() {
 
-        this.app.viewer.report.addLoadEvent(this.reportSection.id + '_initializeJS');
+        this.app.reporting.viewer.report.addLoadEvent(this.reportSection.id + '_initializeJS');
 
         if (this.reportSection.css) {
             for (let x in this.reportSection.css) {
@@ -194,12 +194,12 @@ class GraphReportSection extends ReportSection {
                 if (this.onGraphRendered !== null) {
                     this.onGraphRendered();
                 }
-                this.app.viewer.report.setLoadEventCompleted(this.reportSection.id + '_initializeJS');
+                this.app.reporting.viewer.report.setLoadEventCompleted(this.reportSection.id + '_initializeJS');
             },
             beforeUpdate: (chart, args, options) => {
 
                 let helpers = Chart.helpers;
-                let scheme = this.app.viewer.getTheme().getColorScheme();
+                let scheme = this.app.reporting.viewer.getTheme().getColorScheme();
                 let length, colorIndex, color;
 
                 let fillAlpha = 0.4;

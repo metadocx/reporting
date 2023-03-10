@@ -41,7 +41,7 @@ class UIModule extends Module {
     renderReportViewer(app) {
         console.groupEnd();
         console.groupCollapsed('[Metadocx] Render report viewer');
-        app.viewer.render();
+        app.reporting.viewer.render();
         console.groupEnd();
     }
 

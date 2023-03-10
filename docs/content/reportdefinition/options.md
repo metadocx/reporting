@@ -75,7 +75,7 @@ You can access report viewer options by using the following code in JavaScript.
 
 ```js
 
-Metadocx.viewer.options
+Metadocx.reporting.viewer.options
 
 ```
 
@@ -86,7 +86,7 @@ Changing the options in JavaScript will trigger updates in the report viewer, if
 // Changing options values directly in JavaScript 
 // will trigger ReportViewer.applyReportViewerOptions 
 // and update Report viewer UI if a report is loaded
-Metadocx.viewer.options.toolbar.showExportButton = false;
+Metadocx.reporting.viewer.options.toolbar.showExportButton = false;
 
 ```
 

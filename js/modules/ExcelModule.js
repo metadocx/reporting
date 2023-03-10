@@ -27,7 +27,7 @@ class ExcelModule extends Module {
 
     renderExportDialog() {
 
-        return `<div id="${this.app.viewer.options.id}_excelExportDialog" class="modal modal-lg" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+        return `<div id="${this.app.reporting.viewer.options.id}_excelExportDialog" class="modal modal-lg" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
         <div class="modal-dialog">
           <div class="modal-content">
           <div class="modal-header">
@@ -250,7 +250,7 @@ class ExcelModule extends Module {
             url: '/Metadocx/Convert/Excel',
             data: {
                 ExportOptions: this.getExcelExportOptions(),
-                ReportDefinition: JSON.parse(JSON.stringify(this.app.viewer.report.getReportDefinition())),
+                ReportDefinition: JSON.parse(JSON.stringify(this.app.reporting.viewer.report.getReportDefinition())),
                 Graphs: [],
             },
             xhrFields: {

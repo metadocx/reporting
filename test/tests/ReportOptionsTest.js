@@ -42,8 +42,8 @@ describe('Report Options', function () {
     it('Set page orientation portrait', async function () {
 
         let pageWidth = await page.evaluate(() => {
-            Metadocx.viewer.options.page.orientation = 'portrait';
-            Metadocx.viewer.refreshReport();
+            Metadocx.reporting.viewer.options.page.orientation = 'portrait';
+            Metadocx.reporting.viewer.refreshReport();
             return $('#reportPage').width();
         });
 
@@ -57,8 +57,8 @@ describe('Report Options', function () {
     it('Set page orientation landscape', async function () {
 
         let pageWidth = await page.evaluate(() => {
-            Metadocx.viewer.options.page.orientation = 'landscape';
-            Metadocx.viewer.refreshReport();
+            Metadocx.reporting.viewer.options.page.orientation = 'landscape';
+            Metadocx.reporting.viewer.refreshReport();
             return $('#reportPage').width();
         });
 
@@ -72,9 +72,9 @@ describe('Report Options', function () {
     it('Set paper size letter', async function () {
 
         let pageWidth = await page.evaluate(() => {
-            Metadocx.viewer.options.page.orientation = 'landscape';
-            Metadocx.viewer.options.page.paperSize = 'Letter';
-            Metadocx.viewer.refreshReport();
+            Metadocx.reporting.viewer.options.page.orientation = 'landscape';
+            Metadocx.reporting.viewer.options.page.paperSize = 'Letter';
+            Metadocx.reporting.viewer.refreshReport();
             return $('#reportPage').width();
         });
 
@@ -89,9 +89,9 @@ describe('Report Options', function () {
     it('Set paper size legal', async function () {
 
         let pageWidth = await page.evaluate(() => {
-            Metadocx.viewer.options.page.orientation = 'landscape';
-            Metadocx.viewer.options.page.paperSize = 'Legal';
-            Metadocx.viewer.refreshReport();
+            Metadocx.reporting.viewer.options.page.orientation = 'landscape';
+            Metadocx.reporting.viewer.options.page.paperSize = 'Legal';
+            Metadocx.reporting.viewer.refreshReport();
             return $('#reportPage').width();
         });
 
@@ -106,13 +106,13 @@ describe('Report Options', function () {
     it('Set margins', async function () {
 
         let pageMargins = await page.evaluate(() => {
-            Metadocx.viewer.options.coverPage.enabled = false;
-            Metadocx.viewer.options.page.orientation = 'portrait';
-            Metadocx.viewer.options.page.margins.top = 1;
-            Metadocx.viewer.options.page.margins.bottom = 1;
-            Metadocx.viewer.options.page.margins.left = 1;
-            Metadocx.viewer.options.page.margins.right = 1;
-            Metadocx.viewer.refreshReport();
+            Metadocx.reporting.viewer.options.coverPage.enabled = false;
+            Metadocx.reporting.viewer.options.page.orientation = 'portrait';
+            Metadocx.reporting.viewer.options.page.margins.top = 1;
+            Metadocx.reporting.viewer.options.page.margins.bottom = 1;
+            Metadocx.reporting.viewer.options.page.margins.left = 1;
+            Metadocx.reporting.viewer.options.page.margins.right = 1;
+            Metadocx.reporting.viewer.refreshReport();
             return {
                 top: $('#reportPage').css('padding-top'),
                 bottom: $('#reportPage').css('padding-bottom'),
@@ -139,10 +139,10 @@ describe('Report Options', function () {
     it('Change report theme', async function () {
 
         let backImage = await page.evaluate(() => {
-            Metadocx.viewer.options.coverPage.enabled = true;
-            Metadocx.viewer.options.page.orientation = 'portrait';
-            Metadocx.viewer.options.template = 'Theme1';
-            Metadocx.viewer.refreshReport();
+            Metadocx.reporting.viewer.options.coverPage.enabled = true;
+            Metadocx.reporting.viewer.options.page.orientation = 'portrait';
+            Metadocx.reporting.viewer.options.template = 'Theme1';
+            Metadocx.reporting.viewer.refreshReport();
             return $('.report-cover-header').css('background-image');
         });
 

@@ -14,7 +14,7 @@ Or you can manually load the report using the following JavaScript command
 
 ```js
 
-Metadocx.viewer.load('data/report1.json');
+Metadocx.reporting.viewer.load('data/report1.json');
 
 ```
 Loading the report definition file will automaticly render the report in the viewer.
@@ -23,7 +23,7 @@ Once the report is loaded, you can access the report definition object using the
 
 ```js
 
-Metadocx.viewer.report.getReportDefinition();
+Metadocx.reporting.viewer.report.getReportDefinition();
 
 ```
 
@@ -32,8 +32,8 @@ Metadocx.viewer.report.getReportDefinition();
 While debugging your report you can view the report definition file in the report viewer using the followin commands in your developer console.
 
 ```JS
-Metadocx.viewer.showReportDefinition();
-Metadocx.viewer.hideReportDefinition();
+Metadocx.reporting.viewer.showReportDefinition();
+Metadocx.reporting.viewer.hideReportDefinition();
 ```
 
 

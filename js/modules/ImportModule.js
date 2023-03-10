@@ -432,13 +432,13 @@ class ImportModule extends Module {
     injectRequiredLibraries() {
         console.groupCollapsed('[Metadocx] Checking for required link and script tags');
 
-        if (this.app.viewer.options.ui == undefined) {
-            this.app.viewer.options.ui = 'default';
+        if (this.app.reporting.viewer.options.ui == undefined) {
+            this.app.reporting.viewer.options.ui = 'default';
         }
 
-        this.log('Injecting required librairies for stack ' + this.app.viewer.options.ui);
-        for (let x in this.stacks[this.app.viewer.options.ui].requires) {
-            let libName = this.stacks[this.app.viewer.options.ui].requires[x];
+        this.log('Injecting required librairies for stack ' + this.app.reporting.viewer.options.ui);
+        for (let x in this.stacks[this.app.reporting.viewer.options.ui].requires) {
+            let libName = this.stacks[this.app.reporting.viewer.options.ui].requires[x];
             this.injectLibrary(libName);
         }
 
@@ -454,13 +454,13 @@ class ImportModule extends Module {
     test() {
         console.log('Testing required librairies');
 
-        if (this.app.viewer.options.ui == undefined) {
-            this.app.viewer.options.ui = 'default';
+        if (this.app.reporting.viewer.options.ui == undefined) {
+            this.app.reporting.viewer.options.ui = 'default';
         }
 
         let bValid = true;
-        for (let x in this.stacks[this.app.viewer.options.ui].requires) {
-            let libName = this.stacks[this.app.viewer.options.ui].requires[x];
+        for (let x in this.stacks[this.app.reporting.viewer.options.ui].requires) {
+            let libName = this.stacks[this.app.reporting.viewer.options.ui].requires[x];
             let bLibIsValid = this.testLibrary(libName);
             if (!bLibIsValid && bValid) {
                 bValid = false;

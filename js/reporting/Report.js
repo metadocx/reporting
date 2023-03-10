@@ -134,7 +134,7 @@ class Report extends Consolable {
              * Copy Report definition options to viewer options, replaces default values
              */
             this.validateReportDefinitionFile();
-            this.app.modules.DataType.copyObjectProperties(this.getReportDefinition().options, this.app.viewer.options);
+            this.app.modules.DataType.copyObjectProperties(this.getReportDefinition().options, this.app.reporting.viewer.options);
 
 
             if (this.onReportDefinitionFileLoaded) {
@@ -148,7 +148,7 @@ class Report extends Consolable {
                  * Copy Report definition options to viewer options, replaces default values
                  */
                 this.validateReportDefinitionFile();
-                this.app.modules.DataType.copyObjectProperties(this.getReportDefinition().options, this.app.viewer.options);
+                this.app.modules.DataType.copyObjectProperties(this.getReportDefinition().options, this.app.reporting.viewer.options);
 
 
                 if (this.onReportDefinitionFileLoaded) {
@@ -207,10 +207,10 @@ class Report extends Consolable {
      * Prints report
      */
     print() {
-        if (this.app.viewer.options.printing.method == 'browser') {
+        if (this.app.reporting.viewer.options.printing.method == 'browser') {
             // Use default browser print 
             window.print();
-        } else if (this.app.viewer.options.printing.method == 'pdf') {
+        } else if (this.app.reporting.viewer.options.printing.method == 'pdf') {
             // Export as pdf and print the pdf file
             this.app.modules.PDF.print();
         }
@@ -280,8 +280,8 @@ class Report extends Consolable {
 
         s += `
         <div class="float-end">
-            <button class="btn btn-secondary mr5" onClick="Metadocx.viewer.cancelSettings();" data-locale="Cancel">Cancel</button>
-            <button class="btn btn-primary" onClick="Metadocx.viewer.applySettings();"><i class="uil uil-check fs16" style="color:#fff;"></i>&nbsp;<span data-locale="ApplySettings">Apply Settings</span></button>
+            <button class="btn btn-secondary mr5" onClick="Metadocx.reporting.viewer.cancelSettings();" data-locale="Cancel">Cancel</button>
+            <button class="btn btn-primary" onClick="Metadocx.reporting.viewer.applySettings();"><i class="uil uil-check fs16" style="color:#fff;"></i>&nbsp;<span data-locale="ApplySettings">Apply Settings</span></button>
         </div>
         `;
 
@@ -351,7 +351,7 @@ class Report extends Consolable {
                     </select>
                 </td>
                 <td style="width:30px;">
-                    <button class="btn btn-sm" onClick="Metadocx.viewer.showFieldPropertiesDialog('${oSection.id}', '${oSection.model[x].name}');"><i class="uil uil-ellipsis-h fs20"></i></button>
+                    <button class="btn btn-sm" onClick="Metadocx.reporting.viewer.showFieldPropertiesDialog('${oSection.id}', '${oSection.model[x].name}');"><i class="uil uil-ellipsis-h fs20"></i></button>
                 </td>
             </tr>`;
         }
@@ -530,7 +530,7 @@ class Report extends Consolable {
             return;
         }
 
-        if (this.app.viewer.options.criterias.automatic) {
+        if (this.app.reporting.viewer.options.criterias.automatic) {
             this.createAutomaticCriterias();
         }
 
@@ -574,12 +574,12 @@ class Report extends Consolable {
         for (let x in aCriterias) {
             aCriterias[x].initializeJS();
         }
-        this.app.viewer.criterias = aCriterias;
+        this.app.reporting.viewer.criterias = aCriterias;
 
         // Set parent and child components
         for (let x in aCriterias) {
             if (aCriterias[x].reportCriteria.parent) {
-                this.app.viewer.getCriteria(aCriterias[x].reportCriteria.parent).addChildCriteria(aCriterias[x]);
+                this.app.reporting.viewer.getCriteria(aCriterias[x].reportCriteria.parent).addChildCriteria(aCriterias[x]);
             }
         }
 
@@ -729,7 +729,7 @@ class Report extends Consolable {
     applyCriterias() {
 
         this.hideReportCriterias();
-        this.app.viewer.refreshReport();
+        this.app.reporting.viewer.refreshReport();
     }
 
     /**
@@ -737,7 +737,7 @@ class Report extends Consolable {
      */
     showReportCriterias() {
 
-        this._initialCriteriaValues = this.app.viewer.getCriteriaValues();
+        this._initialCriteriaValues = this.app.reporting.viewer.getCriteriaValues();
 
         $('#' + this.id + '_canvas').hide();
         $('#' + this.id + '_criteriasZone').show();
@@ -756,7 +756,7 @@ class Report extends Consolable {
      * Cancels report criterias, does not apply changes
      */
     cancelCriterias() {
-        if (JSON.stringify(this._initialCriteriaValues) != JSON.stringify(this.app.viewer.getCriteriaValues())) {
+        if (JSON.stringify(this._initialCriteriaValues) != JSON.stringify(this.app.reporting.viewer.getCriteriaValues())) {
             // Criteria values have changed, confirm?
             // @todo reset criterias
         }
@@ -768,7 +768,7 @@ class Report extends Consolable {
      * Reset criteria values to original values
      */
     resetCriterias() {
-        if (JSON.stringify(this._initialCriteriaValues) != JSON.stringify(this.app.viewer.getCriteriaValues())) {
+        if (JSON.stringify(this._initialCriteriaValues) != JSON.stringify(this.app.reporting.viewer.getCriteriaValues())) {
             // Criteria values have changed, confirm?
             // @todo reset criterias
         }
@@ -781,7 +781,7 @@ class Report extends Consolable {
      * Used to reset properties of report
      */
     copyOriginalSettings() {
-        this._initialCriteriaValues = this.app.viewer.getCriteriaValues();
+        this._initialCriteriaValues = this.app.reporting.viewer.getCriteriaValues();
         this._initialReportSettings = {
             sections: [],
         }
@@ -863,13 +863,13 @@ class Report extends Consolable {
                 metadocxVersion: this.app.version,
                 creationDate: moment().format('YYYY-MM-DD HH:mm:ss'),
                 name: $('#saveReportName').val(),
-                criteriaValues: Metadocx.viewer.getCriteriaValues()
+                criteriaValues: Metadocx.reporting.viewer.getCriteriaValues()
             }, () => {
-                this.app.viewer.showToastMessage('Report saved');
+                this.app.reporting.viewer.showToastMessage('Report saved');
             });
-            this.app.viewer.currentSavedReport = reportUID;
-            this.app.viewer.updateUI();
-            this.app.viewer.saveDialog.hide();
+            this.app.reporting.viewer.currentSavedReport = reportUID;
+            this.app.reporting.viewer.updateUI();
+            this.app.reporting.viewer.saveDialog.hide();
 
 
         } else {
@@ -881,13 +881,13 @@ class Report extends Consolable {
                 metadocxVersion: this.app.version,
                 creationDate: moment().format('YYYY-MM-DD HH:mm:ss'),
                 name: $("#savedReports option:selected").text(),
-                criteriaValues: Metadocx.viewer.getCriteriaValues()
+                criteriaValues: Metadocx.reporting.viewer.getCriteriaValues()
             }, (report) => {
-                this.app.viewer.showToastMessage(this.app.modules.Locale.getKey('ReportSaved') + ' - ' + report.name);
+                this.app.reporting.viewer.showToastMessage(this.app.modules.Locale.getKey('ReportSaved') + ' - ' + report.name);
             });
-            this.app.viewer.currentSavedReport = reportUID;
-            this.app.viewer.updateUI();
-            this.app.viewer.saveDialog.hide();
+            this.app.reporting.viewer.currentSavedReport = reportUID;
+            this.app.reporting.viewer.updateUI();
+            this.app.reporting.viewer.saveDialog.hide();
 
         }
 
@@ -903,19 +903,19 @@ class Report extends Consolable {
             if (report == null) {
                 return;
             }
-            this.app.viewer.setCriteriaValues(report.criteriaValues);
-            this.app.viewer.currentSavedReport = report.reportUID;
-            this.app.viewer.saveDialog.hide();
-            this.app.viewer.updateUI();
-            this.app.viewer.refreshReport();
-            this.app.viewer.showToastMessage(this.app.modules.Locale.getKey('ReportOpened') + ' - ' + report.name);
+            this.app.reporting.viewer.setCriteriaValues(report.criteriaValues);
+            this.app.reporting.viewer.currentSavedReport = report.reportUID;
+            this.app.reporting.viewer.saveDialog.hide();
+            this.app.reporting.viewer.updateUI();
+            this.app.reporting.viewer.refreshReport();
+            this.app.reporting.viewer.showToastMessage(this.app.modules.Locale.getKey('ReportOpened') + ' - ' + report.name);
 
         });
     }
 
     delete() {
 
-        if (this.app.viewer.currentSavedReport === null) {
+        if (this.app.reporting.viewer.currentSavedReport === null) {
             return;
         }
 
@@ -925,11 +925,11 @@ class Report extends Consolable {
             callback: (result) => {
                 if (result) {
                     // Delete the report
-                    this.app.modules.DB.deleteReport(this.app.viewer.currentSavedReport,
+                    this.app.modules.DB.deleteReport(this.app.reporting.viewer.currentSavedReport,
                         (reportUID) => {
-                            this.app.viewer.currentSavedReport = null;
-                            this.app.viewer.updateUI();
-                            this.app.viewer.showToastMessage(this.app.modules.Locale.getKey('ReportDeleted'));
+                            this.app.reporting.viewer.currentSavedReport = null;
+                            this.app.reporting.viewer.updateUI();
+                            this.app.reporting.viewer.showToastMessage(this.app.modules.Locale.getKey('ReportDeleted'));
                         });
                 }
             }

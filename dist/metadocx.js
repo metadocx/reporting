@@ -170,7 +170,7 @@ const ProxyHandler = {
     set(target, key, value) {
 
         target[key] = value;
-        Metadocx.viewer.applyReportViewerOptions();
+        Metadocx.reporting.viewer.applyReportViewerOptions();
         return true;
     }
 };
@@ -430,12 +430,12 @@ class DataFilter {
         this.orderBy = this.reportSection.orderBy;
         this.groupBy = this.reportSection.groupBy;
         this.criterias = this.getApplicableReportCriterias();
-        this.criteriaValues = this.app.viewer.getCriteriaValues();
+        this.criteriaValues = this.app.reporting.viewer.getCriteriaValues();
     }
 
     getApplicableReportCriterias() {
         let applicableCriterias = [];
-        let criterias = this.app.viewer.report.getReportDefinition().criterias;
+        let criterias = this.app.reporting.viewer.report.getReportDefinition().criterias;
         for (let x in criterias) {
             let criteria = criterias[x];
             for (let y in criteria.applyTo) {
@@ -466,7 +466,7 @@ class DataFilter {
             /**
              * Check if criterias is enabled
              */
-            let criteriaValue = this.app.viewer.getCriteriaValue(aCriterias[x].id);
+            let criteriaValue = this.app.reporting.viewer.getCriteriaValue(aCriterias[x].id);
             if (criteriaValue && criteriaValue.enabled === false) {
                 continue;
             }
@@ -634,12 +634,12 @@ class DataSorter {
         this.orderBy = this.reportSection.orderBy;
         this.groupBy = this.reportSection.groupBy;
         this.criterias = this.getApplicableReportCriterias();
-        this.criteriaValues = this.app.viewer.getCriteriaValues();
+        this.criteriaValues = this.app.reporting.viewer.getCriteriaValues();
     }
 
     getApplicableReportCriterias() {
         let applicableCriterias = [];
-        let criterias = this.app.viewer.report.getReportDefinition().criterias;
+        let criterias = this.app.reporting.viewer.report.getReportDefinition().criterias;
         for (let x in criterias) {
             let criteria = criterias[x];
             for (let y in criteria.applyTo) {
@@ -1381,7 +1381,7 @@ class MetadocxApplication {
         /**
          * Metadocx version
          */
-        this.version = '0.3.0';
+        this.version = '0.3.1';
 
         /**
          * Application modules 
@@ -1402,10 +1402,9 @@ class MetadocxApplication {
          */
         this.scriptTag = null;
 
-        /**
-         * ReportViewer instance
-         */
-        this.viewer = new ReportViewer(this);
+        this.reporting = {
+            viewer: new ReportViewer(this),
+        };
 
     }
 
@@ -1466,10 +1465,10 @@ class MetadocxApplication {
             */
             this.modules.UI.renderReportViewer(this);
 
-            if (this.viewer.options.report) {
-                this.viewer.load(this.viewer.options.report);
+            if (this.reporting.viewer.options.report) {
+                this.reporting.viewer.load(this.reporting.viewer.options.report);
             } else {
-                this.viewer.showNoReportAlert();
+                this.reporting.viewer.showNoReportAlert();
             }
         }
         /**
@@ -1496,18 +1495,18 @@ class MetadocxApplication {
         }
 
         for (let x in this.scriptTag.dataset) {
-            this.viewer.options[x] = this.scriptTag.dataset[x];
+            this.reporting.viewer.options[x] = this.scriptTag.dataset[x];
         }
 
         /**
          * Check if we have a name if not set default value
          */
-        if (!this.viewer.options.id) {
-            this.viewer.options.id = "metadocxReport";
+        if (!this.reporting.viewer.options.id) {
+            this.reporting.viewer.options.id = "metadocxReport";
         }
 
-        if (!this.viewer.options.container) {
-            this.viewer.options.container = "metadocx-report";
+        if (!this.reporting.viewer.options.container) {
+            this.reporting.viewer.options.container = "metadocx-report";
         }
 
     }
@@ -1614,7 +1613,7 @@ class ReportSection {
 
     getApplicableReportCriterias() {
         let applicableCriterias = [];
-        let criterias = this.app.viewer.report.getReportDefinition().criterias;
+        let criterias = this.app.reporting.viewer.report.getReportDefinition().criterias;
         for (let x in criterias) {
             let criteria = criterias[x];
             for (let y in criteria.applyTo) {
@@ -1770,8 +1769,8 @@ class Theme {
 
         s += `<div class="report-cover-page">
             <div class="report-cover-header"></div>
-            <div class="report-cover-name">${this.app.viewer.report.getReportDefinition().properties.name}</div>
-            <div class="report-cover-description">${this.app.viewer.report.getReportDefinition().properties.description}</div>
+            <div class="report-cover-name">${this.app.reporting.viewer.report.getReportDefinition().properties.name}</div>
+            <div class="report-cover-description">${this.app.reporting.viewer.report.getReportDefinition().properties.description}</div>
             <div class="report-cover-footer"></div>
             <div class="report-cover-date"><span data-locale="CreatedAt">Created at</span> ${moment().format('YYYY-MM-DD HH:mm')}</div>
             <div class="report-cover-powered-by"><span data-locale="PoweredBy">powered by</span> <a href="https://www.metadocx.com" target="_blank">Metadocx</a></div>
@@ -1855,18 +1854,18 @@ class DataTableReportSection extends ReportSection {
         oTable.orderBy = this.reportSection.orderBy;
         oTable.groupBy = this.reportSection.groupBy;
         oTable.criterias = this.getApplicableReportCriterias();
-        oTable.criteriaValues = this.app.viewer.getCriteriaValues();
+        oTable.criteriaValues = this.app.reporting.viewer.getCriteriaValues();
 
         let s = '';
 
         this.preRender();
 
         s += '<div class="report-section-title">';
-        if (this.app.viewer.report.getReportDefinition().properties.name) {
-            s += '<h1 class="report-title">' + this.app.viewer.report.getReportDefinition().properties.name + '</h1>';
+        if (this.app.reporting.viewer.report.getReportDefinition().properties.name) {
+            s += '<h1 class="report-title">' + this.app.reporting.viewer.report.getReportDefinition().properties.name + '</h1>';
         }
-        if (this.app.viewer.report.getReportDefinition().properties.description) {
-            s += '<h4 class="report-description">' + this.app.viewer.report.getReportDefinition().properties.description + '</h4>';
+        if (this.app.reporting.viewer.report.getReportDefinition().properties.description) {
+            s += '<h4 class="report-description">' + this.app.reporting.viewer.report.getReportDefinition().properties.description + '</h4>';
         }
         //s += '<hr/>';
         s += '</div>';
@@ -1970,7 +1969,7 @@ class GraphReportSection extends ReportSection {
 
                 let data = {};
 
-                let oSection = this.app.viewer.report.getReportSection(ds.section);
+                let oSection = this.app.reporting.viewer.report.getReportSection(ds.section);
                 for (let d in oSection.data) {
                     let row = oSection.data[d];
                     if (!row['__visible']) {
@@ -2096,7 +2095,7 @@ class GraphReportSection extends ReportSection {
 
     initialiseJS() {
 
-        this.app.viewer.report.addLoadEvent(this.reportSection.id + '_initializeJS');
+        this.app.reporting.viewer.report.addLoadEvent(this.reportSection.id + '_initializeJS');
 
         if (this.reportSection.css) {
             for (let x in this.reportSection.css) {
@@ -2127,12 +2126,12 @@ class GraphReportSection extends ReportSection {
                 if (this.onGraphRendered !== null) {
                     this.onGraphRendered();
                 }
-                this.app.viewer.report.setLoadEventCompleted(this.reportSection.id + '_initializeJS');
+                this.app.reporting.viewer.report.setLoadEventCompleted(this.reportSection.id + '_initializeJS');
             },
             beforeUpdate: (chart, args, options) => {
 
                 let helpers = Chart.helpers;
-                let scheme = this.app.viewer.getTheme().getColorScheme();
+                let scheme = this.app.reporting.viewer.getTheme().getColorScheme();
                 let length, colorIndex, color;
 
                 let fillAlpha = 0.4;
@@ -2399,7 +2398,7 @@ class Report extends Consolable {
              * Copy Report definition options to viewer options, replaces default values
              */
             this.validateReportDefinitionFile();
-            this.app.modules.DataType.copyObjectProperties(this.getReportDefinition().options, this.app.viewer.options);
+            this.app.modules.DataType.copyObjectProperties(this.getReportDefinition().options, this.app.reporting.viewer.options);
 
 
             if (this.onReportDefinitionFileLoaded) {
@@ -2413,7 +2412,7 @@ class Report extends Consolable {
                  * Copy Report definition options to viewer options, replaces default values
                  */
                 this.validateReportDefinitionFile();
-                this.app.modules.DataType.copyObjectProperties(this.getReportDefinition().options, this.app.viewer.options);
+                this.app.modules.DataType.copyObjectProperties(this.getReportDefinition().options, this.app.reporting.viewer.options);
 
 
                 if (this.onReportDefinitionFileLoaded) {
@@ -2472,10 +2471,10 @@ class Report extends Consolable {
      * Prints report
      */
     print() {
-        if (this.app.viewer.options.printing.method == 'browser') {
+        if (this.app.reporting.viewer.options.printing.method == 'browser') {
             // Use default browser print 
             window.print();
-        } else if (this.app.viewer.options.printing.method == 'pdf') {
+        } else if (this.app.reporting.viewer.options.printing.method == 'pdf') {
             // Export as pdf and print the pdf file
             this.app.modules.PDF.print();
         }
@@ -2545,8 +2544,8 @@ class Report extends Consolable {
 
         s += `
         <div class="float-end">
-            <button class="btn btn-secondary mr5" onClick="Metadocx.viewer.cancelSettings();" data-locale="Cancel">Cancel</button>
-            <button class="btn btn-primary" onClick="Metadocx.viewer.applySettings();"><i class="uil uil-check fs16" style="color:#fff;"></i>&nbsp;<span data-locale="ApplySettings">Apply Settings</span></button>
+            <button class="btn btn-secondary mr5" onClick="Metadocx.reporting.viewer.cancelSettings();" data-locale="Cancel">Cancel</button>
+            <button class="btn btn-primary" onClick="Metadocx.reporting.viewer.applySettings();"><i class="uil uil-check fs16" style="color:#fff;"></i>&nbsp;<span data-locale="ApplySettings">Apply Settings</span></button>
         </div>
         `;
 
@@ -2616,7 +2615,7 @@ class Report extends Consolable {
                     </select>
                 </td>
                 <td style="width:30px;">
-                    <button class="btn btn-sm" onClick="Metadocx.viewer.showFieldPropertiesDialog('${oSection.id}', '${oSection.model[x].name}');"><i class="uil uil-ellipsis-h fs20"></i></button>
+                    <button class="btn btn-sm" onClick="Metadocx.reporting.viewer.showFieldPropertiesDialog('${oSection.id}', '${oSection.model[x].name}');"><i class="uil uil-ellipsis-h fs20"></i></button>
                 </td>
             </tr>`;
         }
@@ -2795,7 +2794,7 @@ class Report extends Consolable {
             return;
         }
 
-        if (this.app.viewer.options.criterias.automatic) {
+        if (this.app.reporting.viewer.options.criterias.automatic) {
             this.createAutomaticCriterias();
         }
 
@@ -2839,12 +2838,12 @@ class Report extends Consolable {
         for (let x in aCriterias) {
             aCriterias[x].initializeJS();
         }
-        this.app.viewer.criterias = aCriterias;
+        this.app.reporting.viewer.criterias = aCriterias;
 
         // Set parent and child components
         for (let x in aCriterias) {
             if (aCriterias[x].reportCriteria.parent) {
-                this.app.viewer.getCriteria(aCriterias[x].reportCriteria.parent).addChildCriteria(aCriterias[x]);
+                this.app.reporting.viewer.getCriteria(aCriterias[x].reportCriteria.parent).addChildCriteria(aCriterias[x]);
             }
         }
 
@@ -2994,7 +2993,7 @@ class Report extends Consolable {
     applyCriterias() {
 
         this.hideReportCriterias();
-        this.app.viewer.refreshReport();
+        this.app.reporting.viewer.refreshReport();
     }
 
     /**
@@ -3002,7 +3001,7 @@ class Report extends Consolable {
      */
     showReportCriterias() {
 
-        this._initialCriteriaValues = this.app.viewer.getCriteriaValues();
+        this._initialCriteriaValues = this.app.reporting.viewer.getCriteriaValues();
 
         $('#' + this.id + '_canvas').hide();
         $('#' + this.id + '_criteriasZone').show();
@@ -3021,7 +3020,7 @@ class Report extends Consolable {
      * Cancels report criterias, does not apply changes
      */
     cancelCriterias() {
-        if (JSON.stringify(this._initialCriteriaValues) != JSON.stringify(this.app.viewer.getCriteriaValues())) {
+        if (JSON.stringify(this._initialCriteriaValues) != JSON.stringify(this.app.reporting.viewer.getCriteriaValues())) {
             // Criteria values have changed, confirm?
             // @todo reset criterias
         }
@@ -3033,7 +3032,7 @@ class Report extends Consolable {
      * Reset criteria values to original values
      */
     resetCriterias() {
-        if (JSON.stringify(this._initialCriteriaValues) != JSON.stringify(this.app.viewer.getCriteriaValues())) {
+        if (JSON.stringify(this._initialCriteriaValues) != JSON.stringify(this.app.reporting.viewer.getCriteriaValues())) {
             // Criteria values have changed, confirm?
             // @todo reset criterias
         }
@@ -3046,7 +3045,7 @@ class Report extends Consolable {
      * Used to reset properties of report
      */
     copyOriginalSettings() {
-        this._initialCriteriaValues = this.app.viewer.getCriteriaValues();
+        this._initialCriteriaValues = this.app.reporting.viewer.getCriteriaValues();
         this._initialReportSettings = {
             sections: [],
         }
@@ -3128,13 +3127,13 @@ class Report extends Consolable {
                 metadocxVersion: this.app.version,
                 creationDate: moment().format('YYYY-MM-DD HH:mm:ss'),
                 name: $('#saveReportName').val(),
-                criteriaValues: Metadocx.viewer.getCriteriaValues()
+                criteriaValues: Metadocx.reporting.viewer.getCriteriaValues()
             }, () => {
-                this.app.viewer.showToastMessage('Report saved');
+                this.app.reporting.viewer.showToastMessage('Report saved');
             });
-            this.app.viewer.currentSavedReport = reportUID;
-            this.app.viewer.updateUI();
-            this.app.viewer.saveDialog.hide();
+            this.app.reporting.viewer.currentSavedReport = reportUID;
+            this.app.reporting.viewer.updateUI();
+            this.app.reporting.viewer.saveDialog.hide();
 
 
         } else {
@@ -3146,13 +3145,13 @@ class Report extends Consolable {
                 metadocxVersion: this.app.version,
                 creationDate: moment().format('YYYY-MM-DD HH:mm:ss'),
                 name: $("#savedReports option:selected").text(),
-                criteriaValues: Metadocx.viewer.getCriteriaValues()
+                criteriaValues: Metadocx.reporting.viewer.getCriteriaValues()
             }, (report) => {
-                this.app.viewer.showToastMessage(this.app.modules.Locale.getKey('ReportSaved') + ' - ' + report.name);
+                this.app.reporting.viewer.showToastMessage(this.app.modules.Locale.getKey('ReportSaved') + ' - ' + report.name);
             });
-            this.app.viewer.currentSavedReport = reportUID;
-            this.app.viewer.updateUI();
-            this.app.viewer.saveDialog.hide();
+            this.app.reporting.viewer.currentSavedReport = reportUID;
+            this.app.reporting.viewer.updateUI();
+            this.app.reporting.viewer.saveDialog.hide();
 
         }
 
@@ -3168,19 +3167,19 @@ class Report extends Consolable {
             if (report == null) {
                 return;
             }
-            this.app.viewer.setCriteriaValues(report.criteriaValues);
-            this.app.viewer.currentSavedReport = report.reportUID;
-            this.app.viewer.saveDialog.hide();
-            this.app.viewer.updateUI();
-            this.app.viewer.refreshReport();
-            this.app.viewer.showToastMessage(this.app.modules.Locale.getKey('ReportOpened') + ' - ' + report.name);
+            this.app.reporting.viewer.setCriteriaValues(report.criteriaValues);
+            this.app.reporting.viewer.currentSavedReport = report.reportUID;
+            this.app.reporting.viewer.saveDialog.hide();
+            this.app.reporting.viewer.updateUI();
+            this.app.reporting.viewer.refreshReport();
+            this.app.reporting.viewer.showToastMessage(this.app.modules.Locale.getKey('ReportOpened') + ' - ' + report.name);
 
         });
     }
 
     delete() {
 
-        if (this.app.viewer.currentSavedReport === null) {
+        if (this.app.reporting.viewer.currentSavedReport === null) {
             return;
         }
 
@@ -3190,11 +3189,11 @@ class Report extends Consolable {
             callback: (result) => {
                 if (result) {
                     // Delete the report
-                    this.app.modules.DB.deleteReport(this.app.viewer.currentSavedReport,
+                    this.app.modules.DB.deleteReport(this.app.reporting.viewer.currentSavedReport,
                         (reportUID) => {
-                            this.app.viewer.currentSavedReport = null;
-                            this.app.viewer.updateUI();
-                            this.app.viewer.showToastMessage(this.app.modules.Locale.getKey('ReportDeleted'));
+                            this.app.reporting.viewer.currentSavedReport = null;
+                            this.app.reporting.viewer.updateUI();
+                            this.app.reporting.viewer.showToastMessage(this.app.modules.Locale.getKey('ReportDeleted'));
                         });
                 }
             }
@@ -3212,10 +3211,9 @@ class Report extends Consolable {
  */
 class ReportCanvas {
 
-    constructor(app, report, viewer) {
+    constructor(app, report) {
         this.app = app;
         this.report = report;
-        this.viewer = viewer;
         this.reportSections = [];
     }
 
@@ -3230,14 +3228,14 @@ class ReportCanvas {
 
         let oReportTemplate = new Theme(this.app);
 
-        if (window.__Metadocx.Themes[this.viewer.options.template] != undefined) {
-            oReportTemplate = new window.__Metadocx.Themes[this.viewer.options.template](this.app);
+        if (window.__Metadocx.Themes[this.app.reporting.viewer.options.template] != undefined) {
+            oReportTemplate = new window.__Metadocx.Themes[this.app.reporting.viewer.options.template](this.app);
         }
 
-        if (this.viewer.options.coverPage.enabled) {
+        if (this.app.reporting.viewer.options.coverPage.enabled) {
             // Add cover page to report
-            s += `<div id="reportCoverPage" class="report-page orientation-${this.viewer.options.page.orientation} size-${this.viewer.options.page.paperSize.toString().toLowerCase()}">
-                    <style id="${this.viewer.options.id}_coverPage">
+            s += `<div id="reportCoverPage" class="report-page orientation-${this.app.reporting.viewer.options.page.orientation} size-${this.app.reporting.viewer.options.page.paperSize.toString().toLowerCase()}">
+                    <style id="${this.app.reporting.viewer.options.id}_coverPage">
                         ${oReportTemplate.renderCoverPageCSS()}    
                     </style>
                     ${oReportTemplate.renderCoverPage()}
@@ -3262,11 +3260,11 @@ class ReportCanvas {
 
         }
 
-        s += `<div id="reportPage" class="report-page orientation-${this.viewer.options.page.orientation} size-${this.viewer.options.page.paperSize.toString().toLowerCase()}">                
+        s += `<div id="reportPage" class="report-page orientation-${this.app.reporting.viewer.options.page.orientation} size-${this.app.reporting.viewer.options.page.paperSize.toString().toLowerCase()}">                
                 <div id="reportContent">
-                    <style id="${this.viewer.options.id}_style">
+                    <style id="${this.app.reporting.viewer.options.id}_style">
                     </style>
-                    <style id="${this.viewer.options.id}_theme">
+                    <style id="${this.app.reporting.viewer.options.id}_theme">
                         ${oReportTemplate.renderThemeCSS()}
                     </style>
                     ${sReportSection}
@@ -3358,7 +3356,7 @@ class ReportValidator {
                     __type: 'string',
                     __required: false,
                     __defaultValue: 'Theme2',
-                    __allowedValues: this.app.viewer.getThemes()
+                    __allowedValues: this.app.reporting.viewer.getThemes()
                 },
                 toolbar: {
                     __type: 'object',
@@ -3594,7 +3592,7 @@ class ReportValidator {
                     type: {
                         __type: 'string',
                         __required: true,
-                        __allowedValues: this.app.viewer.getCriteriaTypes()
+                        __allowedValues: this.app.reporting.viewer.getCriteriaTypes()
                     },
                     parent: {
                         __type: 'string',
@@ -4109,7 +4107,7 @@ class ReportViewer extends Consolable {
             },
             "exportFormats": {
                 "pdf": true,
-                "word": true,
+                "word": false,
                 "excel": true
             },
             "page": {
@@ -4151,9 +4149,15 @@ class ReportViewer extends Consolable {
             },
             "modules": {
                 "Google": {
-                    "enabled": false
+                    "enabled": false,
+                    "options": {
+                        "ClientID": "",
+                        "APIKey": "",
+                        "AppID": ""
+                    }
                 }
-            }
+            },
+            "fonts": []
         };
 
         this.options = new Proxy(this.options, ProxyHandler);
@@ -4382,7 +4386,7 @@ class ReportViewer extends Consolable {
                     <p data-locale="OupsNoReport">Oups! Something went wrong. We did not get a report to load.</p>                    
                 </div>`;
 
-        $('#' + this.app.viewer.options.id + '_canvas').html(s);
+        $('#' + this.app.reporting.viewer.options.id + '_canvas').html(s);
         $('.report-toolbar-button').hide();
     }
 
@@ -4407,6 +4411,7 @@ class ReportViewer extends Consolable {
         if (!this.options.exportFormats.word) {
             sExportWordClasses = ' hidden';
         }
+
         let sExportExcelClasses = '';
         if (!this.options.exportFormats.excel) {
             sExportExcelClasses = ' hidden';
@@ -4434,9 +4439,9 @@ class ReportViewer extends Consolable {
                             <i class="uil uil-file"></i>
                          </button>
                          <div class="dropdown-menu">
-                             <a id="${this.options.id}_open" class="dropdown-item" href="#" onClick="Metadocx.viewer.showSaveDialog('open');"><i class="uil uil-folder-open" style="font-size:16px;"></i> <span data-locale="Open">Open</span></a>
-                             <a id="${this.options.id}_save" class="dropdown-item" href="#" onClick="Metadocx.viewer.showSaveDialog('save');"><i class="uil uil-save" style="font-size:16px;"></i> <span data-locale="Save">Save</span></a>
-                             <a id="${this.options.id}_delete" class="dropdown-item" href="#" onClick="Metadocx.viewer.report.delete();"><i class="uil uil-trash" style="font-size:16px;"></i> <span data-locale="Delete">Delete</span></a>
+                             <a id="${this.options.id}_open" class="dropdown-item" href="#" onClick="Metadocx.reporting.viewer.showSaveDialog('open');"><i class="uil uil-folder-open" style="font-size:16px;"></i> <span data-locale="Open">Open</span></a>
+                             <a id="${this.options.id}_save" class="dropdown-item" href="#" onClick="Metadocx.reporting.viewer.showSaveDialog('save');"><i class="uil uil-save" style="font-size:16px;"></i> <span data-locale="Save">Save</span></a>
+                             <a id="${this.options.id}_delete" class="dropdown-item" href="#" onClick="Metadocx.reporting.viewer.report.delete();"><i class="uil uil-trash" style="font-size:16px;"></i> <span data-locale="Delete">Delete</span></a>
                          </div>
                      </div>
                     <div id="${this.options.id}_localeGroup" class="btn-group me-2 mb-2 mb-sm-0 report-toolbar-button">
@@ -4452,25 +4457,25 @@ class ReportViewer extends Consolable {
                             <i class="uil uil-file-export"></i>
                          </button>
                          <div class="dropdown-menu">
-                             <a id="${this.options.id}_exportPdf" class="dropdown-item${sExportPDFClasses}" href="#" onClick="Metadocx.viewer.report.exportReport('PDF');" data-locale="PDF">PDF</a>
-                             <a id="${this.options.id}_exportExcel" class="dropdown-item${sExportExcelClasses}" href="#" onClick="Metadocx.viewer.report.exportReport('Excel');" data-locale="Excel">Excel</a>
-                             <a id="${this.options.id}_exportWord" class="dropdown-item${sExportWordClasses}" href="#" onClick="Metadocx.viewer.report.exportReport('Word');" data-locale="Word">Word</a>
+                             <a id="${this.options.id}_exportPdf" class="dropdown-item${sExportPDFClasses}" href="#" onClick="Metadocx.reporting.viewer.report.exportReport('PDF');" data-locale="PDF">PDF</a>
+                             <a id="${this.options.id}_exportExcel" class="dropdown-item${sExportExcelClasses}" href="#" onClick="Metadocx.reporting.viewer.report.exportReport('Excel');" data-locale="Excel">Excel</a>
+                             <a id="${this.options.id}_exportWord" class="dropdown-item${sExportWordClasses}" href="#" onClick="Metadocx.reporting.viewer.report.exportReport('Word');" data-locale="Word">Word</a>
                          </div>
                      </div>
                      <div class="me-2 mb-2 mb-sm-0 report-toolbar-button">
-                         <button id="${this.options.id}_print" type="button" class="btn header-item" onClick="Metadocx.viewer.report.print();"><i class="uil uil-print"></i></button>
+                         <button id="${this.options.id}_print" type="button" class="btn header-item" onClick="Metadocx.reporting.viewer.report.print();"><i class="uil uil-print"></i></button>
                      </div>
                      <div class="me-2 mb-2 mb-sm-0 report-toolbar-button">
-                         <button id="${this.options.id}_criterias" type="button" class="btn header-item" onClick="Metadocx.viewer.report.showReportCriterias();"><i class="uil uil-filter"></i></button>
+                         <button id="${this.options.id}_criterias" type="button" class="btn header-item" onClick="Metadocx.reporting.viewer.report.showReportCriterias();"><i class="uil uil-filter"></i></button>
                      </div>
                      <div class="me-2 mb-2 mb-sm-0 report-toolbar-button">
-                         <button id="${this.options.id}_settings" type="button" class="btn header-item" onClick="Metadocx.viewer.showReportSettings();"><i class="uil uil-file-graph"></i></button>
+                         <button id="${this.options.id}_settings" type="button" class="btn header-item" onClick="Metadocx.reporting.viewer.showReportSettings();"><i class="uil uil-file-graph"></i></button>
                      </div>
                      <div class="me-2 mb-2 mb-sm-0 report-toolbar-button">
-                         <button id="${this.options.id}_options" type="button" class="btn header-item" onClick="Metadocx.viewer.showReportOptions();"><i class="uil uil-cog"></i></button>
+                         <button id="${this.options.id}_options" type="button" class="btn header-item" onClick="Metadocx.reporting.viewer.showReportOptions();"><i class="uil uil-cog"></i></button>
                      </div>
                      <div class="me-2 mb-2 mb-sm-0 report-toolbar-button${sCloseButtonClasses}">
-                         <button id="${this.options.id}_close" type="button" class="btn header-item" onClick="Metadocx.viewer.report.close();"><i class="uil uil-times"></i></button>
+                         <button id="${this.options.id}_close" type="button" class="btn header-item" onClick="Metadocx.reporting.viewer.report.close();"><i class="uil uil-times"></i></button>
                      </div>
                  </div>
              </div>
@@ -4527,9 +4532,9 @@ class ReportViewer extends Consolable {
                                     <div class="page-title-box d-flex align-items-center justify-content-between">
                                         <h4 class="mb-0" data-locale="Criterias">Criterias</h4>
                                         <div class="d-flex">
-                                            <button class="btn btn-primary mr5" onClick="Metadocx.viewer.report.applyCriterias();"><i class="uil uil-check fs16" style="color:#fff;"></i>&nbsp;<span data-locale="ApplyCriterias">Apply criterias</span></button>
-                                            <button class="btn btn-danger mr5" onClick="Metadocx.viewer.report.resetCriterias();" data-locale="Reset">Reset</button>
-                                            <button class="btn btn-secondary" onClick="Metadocx.viewer.report.cancelCriterias();" data-locale="Cancel">Cancel</button>
+                                            <button class="btn btn-primary mr5" onClick="Metadocx.reporting.viewer.report.applyCriterias();"><i class="uil uil-check fs16" style="color:#fff;"></i>&nbsp;<span data-locale="ApplyCriterias">Apply criterias</span></button>
+                                            <button class="btn btn-danger mr5" onClick="Metadocx.reporting.viewer.report.resetCriterias();" data-locale="Reset">Reset</button>
+                                            <button class="btn btn-secondary" onClick="Metadocx.reporting.viewer.report.cancelCriterias();" data-locale="Cancel">Cancel</button>
                                         </div>
                                     </div>
                                 </div>
@@ -4642,7 +4647,7 @@ class ReportViewer extends Consolable {
                  </div>
                  <div class="modal-footer">
                      <button type="button" class="btn btn-secondary mr5" data-bs-dismiss="modal" data-locale="Cancel">Cancel</button>
-                     <button type="button" class="btn btn-primary" onClick="Metadocx.viewer.applyOptions();"><i class="fa-solid fa-check"></i>&nbsp;<span data-locale="ApplyOptions">Apply Options</span></button>
+                     <button type="button" class="btn btn-primary" onClick="Metadocx.reporting.viewer.applyOptions();"><i class="fa-solid fa-check"></i>&nbsp;<span data-locale="ApplyOptions">Apply Options</span></button>
                  </div>
                  </div>
              </div>
@@ -4661,6 +4666,11 @@ class ReportViewer extends Consolable {
          * Options dialog
          */
         this.log('Render report options dialog');
+
+        let showGoogleDriveButton = 'display:none;';
+        if (this.options.modules.Google.enabled) {
+            showGoogleDriveButton = '';
+        }
 
         return `<div id="${this.options.id}_saveDialog" class="modal" tabindex="-1">
                <div class="modal-dialog">
@@ -4704,7 +4714,7 @@ class ReportViewer extends Consolable {
                      </div>
                  </div>
                  <div class="modal-footer">
-                     <button id="openGoogleDrive" type="button" class="btn btn-light me-auto" data-bs-dismiss="modal" onclick="Metadocx.modules.Google.showGoogleDocPicker()"><i class="fa-solid fa-folder"></i>&nbsp;<span data-locale="GoogleDrive">Google Drive</span></button>
+                     <button id="openGoogleDrive" type="button" class="btn btn-light me-auto" data-bs-dismiss="modal" style="${showGoogleDriveButton}" onclick="Metadocx.modules.Google.showGoogleDocPicker()"><i class="fa-solid fa-folder"></i>&nbsp;<span data-locale="GoogleDrive">Google Drive</span></button>
                      <button type="button" class="btn btn-secondary mr5" data-bs-dismiss="modal" data-locale="Cancel">Cancel</button>
                      <button id="saveDialogSaveButton" type="button" class="btn btn-primary"><i class="fa-solid fa-check"></i>&nbsp;<span data-locale="Save">Save</span></button>
                  </div>
@@ -4759,7 +4769,7 @@ class ReportViewer extends Consolable {
             $('#saveDialogTitle').html(this.app.modules.Locale.getKey('OpenReport'));
             $('#saveDialogSaveButton').attr('data-locale', 'Open');
             $('#saveDialogSaveButton').html(this.app.modules.Locale.getKey('Open'));
-            $('#saveDialogSaveButton').off('click').on('click', () => { Metadocx.viewer.report.open(); });
+            $('#saveDialogSaveButton').off('click').on('click', () => { Metadocx.reporting.viewer.report.open(); });
         } else {
             /**
              * Save report mode
@@ -4767,7 +4777,7 @@ class ReportViewer extends Consolable {
             $('#saveDialogTitle').html(this.app.modules.Locale.getKey('SavedReports'));
             $('#saveDialogSaveButton').attr('data-locale', 'Save');
             $('#saveDialogSaveButton').html(this.app.modules.Locale.getKey('Save'));
-            $('#saveDialogSaveButton').off('click').on('click', () => { Metadocx.viewer.report.save(); });
+            $('#saveDialogSaveButton').off('click').on('click', () => { Metadocx.reporting.viewer.report.save(); });
         }
 
         /**
@@ -4887,7 +4897,7 @@ class ReportViewer extends Consolable {
                  </div>
                  <div class="modal-footer">
                      <button type="button" class="btn btn-secondary mr5" data-bs-dismiss="modal">Cancel</button>
-                     <button type="button" class="btn btn-primary" onClick="Metadocx.viewer.applyFieldProperties();"><i class="fa-solid fa-check"></i>&nbsp;Apply Properties</button>
+                     <button type="button" class="btn btn-primary" onClick="Metadocx.reporting.viewer.applyFieldProperties();"><i class="fa-solid fa-check"></i>&nbsp;Apply Properties</button>
                  </div>
                  </div>
              </div>
@@ -5152,7 +5162,7 @@ class ReportViewer extends Consolable {
         this.report.filter();
         this.report.sort();
 
-        let oReportCanvas = new ReportCanvas(this.app, this.report, this);
+        let oReportCanvas = new ReportCanvas(this.app, this.report);
         $('#' + this.options.id + '_canvas').html(oReportCanvas.render());
 
         oReportCanvas.initialiseJS();
@@ -5184,8 +5194,8 @@ class ReportViewer extends Consolable {
      */
     updateCSS() {
 
-        let paperSize = this.app.modules.Printing.getPaperSize(this.app.viewer.options.page.paperSize);
-        let pageOrientation = this.app.viewer.options.page.orientation;
+        let paperSize = this.app.modules.Printing.getPaperSize(this.app.reporting.viewer.options.page.paperSize);
+        let pageOrientation = this.app.reporting.viewer.options.page.orientation;
 
         let width = 0;
         let height = 0;
@@ -5331,7 +5341,7 @@ class ReportViewer extends Consolable {
      */
     applySettings() {
         if (this.settingsOffCanvas === null) {
-            this.settingsOffCanvas = new bootstrap.Offcanvas($('#' + this.app.viewer.options.id + '_settingsOffCanvas')[0], {})
+            this.settingsOffCanvas = new bootstrap.Offcanvas($('#' + this.app.reporting.viewer.options.id + '_settingsOffCanvas')[0], {})
         }
         this.settingsOffCanvas.hide();
 
@@ -5629,7 +5639,7 @@ class CheckboxCriteria extends CriteriaControl {
     buildCheckboxesFromReportData(field) {
         let sCheckboxes = '';
         let aOptions = [];
-        let aReportSections = this.app.viewer.report.getReportSections();
+        let aReportSections = this.app.reporting.viewer.report.getReportSections();
         for (let s in aReportSections) {
             for (let x in aReportSections[s].data) {
                 let row = aReportSections[s].data[x];
@@ -5979,7 +5989,7 @@ class SelectCriteria extends CriteriaControl {
     buildOptionTagsFromReportData(field) {
         let sOptionTags = '';
         let aOptions = [];
-        let aReportSections = this.app.viewer.report.getReportSections();
+        let aReportSections = this.app.reporting.viewer.report.getReportSections();
         for (let s in aReportSections) {
             for (let x in aReportSections[s].data) {
                 let row = aReportSections[s].data[x];
@@ -6871,7 +6881,7 @@ class ExcelModule extends Module {
 
     renderExportDialog() {
 
-        return `<div id="${this.app.viewer.options.id}_excelExportDialog" class="modal modal-lg" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+        return `<div id="${this.app.reporting.viewer.options.id}_excelExportDialog" class="modal modal-lg" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
         <div class="modal-dialog">
           <div class="modal-content">
           <div class="modal-header">
@@ -7094,7 +7104,7 @@ class ExcelModule extends Module {
             url: '/Metadocx/Convert/Excel',
             data: {
                 ExportOptions: this.getExcelExportOptions(),
-                ReportDefinition: JSON.parse(JSON.stringify(this.app.viewer.report.getReportDefinition())),
+                ReportDefinition: JSON.parse(JSON.stringify(this.app.reporting.viewer.report.getReportDefinition())),
                 Graphs: [],
             },
             xhrFields: {
@@ -7147,14 +7157,14 @@ class FormatModule extends Module {
         switch (dataType) {
             case 'number':
                 if (format === undefined) {
-                    format = this.app.viewer.options.formats.number.format;
+                    format = this.app.reporting.viewer.options.formats.number.format;
                 }
                 displayValue = numeral(value).format(format);
                 break;
             case 'boolean':
                 if (value === 'ALL') {
-                    if (this.app.viewer.options.formats.boolean.format.ALL !== undefined) {
-                        displayValue = this.app.viewer.options.formats.boolean.format.ALL;
+                    if (this.app.reporting.viewer.options.formats.boolean.format.ALL !== undefined) {
+                        displayValue = this.app.reporting.viewer.options.formats.boolean.format.ALL;
                     } else {
                         // default value if not options is available
                         displayValue = 'All';
@@ -7162,8 +7172,8 @@ class FormatModule extends Module {
 
                 } else if (value) {
 
-                    if (this.app.viewer.options.formats.boolean.format.trueValue !== undefined) {
-                        displayValue = this.app.viewer.options.formats.boolean.format.trueValue;
+                    if (this.app.reporting.viewer.options.formats.boolean.format.trueValue !== undefined) {
+                        displayValue = this.app.reporting.viewer.options.formats.boolean.format.trueValue;
                     } else {
                         // default value if not options is available
                         displayValue = 'Yes';
@@ -7172,8 +7182,8 @@ class FormatModule extends Module {
 
                 } else {
 
-                    if (this.app.viewer.options.formats.boolean.format.falseValue !== undefined) {
-                        displayValue = this.app.viewer.options.formats.boolean.format.falseValue;
+                    if (this.app.reporting.viewer.options.formats.boolean.format.falseValue !== undefined) {
+                        displayValue = this.app.reporting.viewer.options.formats.boolean.format.falseValue;
                     } else {
                         // default value if not options is available
                         displayValue = 'No';
@@ -7183,7 +7193,7 @@ class FormatModule extends Module {
                 break;
             case 'date':
                 if (format === undefined) {
-                    format = this.app.viewer.options.formats.date.format;
+                    format = this.app.reporting.viewer.options.formats.date.format;
                 }
                 displayValue = moment(value).format(format);
                 break;
@@ -7382,7 +7392,7 @@ class GoogleModule extends Module {
             .setAppId(Metadocx.modules.Google.APP_ID)
             .setOAuthToken(Metadocx.modules.Google.accessToken)
             .addView(google.picker.ViewId.SPREADSHEETS)
-            .setLocale(Metadocx.viewer.options.locale ?? 'en')
+            .setLocale(Metadocx.reporting.viewer.options.locale ?? 'en')
             //.addView(new google.picker.DocsUploadView())
             .setCallback(Metadocx.modules.Google.pickerCallback)
             .build();
@@ -7541,7 +7551,7 @@ class GoogleModule extends Module {
 
         console.log(reportDefinition);
 
-        this.app.viewer.load(reportDefinition);
+        this.app.reporting.viewer.load(reportDefinition);
 
     }
 
@@ -7991,13 +8001,13 @@ class ImportModule extends Module {
     injectRequiredLibraries() {
         console.groupCollapsed('[Metadocx] Checking for required link and script tags');
 
-        if (this.app.viewer.options.ui == undefined) {
-            this.app.viewer.options.ui = 'default';
+        if (this.app.reporting.viewer.options.ui == undefined) {
+            this.app.reporting.viewer.options.ui = 'default';
         }
 
-        this.log('Injecting required librairies for stack ' + this.app.viewer.options.ui);
-        for (let x in this.stacks[this.app.viewer.options.ui].requires) {
-            let libName = this.stacks[this.app.viewer.options.ui].requires[x];
+        this.log('Injecting required librairies for stack ' + this.app.reporting.viewer.options.ui);
+        for (let x in this.stacks[this.app.reporting.viewer.options.ui].requires) {
+            let libName = this.stacks[this.app.reporting.viewer.options.ui].requires[x];
             this.injectLibrary(libName);
         }
 
@@ -8013,13 +8023,13 @@ class ImportModule extends Module {
     test() {
         console.log('Testing required librairies');
 
-        if (this.app.viewer.options.ui == undefined) {
-            this.app.viewer.options.ui = 'default';
+        if (this.app.reporting.viewer.options.ui == undefined) {
+            this.app.reporting.viewer.options.ui = 'default';
         }
 
         let bValid = true;
-        for (let x in this.stacks[this.app.viewer.options.ui].requires) {
-            let libName = this.stacks[this.app.viewer.options.ui].requires[x];
+        for (let x in this.stacks[this.app.reporting.viewer.options.ui].requires) {
+            let libName = this.stacks[this.app.reporting.viewer.options.ui].requires[x];
             let bLibIsValid = this.testLibrary(libName);
             if (!bLibIsValid && bValid) {
                 bValid = false;
@@ -8201,7 +8211,7 @@ class LocaleModule extends Module {
         let locales = this.getLocales();
         let s = '';
         for (let x in locales) {
-            s += `<a id="${this.app.viewer.options.id}_locale_${locales[x]}" class="dropdown-item" href="#" onClick="Metadocx.modules.Locale.setLocale('${locales[x]}');" data-locale="${locales[x]}">${locales[x]}</a>`;
+            s += `<a id="${this.app.reporting.viewer.options.id}_locale_${locales[x]}" class="dropdown-item" href="#" onClick="Metadocx.modules.Locale.setLocale('${locales[x]}');" data-locale="${locales[x]}">${locales[x]}</a>`;
         }
         return s;
     }
@@ -8236,18 +8246,18 @@ class PDFModule extends Module {
 
         if (this.exportDialog === null) {
 
-            $('#' + this.app.viewer.options.container).append(this.renderExportDialog());
+            $('#' + this.app.reporting.viewer.options.container).append(this.renderExportDialog());
             this.hookExportDialogComponents();
-            this.exportDialog = new bootstrap.Modal('#' + this.app.viewer.options.id + '_pdfExportDialog', {})
+            this.exportDialog = new bootstrap.Modal('#' + this.app.reporting.viewer.options.id + '_pdfExportDialog', {})
         }
 
-        $('#pdfPaperSize').val(this.app.viewer.options.page.paperSize);
+        $('#pdfPaperSize').val(this.app.reporting.viewer.options.page.paperSize);
 
         let paperSize = this.app.modules.Printing.getPaperSize($('#pdfPaperSize').val());
         $('#pdfPaperSizeWidth').val(paperSize.width);
         $('#pdfPaperSizeHeight').val(paperSize.height);
 
-        if (this.app.viewer.options.page.orientation == Metadocx.modules.Printing.PageOrientation.Portrait) {
+        if (this.app.reporting.viewer.options.page.orientation == Metadocx.modules.Printing.PageOrientation.Portrait) {
             $('#pdfOrientationPortrait').prop('checked', true);
             $('#pdfOrientationLandscape').prop('checked', false);
         } else {
@@ -8255,10 +8265,10 @@ class PDFModule extends Module {
             $('#pdfOrientationLandscape').prop('checked', true);
         }
 
-        $('#pdfTopMargin').val(this.app.viewer.options.page.margins.top);
-        $('#pdfBottomMargin').val(this.app.viewer.options.page.margins.bottom);
-        $('#pdfLeftMargin').val(this.app.viewer.options.page.margins.left);
-        $('#pdfRightMargin').val(this.app.viewer.options.page.margins.right);
+        $('#pdfTopMargin').val(this.app.reporting.viewer.options.page.margins.top);
+        $('#pdfBottomMargin').val(this.app.reporting.viewer.options.page.margins.bottom);
+        $('#pdfLeftMargin').val(this.app.reporting.viewer.options.page.margins.left);
+        $('#pdfRightMargin').val(this.app.reporting.viewer.options.page.margins.right);
 
         this.exportDialog.show();
 
@@ -8273,7 +8283,7 @@ class PDFModule extends Module {
 
     renderExportDialog() {
 
-        return `<div id="${this.app.viewer.options.id}_pdfExportDialog" class="modal modal-lg" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+        return `<div id="${this.app.reporting.viewer.options.id}_pdfExportDialog" class="modal modal-lg" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
         <div class="modal-dialog">
           <div class="modal-content">
           <div class="modal-header">
@@ -8476,7 +8486,7 @@ class PDFModule extends Module {
             orientation = Metadocx.modules.Printing.PageOrientation.Landscape;
         }
 
-        let paperSize = this.app.viewer.options.page.paperSize;
+        let paperSize = this.app.reporting.viewer.options.page.paperSize;
         if ($('#pdfPaperSize').length > 0) {
             paperSize = $('#pdfPaperSize').val();
         }
@@ -8496,19 +8506,19 @@ class PDFModule extends Module {
         }
         let marginTop = $('#pdfTopMargin').val();
         if (marginTop == undefined) {
-            marginTop = this.app.viewer.options.page.margins.top;
+            marginTop = this.app.reporting.viewer.options.page.margins.top;
         }
         let marginBottom = $('#pdfBottomMargin').val();
         if (marginBottom == undefined) {
-            marginBottom = this.app.viewer.options.page.margins.bottom;
+            marginBottom = this.app.reporting.viewer.options.page.margins.bottom;
         }
         let marginLeft = $('#pdfLeftMargin').val();
         if (marginLeft == undefined) {
-            marginLeft = this.app.viewer.options.page.margins.left;
+            marginLeft = this.app.reporting.viewer.options.page.margins.left;
         }
         let marginRight = $('#pdfRightMargin').val();
         if (marginRight == undefined) {
-            marginRight = this.app.viewer.options.page.margins.right;
+            marginRight = this.app.reporting.viewer.options.page.margins.right;
         }
         let pdfCompression = $('#pdfUseCompression').prop('checked');
         if (pdfCompression == undefined) {
@@ -8551,7 +8561,7 @@ class PDFModule extends Module {
 
 
         return {
-            "coverpage": this.app.viewer.options.coverPage.enabled,
+            "coverpage": this.app.reporting.viewer.options.coverPage.enabled,
             "page": {
                 "orientation": orientation,
                 "paperSize": paperSize,
@@ -8886,8 +8896,8 @@ class PrintingModule extends Module {
             bPadding = true;
         }
 
-        let paperSize = this.getPaperSize(this.app.viewer.options.page.paperSize);
-        let pageOrientation = this.app.viewer.options.page.orientation;
+        let paperSize = this.getPaperSize(this.app.reporting.viewer.options.page.paperSize);
+        let pageOrientation = this.app.reporting.viewer.options.page.orientation;
 
         let width = 0;
         let height = 0;
@@ -8905,10 +8915,10 @@ class PrintingModule extends Module {
         $('.report-page').css('min-height', height + 'mm');
 
         if (bPadding) {
-            $('.report-page').css('padding-top', this.app.viewer.options.page.margins.top + 'in');
-            $('.report-page').css('padding-bottom', this.app.viewer.options.page.margins.bottom + 'in');
-            $('.report-page').css('padding-left', this.app.viewer.options.page.margins.left + 'in');
-            $('.report-page').css('padding-right', this.app.viewer.options.page.margins.right + 'in');
+            $('.report-page').css('padding-top', this.app.reporting.viewer.options.page.margins.top + 'in');
+            $('.report-page').css('padding-bottom', this.app.reporting.viewer.options.page.margins.bottom + 'in');
+            $('.report-page').css('padding-left', this.app.reporting.viewer.options.page.margins.left + 'in');
+            $('.report-page').css('padding-right', this.app.reporting.viewer.options.page.margins.right + 'in');
         }
 
     }
@@ -8973,7 +8983,7 @@ class UIModule extends Module {
     renderReportViewer(app) {
         console.groupEnd();
         console.groupCollapsed('[Metadocx] Render report viewer');
-        app.viewer.render();
+        app.reporting.viewer.render();
         console.groupEnd();
     }
 
@@ -9025,7 +9035,7 @@ class WordModule extends Module {
 
     renderExportDialog() {
 
-        return `<div id="${this.app.viewer.options.id}_wordExportDialog" class="modal modal-lg" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+        return `<div id="${this.app.reporting.viewer.options.id}_wordExportDialog" class="modal modal-lg" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
         <div class="modal-dialog">
           <div class="modal-content">
           <div class="modal-header">
@@ -9247,7 +9257,7 @@ class WordModule extends Module {
             url: '/Metadocx/Convert/Word',
             data: {
                 ExportOptions: this.getWordExportOptions(),
-                HTML: btoa(unescape(encodeURIComponent($('#' + this.app.viewer.report.id + '_canvas').html()))),
+                HTML: btoa(unescape(encodeURIComponent($('#' + this.app.reporting.viewer.report.id + '_canvas').html()))),
             },
             xhrFields: {
                 responseType: 'blob'
@@ -9461,8 +9471,8 @@ class Theme1 extends Theme {
 
         s += `<div class="report-cover-page">
             <div class="report-cover-header"></div>
-            <div class="report-cover-name">${this.app.viewer.report.getReportDefinition().properties.name}</div>
-            <div class="report-cover-description">${this.app.viewer.report.getReportDefinition().properties.description}</div>
+            <div class="report-cover-name">${this.app.reporting.viewer.report.getReportDefinition().properties.name}</div>
+            <div class="report-cover-description">${this.app.reporting.viewer.report.getReportDefinition().properties.description}</div>
             <div class="report-cover-footer"></div>
         </div>`;
 
@@ -9569,10 +9579,10 @@ class Theme2 extends Theme {
 
         s += `<div class="report-cover-page">
             <div class="report-cover-header"></div>
-            <div class="report-cover-name">${this.app.viewer.report.getReportDefinition().properties.name}</div>
-            <div class="report-cover-description">${this.app.viewer.report.getReportDefinition().properties.description}</div>
-            <div class="custom-cover-author">${this.app.viewer.report.getReportDefinition().properties.author ?? ''}</div>
-            <div class="custom-cover-version">Version ${this.app.viewer.report.getReportDefinition().properties.version ?? ''}</div>
+            <div class="report-cover-name">${this.app.reporting.viewer.report.getReportDefinition().properties.name}</div>
+            <div class="report-cover-description">${this.app.reporting.viewer.report.getReportDefinition().properties.description}</div>
+            <div class="custom-cover-author">${this.app.reporting.viewer.report.getReportDefinition().properties.author ?? ''}</div>
+            <div class="custom-cover-version">Version ${this.app.reporting.viewer.report.getReportDefinition().properties.version ?? ''}</div>
             <div class="report-cover-footer"></div>
             <div class="report-cover-date"><span data-locale="CreatedAt">Created at</span> ${moment().format('YYYY-MM-DD HH:mm')}</div>
             <div class="report-cover-powered-by"><span data-locale="PoweredBy">powered by</span> <a href="https://www.metadocx.com" target="_blank">Metadocx</a></div>

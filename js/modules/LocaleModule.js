@@ -77,7 +77,7 @@ class LocaleModule extends Module {
         let locales = this.getLocales();
         let s = '';
         for (let x in locales) {
-            s += `<a id="${this.app.viewer.options.id}_locale_${locales[x]}" class="dropdown-item" href="#" onClick="Metadocx.modules.Locale.setLocale('${locales[x]}');" data-locale="${locales[x]}">${locales[x]}</a>`;
+            s += `<a id="${this.app.reporting.viewer.options.id}_locale_${locales[x]}" class="dropdown-item" href="#" onClick="Metadocx.modules.Locale.setLocale('${locales[x]}');" data-locale="${locales[x]}">${locales[x]}</a>`;
         }
         return s;
     }

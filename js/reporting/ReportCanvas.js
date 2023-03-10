@@ -7,10 +7,9 @@
  */
 class ReportCanvas {
 
-    constructor(app, report, viewer) {
+    constructor(app, report) {
         this.app = app;
         this.report = report;
-        this.viewer = viewer;
         this.reportSections = [];
     }
 
@@ -25,14 +24,14 @@ class ReportCanvas {
 
         let oReportTemplate = new Theme(this.app);
 
-        if (window.__Metadocx.Themes[this.viewer.options.template] != undefined) {
-            oReportTemplate = new window.__Metadocx.Themes[this.viewer.options.template](this.app);
+        if (window.__Metadocx.Themes[this.app.reporting.viewer.options.template] != undefined) {
+            oReportTemplate = new window.__Metadocx.Themes[this.app.reporting.viewer.options.template](this.app);
         }
 
-        if (this.viewer.options.coverPage.enabled) {
+        if (this.app.reporting.viewer.options.coverPage.enabled) {
             // Add cover page to report
-            s += `<div id="reportCoverPage" class="report-page orientation-${this.viewer.options.page.orientation} size-${this.viewer.options.page.paperSize.toString().toLowerCase()}">
-                    <style id="${this.viewer.options.id}_coverPage">
+            s += `<div id="reportCoverPage" class="report-page orientation-${this.app.reporting.viewer.options.page.orientation} size-${this.app.reporting.viewer.options.page.paperSize.toString().toLowerCase()}">
+                    <style id="${this.app.reporting.viewer.options.id}_coverPage">
                         ${oReportTemplate.renderCoverPageCSS()}    
                     </style>
                     ${oReportTemplate.renderCoverPage()}
@@ -57,11 +56,11 @@ class ReportCanvas {
 
         }
 
-        s += `<div id="reportPage" class="report-page orientation-${this.viewer.options.page.orientation} size-${this.viewer.options.page.paperSize.toString().toLowerCase()}">                
+        s += `<div id="reportPage" class="report-page orientation-${this.app.reporting.viewer.options.page.orientation} size-${this.app.reporting.viewer.options.page.paperSize.toString().toLowerCase()}">                
                 <div id="reportContent">
-                    <style id="${this.viewer.options.id}_style">
+                    <style id="${this.app.reporting.viewer.options.id}_style">
                     </style>
-                    <style id="${this.viewer.options.id}_theme">
+                    <style id="${this.app.reporting.viewer.options.id}_theme">
                         ${oReportTemplate.renderThemeCSS()}
                     </style>
                     ${sReportSection}

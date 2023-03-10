@@ -24,14 +24,14 @@ class FormatModule extends Module {
         switch (dataType) {
             case 'number':
                 if (format === undefined) {
-                    format = this.app.viewer.options.formats.number.format;
+                    format = this.app.reporting.viewer.options.formats.number.format;
                 }
                 displayValue = numeral(value).format(format);
                 break;
             case 'boolean':
                 if (value === 'ALL') {
-                    if (this.app.viewer.options.formats.boolean.format.ALL !== undefined) {
-                        displayValue = this.app.viewer.options.formats.boolean.format.ALL;
+                    if (this.app.reporting.viewer.options.formats.boolean.format.ALL !== undefined) {
+                        displayValue = this.app.reporting.viewer.options.formats.boolean.format.ALL;
                     } else {
                         // default value if not options is available
                         displayValue = 'All';
@@ -39,8 +39,8 @@ class FormatModule extends Module {
 
                 } else if (value) {
 
-                    if (this.app.viewer.options.formats.boolean.format.trueValue !== undefined) {
-                        displayValue = this.app.viewer.options.formats.boolean.format.trueValue;
+                    if (this.app.reporting.viewer.options.formats.boolean.format.trueValue !== undefined) {
+                        displayValue = this.app.reporting.viewer.options.formats.boolean.format.trueValue;
                     } else {
                         // default value if not options is available
                         displayValue = 'Yes';
@@ -49,8 +49,8 @@ class FormatModule extends Module {
 
                 } else {
 
-                    if (this.app.viewer.options.formats.boolean.format.falseValue !== undefined) {
-                        displayValue = this.app.viewer.options.formats.boolean.format.falseValue;
+                    if (this.app.reporting.viewer.options.formats.boolean.format.falseValue !== undefined) {
+                        displayValue = this.app.reporting.viewer.options.formats.boolean.format.falseValue;
                     } else {
                         // default value if not options is available
                         displayValue = 'No';
@@ -60,7 +60,7 @@ class FormatModule extends Module {
                 break;
             case 'date':
                 if (format === undefined) {
-                    format = this.app.viewer.options.formats.date.format;
+                    format = this.app.reporting.viewer.options.formats.date.format;
                 }
                 displayValue = moment(value).format(format);
                 break;

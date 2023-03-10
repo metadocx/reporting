@@ -18,8 +18,8 @@ class Theme {
 
         s += `<div class="report-cover-page">
             <div class="report-cover-header"></div>
-            <div class="report-cover-name">${this.app.viewer.report.getReportDefinition().properties.name}</div>
-            <div class="report-cover-description">${this.app.viewer.report.getReportDefinition().properties.description}</div>
+            <div class="report-cover-name">${this.app.reporting.viewer.report.getReportDefinition().properties.name}</div>
+            <div class="report-cover-description">${this.app.reporting.viewer.report.getReportDefinition().properties.description}</div>
             <div class="report-cover-footer"></div>
             <div class="report-cover-date"><span data-locale="CreatedAt">Created at</span> ${moment().format('YYYY-MM-DD HH:mm')}</div>
             <div class="report-cover-powered-by"><span data-locale="PoweredBy">powered by</span> <a href="https://www.metadocx.com" target="_blank">Metadocx</a></div>

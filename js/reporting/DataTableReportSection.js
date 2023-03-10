@@ -21,18 +21,18 @@ class DataTableReportSection extends ReportSection {
         oTable.orderBy = this.reportSection.orderBy;
         oTable.groupBy = this.reportSection.groupBy;
         oTable.criterias = this.getApplicableReportCriterias();
-        oTable.criteriaValues = this.app.viewer.getCriteriaValues();
+        oTable.criteriaValues = this.app.reporting.viewer.getCriteriaValues();
 
         let s = '';
 
         this.preRender();
 
         s += '<div class="report-section-title">';
-        if (this.app.viewer.report.getReportDefinition().properties.name) {
-            s += '<h1 class="report-title">' + this.app.viewer.report.getReportDefinition().properties.name + '</h1>';
+        if (this.app.reporting.viewer.report.getReportDefinition().properties.name) {
+            s += '<h1 class="report-title">' + this.app.reporting.viewer.report.getReportDefinition().properties.name + '</h1>';
         }
-        if (this.app.viewer.report.getReportDefinition().properties.description) {
-            s += '<h4 class="report-description">' + this.app.viewer.report.getReportDefinition().properties.description + '</h4>';
+        if (this.app.reporting.viewer.report.getReportDefinition().properties.description) {
+            s += '<h4 class="report-description">' + this.app.reporting.viewer.report.getReportDefinition().properties.description + '</h4>';
         }
         //s += '<hr/>';
         s += '</div>';

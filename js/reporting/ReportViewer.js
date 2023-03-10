@@ -101,7 +101,7 @@ class ReportViewer extends Consolable {
             },
             "exportFormats": {
                 "pdf": true,
-                "word": true,
+                "word": false,
                 "excel": true
             },
             "page": {
@@ -143,9 +143,15 @@ class ReportViewer extends Consolable {
             },
             "modules": {
                 "Google": {
-                    "enabled": false
+                    "enabled": false,
+                    "options": {
+                        "ClientID": "",
+                        "APIKey": "",
+                        "AppID": ""
+                    }
                 }
-            }
+            },
+            "fonts": []
         };
 
         this.options = new Proxy(this.options, ProxyHandler);
@@ -374,7 +380,7 @@ class ReportViewer extends Consolable {
                     <p data-locale="OupsNoReport">Oups! Something went wrong. We did not get a report to load.</p>                    
                 </div>`;
 
-        $('#' + this.app.viewer.options.id + '_canvas').html(s);
+        $('#' + this.app.reporting.viewer.options.id + '_canvas').html(s);
         $('.report-toolbar-button').hide();
     }
 
@@ -399,6 +405,7 @@ class ReportViewer extends Consolable {
         if (!this.options.exportFormats.word) {
             sExportWordClasses = ' hidden';
         }
+
         let sExportExcelClasses = '';
         if (!this.options.exportFormats.excel) {
             sExportExcelClasses = ' hidden';
@@ -426,9 +433,9 @@ class ReportViewer extends Consolable {
                             <i class="uil uil-file"></i>
                          </button>
                          <div class="dropdown-menu">
-                             <a id="${this.options.id}_open" class="dropdown-item" href="#" onClick="Metadocx.viewer.showSaveDialog('open');"><i class="uil uil-folder-open" style="font-size:16px;"></i> <span data-locale="Open">Open</span></a>
-                             <a id="${this.options.id}_save" class="dropdown-item" href="#" onClick="Metadocx.viewer.showSaveDialog('save');"><i class="uil uil-save" style="font-size:16px;"></i> <span data-locale="Save">Save</span></a>
-                             <a id="${this.options.id}_delete" class="dropdown-item" href="#" onClick="Metadocx.viewer.report.delete();"><i class="uil uil-trash" style="font-size:16px;"></i> <span data-locale="Delete">Delete</span></a>
+                             <a id="${this.options.id}_open" class="dropdown-item" href="#" onClick="Metadocx.reporting.viewer.showSaveDialog('open');"><i class="uil uil-folder-open" style="font-size:16px;"></i> <span data-locale="Open">Open</span></a>
+                             <a id="${this.options.id}_save" class="dropdown-item" href="#" onClick="Metadocx.reporting.viewer.showSaveDialog('save');"><i class="uil uil-save" style="font-size:16px;"></i> <span data-locale="Save">Save</span></a>
+                             <a id="${this.options.id}_delete" class="dropdown-item" href="#" onClick="Metadocx.reporting.viewer.report.delete();"><i class="uil uil-trash" style="font-size:16px;"></i> <span data-locale="Delete">Delete</span></a>
                          </div>
                      </div>
                     <div id="${this.options.id}_localeGroup" class="btn-group me-2 mb-2 mb-sm-0 report-toolbar-button">
@@ -444,25 +451,25 @@ class ReportViewer extends Consolable {
                             <i class="uil uil-file-export"></i>
                          </button>
                          <div class="dropdown-menu">
-                             <a id="${this.options.id}_exportPdf" class="dropdown-item${sExportPDFClasses}" href="#" onClick="Metadocx.viewer.report.exportReport('PDF');" data-locale="PDF">PDF</a>
-                             <a id="${this.options.id}_exportExcel" class="dropdown-item${sExportExcelClasses}" href="#" onClick="Metadocx.viewer.report.exportReport('Excel');" data-locale="Excel">Excel</a>
-                             <a id="${this.options.id}_exportWord" class="dropdown-item${sExportWordClasses}" href="#" onClick="Metadocx.viewer.report.exportReport('Word');" data-locale="Word">Word</a>
+                             <a id="${this.options.id}_exportPdf" class="dropdown-item${sExportPDFClasses}" href="#" onClick="Metadocx.reporting.viewer.report.exportReport('PDF');" data-locale="PDF">PDF</a>
+                             <a id="${this.options.id}_exportExcel" class="dropdown-item${sExportExcelClasses}" href="#" onClick="Metadocx.reporting.viewer.report.exportReport('Excel');" data-locale="Excel">Excel</a>
+                             <a id="${this.options.id}_exportWord" class="dropdown-item${sExportWordClasses}" href="#" onClick="Metadocx.reporting.viewer.report.exportReport('Word');" data-locale="Word">Word</a>
                          </div>
                      </div>
                      <div class="me-2 mb-2 mb-sm-0 report-toolbar-button">
-                         <button id="${this.options.id}_print" type="button" class="btn header-item" onClick="Metadocx.viewer.report.print();"><i class="uil uil-print"></i></button>
+                         <button id="${this.options.id}_print" type="button" class="btn header-item" onClick="Metadocx.reporting.viewer.report.print();"><i class="uil uil-print"></i></button>
                      </div>
                      <div class="me-2 mb-2 mb-sm-0 report-toolbar-button">
-                         <button id="${this.options.id}_criterias" type="button" class="btn header-item" onClick="Metadocx.viewer.report.showReportCriterias();"><i class="uil uil-filter"></i></button>
+                         <button id="${this.options.id}_criterias" type="button" class="btn header-item" onClick="Metadocx.reporting.viewer.report.showReportCriterias();"><i class="uil uil-filter"></i></button>
                      </div>
                      <div class="me-2 mb-2 mb-sm-0 report-toolbar-button">
-                         <button id="${this.options.id}_settings" type="button" class="btn header-item" onClick="Metadocx.viewer.showReportSettings();"><i class="uil uil-file-graph"></i></button>
+                         <button id="${this.options.id}_settings" type="button" class="btn header-item" onClick="Metadocx.reporting.viewer.showReportSettings();"><i class="uil uil-file-graph"></i></button>
                      </div>
                      <div class="me-2 mb-2 mb-sm-0 report-toolbar-button">
-                         <button id="${this.options.id}_options" type="button" class="btn header-item" onClick="Metadocx.viewer.showReportOptions();"><i class="uil uil-cog"></i></button>
+                         <button id="${this.options.id}_options" type="button" class="btn header-item" onClick="Metadocx.reporting.viewer.showReportOptions();"><i class="uil uil-cog"></i></button>
                      </div>
                      <div class="me-2 mb-2 mb-sm-0 report-toolbar-button${sCloseButtonClasses}">
-                         <button id="${this.options.id}_close" type="button" class="btn header-item" onClick="Metadocx.viewer.report.close();"><i class="uil uil-times"></i></button>
+                         <button id="${this.options.id}_close" type="button" class="btn header-item" onClick="Metadocx.reporting.viewer.report.close();"><i class="uil uil-times"></i></button>
                      </div>
                  </div>
              </div>
@@ -519,9 +526,9 @@ class ReportViewer extends Consolable {
                                     <div class="page-title-box d-flex align-items-center justify-content-between">
                                         <h4 class="mb-0" data-locale="Criterias">Criterias</h4>
                                         <div class="d-flex">
-                                            <button class="btn btn-primary mr5" onClick="Metadocx.viewer.report.applyCriterias();"><i class="uil uil-check fs16" style="color:#fff;"></i>&nbsp;<span data-locale="ApplyCriterias">Apply criterias</span></button>
-                                            <button class="btn btn-danger mr5" onClick="Metadocx.viewer.report.resetCriterias();" data-locale="Reset">Reset</button>
-                                            <button class="btn btn-secondary" onClick="Metadocx.viewer.report.cancelCriterias();" data-locale="Cancel">Cancel</button>
+                                            <button class="btn btn-primary mr5" onClick="Metadocx.reporting.viewer.report.applyCriterias();"><i class="uil uil-check fs16" style="color:#fff;"></i>&nbsp;<span data-locale="ApplyCriterias">Apply criterias</span></button>
+                                            <button class="btn btn-danger mr5" onClick="Metadocx.reporting.viewer.report.resetCriterias();" data-locale="Reset">Reset</button>
+                                            <button class="btn btn-secondary" onClick="Metadocx.reporting.viewer.report.cancelCriterias();" data-locale="Cancel">Cancel</button>
                                         </div>
                                     </div>
                                 </div>
@@ -634,7 +641,7 @@ class ReportViewer extends Consolable {
                  </div>
                  <div class="modal-footer">
                      <button type="button" class="btn btn-secondary mr5" data-bs-dismiss="modal" data-locale="Cancel">Cancel</button>
-                     <button type="button" class="btn btn-primary" onClick="Metadocx.viewer.applyOptions();"><i class="fa-solid fa-check"></i>&nbsp;<span data-locale="ApplyOptions">Apply Options</span></button>
+                     <button type="button" class="btn btn-primary" onClick="Metadocx.reporting.viewer.applyOptions();"><i class="fa-solid fa-check"></i>&nbsp;<span data-locale="ApplyOptions">Apply Options</span></button>
                  </div>
                  </div>
              </div>
@@ -653,6 +660,11 @@ class ReportViewer extends Consolable {
          * Options dialog
          */
         this.log('Render report options dialog');
+
+        let showGoogleDriveButton = 'display:none;';
+        if (this.options.modules.Google.enabled) {
+            showGoogleDriveButton = '';
+        }
 
         return `<div id="${this.options.id}_saveDialog" class="modal" tabindex="-1">
                <div class="modal-dialog">
@@ -696,7 +708,7 @@ class ReportViewer extends Consolable {
                      </div>
                  </div>
                  <div class="modal-footer">
-                     <button id="openGoogleDrive" type="button" class="btn btn-light me-auto" data-bs-dismiss="modal" onclick="Metadocx.modules.Google.showGoogleDocPicker()"><i class="fa-solid fa-folder"></i>&nbsp;<span data-locale="GoogleDrive">Google Drive</span></button>
+                     <button id="openGoogleDrive" type="button" class="btn btn-light me-auto" data-bs-dismiss="modal" style="${showGoogleDriveButton}" onclick="Metadocx.modules.Google.showGoogleDocPicker()"><i class="fa-solid fa-folder"></i>&nbsp;<span data-locale="GoogleDrive">Google Drive</span></button>
                      <button type="button" class="btn btn-secondary mr5" data-bs-dismiss="modal" data-locale="Cancel">Cancel</button>
                      <button id="saveDialogSaveButton" type="button" class="btn btn-primary"><i class="fa-solid fa-check"></i>&nbsp;<span data-locale="Save">Save</span></button>
                  </div>
@@ -751,7 +763,7 @@ class ReportViewer extends Consolable {
             $('#saveDialogTitle').html(this.app.modules.Locale.getKey('OpenReport'));
             $('#saveDialogSaveButton').attr('data-locale', 'Open');
             $('#saveDialogSaveButton').html(this.app.modules.Locale.getKey('Open'));
-            $('#saveDialogSaveButton').off('click').on('click', () => { Metadocx.viewer.report.open(); });
+            $('#saveDialogSaveButton').off('click').on('click', () => { Metadocx.reporting.viewer.report.open(); });
         } else {
             /**
              * Save report mode
@@ -759,7 +771,7 @@ class ReportViewer extends Consolable {
             $('#saveDialogTitle').html(this.app.modules.Locale.getKey('SavedReports'));
             $('#saveDialogSaveButton').attr('data-locale', 'Save');
             $('#saveDialogSaveButton').html(this.app.modules.Locale.getKey('Save'));
-            $('#saveDialogSaveButton').off('click').on('click', () => { Metadocx.viewer.report.save(); });
+            $('#saveDialogSaveButton').off('click').on('click', () => { Metadocx.reporting.viewer.report.save(); });
         }
 
         /**
@@ -879,7 +891,7 @@ class ReportViewer extends Consolable {
                  </div>
                  <div class="modal-footer">
                      <button type="button" class="btn btn-secondary mr5" data-bs-dismiss="modal">Cancel</button>
-                     <button type="button" class="btn btn-primary" onClick="Metadocx.viewer.applyFieldProperties();"><i class="fa-solid fa-check"></i>&nbsp;Apply Properties</button>
+                     <button type="button" class="btn btn-primary" onClick="Metadocx.reporting.viewer.applyFieldProperties();"><i class="fa-solid fa-check"></i>&nbsp;Apply Properties</button>
                  </div>
                  </div>
              </div>
@@ -1144,7 +1156,7 @@ class ReportViewer extends Consolable {
         this.report.filter();
         this.report.sort();
 
-        let oReportCanvas = new ReportCanvas(this.app, this.report, this);
+        let oReportCanvas = new ReportCanvas(this.app, this.report);
         $('#' + this.options.id + '_canvas').html(oReportCanvas.render());
 
         oReportCanvas.initialiseJS();
@@ -1176,8 +1188,8 @@ class ReportViewer extends Consolable {
      */
     updateCSS() {
 
-        let paperSize = this.app.modules.Printing.getPaperSize(this.app.viewer.options.page.paperSize);
-        let pageOrientation = this.app.viewer.options.page.orientation;
+        let paperSize = this.app.modules.Printing.getPaperSize(this.app.reporting.viewer.options.page.paperSize);
+        let pageOrientation = this.app.reporting.viewer.options.page.orientation;
 
         let width = 0;
         let height = 0;
@@ -1323,7 +1335,7 @@ class ReportViewer extends Consolable {
      */
     applySettings() {
         if (this.settingsOffCanvas === null) {
-            this.settingsOffCanvas = new bootstrap.Offcanvas($('#' + this.app.viewer.options.id + '_settingsOffCanvas')[0], {})
+            this.settingsOffCanvas = new bootstrap.Offcanvas($('#' + this.app.reporting.viewer.options.id + '_settingsOffCanvas')[0], {})
         }
         this.settingsOffCanvas.hide();
 

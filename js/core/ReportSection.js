@@ -34,7 +34,7 @@ class ReportSection {
 
     getApplicableReportCriterias() {
         let applicableCriterias = [];
-        let criterias = this.app.viewer.report.getReportDefinition().criterias;
+        let criterias = this.app.reporting.viewer.report.getReportDefinition().criterias;
         for (let x in criterias) {
             let criteria = criterias[x];
             for (let y in criteria.applyTo) {

@@ -128,8 +128,8 @@ class PrintingModule extends Module {
             bPadding = true;
         }
 
-        let paperSize = this.getPaperSize(this.app.viewer.options.page.paperSize);
-        let pageOrientation = this.app.viewer.options.page.orientation;
+        let paperSize = this.getPaperSize(this.app.reporting.viewer.options.page.paperSize);
+        let pageOrientation = this.app.reporting.viewer.options.page.orientation;
 
         let width = 0;
         let height = 0;
@@ -147,10 +147,10 @@ class PrintingModule extends Module {
         $('.report-page').css('min-height', height + 'mm');
 
         if (bPadding) {
-            $('.report-page').css('padding-top', this.app.viewer.options.page.margins.top + 'in');
-            $('.report-page').css('padding-bottom', this.app.viewer.options.page.margins.bottom + 'in');
-            $('.report-page').css('padding-left', this.app.viewer.options.page.margins.left + 'in');
-            $('.report-page').css('padding-right', this.app.viewer.options.page.margins.right + 'in');
+            $('.report-page').css('padding-top', this.app.reporting.viewer.options.page.margins.top + 'in');
+            $('.report-page').css('padding-bottom', this.app.reporting.viewer.options.page.margins.bottom + 'in');
+            $('.report-page').css('padding-left', this.app.reporting.viewer.options.page.margins.left + 'in');
+            $('.report-page').css('padding-right', this.app.reporting.viewer.options.page.margins.right + 'in');
         }
 
     }

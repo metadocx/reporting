@@ -97,7 +97,7 @@ class CheckboxCriteria extends CriteriaControl {
     buildCheckboxesFromReportData(field) {
         let sCheckboxes = '';
         let aOptions = [];
-        let aReportSections = this.app.viewer.report.getReportSections();
+        let aReportSections = this.app.reporting.viewer.report.getReportSections();
         for (let s in aReportSections) {
             for (let x in aReportSections[s].data) {
                 let row = aReportSections[s].data[x];

@@ -22,8 +22,8 @@ class Theme1 extends Theme {
 
         s += `<div class="report-cover-page">
             <div class="report-cover-header"></div>
-            <div class="report-cover-name">${this.app.viewer.report.getReportDefinition().properties.name}</div>
-            <div class="report-cover-description">${this.app.viewer.report.getReportDefinition().properties.description}</div>
+            <div class="report-cover-name">${this.app.reporting.viewer.report.getReportDefinition().properties.name}</div>
+            <div class="report-cover-description">${this.app.reporting.viewer.report.getReportDefinition().properties.description}</div>
             <div class="report-cover-footer"></div>
         </div>`;
 

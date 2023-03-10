@@ -23,7 +23,7 @@ Metadocx
 | Name | Description |
 | -------- | -------- |
 | initialize | Called when script is loaded by Bootstrap.js, the Bootstrap.js file is the entry point of the library. |
-| loadScriptTagOptions | Checks html script tag used to load metadocx.js file. All `data-` attributes are copied to the `Metadocx.viewer.options` options array. This function is called by initialized on page load. |
+| loadScriptTagOptions | Checks html script tag used to load metadocx.js file. All `data-` attributes are copied to the `Metadocx.reporting.viewer.options` options array. This function is called by initialized on page load. |
 | registerModule | Loads and initialize a module |
 
 

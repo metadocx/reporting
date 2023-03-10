@@ -180,7 +180,7 @@ class GoogleModule extends Module {
             .setAppId(Metadocx.modules.Google.APP_ID)
             .setOAuthToken(Metadocx.modules.Google.accessToken)
             .addView(google.picker.ViewId.SPREADSHEETS)
-            .setLocale(Metadocx.viewer.options.locale ?? 'en')
+            .setLocale(Metadocx.reporting.viewer.options.locale ?? 'en')
             //.addView(new google.picker.DocsUploadView())
             .setCallback(Metadocx.modules.Google.pickerCallback)
             .build();
@@ -339,7 +339,7 @@ class GoogleModule extends Module {
 
         console.log(reportDefinition);
 
-        this.app.viewer.load(reportDefinition);
+        this.app.reporting.viewer.load(reportDefinition);
 
     }
 

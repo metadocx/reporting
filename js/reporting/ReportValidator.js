@@ -65,7 +65,7 @@ class ReportValidator {
                     __type: 'string',
                     __required: false,
                     __defaultValue: 'Theme2',
-                    __allowedValues: this.app.viewer.getThemes()
+                    __allowedValues: this.app.reporting.viewer.getThemes()
                 },
                 toolbar: {
                     __type: 'object',
@@ -301,7 +301,7 @@ class ReportValidator {
                     type: {
                         __type: 'string',
                         __required: true,
-                        __allowedValues: this.app.viewer.getCriteriaTypes()
+                        __allowedValues: this.app.reporting.viewer.getCriteriaTypes()
                     },
                     parent: {
                         __type: 'string',

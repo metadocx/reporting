@@ -26,12 +26,12 @@ describe('Select Criteria', function () {
          * Enable metadocx cover page and refresh report
          */
         let numberOfRows = await page.evaluate(() => {
-            Metadocx.viewer.options.coverPage.enabled = false;
-            Metadocx.viewer.getCriteria('Employee').setIsEnabled(true);
-            Metadocx.viewer.getCriteria('Employee').setValue(['Amelie Lockington']);
-            Metadocx.viewer.refreshReport();
+            Metadocx.reporting.viewer.options.coverPage.enabled = false;
+            Metadocx.reporting.viewer.getCriteria('Employee').setIsEnabled(true);
+            Metadocx.reporting.viewer.getCriteria('Employee').setValue(['Amelie Lockington']);
+            Metadocx.reporting.viewer.refreshReport();
 
-            Metadocx.viewer.getCriteria('Employee').setIsEnabled(false);
+            Metadocx.reporting.viewer.getCriteria('Employee').setIsEnabled(false);
 
             return $('.report-row-data').length;
 
@@ -51,15 +51,15 @@ describe('Select Criteria', function () {
          * Enable metadocx cover page and refresh report
          */
         let numberOfRows = await page.evaluate(() => {
-            Metadocx.viewer.options.coverPage.enabled = false;
-            Metadocx.viewer.getCriteria('ActivityCode').setIsEnabled(true);
-            Metadocx.viewer.getCriteria('ActivityCode').setValue([
+            Metadocx.reporting.viewer.options.coverPage.enabled = false;
+            Metadocx.reporting.viewer.getCriteria('ActivityCode').setIsEnabled(true);
+            Metadocx.reporting.viewer.getCriteria('ActivityCode').setValue([
                 { id: '2', text: '10 - Analysis' },
                 { id: '5', text: '80 - Technical Support' }
             ]);
-            Metadocx.viewer.refreshReport();
+            Metadocx.reporting.viewer.refreshReport();
 
-            Metadocx.viewer.getCriteria('ActivityCode').setIsEnabled(false);
+            Metadocx.reporting.viewer.getCriteria('ActivityCode').setIsEnabled(false);
 
             return $('.report-row-data').length;
 
